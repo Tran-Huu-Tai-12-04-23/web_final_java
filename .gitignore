@@ -1,0 +1,20 @@
+front-end-java-final/node_modules
+front-end-java-final/.pnp
+.pnp.js
+
+# testing
+front-end-java-final/coverage
+
+# production
+front-end-java-final/build
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
