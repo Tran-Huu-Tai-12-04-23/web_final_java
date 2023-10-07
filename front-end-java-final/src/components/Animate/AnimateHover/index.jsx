@@ -1,12 +1,12 @@
 import { motion } from 'framer-motion';
-function AnimateHover({ children }) {
+function AnimateHover({ children, className, onClick = () => {} }) {
     return (
         <motion.div
-            whileHover={{ scale: 1.2, rotate: 360, transition: { duration: 0.3 } }}
+            onClick={onClick}
+            className={className}
+            whileHover={{ scale: 1.2, transition: { duration: 0.3 } }}
             whileTap={{
                 scale: 0.8,
-                rotate: -360,
-                borderRadius: '100%',
                 transition: { duration: 0.3 },
             }}
         >
