@@ -3,8 +3,7 @@ import { useEffect, useRef } from 'react';
 import { Home, Admin, Sign } from './layout';
 import { Header, Footer } from './components';
 import { useTheme } from './context/theme';
-import { motion, useScroll } from 'framer-motion';
-import { AnimatePresence } from 'framer-motion';
+import { motion, useScroll, AnimatePresence } from 'framer-motion';
 import { Toaster } from 'react-hot-toast';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -33,12 +32,12 @@ function App() {
         <>
             <motion.div
                 className={`fixed top-[3.1rem] z-50  rounded-r-lg h-[4px] left-0 right-0 bg-btn-primary`}
-                style={{ scaleX: scrollYProgress, 'transform-origin': '0%' }}
+                style={{ scaleX: scrollYProgress, transformOrigin: '0%' }}
             ></motion.div>
-            <motion.div ref={ref} className="h-screen overflow-x-hidden overflow-scroll">
+            <motion.div ref={ref} className="">
                 <Toaster position="top-center" reverseOrder={false} />
                 <AnimatePresence mode="wait">
-                    <motion.div className="App transition-all dark:bg-dark bg-light dark:text-dark text-light  [&::-webkit-scrollbar]:[width:0px] [&::-webkit-scrollbar]:rounded-xl [&::-webkit-scrollbar-thumb]:rounded-xl [&::-webkit-scrollbar-track]:rounded-xl [&::-webkit-scrollbar-thumb]:bg-primary ">
+                    <motion.div className=" transition-all dark:bg-dark bg-light dark:text-dark text-light  ">
                         <BrowserRouter>
                             <Header></Header>
                             <Routes>

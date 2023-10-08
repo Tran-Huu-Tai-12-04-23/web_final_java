@@ -24,8 +24,6 @@ export default function NewItem() {
         speed: 1000,
         slidesToShow: 6,
         slidesToScroll: 6,
-        prevArrow: <CustomPrevArrow />,
-        nextArrow: <CustomNextArrow />,
     };
     return (
         <motion.div className="p-10 relative">
