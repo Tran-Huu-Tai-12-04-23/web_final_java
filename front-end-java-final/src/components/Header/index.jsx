@@ -11,12 +11,15 @@ import { AnimateHover, AnimateText } from '../Animate';
 import { useTheme } from '../../context/theme';
 
 import { motion } from 'framer-motion';
-import { ModalSearch } from '../index';
+import { ModalSearch, Button } from '../index';
+import ModalSign from './ModalSign';
 
 function Header() {
     const { theme, setTheme } = useTheme();
     const [menuUser, setMenuUser] = useState(false);
     const [modalSearch, setModalSearch] = useState(false);
+    const [modalSign, setModalSign] = useState(false);
+    const [login, setLogin] = useState(false);
 
     const renderHeader = () => {
         return NavHeader.map((item, index) => {
@@ -51,6 +54,7 @@ function Header() {
 
     return (
         <>
+            {modalSign && <ModalSign onClose={(e) => setModalSign(!modalSign)}></ModalSign>}
             {modalSearch && <ModalSearch onClose={(e) => setModalSearch(!modalSearch)} />}
             <Main
                 className={
@@ -91,29 +95,38 @@ function Header() {
                             </AnimateText>
                         </AnimateHover>
                     )}
+                    {!login && (
+                        <Button className="ml-5" style="outline" onClick={(e) => setModalSign(true)}>
+                            BUY NOW
+                        </Button>
+                    )}
 
-                    <AnimateHover>
-                        <motion.div className="relative">
-                            <CiShoppingBasket className="h-6 w-6 mr-2 cursor-pointer hover:text-hover"></CiShoppingBasket>
-                            <Badge
-                                className="absolute top-0 rounded-full h-4 w-4 flex justify-center items-center right-0"
-                                color="pink"
-                            >
-                                3
-                            </Badge>
-                        </motion.div>
-                    </AnimateHover>
-
-                    <div
-                        className="relative group"
-                        onMouseEnter={(e) => setMenuUser(true)}
-                        onMouseLeave={(e) => setMenuUser(false)}
-                    >
+                    {login && (
                         <AnimateHover>
-                            <CiUser className="h-6 w-6 cursor-pointer hover:text-hover"></CiUser>
+                            <motion.div className="relative">
+                                <CiShoppingBasket className="h-6 w-6 mr-2 cursor-pointer hover:text-hover"></CiShoppingBasket>
+                                <Badge
+                                    className="absolute top-0 rounded-full h-4 w-4 flex justify-center items-center right-0"
+                                    color="pink"
+                                >
+                                    3
+                                </Badge>
+                            </motion.div>
                         </AnimateHover>
-                        <div className="group-hover:block hidden bg-transparent absolute w-[8rem] h-4 top-[100%] right-0"></div>
-                    </div>
+                    )}
+
+                    {login && (
+                        <div
+                            className="relative group"
+                            onMouseEnter={(e) => setMenuUser(true)}
+                            onMouseLeave={(e) => setMenuUser(false)}
+                        >
+                            <AnimateHover>
+                                <CiUser className="h-6 w-6 cursor-pointer hover:text-hover"></CiUser>
+                            </AnimateHover>
+                            <div className="group-hover:block hidden bg-transparent absolute w-[8rem] h-4 top-[100%] right-0"></div>
+                        </div>
+                    )}
                 </div>
                 {menuUser && (
                     <MenuUser

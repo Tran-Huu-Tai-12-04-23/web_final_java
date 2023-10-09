@@ -10,3 +10,6 @@ export { default as Slide } from './Slide';
 export { default as BlogItem } from './BlogItem';
 export { default as ModalSearch } from './ModalSearch';
 export { default as Input } from './Input';
+export { default as Modal } from './Modal';
+export { default as Tabs } from './Tabs';
+export { default as Toggle } from './Toggle';

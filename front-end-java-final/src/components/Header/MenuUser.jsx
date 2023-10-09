@@ -14,7 +14,7 @@ function MenuUser({ handleOpen, handleClose, items }) {
                 ease: 'easeInOut',
                 duration: 0.3,
             }}
-            className="fixed top-[3rem] bottom-0 right-0 left-0 bg-[rgba(255,255,255,0.4)] dark:bg-[rgba(0,0,0,0.4)] backdrop-blur-sm"
+            className="fixed shadow-md top-[3.1rem] bottom-0 right-0 left-0 bg-[rgba(0,0,0,0.4)] dark:bg-[rgba(0,0,0,0.4)]"
         >
             <AnimateText className=" absolute right-[2%] min-w-[8rem] dark:bg-dark-header bg-light-header rounded-b-lg top-0">
                 <ul onMouseEnter={handleOpen} onMouseLeave={handleClose}>

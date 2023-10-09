@@ -1,6 +1,13 @@
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
-function Button({ children, style = 'normal', className, clickAnimate = true, bgHover = '#ef819c' }) {
+function Button({
+    children,
+    style = 'default',
+    className,
+    clickAnimate = true,
+    bgHover = '#ef819c',
+    onClick = () => {},
+}) {
     const [classStyle, setClassStyle] = useState('');
 
     useEffect(() => {
@@ -22,12 +29,13 @@ function Button({ children, style = 'normal', className, clickAnimate = true, bg
 
     return (
         <motion.button
+            onClick={onClick}
             whileTap={{
                 scale: 0.8,
                 borderRadius: '10%',
                 transition: { duration: 0.3 },
             }}
-            whileHover={{ scale: 1.1, transition: { duration: 0.3 } }}
+            whileHover={{ scale: 1, transition: { duration: 0.3 } }}
             initial={{
                 opacity: 0,
             }}
