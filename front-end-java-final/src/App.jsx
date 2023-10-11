@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Home, Admin, Sign } from './layout';
-import { Header, Footer } from './components';
+import { Header, Footer, Loading, Modal } from './components';
 import { useTheme } from './context/theme';
 import { motion, useScroll, AnimatePresence } from 'framer-motion';
 import { Toaster } from 'react-hot-toast';
@@ -12,6 +12,7 @@ function App() {
     const ref = useRef(null);
     const { theme, setTheme } = useTheme();
     const { scrollYProgress } = useScroll({ container: ref });
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const storedTheme = localStorage.getItem('theme');
@@ -30,10 +31,16 @@ function App() {
 
     return (
         <>
-            <motion.div
+            {loading && (
+                <Modal>
+                    <Loading></Loading>
+                </Modal>
+            )}
+
+            {/* <motion.div
                 className={`fixed top-[3.1rem] z-50  rounded-r-lg h-[4px] left-0 right-0 bg-btn-primary`}
                 style={{ scaleX: scrollYProgress, transformOrigin: '0%' }}
-            ></motion.div>
+            ></motion.div> */}
             <motion.div ref={ref} className="">
                 <Toaster position="top-center" reverseOrder={false} />
                 <AnimatePresence mode="wait">

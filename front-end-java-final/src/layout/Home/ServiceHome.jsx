@@ -6,7 +6,12 @@ function ServiceHome() {
     const renderHomeService = () => {
         return HomeService.map((ser, index) => {
             return (
-                <AnimateOpacity key={index} className={'w-1/3  scale-90 flex justify-center items-start'}>
+                <AnimateOpacity
+                    key={index}
+                    className={
+                        'xl:w-1/3 lg:1/3 w-full xl:pt-0 xl:pb-0 lg:pt-0 lg:pb-0 pt-10 pb-10  scale-90 flex justify-center items-start'
+                    }
+                >
                     {ser.icon}
                     <motion.div className="">
                         <motion.h2 className="mb-4 font-bold text-xl ">{ser.name}</motion.h2>
@@ -17,7 +22,9 @@ function ServiceHome() {
         });
     };
     return (
-        <AnimateOpacity className={'mt-20 -ml-10 -mr-10 h-[30rem] bg-second flex justify-between items-center'}>
+        <AnimateOpacity
+            className={'mt-20 -ml-10 flex-wrap -mr-10 min-h-[30rem] bg-second flex justify-between items-center'}
+        >
             {renderHomeService()}
         </AnimateOpacity>
     );

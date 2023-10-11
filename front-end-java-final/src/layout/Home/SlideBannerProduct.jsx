@@ -27,7 +27,7 @@ function SlideBannerProduct() {
                     key={index}
                     className={'w-full rounded-xl '}
                 >
-                    <motion.img src={item} alt={'sale'} className=" rounded-xl h-[40rem] m-auto"></motion.img>
+                    <motion.img src={item} alt={'sale'} className=" rounded-xl max-h-[40rem] m-auto"></motion.img>
                 </motion.div>
             ))}
         </Slider>

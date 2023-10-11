@@ -24,14 +24,14 @@ function Footer() {
         });
     };
     return (
-        <div className="w-full">
+        <div className="w-full ">
             <Banner></Banner>
             <Main
                 className={
-                    'text-white pt-32 dark:text-white shadow-inner bg-gradient-to-b from-[#ef7f9b] to-[#fccfd3] dark:from-[#352f42] dark:to-[#352f42]'
+                    'text-white pt-36 pb-20 dark:text-white shadow-inner bg-gradient-to-b from-[#ef7f9b] to-[#fccfd3] dark:from-[#352f42] dark:to-[#352f42]'
                 }
             >
-                <div className="flex justify-between">
+                <div className="flex justify-between flex-wrap">
                     <div className="p-5 w-48 ">
                         <div className="text-xs uppercase text-gray-200 font-medium">Home</div>
                         <a className="my-3 block" href="/#">

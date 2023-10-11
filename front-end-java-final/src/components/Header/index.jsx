@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Main } from '../../layout';
 import { Link } from 'react-router-dom';
 import { NavHeader, UserMenu } from '../../assets/data';
@@ -35,6 +35,21 @@ function Header() {
         });
     };
 
+    const renderHeaderIcon = () => {
+        return NavHeader.map((item, index) => {
+            return (
+                <Link
+                    to={item.path}
+                    key={index}
+                    className="w-1/5 text-white flex flex-col justify-center items-center dark:text-dark hover:text-hover dark:hover:text-hover cursor-pointer rounded-md px-3 py-2 text-sm"
+                >
+                    {item.icon}
+                    <span>{item.name}</span>
+                </Link>
+            );
+        });
+    };
+
     const renderUserMenu = () => {
         return UserMenu.map((item, index) => {
             return (
@@ -64,7 +79,10 @@ function Header() {
                 <Link to="/">
                     <img src={logo} alt="Logo" className="h-logo w-logo" />
                 </Link>
-                <div className="flex space-x-4">{renderHeader()}</div>
+                <div className="xl:flex lg:flex md:flex space-x-4 hidden ">{renderHeader()}</div>
+                <motion.div className="fixed xl:hidden lg:hidden md:hidden bottom-0 left-0 right-0 min-h-10 bg-primary backdrop-blur-md flex justify-center items-center">
+                    {renderHeaderIcon()}
+                </motion.div>
                 <div className="flex justify-end items-center">
                     <AnimateHover onClick={(e) => setModalSearch(!modalSearch)}>
                         <CiSearch className="h-6 w-6 mr-2 cursor-pointer hover:text-hover"></CiSearch>

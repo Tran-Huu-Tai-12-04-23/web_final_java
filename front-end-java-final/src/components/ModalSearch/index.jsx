@@ -39,7 +39,7 @@ function ModalSearch({ onClose = () => {} }) {
                     duration: 0.3,
                     ease: 'easeInOut',
                 }}
-                className="relative p-6 min-h-[20rem] shadow-xl  min-w-[40rem] bg-white dark:bg-dark w-1/2  rounded-xl flex flex-col "
+                className="relative p-6 min-h-[20rem] w-4/5 ml-10 mr-10 max-w-40rem h-4/5 max-h-[22rem]  shadow-xl  min-w-[20rem] bg-white dark:bg-dark  rounded-xl flex flex-col "
             >
                 <AnimateHover
                     onClick={handleClose}

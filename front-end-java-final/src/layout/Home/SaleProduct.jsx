@@ -47,7 +47,7 @@ function SaleProduct() {
             onMouseLeave={() => setArrow(false)}
             className={'w-full relative p-10 flex justify-between text-gray-500 items-center rounded-lg bg-second'}
         >
-            <motion.div className="w-1/5 flex justify-center items-center flex-col">
+            <motion.div className="w-1/5 xl:flex lg:flex 2xl:flex md:flex hidden justify-center items-center flex-col">
                 <motion.h1 className="font-bold text-3xl ">Product On Sale</motion.h1>
                 <motion.h3 className="">Shop Now</motion.h3>
             </motion.div>
@@ -72,7 +72,7 @@ function SaleProduct() {
                     </AnimateHover>
                 </motion.div>
             )}
-            <motion.div className="w-4/5 overflow-hidden ">
+            <motion.div className="2xl:w-4/5 xl:w-4/5 lg:w-4/5 md:w-4/5 w-full overflow-hidden ">
                 <motion.div
                     initial={{
                         x: 100,
@@ -90,11 +90,11 @@ function SaleProduct() {
                             <motion.div
                                 key={index}
                                 initial={{
-                                    scale: 1,
+                                    scale: 0.9,
                                     x: 100,
                                 }}
                                 animate={{
-                                    scale: 0.9,
+                                    scale: 0.8,
                                     x: 0,
                                 }}
                                 exit={{

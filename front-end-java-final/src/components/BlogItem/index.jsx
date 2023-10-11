@@ -32,8 +32,8 @@ function BlogItem({ width, className, direction = 'vertical' }) {
                 src="https://cdn2.cellphones.com.vn/insecure/rs:fill:385:0/q:100/plain/https://cellphones.com.vn/sforum/wp-content/uploads/2023/10/Pixel-9-thong-tin.jpeg"
                 className="w-full max-h-52 h-52 rounded-lg"
             ></motion.img>
-            <motion.div className="flex w-full p-4 justify-center items-center flex-col">
-                <motion.div className="flex w-full justify-between items-center">
+            <motion.div className="flex p-4 justify-center items-center flex-col">
+                <motion.div className="flex w-3/4 justify-between items-center">
                     <motion.div className="flex w-fit justify-start items-center">
                         <BsCalendar4Week className=" mr-2 h-4 w-4"></BsCalendar4Week>
                         <TextSub>August, 8, 2023</TextSub>

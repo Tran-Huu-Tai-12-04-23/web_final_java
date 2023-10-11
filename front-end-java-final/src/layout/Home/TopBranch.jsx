@@ -10,12 +10,12 @@ function TopBranch() {
             <motion.div className="flex justify-start items-center border-b-[1px] border-solid border-primary">
                 <motion.h1 className="text-3xl font-bold">Top Branch</motion.h1>
             </motion.div>
-            <motion.div className="flex justify-between items-center mt-10">
-                <motion.img className="h-32" src={sony}></motion.img>
-                <motion.img className="h-32" src={samsung}></motion.img>
-                <motion.img className="h-32" src={apple}></motion.img>
-                <motion.img className="h-32" src={microsoft}></motion.img>
-                <motion.img className="h-32" src={asus}></motion.img>
+            <motion.div className="flex justify-center flex-wrap items-center mt-10 gap-10">
+                <motion.img className="h-32 flex-shrink-0 " src={sony}></motion.img>
+                <motion.img className="h-32 flex-shrink-0" src={samsung}></motion.img>
+                <motion.img className="h-32 flex-shrink-0" src={apple}></motion.img>
+                <motion.img className="h-32 flex-shrink-0" src={microsoft}></motion.img>
+                <motion.img className="h-32 flex-shrink-0" src={asus}></motion.img>
             </motion.div>
         </motion.div>
     );

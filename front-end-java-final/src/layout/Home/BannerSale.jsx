@@ -26,7 +26,7 @@ const item = {
 function BannerSale() {
     return (
         <motion.div
-            className="flex justify-between gap-10 w-full items-center pt-10 pb-10"
+            className="grid grid-cols-3 justify-between overflow-hidden rounded-xl gap-10 w-full items-center pt-10 pb-10"
             variants={container}
             initial="hidden"
             animate="visible"
@@ -39,7 +39,7 @@ function BannerSale() {
                 whileHover={{ scale: 1, transition: { duration: 0.3 } }}
                 variants={item}
                 src={banner}
-                className="h-[30rem] w-3/5  cursor-pointer  rounded-xl bg-contain"
+                className="max-h-[30rem] xl:col-span-2 2xl:col-span-2 lg:col-span-2 col-span-3 h-full w-full cursor-pointer  rounded-xl bg-contain"
             ></motion.img>
             <motion.img
                 whileTap={{
@@ -49,7 +49,7 @@ function BannerSale() {
                 whileHover={{ scale: 1, transition: { duration: 0.3 } }}
                 variants={item}
                 src={banner2}
-                className="h-[30rem] cursor-pointer w-2/5 rounded-xl"
+                className="max-h-[30rem] xl:col-span-1 2xl:col-span-1 lg:col-span-1 col-span-3 h-full cursor-pointer w-full rounded-xl"
             ></motion.img>
         </motion.div>
     );

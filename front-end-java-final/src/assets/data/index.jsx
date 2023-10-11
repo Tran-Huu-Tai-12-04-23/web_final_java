@@ -6,7 +6,13 @@ import {
     CiFacebook,
     CiInstagram,
     CiShoppingBasket,
+    CiHome,
 } from 'react-icons/ci';
+import { RxHome } from 'react-icons/rx';
+import { BiCategoryAlt } from 'react-icons/bi';
+import { PiBookOpenTextDuotone } from 'react-icons/pi';
+import { BsQuestionDiamond } from 'react-icons/bs';
+import { TiContacts } from 'react-icons/ti';
 
 import shipping from '../img/shipping.png';
 import policy from '../img/policy.png';
@@ -17,26 +23,31 @@ const NavHeader = [
     {
         name: 'Home',
         path: '/',
+        icon: <RxHome className="h-6 w-6"></RxHome>,
         subNav: [],
     },
     {
         name: 'Products',
         path: '/products',
+        icon: <BiCategoryAlt className="h-6 w-6"></BiCategoryAlt>,
         subNav: [],
     },
     {
         name: 'Blog',
         path: '/blogs',
+        icon: <PiBookOpenTextDuotone className="h-6 w-6"></PiBookOpenTextDuotone>,
         subNav: [],
     },
     {
         name: 'FAQ',
         path: '/faq',
+        icon: <BsQuestionDiamond className="h-6 w-6"></BsQuestionDiamond>,
         subNav: [],
     },
     {
-        name: 'Contact US',
+        name: 'Contact',
         path: '/contact',
+        icon: <TiContacts className="h-6 w-6"></TiContacts>,
         subNav: [],
     },
 ];

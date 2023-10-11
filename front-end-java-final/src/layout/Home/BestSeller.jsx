@@ -11,7 +11,10 @@ function BestSeller() {
             <motion.div className="flex justify-between items-center mt-10 overflow-hidden">
                 {items.map((item, index) => {
                     return (
-                        <motion.div className="w-1/5 flex-shrink-0 scale-90" key={index}>
+                        <motion.div
+                            className="2xl:w-1/5 xl:w-1/5 lg:w-1/5 md:w-1/3 sm:w-1/2 w-full flex-shrink-0 scale-90"
+                            key={index}
+                        >
                             <CardMain></CardMain>
                         </motion.div>
                     );

@@ -28,16 +28,20 @@ const item = {
 const CategoryHome = () => (
     <motion.div className="w-full pt-10 pb-10">
         <motion.ul
-            className="w-full flex justify-center items-center "
+            className="w-full flex justify-center items-center flex-wrap"
             variants={container}
             initial="hidden"
             animate="visible"
         >
             {Category.map((cate, index) => (
-                <motion.li key={index} className="xl:w-1/6 block cursor-pointer pt-4 pb-4 select-none " variants={item}>
+                <motion.li
+                    key={index}
+                    className="xl:w-1/6 lg:w-1/3 md:w-1/3 sm:w-1/2 w-full block cursor-pointer pt-4 pb-4 select-none "
+                    variants={item}
+                >
                     <AnimateHover
                         className={
-                            'flex flex-col justify-center items-center border-[1px]  rounded-xl border-solid border-gray-300 w-full shadow-lg'
+                            'flex flex-col justify-center items-center border-[1px] w-full rounded-xl border-solid border-gray-300 shadow-lg'
                         }
                     >
                         <motion.img className="h-[10rem] scale-75 rounded-lg " src={cate.linkImg}></motion.img>

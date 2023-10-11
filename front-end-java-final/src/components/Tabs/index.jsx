@@ -30,7 +30,7 @@ function Tabs({ tabs = [], active = 0, style = 'default', classItem = '', setAct
                             key={index}
                             className={`${
                                 index == active && 'text-primary border-primary'
-                            } text-sm cursor-pointer p-2 pl-4 pr-4 rounded-t-lg text-center border-b-[1px] border-solid hover:border-primary hover:text-primary ${classItem}`}
+                            } text-sm cursor-pointer rounded-t-lg pt-2 pb-2 text-center border-b-[1px] border-solid hover:border-primary hover:text-primary ${classItem}`}
                         >
                             {item.name}
                         </motion.div>

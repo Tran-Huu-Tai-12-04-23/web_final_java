@@ -13,3 +13,4 @@ export { default as Input } from './Input';
 export { default as Modal } from './Modal';
 export { default as Tabs } from './Tabs';
 export { default as Toggle } from './Toggle';
+export { default as Loading } from './Loading';

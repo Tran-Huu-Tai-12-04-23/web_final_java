@@ -51,7 +51,7 @@ function ModalSign({ onClose = () => {} }) {
                     duration: 0.3,
                     ease: 'easeInOut',
                 }}
-                className="relative overflow-hidden p-10 min-h-[35rem] shadow-xl h-4/5  min-w-[30rem] bg-white dark:bg-dark w-1/3  rounded-xl flex flex-col "
+                className="relative overflow-hidden p-10 min-h-[35rem] shadow-xl h-4/5 max-h-[36rem]  min-w-[20rem] w-4/5 max-w-[30rem] bg-white dark:bg-dark  rounded-xl flex flex-col "
             >
                 <AnimateHover
                     onClick={handleClose}
