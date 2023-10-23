@@ -19,7 +19,6 @@ import java.util.List;
 public class AccountService implements IAccountService {
     private final AccountRepository accountRepository;
 
-
     public Account update(Account account, Long id) {
         return accountRepository.findById(id).map( ac -> {
             ac.setUsername(account.getUsername());

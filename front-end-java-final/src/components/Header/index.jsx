@@ -1,11 +1,9 @@
 import { useState } from 'react';
-import { Main } from '../../layout';
 import { Link } from 'react-router-dom';
 import { NavHeader, UserMenu } from '../../assets/data';
 import logo from '../../assets/img/logo.png';
 import { CiUser, CiSearch, CiShoppingBasket, CiBrightnessDown, CiCloudMoon } from 'react-icons/ci';
 
-import { Badge } from 'flowbite-react';
 import MenuUser from './MenuUser';
 import { AnimateHover, AnimateText } from '../Animate';
 import { useTheme } from '../../context/theme';
@@ -71,9 +69,9 @@ function Header() {
         <>
             {modalSign && <ModalSign onClose={(e) => setModalSign(!modalSign)}></ModalSign>}
             {modalSearch && <ModalSearch onClose={(e) => setModalSearch(!modalSearch)} />}
-            <Main
+            <div
                 className={
-                    ' flex z-50 shadow-md items-center justify-between border-header border-b-[3px] border-solid fixed top-0 left-0 right-0'
+                    'pl-10 pr-10 flex z-50 shadow-md items-center justify-between bg-light dark:bg-dark border-header border-b-[3px] border-solid fixed top-0 left-0 right-0'
                 }
             >
                 <Link to="/">
@@ -114,7 +112,7 @@ function Header() {
                         </AnimateHover>
                     )}
                     {!login && (
-                        <Button className="ml-5" style="outline" onClick={(e) => setModalSign(true)}>
+                        <Button className="ml-5 pt-1 pb-1" style="outline" onClick={(e) => setModalSign(true)}>
                             BUY NOW
                         </Button>
                     )}
@@ -123,12 +121,12 @@ function Header() {
                         <AnimateHover>
                             <motion.div className="relative">
                                 <CiShoppingBasket className="h-6 w-6 mr-2 cursor-pointer hover:text-hover"></CiShoppingBasket>
-                                <Badge
+                                <motion.div
                                     className="absolute top-0 rounded-full h-4 w-4 flex justify-center items-center right-0"
                                     color="pink"
                                 >
                                     3
-                                </Badge>
+                                </motion.div>
                             </motion.div>
                         </AnimateHover>
                     )}
@@ -171,7 +169,7 @@ function Header() {
                     </div>
                 </div>
             </div> */}
-            </Main>
+            </div>
         </>
     );
 }

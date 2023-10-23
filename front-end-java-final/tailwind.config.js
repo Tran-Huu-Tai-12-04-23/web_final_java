@@ -1,12 +1,18 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-    content: ['node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}', './index.html', './src/**/*.{js,ts,jsx,tsx}'],
+    content: [
+        './index.html',
+        './src/**/*.{js,ts,jsx,tsx}',
+        './node_modules/react-tailwindcss-datepicker/dist/index.esm.js',
+    ],
     darkMode: 'class',
     theme: {
         extend: {
             backgroundColor: {
                 dark: '#1f2937',
+                'dark-second': '#111422',
                 light: '#fff',
+                'light-second': '#F1F6F9',
                 'dark-header': '#1f2937',
                 'light-header': '#fff',
                 'bg-light-hover': 'rgba(0,0,0,0.1)',
@@ -15,9 +21,12 @@ module.exports = {
                 'bg-dark-menu': 'rgba(0,0,0,0.1)',
                 primary: 'rgba(247, 101, 163, 0.8)',
                 'btn-primary': 'rgb(238, 124, 153)',
+                'btn-second': 'rgba(238, 124, 153, 0.1)',
                 hover: 'rgba(247, 101, 163,0.1)',
                 sale: 'rgba(245, 110, 35,0.3)',
                 second: '#ffe5f1',
+                'light-tiny': 'rgba(0, 0, 0, 0.1)',
+                'dark-tiny': 'rgba(255, 255, 255, 255, 0.1)',
             },
             textColor: {
                 dark: '#fff',
@@ -38,6 +47,8 @@ module.exports = {
                 'dark-header': 'rgba(0,0,0,0.1)',
                 header: 'rgba(247, 101, 163, 0.1)',
                 primary: 'rgb(251, 111, 146)',
+                'dark-tiny': 'rgb(255,255,255,0.1)',
+                'light-tiny': 'rgb(0,0,0,0.1)',
             },
             margin: {
                 header: '3rem',
@@ -47,5 +58,4 @@ module.exports = {
             },
         },
     },
-    plugins: [require('flowbite/plugin')],
 };

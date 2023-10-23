@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion';
 
-import { Main } from '../index';
 import { CardNew, CardMain } from '../../components/index';
 import Banner from './Banner';
 import CategoryHome from './CategoryHome';
@@ -63,7 +62,7 @@ function Home() {
     ];
 
     return (
-        <Main className=" mt-header pt-20 pb-10 w-full ">
+        <motion.div className=" mt-header pt-20 pb-10 w-full overflow-hidden pl-10 pr-10">
             <Banner></Banner>
             <ServiceHome />
             <CategoryHome />
@@ -81,7 +80,7 @@ function Home() {
                     </motion.div>
                 ))}
             </div> */}
-        </Main>
+        </motion.div>
     );
 }
 

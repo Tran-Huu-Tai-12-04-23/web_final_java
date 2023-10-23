@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion';
-import { Tooltip } from 'flowbite-react';
+
 import { ContactSocial } from '../../assets/data/index';
-import { Main } from '../../layout';
 import Banner from './Banner';
 
 function Footer() {
@@ -18,17 +17,17 @@ function Footer() {
                         transition: { duration: 0.3 },
                     }}
                 >
-                    <Tooltip content={social.name}>{social.icon}</Tooltip>
+                    {social.icon}
                 </motion.div>
             );
         });
     };
     return (
-        <div className="w-full ">
+        <div className="w-full">
             <Banner></Banner>
-            <Main
+            <div
                 className={
-                    'text-white pt-36 pb-20 dark:text-white shadow-inner bg-gradient-to-b from-[#ef7f9b] to-[#fccfd3] dark:from-[#352f42] dark:to-[#352f42]'
+                    '  pl-10 pr-10 text-white pt-36 pb-20 dark:text-white shadow-inner bg-gradient-to-b from-[#ef7f9b] to-[#fccfd3] dark:from-[#352f42] dark:to-[#352f42]'
                 }
             >
                 <div className="flex justify-between flex-wrap">
@@ -106,7 +105,7 @@ function Footer() {
                     <div className="mt-2">© Copyright 2023. All Rights Reserved.</div>
                     <div className="md:flex-auto md:flex-row-reverse mt-2 flex-row flex">{renderContactSocial()}</div>
                 </div>
-            </Main>
+            </div>
         </div>
     );
 }

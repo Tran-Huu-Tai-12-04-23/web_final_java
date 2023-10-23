@@ -7,18 +7,19 @@ function Button({
     clickAnimate = true,
     bgHover = '#ef819c',
     onClick = () => {},
+    id = '',
 }) {
     const [classStyle, setClassStyle] = useState('');
 
     useEffect(() => {
         switch (style) {
             case 'normal': {
-                setClassStyle('bg-btn-primary text-white flex justify-between items-center');
+                setClassStyle('bg-btn-second text-primary w-max rounded-md flex justify-between items-center');
                 break;
             }
             case 'outline': {
                 setClassStyle(
-                    'flex justify-center items-center rounded-md text-primary border-2 border-solid border-primary bg-transparent',
+                    'flex justify-center items-center w-max rounded-md text-primary border-2 border-solid border-primary bg-transparent',
                 );
                 break;
             }
@@ -29,6 +30,7 @@ function Button({
 
     return (
         <motion.button
+            id={id}
             onClick={onClick}
             whileTap={{
                 scale: 0.8,
@@ -49,7 +51,7 @@ function Button({
                 duration: 0.3,
                 ease: 'easeInOut',
             }}
-            className={`${classStyle} pl-2 pr-2  text-sm  p-1 hover:bg-[${bgHover}] ${className} `}
+            className={`${classStyle} pl-2 pr-2  ${className} p-2 text-sm  hover:bg-[${bgHover}] `}
         >
             {children}
         </motion.button>

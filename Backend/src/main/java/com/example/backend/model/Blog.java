@@ -32,19 +32,14 @@ public class Blog {
         if (createAt == null) {
             createAt = new Date();
         }
+        if( isDelete == null ){
+            isDelete = false;
+        }
     }
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "account_id")
-    private Account account;
 
     @ManyToOne
     @JoinColumn(name = "category_blog_id")
     private CategoryBlog categoryBlog;
 
-    @JsonIgnore
-    public Account getAccount() {
-        return this.account;
-    }
 
 }
