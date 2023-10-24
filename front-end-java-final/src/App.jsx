@@ -2,7 +2,7 @@ import { lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useEffect, useRef } from 'react';
 import { Loading, Modal } from './components';
-import { MainLayout } from './layout';
+import {  MainLayout } from './layout';
 import { useTheme } from './context/theme';
 import { motion, useScroll, AnimatePresence } from 'framer-motion';
 import { Toaster } from 'react-hot-toast';
@@ -11,6 +11,7 @@ import 'slick-carousel/slick/slick-theme.css';
 const Home = lazy(() => import('./layout/Home'));
 const Admin = lazy(() => import('./layout/Admin'));
 const Sign = lazy(() => import('./layout/Sign'));
+const Contact = lazy(() => import('./layout/Contact'));
 
 function App() {
     const ref = useRef(null);
@@ -60,7 +61,17 @@ function App() {
                                         }
                                     />
                                     <Route path="admin" element={<Admin />} />
+                                    <Route path="contact"
+                                        index
+                                        element={
+                                            <MainLayout>
+                                                <Contact />
+                                            </MainLayout>
+                                        }
+                                    />
+                                    {/* <Route path="contact" element={<Contact />} /> */}
                                     <Route
+                                
                                         path="sign"
                                         element={
                                             <MainLayout>
