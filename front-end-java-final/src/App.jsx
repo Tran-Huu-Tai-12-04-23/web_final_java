@@ -12,7 +12,7 @@ const Home = lazy(() => import('./layout/Home'));
 const Admin = lazy(() => import('./layout/Admin'));
 const Sign = lazy(() => import('./layout/Sign'));
 const Contact = lazy(() => import('./layout/Contact'));
-
+const FAQs = lazy(() => import('./layout/FAQs'))
 function App() {
     const ref = useRef(null);
     const { theme, setTheme } = useTheme();
@@ -66,6 +66,14 @@ function App() {
                                         element={
                                             <MainLayout>
                                                 <Contact />
+                                            </MainLayout>
+                                        }
+                                    />
+                                    <Route path="faq"
+                                        index
+                                        element={
+                                            <MainLayout>
+                                                <FAQs />
                                             </MainLayout>
                                         }
                                     />

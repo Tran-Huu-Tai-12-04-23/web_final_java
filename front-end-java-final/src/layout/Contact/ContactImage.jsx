@@ -1,5 +1,4 @@
 import contactImage from '../../assets/img/contact.jpeg';
-
 function ContactImage() {
   return (
     <div>
@@ -11,5 +10,4 @@ function ContactImage() {
     </div>
   );
 }
-
 export default ContactImage;
