@@ -8,6 +8,8 @@ import { GoHome, GoCodeReview } from 'react-icons/go';
 import { FiUser } from 'react-icons/fi';
 import { PiSealQuestionLight, PiShoppingCartSimpleLight, PiBankLight } from 'react-icons/pi';
 import { AiFillThunderbolt, AiOutlineFileProtect, AiOutlineBarChart, AiOutlineAppstoreAdd } from 'react-icons/ai';
+import { SiGoogletagmanager } from 'react-icons/si';
+import { IoMdAdd } from 'react-icons/io';
 
 const variants = {
     open: { x: 0 },
@@ -32,19 +34,14 @@ function SideBar({ activeSidebar, setOder, order }) {
             order: 3,
             submenu: [
                 {
-                    name: 'Create Member',
-                    icon: <GoHome className="text-xl"></GoHome>,
+                    name: 'Manager',
+                    icon: <SiGoogletagmanager className="text-xl"></SiGoogletagmanager>,
                     order: 1,
                 },
                 {
-                    name: 'Members',
-                    icon: <GoHome className="text-xl"></GoHome>,
+                    name: 'Add product',
+                    icon: <IoMdAdd className="text-xl"></IoMdAdd>,
                     order: 2,
-                },
-                {
-                    name: 'Members Is Delete',
-                    icon: <GoHome className="text-xl"></GoHome>,
-                    order: 3,
                 },
             ],
         },

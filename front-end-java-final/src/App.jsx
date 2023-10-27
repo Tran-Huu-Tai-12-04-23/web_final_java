@@ -11,6 +11,7 @@ import 'slick-carousel/slick/slick-theme.css';
 const Home = lazy(() => import('./layout/Home'));
 const Admin = lazy(() => import('./layout/Admin'));
 const Sign = lazy(() => import('./layout/Sign'));
+// const Product = lazy(() => import('./layout/Sign'));
 
 function App() {
     const ref = useRef(null);
@@ -60,6 +61,7 @@ function App() {
                                         }
                                     />
                                     <Route path="admin" element={<Admin />} />
+                                    {/* <Route path="admin/product/:id" element={<Admin />} /> */}
                                     <Route
                                         path="sign"
                                         element={

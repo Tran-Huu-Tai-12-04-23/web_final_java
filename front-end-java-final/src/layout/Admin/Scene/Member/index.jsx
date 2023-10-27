@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import { motion } from 'framer-motion';
 import SubHeader from '../../Includes/SubHeader';
 import { AnimateHover, AnimateOpacity } from '../../../../components/Animate';
@@ -9,7 +11,6 @@ import { GiSettingsKnobs } from 'react-icons/gi';
 import { BsTrash } from 'react-icons/bs';
 
 import { members, WrappedColumnsTableMember } from '../../../../assets/data';
-import { useState } from 'react';
 import ModalConfirmRemove from '../../Includes/ModalConfirmRemove';
 import ModalEditMember from './ModalEditMember';
 

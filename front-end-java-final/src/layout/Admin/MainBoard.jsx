@@ -4,13 +4,13 @@ import { motion } from 'framer-motion';
 import Header from './Header';
 const DashBoard = lazy(() => import('./Scene/DashBoard'));
 const ManagerMember = lazy(() => import('./Scene/Member'));
-const ManagerProduct = lazy(() => import('./Scene/Product/Manager'));
+const ManagerProduct = lazy(() => import('./Scene/Product'));
 
 const variants = {
     open: { width: '100vw', x: '-15rem' },
     closed: { width: 'calc(100vw - 15rem)', x: 0 },
 };
-function MainBoard({ activeSidebar, setActiveSidebar, order }) {
+function MainBoard({ activeSidebar, setActiveSidebar, order, setOrder }) {
     return (
         <motion.div
             initial={{
@@ -26,7 +26,13 @@ function MainBoard({ activeSidebar, setActiveSidebar, order }) {
                 <Suspense fallback={<div> loading...</div>}>
                     {order.menu === 1 && <DashBoard></DashBoard>}
                     {order.menu === 2 && <ManagerMember></ManagerMember>}
-                    {order.menu === 3 && order.submenu == 1 && <ManagerProduct></ManagerProduct>}
+                    {order.menu === 3 && (
+                        <ManagerProduct
+                            setActiveSidebar={setActiveSidebar}
+                            setOrder={setOrder}
+                            order={order}
+                        ></ManagerProduct>
+                    )}
                 </Suspense>
             </div>
         </motion.div>

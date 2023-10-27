@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import {
     CiLogout,
     CiShoppingCart,
@@ -1876,6 +1877,447 @@ export const WrappedColumnsTableMember = ({ handleRemove = () => {}, handleEdit 
         },
         {
             title: 'Status',
+            render: (value) => {
+                let classStyle = '';
+                if (value) {
+                    classStyle = 'bg-[rgba(243,122,72,0,1)] text-[rgb(243,122,72)] ';
+                } else {
+                    classStyle = 'bg-[rgba(50,179,156,0.1)] text-[rgba(50,179,156,1)] ';
+                }
+                const text = value ? 'Block' : 'Active';
+                return (
+                    <div
+                        className={`${classStyle} w-fit p-1 pl-2 pr-2 text-xs rounded-lg flex justify-center items-center `}
+                    >
+                        {text}
+                    </div>
+                );
+            },
+            filed: 'isDelete',
+        },
+        {
+            title: 'Action',
+            render: (value) => {
+                return (
+                    <div className={`gap-4 flex justify-center items-center `}>
+                        <AnimateHover
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                handleEdit(value);
+                            }}
+                        >
+                            <MdEdit className="w-6 h-6 text-blue-600"></MdEdit>
+                        </AnimateHover>
+                        <AnimateHover
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                handleRemove(value);
+                            }}
+                        >
+                            <IoMdTrash className="w-6 h-6 text-red-600"></IoMdTrash>
+                        </AnimateHover>
+                    </div>
+                );
+            },
+            filed: 'id',
+        },
+    ];
+};
+
+export const productManagersItems = [
+    {
+        id: 1,
+        name: 'Product 1',
+        description: 'This is the description for Product 1',
+        price: '578.72',
+        quantity: 9,
+        usage: 'Usage of Product 1',
+        screenSize: 'Screen Size of Product 1',
+        chipSet: 'Chipset of Product 1',
+        createAt: '2023-10-26T00:49:15.119Z',
+        isDelete: false,
+        linkImages:
+            'https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:80/plain/https://cellphones.com.vn/media/catalog/product/m/a/macbook_air_m22.png',
+        linkVideo: 'video_1.mp4',
+        category: 'Category 1',
+        branch: 'Branch 1',
+    },
+    {
+        id: 2,
+        name: 'Product 2',
+        description: 'This is the description for Product 2',
+        price: '911.39',
+        quantity: 84,
+        usage: 'Usage of Product 2',
+        screenSize: 'Screen Size of Product 2',
+        chipSet: 'Chipset of Product 2',
+        createAt: '2023-10-26T00:49:15.119Z',
+        isDelete: false,
+        linkImages:
+            'https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:80/plain/https://cellphones.com.vn/media/catalog/product/m/a/macbook_air_m22.png',
+        linkVideo: 'video_2.mp4',
+        category: 'Category 2',
+        branch: 'Branch 2',
+    },
+    {
+        id: 3,
+        name: 'Product 3',
+        description: 'This is the description for Product 3',
+        price: '205.86',
+        quantity: 37,
+        usage: 'Usage of Product 3',
+        screenSize: 'Screen Size of Product 3',
+        chipSet: 'Chipset of Product 3',
+        createAt: '2023-10-26T00:49:15.119Z',
+        isDelete: false,
+        linkImages:
+            'https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:80/plain/https://cellphones.com.vn/media/catalog/product/m/a/macbook_air_m22.png',
+        linkVideo: 'video_3.mp4',
+        category: 'Category 3',
+        branch: 'Branch 3',
+    },
+    {
+        id: 4,
+        name: 'Product 4',
+        description: 'This is the description for Product 4',
+        price: '670.98',
+        quantity: 1,
+        usage: 'Usage of Product 4',
+        screenSize: 'Screen Size of Product 4',
+        chipSet: 'Chipset of Product 4',
+        createAt: '2023-10-26T00:49:15.119Z',
+        isDelete: false,
+        linkImages:
+            'https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:80/plain/https://cellphones.com.vn/media/catalog/product/m/a/macbook_air_m22.png',
+        linkVideo: 'video_4.mp4',
+        category: 'Category 4',
+        branch: 'Branch 4',
+    },
+    {
+        id: 5,
+        name: 'Product 5',
+        description: 'This is the description for Product 5',
+        price: '464.85',
+        quantity: 10,
+        usage: 'Usage of Product 5',
+        screenSize: 'Screen Size of Product 5',
+        chipSet: 'Chipset of Product 5',
+        createAt: '2023-10-26T00:49:15.119Z',
+        isDelete: false,
+        linkImages:
+            'https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:80/plain/https://cellphones.com.vn/media/catalog/product/m/a/macbook_air_m22.png',
+        linkVideo: 'video_5.mp4',
+        category: 'Category 5',
+        branch: 'Branch 5',
+    },
+    {
+        id: 6,
+        name: 'Product 6',
+        description: 'This is the description for Product 6',
+        price: '139.18',
+        quantity: 6,
+        usage: 'Usage of Product 6',
+        screenSize: 'Screen Size of Product 6',
+        chipSet: 'Chipset of Product 6',
+        createAt: '2023-10-26T00:49:15.119Z',
+        isDelete: false,
+        linkImages:
+            'https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:80/plain/https://cellphones.com.vn/media/catalog/product/m/a/macbook_air_m22.png',
+        linkVideo: 'video_6.mp4',
+        category: 'Category 6',
+        branch: 'Branch 6',
+    },
+    {
+        id: 7,
+        name: 'Product 7',
+        description: 'This is the description for Product 7',
+        price: '423.29',
+        quantity: 88,
+        usage: 'Usage of Product 7',
+        screenSize: 'Screen Size of Product 7',
+        chipSet: 'Chipset of Product 7',
+        createAt: '2023-10-26T00:49:15.119Z',
+        isDelete: false,
+        linkImages:
+            'https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:80/plain/https://cellphones.com.vn/media/catalog/product/m/a/macbook_air_m22.png',
+        linkVideo: 'video_7.mp4',
+        category: 'Category 7',
+        branch: 'Branch 7',
+    },
+    {
+        id: 8,
+        name: 'Product 8',
+        description: 'This is the description for Product 8',
+        price: '416.20',
+        quantity: 70,
+        usage: 'Usage of Product 8',
+        screenSize: 'Screen Size of Product 8',
+        chipSet: 'Chipset of Product 8',
+        createAt: '2023-10-26T00:49:15.119Z',
+        isDelete: false,
+        linkImages:
+            'https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:80/plain/https://cellphones.com.vn/media/catalog/product/m/a/macbook_air_m22.png',
+        linkVideo: 'video_8.mp4',
+        category: 'Category 8',
+        branch: 'Branch 8',
+    },
+    {
+        id: 9,
+        name: 'Product 9',
+        description: 'This is the description for Product 9',
+        price: '978.46',
+        quantity: 89,
+        usage: 'Usage of Product 9',
+        screenSize: 'Screen Size of Product 9',
+        chipSet: 'Chipset of Product 9',
+        createAt: '2023-10-26T00:49:15.119Z',
+        isDelete: false,
+        linkImages:
+            'https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:80/plain/https://cellphones.com.vn/media/catalog/product/m/a/macbook_air_m22.png',
+        linkVideo: 'video_9.mp4',
+        category: 'Category 9',
+        branch: 'Branch 9',
+    },
+    {
+        id: 10,
+        name: 'Product 10',
+        description: 'This is the description for Product 10',
+        price: '54.39',
+        quantity: 15,
+        usage: 'Usage of Product 10',
+        screenSize: 'Screen Size of Product 10',
+        chipSet: 'Chipset of Product 10',
+        createAt: '2023-10-26T00:49:15.119Z',
+        isDelete: false,
+        linkImages:
+            'https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:80/plain/https://cellphones.com.vn/media/catalog/product/m/a/macbook_air_m22.png',
+        linkVideo: 'video_10.mp4',
+        category: 'Category 10',
+        branch: 'Branch 10',
+    },
+    {
+        id: 11,
+        name: 'Product 11',
+        description: 'This is the description for Product 11',
+        price: '770.31',
+        quantity: 67,
+        usage: 'Usage of Product 11',
+        screenSize: 'Screen Size of Product 11',
+        chipSet: 'Chipset of Product 11',
+        createAt: '2023-10-26T00:49:15.119Z',
+        isDelete: false,
+        linkImages:
+            'https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:80/plain/https://cellphones.com.vn/media/catalog/product/m/a/macbook_air_m22.png',
+        linkVideo: 'video_11.mp4',
+        category: 'Category 11',
+        branch: 'Branch 11',
+    },
+    {
+        id: 12,
+        name: 'Product 12',
+        description: 'This is the description for Product 12',
+        price: '226.20',
+        quantity: 32,
+        usage: 'Usage of Product 12',
+        screenSize: 'Screen Size of Product 12',
+        chipSet: 'Chipset of Product 12',
+        createAt: '2023-10-26T00:49:15.119Z',
+        isDelete: false,
+        linkImages:
+            'https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:80/plain/https://cellphones.com.vn/media/catalog/product/m/a/macbook_air_m22.png',
+        linkVideo: 'video_12.mp4',
+        category: 'Category 12',
+        branch: 'Branch 12',
+    },
+    {
+        id: 13,
+        name: 'Product 13',
+        description: 'This is the description for Product 13',
+        price: '5.77',
+        quantity: 72,
+        usage: 'Usage of Product 13',
+        screenSize: 'Screen Size of Product 13',
+        chipSet: 'Chipset of Product 13',
+        createAt: '2023-10-26T00:49:15.119Z',
+        isDelete: false,
+        linkImages:
+            'https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:80/plain/https://cellphones.com.vn/media/catalog/product/m/a/macbook_air_m22.png',
+        linkVideo: 'video_13.mp4',
+        category: 'Category 13',
+        branch: 'Branch 13',
+    },
+    {
+        id: 14,
+        name: 'Product 14',
+        description: 'This is the description for Product 14',
+        price: '514.75',
+        quantity: 97,
+        usage: 'Usage of Product 14',
+        screenSize: 'Screen Size of Product 14',
+        chipSet: 'Chipset of Product 14',
+        createAt: '2023-10-26T00:49:15.119Z',
+        isDelete: false,
+        linkImages:
+            'https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:80/plain/https://cellphones.com.vn/media/catalog/product/m/a/macbook_air_m22.png',
+        linkVideo: 'video_14.mp4',
+        category: 'Category 14',
+        branch: 'Branch 14',
+    },
+    {
+        id: 15,
+        name: 'Product 15',
+        description: 'This is the description for Product 15',
+        price: '18.59',
+        quantity: 73,
+        usage: 'Usage of Product 15',
+        screenSize: 'Screen Size of Product 15',
+        chipSet: 'Chipset of Product 15',
+        createAt: '2023-10-26T00:49:15.119Z',
+        isDelete: false,
+        linkImages:
+            'https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:80/plain/https://cellphones.com.vn/media/catalog/product/m/a/macbook_air_m22.png',
+        linkVideo: 'video_15.mp4',
+        category: 'Category 15',
+        branch: 'Branch 15',
+    },
+    {
+        id: 16,
+        name: 'Product 16',
+        description: 'This is the description for Product 16',
+        price: '492.96',
+        quantity: 57,
+        usage: 'Usage of Product 16',
+        screenSize: 'Screen Size of Product 16',
+        chipSet: 'Chipset of Product 16',
+        createAt: '2023-10-26T00:49:15.119Z',
+        isDelete: false,
+        linkImages:
+            'https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:80/plain/https://cellphones.com.vn/media/catalog/product/m/a/macbook_air_m22.png',
+        linkVideo: 'video_16.mp4',
+        category: 'Category 16',
+        branch: 'Branch 16',
+    },
+    {
+        id: 17,
+        name: 'Product 17',
+        description: 'This is the description for Product 17',
+        price: '70.14',
+        quantity: 18,
+        usage: 'Usage of Product 17',
+        screenSize: 'Screen Size of Product 17',
+        chipSet: 'Chipset of Product 17',
+        createAt: '2023-10-26T00:49:15.119Z',
+        isDelete: false,
+        linkImages:
+            'https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:80/plain/https://cellphones.com.vn/media/catalog/product/m/a/macbook_air_m22.png',
+        linkVideo: 'video_17.mp4',
+        category: 'Category 17',
+        branch: 'Branch 17',
+    },
+    {
+        id: 18,
+        name: 'Product 18',
+        description: 'This is the description for Product 18',
+        price: '857.92',
+        quantity: 19,
+        usage: 'Usage of Product 18',
+        screenSize: 'Screen Size of Product 18',
+        chipSet: 'Chipset of Product 18',
+        createAt: '2023-10-26T00:49:15.119Z',
+        isDelete: false,
+        linkImages:
+            'https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:80/plain/https://cellphones.com.vn/media/catalog/product/m/a/macbook_air_m22.png',
+        linkVideo: 'video_18.mp4',
+        category: 'Category 18',
+        branch: 'Branch 18',
+    },
+    {
+        id: 19,
+        name: 'Product 19',
+        description: 'This is the description for Product 19',
+        price: '639.60',
+        quantity: 11,
+        usage: 'Usage of Product 19',
+        screenSize: 'Screen Size of Product 19',
+        chipSet: 'Chipset of Product 19',
+        createAt: '2023-10-26T00:49:15.119Z',
+        isDelete: false,
+        linkImages:
+            'https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:80/plain/https://cellphones.com.vn/media/catalog/product/m/a/macbook_air_m22.png',
+        linkVideo: 'video_19.mp4',
+        category: 'Category 19',
+        branch: 'Branch 19',
+    },
+    {
+        id: 20,
+        name: 'Product 20',
+        description: 'This is the description for Product 20',
+        price: '235.72',
+        quantity: 32,
+        usage: 'Usage of Product 20',
+        screenSize: 'Screen Size of Product 20',
+        chipSet: 'Chipset of Product 20',
+        createAt: '2023-10-26T00:49:15.119Z',
+        isDelete: false,
+        linkImages:
+            'https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:80/plain/https://cellphones.com.vn/media/catalog/product/m/a/macbook_air_m22.png',
+        linkVideo: 'video_20.mp4',
+        category: 'Category 20',
+        branch: 'Branch 20',
+    },
+];
+export const WrappedColumnsTableProduct = ({ handleRemove = () => {}, handleEdit = () => {} }) => {
+    return [
+        {
+            title: 'ID',
+            filed: 'id',
+        },
+        {
+            title: 'Image',
+            filed: 'linkImg',
+            render: (src) => {
+                return (
+                    <div className="group relative transition-all">
+                        <img
+                            className="h-20 w-20 rounded-md"
+                            src={'https://cdn2.cellphones.com.vn/358x358,webp,q10/media/wysiwyg/placehoder.png'}
+                        ></img>
+
+                        <img
+                            className="absolute hidden group-hover:block  top-[100%] right-[100%] scale-150 z-50 shadow-md rounded-md transition-all"
+                            src={'https://cdn2.cellphones.com.vn/358x358,webp,q10/media/wysiwyg/placehoder.png'}
+                        ></img>
+                    </div>
+                );
+            },
+        },
+        {
+            title: 'Name',
+            filed: 'name',
+        },
+        {
+            title: 'Price',
+            filed: 'price',
+        },
+        {
+            title: 'Description',
+            filed: 'description',
+        },
+        {
+            title: 'Quantity',
+            filed: 'quantity',
+            center: true,
+        },
+        {
+            title: 'Category',
+            filed: 'category',
+        },
+        {
+            title: 'Branch',
+            filed: 'branch',
+        },
+        {
+            title: 'Active',
             render: (value) => {
                 let classStyle = '';
                 if (value) {

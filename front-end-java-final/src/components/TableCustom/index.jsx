@@ -54,7 +54,7 @@ export default function TableCustom({
     const renderColumns = () => {
         return columns.map((col, index) => {
             return (
-                <th key={index} scope="col" className="px-6 py-3">
+                <th key={index} scope="col" className={`px-6 py-3  ${col.center ? 'text-center' : ''}`}>
                     {col.title}
                 </th>
             );
@@ -67,11 +67,14 @@ export default function TableCustom({
             if (col.render) {
                 // console.log(col.render(pre));
             }
+
             return (
                 <th
                     key={index}
                     scope="row"
-                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    className={`${
+                        col.center ? 'text-center' : ''
+                    } px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white`}
                 >
                     {col.render ? <>{col.render && col.render(pre)}</> : pre}
                 </th>
