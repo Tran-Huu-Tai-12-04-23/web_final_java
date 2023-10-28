@@ -1,6 +1,8 @@
+import { TextMain } from "../../components";
+
 function ListItem({ text }) {
     return (
-      <li className="text-neutral-950 text-xl font-light leading-7 mb-2">
+      <li className="text-neutral-950 text-md font-light leading-7 mb-2">
         {text}
       </li>
     );
@@ -19,10 +21,8 @@ function PageDescription(){
     
       return (
         <div className="mt-10 max-w-screen-xl mx-auto px-4 text-justify">
-          <p className="text-neutral-950 text-xl font-light leading-7 mb-6">
             Get Tech is an innovative online store that offers a diverse selection of digital gadgets, available for purchase in both cash and installment options. Embodying the motto "Join the digital revolution today," the website not only provides a seamless shopping experience but also features a captivating blog section filled with insightful reviews, articles, and videos about cutting-edge technology and digital gadgets. Users can actively engage with the content through comments and a question-answer section, fostering a dynamic community of tech enthusiasts.
-          </p>
-    
+          <TextMain className="text-neutral-950 font-light leading-7 mb-6"></TextMain>
           <div className="text-neutral-950 text-xl font-medium mb-4">
             Some of Get Tech’s impressive features:
           </div>

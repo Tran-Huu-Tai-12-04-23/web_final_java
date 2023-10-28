@@ -1,28 +1,39 @@
+import { Input, TextMain } from "../../components";
+import {BsFillPersonFill} from 'react-icons/bs'
+import { CiMail } from "react-icons/ci";
+import {BiMessageAltDots} from "react-icons/bi"
+import { TextReveal } from "../../components/Animate";
 function MessageUs() {
+    const msgText = "We're here to assist you every step of the way. Whether you have a question, need technical support, or simply want to share your feedback, our dedicated team is ready to listen and provide prompt assistance."
     return (
         <div className="mt-10 flex justify-center">
             <div className="w-[496px] p-6">
-                <div className="text-neutral-950 text-2xl font-medium font-['Inter']">Message us</div>
-                <div className="mt-5 text-justify text-neutral-500 text-xl font-light font-['Inter'] leading-7">
-                    We're here to assist you every step of the way. Whether you have a question, need technical support, or simply want to share your feedback, our dedicated team is ready to listen and provide prompt assistance.
-                </div>
+                <TextMain className="text-xl font-medium">
+                    <TextReveal text={"Message Us"}></TextReveal>
+                </TextMain>
+                <TextMain className="mt-5 text-neutral-500 ">We're here to assist you every step of the way. Whether you have a question, need technical support, or simply want to share your feedback, our dedicated team is ready to listen and provide prompt assistance.
+                </TextMain>
             </div>
 
             <div className="w-[392px] p-6 flex flex-col">
-                <div className="w-[350px] h-12 p-3 mb-4 rounded-lg border border-zinc-400 flex">
-                    <div className="text-neutral-500 text-base font-light font-['Inter'] leading-normal">*</div>
-                    <div className="text-neutral-500 text-base font-light font-['Inter'] leading-normal ml-2">Your name</div>
-                </div>
+                <Input
+                    placeholder="Your name"
+                    className="mb-3"
+                    iconLeft={<BsFillPersonFill className="ml-3 w-6 h-6 l-2 text-gray-400"></BsFillPersonFill>}
+                ></Input>
 
-                <div className="w-[350px] h-12 p-3 mb-4 rounded-lg border border-zinc-400 flex">
-                    <div className="text-neutral-500 text-base font-light font-['Inter'] leading-normal">*</div>
-                    <div className="text-neutral-500 text-base font-light font-['Inter'] leading-normal ml-2">Email</div>
-                </div>
+                <Input
+                    placeholder="E-mail"
+                    className="mb-3"
+                    iconLeft={<CiMail className="ml-3 w-6 h-6 l-2 text-gray-400"></CiMail>}
+                ></Input>
 
-                <div className="w-[350px] h-[190px] p-6 rounded-lg border border-zinc-400">
-                    <div className="text-neutral-500 text-base font-light font-['Inter'] leading-normal">Message</div>
-                </div>
-
+                {/* dont know how to config postion of placeholder, help plssss */}
+                <Input
+                    placeholder="Message"
+                    className="w-[350px] h-[190px] p-6 rounded-lg "
+                    iconLeft={<BiMessageAltDots className="ml-3 w-6 h-6 l-2 text-gray-400"></BiMessageAltDots>}
+                ></Input>
                 <div className="ml-40 mt-10 w-[190px] h-12 p-2 bg-rose-400 rounded-lg flex items-center justify-center">
                     <div className="text-center text-white text-base font-normal font-['Inter']">Submit</div>
                 </div>
