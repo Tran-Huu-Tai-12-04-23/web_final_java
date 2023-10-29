@@ -8,14 +8,19 @@ import {
     CiInstagram,
     CiShoppingBasket,
     CiHome,
+    CiMobile3
 } from 'react-icons/ci';
 import { RxHome } from 'react-icons/rx';
 import { BiCategoryAlt } from 'react-icons/bi';
-import { PiBookOpenTextDuotone } from 'react-icons/pi';
-import { BsQuestionDiamond } from 'react-icons/bs';
+import { PiBookOpenTextDuotone, PiDesktopLight } from 'react-icons/pi';
+import { 
+    BsQuestionDiamond, BsTabletLandscape,
+    BsSmartwatch, BsClockHistory  
+} from 'react-icons/bs';
 import { TiContacts } from 'react-icons/ti';
 import { MdEdit } from 'react-icons/md';
 import { IoMdTrash } from 'react-icons/io';
+import { TfiHeadphone } from 'react-icons/tfi';
 
 import shipping from '../img/shipping.png';
 import policy from '../img/policy.png';
@@ -172,7 +177,34 @@ const Category = [
     },
 ];
 
-export { NavHeader, UserMenu, ContactSocial, HomeService, Category };
+const Products = [
+    {
+        name: 'Tech',
+        icon: <CiMobile3 className="h-6 w-6" />,
+    },
+    {
+        name: 'Game',
+        icon: <PiDesktopLight className="h-6 w-6" />,
+    },
+    {
+        name: 'Review',
+        icon: <BsTabletLandscape className="h-6 w-6" />,
+    },
+    {
+        name: 'Market',
+        icon: <TfiHeadphone className="h-6 w-6" />,
+    },
+    {
+        name: 'Design',
+        icon: <BsSmartwatch className="h-6 w-6" />,
+    },
+    {
+        name: 'Guidance',
+        icon: <BsClockHistory className="h-6 w-6" />,
+    },
+];
+
+export { NavHeader, UserMenu, ContactSocial, HomeService, Category, Products };
 
 // data api hard
 
