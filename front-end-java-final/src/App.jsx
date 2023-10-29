@@ -11,6 +11,7 @@ import 'slick-carousel/slick/slick-theme.css';
 const Home = lazy(() => import('./layout/Home'));
 const Admin = lazy(() => import('./layout/Admin'));
 const Sign = lazy(() => import('./layout/Sign'));
+const Blog = lazy(() => import('./layout/Blog'));
 // const Product = lazy(() => import('./layout/Sign'));
 
 function App() {
@@ -67,6 +68,14 @@ function App() {
                                         element={
                                             <MainLayout>
                                                 <Sign />
+                                            </MainLayout>
+                                        }
+                                    />
+                                    <Route
+                                        path="blog"
+                                        element={
+                                            <MainLayout>
+                                                <Blog />
                                             </MainLayout>
                                         }
                                     />
