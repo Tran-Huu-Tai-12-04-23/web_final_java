@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion';
-function AnimateOpacity({ children, className, onMouseEnter = () => {}, onMouseLeave = () => {} }) {
+function AnimateOpacity({ children, className, onMouseEnter = () => {}, onMouseLeave = () => {}, onClick = () => {} }) {
     return (
         <motion.div
+            onClick={onClick}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
             className={className}

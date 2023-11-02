@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { Input, Select, TextMain } from '../../../../components';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
+// import DatePicker from 'react-datepicker';
+// import 'react-datepicker/dist/react-datepicker.css';
 import { Modal, ModalItem } from '../../../../components';
+
+import { Datepicker } from 'flowbite-react';
 
 function ModalEditMember({ onRemove = () => {}, onCancel = () => {}, onClose = () => {}, data }) {
     const [name, setName] = useState('');
@@ -52,15 +54,13 @@ function ModalEditMember({ onRemove = () => {}, onCancel = () => {}, onClose = (
                         ></Input>
 
                         <label className="mb-2  ml-1">Join date</label>
-                        <DatePicker
-                            onFocus={() => setFocus(true)}
-                            onBlur={() => setFocus(false)}
-                            className={`${
-                                focus ? 'border-[rgba(251,111,146,0.5)]' : 'border-light-tiny dark:border-dark-tiny'
-                            } bg-transparent border-[1px] mb-4 border-solid rounded-lg w-full  outline-none p-2 focus:ring-transparent  focus:outline-none`}
-                            selected={createAt}
-                            onChange={(date) => setCreateAt(date)}
-                        />
+                        <div className="relative z-[1000000]">
+                            <Datepicker
+                                defaultDate={createAt}
+                                className=" bg-transparent w-full mb-4 outline-none rounded-lg focus:ring-transparent focus:border-primary focus:outline-none border-none"
+                                onSelectedDateChanged={(date) => setCreateAt(date)}
+                            />
+                        </div>
 
                         <label className="mb-2 ml-1">Status</label>
                         <Select

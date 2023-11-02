@@ -21,3 +21,6 @@ export { default as Pagination } from './Pagination';
 export { default as Select } from './Select';
 export { default as ModalItem } from './Modal/ModalItem';
 export { default as Editor } from './Editor';
+export { default as InputCountNumberCustom } from './InputCountNumberCustom';
+export { default as MultiSelect } from './MultiSelect';
+export { default as Carousel } from './Carousel';

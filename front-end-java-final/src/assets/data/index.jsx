@@ -12,7 +12,7 @@ import {
 import { RxHome } from 'react-icons/rx';
 import { BiCategoryAlt } from 'react-icons/bi';
 import { PiBookOpenTextDuotone } from 'react-icons/pi';
-import { BsQuestionDiamond } from 'react-icons/bs';
+import { BsQuestionDiamond, BsEye } from 'react-icons/bs';
 import { TiContacts } from 'react-icons/ti';
 import { MdEdit } from 'react-icons/md';
 import { IoMdTrash } from 'react-icons/io';
@@ -1857,7 +1857,7 @@ export const members = [
     },
 ];
 
-export const WrappedColumnsTableMember = ({ handleRemove = () => {}, handleEdit = () => {} }) => {
+export const WrappedColumnsTableMember = ({ onRemove = () => {}, onEdit = () => {}, onView = () => {} }) => {
     return [
         {
             title: 'ID',
@@ -1899,11 +1899,19 @@ export const WrappedColumnsTableMember = ({ handleRemove = () => {}, handleEdit 
             title: 'Action',
             render: (value) => {
                 return (
-                    <div className={`gap-4 flex justify-center items-center `}>
+                    <div className={`gap-4 flex justify-start items-center `}>
                         <AnimateHover
                             onClick={(e) => {
                                 e.stopPropagation();
-                                handleEdit(value);
+                                onView(value);
+                            }}
+                        >
+                            <BsEye className="w-6 h-6 brightness-50 text-white"></BsEye>
+                        </AnimateHover>
+                        <AnimateHover
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                onEdit(value);
                             }}
                         >
                             <MdEdit className="w-6 h-6 text-blue-600"></MdEdit>
@@ -1911,7 +1919,7 @@ export const WrappedColumnsTableMember = ({ handleRemove = () => {}, handleEdit 
                         <AnimateHover
                             onClick={(e) => {
                                 e.stopPropagation();
-                                handleRemove(value);
+                                onRemove(value);
                             }}
                         >
                             <IoMdTrash className="w-6 h-6 text-red-600"></IoMdTrash>
@@ -2266,7 +2274,7 @@ export const productManagersItems = [
         branch: 'Branch 20',
     },
 ];
-export const WrappedColumnsTableProduct = ({ handleRemove = () => {}, handleEdit = () => {} }) => {
+export const WrappedColumnsTableProduct = ({ onRemove = () => {}, onEdit = () => {}, onView = () => {} }) => {
     return [
         {
             title: 'ID',
@@ -2317,7 +2325,7 @@ export const WrappedColumnsTableProduct = ({ handleRemove = () => {}, handleEdit
             filed: 'branch',
         },
         {
-            title: 'Active',
+            title: 'Status',
             render: (value) => {
                 let classStyle = '';
                 if (value) {
@@ -2325,7 +2333,7 @@ export const WrappedColumnsTableProduct = ({ handleRemove = () => {}, handleEdit
                 } else {
                     classStyle = 'bg-[rgba(50,179,156,0.1)] text-[rgba(50,179,156,1)] ';
                 }
-                const text = value ? 'Block' : 'Active';
+                const text = value ? 'Draft' : 'Published';
                 return (
                     <div
                         className={`${classStyle} w-fit p-1 pl-2 pr-2 text-xs rounded-lg flex justify-center items-center `}
@@ -2340,11 +2348,19 @@ export const WrappedColumnsTableProduct = ({ handleRemove = () => {}, handleEdit
             title: 'Action',
             render: (value) => {
                 return (
-                    <div className={`gap-4 flex justify-center items-center `}>
+                    <div className={`gap-4 flex justify-start items-center `}>
                         <AnimateHover
                             onClick={(e) => {
                                 e.stopPropagation();
-                                handleEdit(value);
+                                onView(value);
+                            }}
+                        >
+                            <BsEye className="w-6 h-6 brightness-50 text-white"></BsEye>
+                        </AnimateHover>
+                        <AnimateHover
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                onEdit(value);
                             }}
                         >
                             <MdEdit className="w-6 h-6 text-blue-600"></MdEdit>
@@ -2352,7 +2368,7 @@ export const WrappedColumnsTableProduct = ({ handleRemove = () => {}, handleEdit
                         <AnimateHover
                             onClick={(e) => {
                                 e.stopPropagation();
-                                handleRemove(value);
+                                onRemove(value);
                             }}
                         >
                             <IoMdTrash className="w-6 h-6 text-red-600"></IoMdTrash>
@@ -2363,4 +2379,45 @@ export const WrappedColumnsTableProduct = ({ handleRemove = () => {}, handleEdit
             filed: 'id',
         },
     ];
+};
+
+//
+export const productDemo = {
+    name: 'Sample Product',
+    description: `<h1>Cẩm nang build PC: Ổ cứng RAID là gì, dùng có tốt không?</h1><p><img src="https://secure.gravatar.com/avatar/b4a315efb8017a64c9457ac4c8824985?s=96&amp;d=mm&amp;r=g"><a href="https://cellphones.com.vn/sforum/author/thangvo" rel="noopener noreferrer" target="_blank" style="background-color: transparent; color: rgb(247, 13, 40);"><strong>BOOKGRINDER</strong></a></p><p><a href="https://cellphones.com.vn/sforum/cam-nang-build-pc-o-cung-raid" rel="noopener noreferrer" target="_blank" style="background-color: transparent; color: rgb(101, 101, 101);">28/10/2023</a></p><p>&nbsp;</p><p><br></p><p class="ql-align-justify"><strong>Trong kỳ Cẩm nang build PC tuần này của Sforum,mời bạn đọc cùng Sforum tìm hiểu về&nbsp;</strong><a href="https://cellphones.com.vn/sforum" rel="noopener noreferrer" target="_blank" style="background-color: transparent; color: rgb(51, 122, 183);"><strong>công nghệ</strong></a><strong>&nbsp;ổ cứng RAID, và những ưu nhược điểm của nó.</strong>Khi nói đến lưu trữ dữ liệu trên máy tính, người dùng bình thường chỉ quan tâm đến việc nên mua HDD hay SSD, bao nhiêu TB, thương hiệu nào,… Nhưng những ai muốn build một dàn PC tốt, có hiệu năng cao và an toàn cho dữ liệu sẽ phải chú ý đến một điều khác nữa: ổ cứng RAID. Vậy thì RAID là gì, tại sao nó lại giúp máy hoạt động nhanh hơn, giữ dữ liệu an toàn hơn, và bạn có nên sử dụng nó?<img src="https://cdn.sforum.vn/sforum/wp-content/uploads/2023/09/cam-nang-build-pc-7.jpg"><em>build pc cho dân kiến trúc</em></p><p class="ql-align-justify">Mục lục</p><ul><li class="ql-align-justify"><a href="https://cellphones.com.vn/sforum/cam-nang-build-pc-o-cung-raid#raid-la-gi" rel="noopener noreferrer" target="_blank" style="background-color: transparent; color: rgb(68, 68, 68);">RAID là gì?</a></li><li class="ql-align-justify"><a href="https://cellphones.com.vn/sforum/cam-nang-build-pc-o-cung-raid#ban-can-gi-de-dung-raid" rel="noopener noreferrer" target="_blank" style="background-color: transparent; color: rgb(68, 68, 68);">Bạn cần gì để dùng RAID?</a></li><li class="ql-align-justify"><a href="https://cellphones.com.vn/sforum/cam-nang-build-pc-o-cung-raid#raid-0" rel="noopener noreferrer" target="_blank" style="background-color: transparent; color: rgb(68, 68, 68);">RAID 0</a></li><li class="ql-align-justify"><a href="https://cellphones.com.vn/sforum/cam-nang-build-pc-o-cung-raid#raid-1" rel="noopener noreferrer" target="_blank" style="background-color: transparent; color: rgb(68, 68, 68);">RAID 1</a></li><li class="ql-align-justify"><a href="https://cellphones.com.vn/sforum/cam-nang-build-pc-o-cung-raid#raid-0-1-hay-raid-10" rel="noopener noreferrer" target="_blank" style="background-color: transparent; color: rgb(68, 68, 68);">RAID 0+1 (hay RAID 10)</a></li><li class="ql-align-justify"><a href="https://cellphones.com.vn/sforum/cam-nang-build-pc-o-cung-raid#raid-5" rel="noopener noreferrer" target="_blank" style="background-color: transparent; color: rgb(68, 68, 68);">RAID 5</a></li><li class="ql-align-justify"><a href="https://cellphones.com.vn/sforum/cam-nang-build-pc-o-cung-raid#jbod" rel="noopener noreferrer" target="_blank" style="background-color: transparent; color: rgb(68, 68, 68);">JBOD</a></li><li class="ql-align-justify"><a href="https://cellphones.com.vn/sforum/cam-nang-build-pc-o-cung-raid#tam-ket" rel="noopener noreferrer" target="_blank" style="background-color: transparent; color: rgb(68, 68, 68);">Tạm kết</a></li></ul><h2 class="ql-align-justify"><strong>RAID là gì?</strong></h2><h2 class="ql-align-justify">RAID là viết tắt của cụm từ “redundant array of independent disks”, một kỹ thuật lưu trữ dữ liệu trong đó nhiều ổ cứng vật lý được kết nối lại với nhau để tạo thành một hoặc vài ổ cứng logic. Mục tiêu của nó là giúp cho việc lưu trữ dữ liệu trên máy tính được nhanh chóng hơn, hoặc an toàn hơn, hoặc cả hai cùng một lúc.Có một vài phương án lắp ổ cứng RAID khác nhau mà người ta gọi là RAID level (cấp RAID), chẳng hạn RAID 0, RAID 1,... Theo thời gian và sự tiến bộ của công nghệ, có nhiều phương án RAID mới được tạo ra trong đó có những giải pháp độc quyền của các hãng máy tính.<img src="https://cdn.sforum.vn/sforum/wp-content/uploads/2023/10/cam-nang-build-pc-raid-2.jpg">Chú ý rằng RAID level cao hơn không hẳn là ưu việt hơn so với RAID level thấp hơn, mà đơn giản chỉ là chúng khác biệt nhau. Mỗi cấp RAID có ưu tiên khác nhau về tốc độ, sự an toàn, và dung lượng. Sforum sẽ nói rõ về từng cấp RAID trong phần kế tiếp của bài viết.<strong>Bạn cần gì để dùng RAID?</strong></h2><p class="ql-align-justify">Để chạy được RAID, bạn cần có ít nhất hai ổ đĩa cứng và một card điều khiển RAID, hoặc bo mạch chủ hỗ trợ RAID, hoặc phần mềm RAID. Mỗi giải pháp có ưu nhược điểm khác nhau nhưng hãy chú ý rằng nếu bo mạch chủ hay card RAID “tử nạn”, bạn buộc phải tìm được một card hoặc bo mạch chủ cùng model để có thể lấy lại dữ liệu của mình. Do đó, Sforum khuyên bạn nên chọn giải pháp phần mềm RAID để giữ dữ liệu an toàn.</p><p><br></p>
+console.js:267 <h1>Cẩm nang build PC: Ổ cứng RAID là gì, dùng có tốt không?</h1><p><img src="https://secure.gravatar.com/avatar/b4a315efb8017a64c9457ac4c8824985?s=96&amp;d=mm&amp;r=g"><a href="https://cellphones.com.vn/sforum/author/thangvo" rel="noopener noreferrer" target="_blank" style="background-color: transparent; color: rgb(247, 13, 40);"><strong>BOOKGRINDER</strong></a></p><p><a href="https://cellphones.com.vn/sforum/cam-nang-build-pc-o-cung-raid" rel="noopener noreferrer" target="_blank" style="background-color: transparent; color: rgb(101, 101, 101);">28/10/2023</a></p><p>&nbsp;</p><p><br></p><p class="ql-align-justify"><strong>Trong kỳ Cẩm nang build PC tuần này của Sforum,mời bạn đọc cùng Sforum tìm hiểu về&nbsp;</strong><a href="https://cellphones.com.vn/sforum" rel="noopener noreferrer" target="_blank" style="background-color: transparent; color: rgb(51, 122, 183);"><strong>công nghệ</strong></a><strong>&nbsp;ổ cứng RAID, và những ưu nhược điểm của nó.</strong>Khi nói đến lưu trữ dữ liệu trên máy tính, người dùng bình thường chỉ quan tâm đến việc nên mua HDD hay SSD, bao nhiêu TB, thương hiệu nào,… Nhưng những ai muốn build một dàn PC tốt, có hiệu năng cao và an toàn cho dữ liệu sẽ phải chú ý đến một điều khác nữa: ổ cứng RAID. Vậy thì RAID là gì, tại sao nó lại giúp máy hoạt động nhanh hơn, giữ dữ liệu an toàn hơn, và bạn có nên sử dụng nó?<img src="https://cdn.sforum.vn/sforum/wp-content/uploads/2023/09/cam-nang-build-pc-7.jpg"><em>build pc cho dân kiến trúc</em></p><p class="ql-align-justify">Mục lục</p><ul><li class="ql-align-justify"><a href="https://cellphones.com.vn/sforum/cam-nang-build-pc-o-cung-raid#raid-la-gi" rel="noopener noreferrer" target="_blank" style="background-color: transparent; color: rgb(68, 68, 68);">RAID là gì?</a></li><li class="ql-align-justify"><a href="https://cellphones.com.vn/sforum/cam-nang-build-pc-o-cung-raid#ban-can-gi-de-dung-raid" rel="noopener noreferrer" target="_blank" style="background-color: transparent; color: rgb(68, 68, 68);">Bạn cần gì để dùng RAID?</a></li><li class="ql-align-justify"><a href="https://cellphones.com.vn/sforum/cam-nang-build-pc-o-cung-raid#raid-0" rel="noopener noreferrer" target="_blank" style="background-color: transparent; color: rgb(68, 68, 68);">RAID 0</a></li><li class="ql-align-justify"><a href="https://cellphones.com.vn/sforum/cam-nang-build-pc-o-cung-raid#raid-1" rel="noopener noreferrer" target="_blank" style="background-color: transparent; color: rgb(68, 68, 68);">RAID 1</a></li><li class="ql-align-justify"><a href="https://cellphones.com.vn/sforum/cam-nang-build-pc-o-cung-raid#raid-0-1-hay-raid-10" rel="noopener noreferrer" target="_blank" style="background-color: transparent; color: rgb(68, 68, 68);">RAID 0+1 (hay RAID 10)</a></li><li class="ql-align-justify"><a href="https://cellphones.com.vn/sforum/cam-nang-build-pc-o-cung-raid#raid-5" rel="noopener noreferrer" target="_blank" style="background-color: transparent; color: rgb(68, 68, 68);">RAID 5</a></li><li class="ql-align-justify"><a href="https://cellphones.com.vn/sforum/cam-nang-build-pc-o-cung-raid#jbod" rel="noopener noreferrer" target="_blank" style="background-color: transparent; color: rgb(68, 68, 68);">JBOD</a></li><li class="ql-align-justify"><a href="https://cellphones.com.vn/sforum/cam-nang-build-pc-o-cung-raid#tam-ket" rel="noopener noreferrer" target="_blank" style="background-color: transparent; color: rgb(68, 68, 68);">Tạm kết</a></li></ul><h2 class="ql-align-justify"><strong>RAID là gì?</strong></h2><h2 class="ql-align-justify">RAID là viết tắt của cụm từ “redundant array of independent disks”, một kỹ thuật lưu trữ dữ liệu trong đó nhiều ổ cứng vật lý được kết nối lại với nhau để tạo thành một hoặc vài ổ cứng logic. Mục tiêu của nó là giúp cho việc lưu trữ dữ liệu trên máy tính được nhanh chóng hơn, hoặc an toàn hơn, hoặc cả hai cùng một lúc.Có một vài phương án lắp ổ cứng RAID khác nhau mà người ta gọi là RAID level (cấp RAID), chẳng hạn RAID 0, RAID 1,... Theo thời gian và sự tiến bộ của công nghệ, có nhiều phương án RAID mới được tạo ra trong đó có những giải pháp độc quyền của các hãng máy tính.<img src="https://cdn.sforum.vn/sforum/wp-content/uploads/2023/10/cam-nang-build-pc-raid-2.jpg">Chú ý rằng RAID level cao hơn không hẳn là ưu việt hơn so với RAID level thấp hơn, mà đơn giản chỉ là chúng khác biệt nhau. Mỗi cấp RAID có ưu tiên khác nhau về tốc độ, sự an toàn, và dung lượng. Sforum sẽ nói rõ về từng cấp RAID trong phần kế tiếp của bài viết.<strong>Bạn cần gì để dùng RAID?</strong></h2><p class="ql-align-justify">Để chạy được RAID, bạn cần có ít nhất hai ổ đĩa cứng và một card điều khiển RAID, hoặc bo mạch chủ hỗ trợ RAID, hoặc phần mềm RAID. Mỗi giải pháp có ưu nhược điểm khác nhau nhưng hãy chú ý rằng nếu bo mạch chủ hay card RAID “tử nạn”, bạn buộc phải tìm được một card hoặc bo mạch chủ cùng model để có thể lấy lại dữ liệu của mình. Do đó, Sforum khuyên bạn nên chọn giải pháp phần mềm RAID để giữ dữ liệu an toàn.</p><p><br></p>`,
+    shortDescription: 'This is a sample product description.',
+    thumbnails: 'https://example.com/sample-thumbnail.jpg',
+    screenSize: 6.2,
+    color: {
+        name: 'Green',
+        codeColor: '#cccc',
+        id: 0,
+    },
+    quantity: 10,
+    branch: {
+        name: 'Apple',
+        id: 0,
+    },
+    category: {
+        name: 'Laptop',
+        id: 0,
+    },
+    gallery: [
+        {
+            id: 1,
+            link: 'https://example.com/sample-image1.jpg',
+        },
+        {
+            id: 2,
+            link: 'https://example.com/sample-image2.jpg',
+        },
+    ],
+    price: 12,
+    quantity: 10,
+    screenSize: 6.2,
+    chipSet: 'Apple m1',
+    status: 0,
+    isDelete: 0,
+    datePublished: '22/10/2023',
 };

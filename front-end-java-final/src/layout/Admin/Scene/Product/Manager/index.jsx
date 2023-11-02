@@ -1,37 +1,52 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { motion } from 'framer-motion';
 import SubHeader from '../../../Includes/SubHeader';
 import { AnimateHover, AnimateOpacity } from '../../../../../components/Animate';
-import { Button, Input, TextMain, PickedRangeDate, Select, TableCustom, Editor } from '../../../../../components';
+import {
+    Button,
+    Input,
+    TextMain,
+    PickedRangeDate,
+    Select,
+    TableCustom,
+    Editor,
+    MultiSelect,
+} from '../../../../../components';
 
 import { IoIosAdd } from 'react-icons/io';
 import { IoSearchOutline } from 'react-icons/io5';
-import { GiSettingsKnobs } from 'react-icons/gi';
+import { AiOutlineClose } from 'react-icons/ai';
 import { BsTrash } from 'react-icons/bs';
 
 import { productManagersItems, WrappedColumnsTableProduct } from '../../../../../assets/data';
 import ModalConfirmRemove from '../../../Includes/ModalConfirmRemove';
+import Constants from '../../../../../Constants';
 
-function Manager({ setOrder }) {
+import MainFilter from './MainFilter';
+
+function Manager({}) {
+    const history = useNavigate();
+    const [filters, setFilters] = useState({});
+    const [search, setSearch] = useState('');
     const [data, setData] = useState('');
 
+    // data
+
+    // filter data
     const [confirmRemoveMember, setConfirmRemoveMember] = useState(false);
     const [editProduct, setEditProduct] = useState(false);
     const [memberSelected, setMemberSelected] = useState([]);
     const columnsProduct = WrappedColumnsTableProduct({
-        handleRemove: (value) => {
+        onRemove: (value) => {
             setConfirmRemoveMember(true);
         },
-        handleEdit: (value) => {
-            // setEditMember(true);
-            console.log('test');
-            setOrder((pre) => {
-                return {
-                    ...pre,
-                    submenu: 3,
-                };
-            });
+        onEdit: (value) => {
+            history(Constants.ADMIN_EDIT_PRODUCT + '/' + value);
+        },
+        onView: (value) => {
+            history(Constants.ADMIN_DETAIL_PRODUCT + '/' + value);
         },
     });
 
@@ -57,8 +72,21 @@ function Manager({ setOrder }) {
             )} */}
             {/* end modal */}
             <SubHeader nameHeader={'Products'} sub="Manager" main="Products"></SubHeader>
-            <AnimateOpacity>
-                <motion.div className="p-4 rounded-md bg-light dark:bg-dark mt-10">
+            <AnimateOpacity className={'flex justify-between gap-4'}>
+                <motion.div className="p-4 rounded-md bg-light dark:bg-dark mt-10 w-1/5 h-fit flex flex-col gap-4">
+                    <div className="flex justify-between items-center border-b-[1px] border-dashed border-light-tiny dark:border-dark-tiny pb-2">
+                        <TextMain>Filter</TextMain>
+                        <Button className="underline underline-primary hover:text-primary brightness-50 hover:brightness-100">
+                            Clear all
+                        </Button>
+                    </div>
+
+                    {/* main filter */}
+                    <MainFilter filters={filters} setFilters={setFilters}></MainFilter>
+
+                    {/* end main filter */}
+                </motion.div>
+                <motion.div className="p-4 rounded-md bg-light dark:bg-dark mt-10 w-4/5">
                     <motion.div className="flex justify-between items-center border-b-[1px] border-dashed pb-4 dark:border-dark-tiny border-light-tiny">
                         <TextMain>Product list</TextMain>
                         <div className="flex justify-end items-center gap-4">
@@ -71,7 +99,7 @@ function Manager({ setOrder }) {
                                     <BsTrash className="w-6 h-6"></BsTrash>
                                 </AnimateHover>
                             )}
-                            <Button style="normal">
+                            <Button style="normal" onClick={() => history(Constants.ADMIN_ADD_PRODUCT)}>
                                 <IoIosAdd className="w-6 h-6 mr-2"></IoIosAdd>
                                 <span>Add Product</span>
                             </Button>
@@ -89,15 +117,6 @@ function Manager({ setOrder }) {
                         <motion.div className="flex w-full justify-end items-center gap-5">
                             <PickedRangeDate></PickedRangeDate>
                             <Select className="w-full "></Select>
-                            <Button
-                                style=""
-                                className={
-                                    'min-w-[10rem] w-full flex items-center justify-center bg-btn-primary rounded-md text-white'
-                                }
-                            >
-                                <GiSettingsKnobs className="w-6 h-6 mr-3"></GiSettingsKnobs>
-                                <span>Filters</span>
-                            </Button>
                         </motion.div>
                     </motion.div>
 

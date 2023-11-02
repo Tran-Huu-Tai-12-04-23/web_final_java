@@ -47,7 +47,7 @@ function ModalItem({ children, onClose = () => {}, close = false }) {
                     duration: 0.3,
                     ease: 'easeInOut',
                 }}
-                className="relative overflow-hidden p-10 shadow-xl w-fit h-fit bg-white dark:bg-dark  rounded-xl flex flex-col "
+                className="relative  p-10 shadow-xl w-fit h-fit bg-white dark:bg-dark  rounded-xl flex flex-col "
             >
                 <AnimateHover
                     onClick={handleClose}

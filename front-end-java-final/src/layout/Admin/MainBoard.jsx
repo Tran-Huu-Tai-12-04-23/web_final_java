@@ -10,7 +10,7 @@ const variants = {
     open: { width: '100vw', x: '-15rem' },
     closed: { width: 'calc(100vw - 15rem)', x: 0 },
 };
-function MainBoard({ activeSidebar, setActiveSidebar, order, setOrder }) {
+function MainBoard({ activeSidebar, setActiveSidebar, order, setOrder, children }) {
     return (
         <motion.div
             initial={{
@@ -23,17 +23,7 @@ function MainBoard({ activeSidebar, setActiveSidebar, order, setOrder }) {
             <Header activeSidebar={activeSidebar} setActiveSidebar={setActiveSidebar}></Header>
 
             <div className=" select-none dark:text-dark text-light  dark:bg-dark-second bg-light-second p-10">
-                <Suspense fallback={<div> loading...</div>}>
-                    {order.menu === 1 && <DashBoard></DashBoard>}
-                    {order.menu === 2 && <ManagerMember></ManagerMember>}
-                    {order.menu === 3 && (
-                        <ManagerProduct
-                            setActiveSidebar={setActiveSidebar}
-                            setOrder={setOrder}
-                            order={order}
-                        ></ManagerProduct>
-                    )}
-                </Suspense>
+                <Suspense fallback={<div> loading...</div>}>{children}</Suspense>
             </div>
         </motion.div>
     );

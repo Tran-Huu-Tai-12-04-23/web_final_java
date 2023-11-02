@@ -1,28 +1,52 @@
-import React from 'react';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import React, { useEffect, useRef } from 'react';
+import ReactQuill, { Quill, editor } from 'react-quill';
+// import ImageResize  from 'quill-image-resize-module';
+import 'react-quill/dist/quill.snow.css';
 
-function Editor({ onChange, value }) {
+import CustomToolbar from './CustomToolbar';
+import './style.css';
+
+// Quill.register('modules/ImageResize',ImageResize);
+const Editor = ({ value, onChange = (value) => console.log(value) }) => {
+    const handleChange = (html) => {
+        onChange(html);
+    };
+    const modules = {
+        toolbar: {
+            container: '#toolbar',
+        },
+    };
+    const formats = [
+        'undo',
+        'redo',
+        'font',
+        'size',
+        'bold',
+        'italic',
+        'underline',
+        'strike',
+        'color',
+        'background',
+        'script',
+        'header',
+        'blockquote',
+        'code-block',
+        'indent',
+        'list',
+        'direction',
+        'align',
+        'link',
+        'image',
+        'video',
+        'formula',
+    ];
+
     return (
-        <div>
-            <CKEditor
-                editor={ClassicEditor}
-                data={value}
-                config={{
-                    ckfinder: {
-                        uploadUrl: 'https://api.imgbb.com/1/upload?expiration=600&key=5d5efefbe072ed037f95dc62c9143141', // Đặt URL của bạn ở đây
-                    },
-                }}
-                onReady={(editor) => {
-                    // Bạn có thể truy cập instance CKEditor ở đây nếu cần
-                }}
-                onChange={(event, editor) => {
-                    const data = editor.getData();
-                    onChange(data);
-                }}
-            />
-        </div>
+        <>
+            <CustomToolbar />
+            <ReactQuill value={value} onChange={handleChange} modules={modules} formats={formats} />
+        </>
     );
-}
+};
 
 export default Editor;

@@ -1,26 +1,24 @@
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
-function Button({
-    children,
-    style = 'default',
-    className,
-    clickAnimate = true,
-    bgHover = '#ef819c',
-    onClick = () => {},
-    id = '',
-}) {
+function Button({ children, style = 'default', className = 'p-2', onClick = () => {}, id = '' }) {
     const [classStyle, setClassStyle] = useState('');
 
     useEffect(() => {
         switch (style) {
             case 'normal': {
-                setClassStyle('bg-btn-second text-primary w-max rounded-md flex justify-between items-center');
+                setClassStyle(
+                    'bg-btn-second text-primary rounded-md flex p-2 justify-between items-center hover:brightness-125',
+                );
                 break;
             }
             case 'outline': {
                 setClassStyle(
-                    'flex justify-center items-center w-max rounded-md text-primary border-2 border-solid border-primary bg-transparent',
+                    'flex justify-center items-center rounded-md text-primary border-2 border-solid border-primary bg-transparent p-2 hover:brightness-125',
                 );
+                break;
+            }
+            case 'submit': {
+                setClassStyle('bg-submit text-white pl-4 pr-4 p-2 rounded-md flex justify-between items-center');
                 break;
             }
             case 'default': {
@@ -51,7 +49,7 @@ function Button({
                 duration: 0.3,
                 ease: 'easeInOut',
             }}
-            className={`${classStyle} pl-2 pr-2  ${className} p-2 text-sm  hover:bg-[${bgHover}] `}
+            className={`${classStyle}  ${className}  `}
         >
             {children}
         </motion.button>

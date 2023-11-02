@@ -1,0 +1,39 @@
+.ql-size.ql-picker.ql-expanded,
+.ql-editor.ql-blank,
+.ql-toolbar.ql-snow,
+.ql-picker-options,
+.ql-size,
+.ql-snow .ql-picker,
+.ql-container.ql-snow,
+.ql-toolbar .ql-snow .ql-formats,
+.ql-snow .ql-picker svg {
+    @apply bg-transparent  border-light-tiny dark:border-dark-tiny text-light dark:text-dark;
+}
+.ql-container.ql-snow {
+    @apply bg-light-tiny dark:bg-dark-tiny rounded-b-md;
+}
+.ql-container.ql-snow {
+    min-height: 20rem;
+}
+.ql-toolbar.ql-snow {
+    @apply bg-btn-second rounded-t-md border-t-[1px] shadow-md;
+}
+
+.ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-label {
+    @apply border-transparent;
+}
+.ql-snow .ql-fill,
+.ql-snow .ql-stroke.ql-fill {
+    @apply fill-black dark:fill-white;
+}
+.ql-snow .ql-stroke {
+    @apply stroke-black dark:stroke-white;
+}
+
+.ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-options {
+    @apply bg-btn-second rounded-md border-none shadow-md backdrop-blur-3xl;
+}
+
+[data-slate-node='element'] {
+    margin: 10px 0;
+}

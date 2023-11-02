@@ -18,11 +18,13 @@ function ManagerMember() {
     const [confirmRemoveMember, setConfirmRemoveMember] = useState(false);
     const [editMember, setEditMember] = useState(false);
     const [memberSelected, setMemberSelected] = useState([]);
+    const [filters, setFilters] = useState(null);
+    const [search, setSearch] = useState('');
     const columnsMember = WrappedColumnsTableMember({
-        handleRemove: (value) => {
+        onRemove: (value) => {
             setConfirmRemoveMember(true);
         },
-        handleEdit: (value) => {
+        onEdit: (value) => {
             setEditMember(true);
         },
     });
@@ -75,16 +77,47 @@ function ManagerMember() {
                         <Input
                             placeholder="Search for name, email, phone number, something, ... "
                             className="w-full"
+                            onChange={(e) => setSearch(e.target.value)}
                             iconRight={<IoSearchOutline className="w-6 h-6 mr-3"></IoSearchOutline>}
                         ></Input>
 
                         <motion.div className="flex w-full justify-end items-center gap-5">
-                            <PickedRangeDate></PickedRangeDate>
-                            <Select className="w-full "></Select>
+                            <PickedRangeDate
+                                onSelect={(value) => {
+                                    setFilters((prev) => {
+                                        return {
+                                            ...prev,
+                                            rangeDate: value,
+                                        };
+                                    });
+                                }}
+                            ></PickedRangeDate>
+                            <Select
+                                className="w-full "
+                                name="Status"
+                                value={filters !== null ? filters.status : null}
+                                onSelect={(value) => {
+                                    setFilters((prev) => {
+                                        return {
+                                            ...prev,
+                                            status: value,
+                                        };
+                                    });
+                                }}
+                                subMenu={[
+                                    {
+                                        name: 'Active',
+                                        value: true,
+                                    },
+                                    {
+                                        name: 'In Active',
+                                        value: false,
+                                    },
+                                ]}
+                            ></Select>
                             <Button
-                                style=""
                                 className={
-                                    'min-w-[10rem] w-full flex items-center justify-center bg-btn-primary rounded-md text-white'
+                                    'min-w-[10rem] p-2 w-full flex items-center justify-center bg-btn-primary rounded-md text-white'
                                 }
                             >
                                 <GiSettingsKnobs className="w-6 h-6 mr-3"></GiSettingsKnobs>

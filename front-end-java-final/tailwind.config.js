@@ -4,6 +4,7 @@ module.exports = {
         './index.html',
         './src/**/*.{js,ts,jsx,tsx}',
         './node_modules/react-tailwindcss-datepicker/dist/index.esm.js',
+        'node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}',
     ],
     darkMode: 'class',
     theme: {
@@ -25,8 +26,9 @@ module.exports = {
                 hover: 'rgba(247, 101, 163,0.1)',
                 sale: 'rgba(245, 110, 35,0.3)',
                 second: '#ffe5f1',
-                'light-tiny': 'rgba(0, 0, 0, 0.1)',
-                'dark-tiny': 'rgba(255, 255, 255, 255, 0.1)',
+                'light-tiny': 'rgba(255, 255, 255, 0.1)',
+                'dark-tiny': 'rgb(31, 41, 57)',
+                submit: 'rgb(27, 166, 79)',
             },
             textColor: {
                 dark: '#fff',
@@ -34,6 +36,7 @@ module.exports = {
                 hover: '#f765a3',
                 sale: 'rgba(245, 110, 35,1)',
                 primary: 'rgb(251, 111, 146)',
+                second: '#757575',
             },
             height: {
                 header: '3rem',
@@ -58,4 +61,5 @@ module.exports = {
             },
         },
     },
+    plugins: [require('flowbite/plugin')],
 };
