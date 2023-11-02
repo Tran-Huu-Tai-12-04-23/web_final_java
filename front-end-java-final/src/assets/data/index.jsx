@@ -52,6 +52,12 @@ const NavHeader = [
         icon: <TiContacts className="h-6 w-6"></TiContacts>,
         subNav: [],
     },
+    {
+        name: 'Account',
+        path: '/account',
+        icon: <BiCategoryAlt className="h-6 w-6"></BiCategoryAlt>,
+        subNav: [],
+    },
 ];
 
 const UserMenu = [

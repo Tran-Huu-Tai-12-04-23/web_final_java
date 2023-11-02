@@ -43,4 +43,5 @@ function BriefInfor() {
     );
 }
 
+
 export default BriefInfor;

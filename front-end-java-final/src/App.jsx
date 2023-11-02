@@ -2,7 +2,7 @@ import { lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useEffect, useRef } from 'react';
 import { Loading, Modal } from './components';
-import {  MainLayout } from './layout';
+import {  AccountLayout, MainLayout } from './layout';
 import { useTheme } from './context/theme';
 import { motion, useScroll, AnimatePresence } from 'framer-motion';
 import { Toaster } from 'react-hot-toast';
@@ -77,9 +77,15 @@ function App() {
                                             </MainLayout>
                                         }
                                     />
-                                    {/* <Route path="contact" element={<Contact />} /> */}
+                                    <Route path="account"
+                                        index
+                                        element={
+                                            <AccountLayout>
+                                                
+                                            </AccountLayout>
+                                        }
+                                    />
                                     <Route
-                                
                                         path="sign"
                                         element={
                                             <MainLayout>
