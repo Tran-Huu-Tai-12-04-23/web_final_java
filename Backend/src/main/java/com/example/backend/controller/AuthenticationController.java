@@ -1,10 +1,7 @@
 package com.example.backend.controller;
 
 
-import com.example.backend.dto.ErrorResponse;
-import com.example.backend.dto.JWTAuthenticationResponse;
-import com.example.backend.dto.RefreshTokenRequest;
-import com.example.backend.dto.SignUpMemberRequest;
+import com.example.backend.dto.*;
 import com.example.backend.model.Account;
 import com.example.backend.model.Member;
 import com.example.backend.service.AuthenticationService;
@@ -37,8 +34,16 @@ public class AuthenticationController {
     }
 
     @PostMapping("/sign-in")
-    public ResponseEntity<JWTAuthenticationResponse> signIn(@RequestBody Account account) {
-        return ResponseEntity.ok(authenticationService.signIn(account));
+    public ResponseEntity<?> signIn(@RequestBody Account account) {
+        JWTAuthenticationResponse jwtAuthenticationResponse = authenticationService.signIn(account);
+
+        Member member = authenticationService.getMember(account.getUsername());
+        System.out.println(member.getEmail());
+
+        if( member == null) return ResponseEntity.badRequest().body("Member not found");
+
+        SignInResponse signInResponse = new SignInResponse(member, jwtAuthenticationResponse);
+        return ResponseEntity.ok(signInResponse);
     }
 
     @PostMapping("/refresh-token")

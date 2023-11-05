@@ -3,6 +3,7 @@ package com.example.backend.controller.admin;
 import com.example.backend.dto.ErrorResponse;
 import com.example.backend.model.Member;
 import com.example.backend.model.Product;
+import com.example.backend.model.ProductSpecification;
 import com.example.backend.service.IProductService;
 import com.example.backend.utils.AppConstants;
 import com.example.backend.utils.Utils;
@@ -33,6 +34,18 @@ public class ProductController {
     @PostMapping("/create")
     public ResponseEntity<?> createProduct(@RequestBody Product product) {
         try{
+            ProductSpecification productSpecification = product.getProductSpecification();
+
+            if(productSpecification == null )   return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Product Specification product is not null!");
+
+            productSpecification = iProductService.createNewProductSpecification(productSpecification);
+
+            if( productSpecification == null ) {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Upload product failed!");
+            }
+
+            product.setProductSpecification(productSpecification);
+
             iProductService.validateProductRequest(product);
             return ResponseEntity.ok(iProductService.createNew(product));
         }catch (Exception e) {
@@ -60,6 +73,7 @@ public class ProductController {
     @PutMapping("/update/{id}")
     public ResponseEntity<?> editProduct(@RequestBody Product product, @PathVariable Long id) {
         try{
+
             iProductService.validateProductRequest(product);
             Product updateProduct = iProductService.update(product, id);
             return ResponseEntity.ok(updateProduct);
@@ -126,4 +140,6 @@ public class ProductController {
             return  ResponseEntity.status(HttpStatus.BAD_REQUEST ).body(err);
         }
     }
+
+
 }

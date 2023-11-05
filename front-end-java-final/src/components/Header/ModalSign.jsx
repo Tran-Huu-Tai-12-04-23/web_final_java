@@ -6,7 +6,7 @@ import { useState } from 'react';
 import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
 
-function ModalSign({ onClose = () => {} }) {
+function ModalSign({ onClose = () => {}, setAccount = () => {} }) {
     const [y, setY] = useState(0);
     const [opacity, setOpacity] = useState(1);
     const [active, setActive] = useState(0);
@@ -25,11 +25,11 @@ function ModalSign({ onClose = () => {} }) {
     const tabs = [
         {
             name: 'LOGIN',
-            tabContent: <LoginForm />,
+            tabContent: <LoginForm onClose={onClose} setAccount={setAccount} />,
         },
         {
             name: 'CREATE ACCOUNT',
-            tabContent: <RegisterForm />,
+            tabContent: <RegisterForm switchLogin={() => setActive(0)} />,
         },
     ];
     return (

@@ -126,5 +126,11 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         return null;
     }
 
+    @Override
+    public Member getMember(String username) {
+       Account account =  accountRepository.findByUsername(username).orElseThrow(() -> new IllegalAccessError("Account not found"));
+        if( account == null) return null;
 
+        return memberRepository.findByAccount(account);
+    }
 }

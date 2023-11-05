@@ -42,8 +42,8 @@ public class MemberController {
             err.setMessage(err.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(err);
         }
-
     }
+
     @GetMapping("/search")
     public ResponseEntity<?> searchMember(
             @RequestParam String key,

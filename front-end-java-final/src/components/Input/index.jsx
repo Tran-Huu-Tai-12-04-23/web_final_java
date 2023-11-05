@@ -33,7 +33,7 @@ function Input({
                     disabled={disabled}
                     value={value}
                     onChange={onChange}
-                    type={type === 'password' && password === true ? 'password' : type}
+                    type={type === 'password' && password == true ? 'password' : 'text'}
                     placeholder={placeholder}
                     style={{
                         border: 'none',

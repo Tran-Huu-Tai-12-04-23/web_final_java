@@ -1,4 +1,4 @@
-function Pagination({ page, activePage, setActivePage }) {
+function Pagination({ page, activePage, setActivePage = () => {} }) {
     const numberPages = Array.from({ length: page }, (_, index) => index + 1);
 
     const renderPageNumber = () => {
@@ -110,7 +110,7 @@ function Pagination({ page, activePage, setActivePage }) {
     };
 
     return (
-        <nav className="flex justify-center items-center w-full">
+        <nav className="flex justify-center items-center w-fit">
             <ul className="inline-flex -space-x-px text-sm">
                 <li
                     onClick={() =>

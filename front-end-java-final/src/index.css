@@ -55,3 +55,21 @@
 .border-primary-style {
     @apply border-dashed border-[1px] border-light-tiny dark:border-dark-tiny;
 }
+
+.bg-office {
+    @apply bg-gradient-to-b from-[rgb(255,164,182,0.8)] via-[rgb(255,164,182,0.5)] to-[rgb(255,230,232,0.1)];
+}
+
+.bg-slim {
+    @apply bg-gradient-to-b from-[rgb(190,41,236,0.8)] via-[rgb(190,41,236,0.6)] to-[rgb(190,41,236,0.1)];
+}
+
+.bg-graphic {
+    @apply bg-gradient-to-b from-[rgba(33,147,176,0.9)] via-[rgba(33,147,176,0.5)] to-[rgba(33,147,176,0.1)];
+}
+.bg-gaming {
+    @apply bg-gradient-to-b from-[rgba(204,43,94,0.9)] via-[rgba(204,43,94,0.5)] to-[rgba(204,43,94,0.1)];
+}
+.bg-touch {
+    @apply bg-gradient-to-b from-[rgba(222,98,98,0.9)] via-[rgba(222,98,98,0.5)] to-[rgba(222,98,98,0.1)];
+}

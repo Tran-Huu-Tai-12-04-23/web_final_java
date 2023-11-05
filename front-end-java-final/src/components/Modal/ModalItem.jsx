@@ -4,7 +4,7 @@ import { AiOutlineClose } from 'react-icons/ai';
 import { AnimateHover } from '../Animate';
 import { useEffect, useState } from 'react';
 
-function ModalItem({ children, onClose = () => {}, close = false }) {
+function ModalItem({ children, onClose = () => {}, close = false, className = '' }) {
     const [y, setY] = useState(0);
     const [opacity, setOpacity] = useState(1);
 
@@ -24,6 +24,25 @@ function ModalItem({ children, onClose = () => {}, close = false }) {
             handleClose();
         }
     }, [close]);
+
+    useEffect(() => {
+        const handleClose = async () => {
+            setY(-100);
+            setOpacity(0);
+            const waitClose = async () => {
+                setTimeout(() => {
+                    onClose();
+                }, 400);
+            };
+            await waitClose();
+        };
+
+        window.addEventListener('click', handleClose);
+
+        return () => {
+            window.removeEventListener('click', handleClose);
+        };
+    }, []);
 
     return (
         <Modal>
@@ -47,7 +66,7 @@ function ModalItem({ children, onClose = () => {}, close = false }) {
                     duration: 0.3,
                     ease: 'easeInOut',
                 }}
-                className="relative  p-10 shadow-xl w-fit h-fit bg-white dark:bg-dark  rounded-xl flex flex-col "
+                className={`${className} relative  p-10 shadow-xl w-full h-full bg-white dark:bg-dark  rounded-xl flex flex-col `}
             >
                 <AnimateHover
                     onClick={handleClose}

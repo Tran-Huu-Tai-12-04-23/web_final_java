@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { TextMain, MultiSelect, InputCountNumberCustom, TextSub } from '../../../../../components';
+import { TextMain, MultiSelect, InputCountNumberCustom, TextSub, Button } from '../../../../../components';
 
 import { AiOutlineClose } from 'react-icons/ai';
 
@@ -96,8 +96,13 @@ function MainFilter({ filters = {}, setFilters = () => {} }) {
         }
     };
     return (
-        <div className="gap-2 flex flex-col">
-            <TextMain className={''}>Select branch</TextMain>
+        <div className="gap-2 flex flex-col shadow-2xl border-primary-style p-4 rounded-md">
+            <Button
+                className={' mb-5 mt-5 p-2 text-xl bg-second text-primary flex justify-center items-center rounded-md'}
+            >
+                Clear
+            </Button>
+            <TextMain className={'border-t-primary pt-10'}>Select branch</TextMain>
             <MultiSelect
                 active={activeMultiSelect === 1}
                 onActive={() => {
@@ -194,7 +199,7 @@ function MainFilter({ filters = {}, setFilters = () => {} }) {
             <TextMain className={'uppercase border-dashed border-b-[1px] border-light-tiny dark:border-dark-tiny pb-2'}>
                 PRICE
             </TextMain>
-            <label for="minmax-range" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            <label htmlFor="minmax-range" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                 Min price
             </label>
             <input
@@ -238,7 +243,7 @@ function MainFilter({ filters = {}, setFilters = () => {} }) {
                 }}
             ></InputCountNumberCustom>
 
-            <label for="minmax-range" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            <label htmlFor="minmax-range" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                 Max price
             </label>
             <input

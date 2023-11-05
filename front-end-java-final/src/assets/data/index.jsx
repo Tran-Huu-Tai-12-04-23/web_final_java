@@ -8,14 +8,17 @@ import {
     CiInstagram,
     CiShoppingBasket,
     CiHome,
+    CiMobile3,
 } from 'react-icons/ci';
 import { RxHome } from 'react-icons/rx';
 import { BiCategoryAlt } from 'react-icons/bi';
-import { PiBookOpenTextDuotone } from 'react-icons/pi';
-import { BsQuestionDiamond, BsEye } from 'react-icons/bs';
+import { PiBookOpenTextDuotone, PiDesktopLight } from 'react-icons/pi';
+import { BsQuestionDiamond, BsTabletLandscape, BsSmartwatch, BsClockHistory } from 'react-icons/bs';
 import { TiContacts } from 'react-icons/ti';
 import { MdEdit } from 'react-icons/md';
 import { IoMdTrash } from 'react-icons/io';
+import { TfiHeadphone } from 'react-icons/tfi';
+import { BsEye } from 'react-icons/bs';
 
 import shipping from '../img/shipping.png';
 import policy from '../img/policy.png';
@@ -57,9 +60,9 @@ const NavHeader = [
 
 const UserMenu = [
     {
-        name: 'Tran Huu Tai',
+        name: 'Profile',
         icon: <CiFaceSmile className="h-6 w-6" />,
-        path: '/account',
+        path: '/profile',
     },
     {
         name: 'Orders',
@@ -73,7 +76,7 @@ const UserMenu = [
     },
     {
         name: 'Sign Out',
-        path: '/sign-out',
+        path: '/#',
         icon: <CiLogout className="h-6 w-6" />,
     },
 ];
@@ -172,7 +175,34 @@ const Category = [
     },
 ];
 
-export { NavHeader, UserMenu, ContactSocial, HomeService, Category };
+const Products = [
+    {
+        name: 'Tech',
+        icon: <CiMobile3 className="h-6 w-6" />,
+    },
+    {
+        name: 'Game',
+        icon: <PiDesktopLight className="h-6 w-6" />,
+    },
+    {
+        name: 'Review',
+        icon: <BsTabletLandscape className="h-6 w-6" />,
+    },
+    {
+        name: 'Market',
+        icon: <TfiHeadphone className="h-6 w-6" />,
+    },
+    {
+        name: 'Design',
+        icon: <BsSmartwatch className="h-6 w-6" />,
+    },
+    {
+        name: 'Guidance',
+        icon: <BsClockHistory className="h-6 w-6" />,
+    },
+];
+
+export { NavHeader, UserMenu, ContactSocial, HomeService, Category, Products };
 
 // data api hard
 
@@ -2421,3 +2451,37 @@ console.js:267 <h1>Cẩm nang build PC: Ổ cứng RAID là gì, dùng có tốt
     isDelete: 0,
     datePublished: '22/10/2023',
 };
+
+export const OutPurpose = [
+    {
+        name: 'Office',
+        linkImg:
+            'https://cdn2.cellphones.com.vn/insecure/rs:fill:150:0/q:70/plain/https://cellphones.com.vn/media/icons/category/laptop/filter-cate-971.svg',
+        classBackground: 'bg-office',
+    },
+
+    {
+        name: 'Slim',
+        linkImg:
+            'https://cdn2.cellphones.com.vn/insecure/rs:fill:150:0/q:70/plain/https://cellphones.com.vn/media/icons/category/laptop/filter-cate-1071.svg',
+        classBackground: 'bg-slim',
+    },
+    {
+        name: 'Graphic',
+        linkImg:
+            'https://cdn2.cellphones.com.vn/insecure/rs:fill:150:0/q:70/plain/https://cellphones.com.vn/media/icons/category/laptop/filter-cate-972.svg',
+        classBackground: 'bg-graphic',
+    },
+    {
+        name: 'Gaming',
+        linkImg:
+            'https://cdn2.cellphones.com.vn/insecure/rs:fill:150:0/q:70/plain/https://cellphones.com.vn/media/icons/category/laptop/filter-cate-973.svg',
+        classBackground: 'bg-gaming',
+    },
+    {
+        name: 'Touch Screen',
+        linkImg:
+            'https://cdn2.cellphones.com.vn/insecure/rs:fill:150:0/q:70/plain/https://cellphones.com.vn/media/icons/category/laptop/filter-cate-974.svg',
+        classBackground: 'bg-touch',
+    },
+];

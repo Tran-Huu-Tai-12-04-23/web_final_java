@@ -5,8 +5,10 @@ import com.example.backend.exception.NotFoundException;
 import com.example.backend.model.Account;
 import com.example.backend.model.Member;
 import com.example.backend.model.Product;
+import com.example.backend.model.ProductSpecification;
 import com.example.backend.repository.MemberRepository;
 import com.example.backend.repository.ProductRepository;
+import com.example.backend.repository.ProductSpecificationRepository;
 import com.example.backend.service.IProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ProductService implements IProductService {
     private final ProductRepository productRepository;
+    private final ProductSpecificationRepository productSpecificationRepository;
 
     @Override
     public Product createNew(Product pro) throws Exception {
@@ -114,5 +117,10 @@ public class ProductService implements IProductService {
         }else {
             return  listProduct;
         }
+    }
+
+    @Override
+    public ProductSpecification createNewProductSpecification(ProductSpecification productSpecification) {
+        return productSpecificationRepository.save(productSpecification);
     }
 }

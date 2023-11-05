@@ -24,3 +24,6 @@ export { default as Editor } from './Editor';
 export { default as InputCountNumberCustom } from './InputCountNumberCustom';
 export { default as MultiSelect } from './MultiSelect';
 export { default as Carousel } from './Carousel';
+export { default as MainScreenShowProduct } from './MainScreenShowProduct';
+export { default as BannerSuperSale } from './BannerSuperSale';
+export { default as TimeLine } from './TimeLine';

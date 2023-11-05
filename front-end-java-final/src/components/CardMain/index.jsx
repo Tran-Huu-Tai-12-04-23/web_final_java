@@ -6,7 +6,7 @@ import { AiFillStar } from 'react-icons/ai';
 import { BsSuitHeartFill } from 'react-icons/bs';
 import { CiHeart, CiShoppingCart } from 'react-icons/ci';
 
-import { TextMain, TextSub } from '../index';
+import { TextSub } from '../index';
 function CardMain({ width, sale = true }) {
     const color = ['gray', 'white', 'black'];
     const [isHovered, setHovered] = useState(false);
@@ -34,7 +34,7 @@ function CardMain({ width, sale = true }) {
             }}
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
-            className={`${width} group flex-shrink-0 dark:text-white bg-white dark:bg-primary text-black shadow-md relative cursor-pointer p-2 rounded-lg overflow-hidden`}
+            className={`${width} group flex-shrink-0 dark:text-white bg-white dark:bg-dark-tiny text-black shadow-md relative cursor-pointer p-2 rounded-lg overflow-hidden`}
         >
             <motion.div className="absolute right-4 top-1/4 flex justify-center items-center flex-col">
                 {color.map((col, index) => {
@@ -57,13 +57,15 @@ function CardMain({ width, sale = true }) {
                     className="max-w-[10rem] w-1/2 rounded-lg"
                 ></motion.img>
             </motion.div>
-            <motion.div className="flex p-2 flex-col">
-                <TextMain className="group-hover:text-primary">Apple macbook air 15 pro max</TextMain>
-                <motion.div className="w-full h-10 overflow-hidden">
+            <motion.div className="flex p-2 flex-col ">
+                <h5 className="group-hover:text-primary pb-4 text-md text-[1rem] font-bold text-second dark:text-white truncate">
+                    Apple macbook air 15 pro max{' '}
+                </h5>
+                <motion.div className="w-full h-14 overflow-hidden">
                     <motion.div
                         initial={false}
                         animate={{ y: isHovered ? '100%' : 0 }}
-                        className="flex n justify-between items-end w-full mt-2"
+                        className="flex justify-between items-end w-full mt-6"
                     >
                         <motion.div className="flex flex-col">
                             <TextSub className="line-through">35$</TextSub>
@@ -77,7 +79,7 @@ function CardMain({ width, sale = true }) {
                     <motion.div
                         initial={false}
                         animate={{ y: isHovered ? '-100%' : 0 }}
-                        className="flex translate-y-[100%] justify-between items-center w-full p-1"
+                        className="flex translate-y-[100%] justify-between items-center w-full h-full"
                     >
                         <Button style={'outline'}>
                             <CiShoppingCart className="h-4 w-4" />

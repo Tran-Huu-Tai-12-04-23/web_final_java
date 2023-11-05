@@ -62,7 +62,7 @@ function Home() {
     ];
 
     return (
-        <motion.div className=" mt-header pt-20 pb-10 w-full overflow-hidden pl-10 pr-10">
+        <motion.div className=" mt-header pt-20 pb-10 w-full overflow-hidden pl-10 pr-10 max-w-screen-xl m-auto">
             <Banner></Banner>
             <ServiceHome />
             <CategoryHome />

@@ -29,4 +29,5 @@ public class Member {
     private Double accumulatePoints;
 
 
+ 
 }

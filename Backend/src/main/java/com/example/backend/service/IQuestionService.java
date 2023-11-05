@@ -1,20 +1,19 @@
 package com.example.backend.service;
 
 import com.example.backend.model.Product;
+import com.example.backend.model.Question;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface IProductService {
-    Product createNew(Product pro) throws Exception;
-    boolean deleteSoft(Long id);
+public interface IQuestionService {
+    Question createNew(Question ques) throws Exception;
     boolean delete(Long id);
-    Product update(Product pro, Long id);
-    List<Product> getAll(Integer page, Integer size);
-    Optional<Product> getProduct(Long id);
+    Question update(Question ques, Long id);
+    List<Question> getAll(Integer page, Integer size);
+    Optional<Question> getQuestion(Long id);
 
-    void validateProductRequest(Product product);
 
-    List<Product> search(String key, Integer page, Integer size);
+    List<Question> search(String key, Integer page, Integer size);
 
 }

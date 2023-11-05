@@ -3,7 +3,7 @@ import axios from 'axios';
 class APIService {
     constructor() {
         this.client = axios.create({
-            baseURL: process.env.BASE_URL_API, // Thay thế bằng URL của API của bạn
+            baseURL: process.env.BASE_URL_API || 'http://localhost:8099/api/v1/', // Thay thế bằng URL của API của bạn
         });
 
         this.client.interceptors.response.use(this.handleSuccess, this.handleError);
@@ -14,16 +14,7 @@ class APIService {
     }
 
     handleError(error) {
-        if (error.response) {
-            // Xử lý lỗi từ phản hồi HTTP (HTTP error)
-            return Promise.reject(error.response.data);
-        } else if (error.request) {
-            // Xử lý lỗi liên quan đến việc gửi yêu cầu (request error)
-            return Promise.reject('Network error. Please try again later.');
-        } else {
-            // Xử lý lỗi khác
-            return Promise.reject('An error occurred. Please try again later.');
-        }
+        return null;
     }
     get(subURL) {
         return this.client.get(subURL);

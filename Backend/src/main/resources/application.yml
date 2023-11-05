@@ -3,11 +3,11 @@ server:
 
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3307/final_java_backend
+    url: jdbc:mysql://localhost:3306/final_java_backend
     username: root
-    password: tai2k300
+    password: admin123
     driver-class-name: com.mysql.jdbc.Driver
   jpa:
-#    hibernate:
-#      ddl-auto: create
+    hibernate:
+      ddl-auto: create
     show-sql: true

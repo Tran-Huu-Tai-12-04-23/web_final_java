@@ -32,7 +32,6 @@ function Button({ children, style = 'default', className = 'p-2', onClick = () =
             onClick={onClick}
             whileTap={{
                 scale: 0.8,
-                borderRadius: '10%',
                 transition: { duration: 0.3 },
             }}
             whileHover={{ scale: 1, transition: { duration: 0.3 } }}

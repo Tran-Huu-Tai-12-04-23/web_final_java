@@ -3,6 +3,7 @@ import { useRef, useState } from 'react';
 import ScrollContainer from 'react-indiana-drag-scroll';
 import Slider from 'react-slick';
 import { AnimateOpacity } from '../Animate';
+import { Modal, ModalItem } from '../../components';
 
 import { IoIosArrowForward, IoIosArrowBack } from 'react-icons/io';
 
@@ -44,7 +45,8 @@ const defaultData = [
     ,
 ];
 
-function Carousel({ data = defaultData }) {
+function Carousel({ data = defaultData, onDoubleClick = () => {} }) {
+    const [viewMode, setViewMode] = useState(false);
     const [active, setActive] = useState(0);
     const sliderRef = useRef(null);
 
@@ -68,28 +70,35 @@ function Carousel({ data = defaultData }) {
 
     return (
         <div className=" w-full group overflow-hidden relative">
-            <Slider
-                ref={sliderRef}
-                slickGoTo={active}
-                {...settings}
-                className="border-none focus:border-none relative cursor-pointer p-4 rounded-xl  mb-4 bg-light-tiny dark:bg-dark-tiny "
-            >
-                {data.map((item, index) => (
-                    <motion.div
-                        whileHover={{ scale: 1, transition: { duration: 0.3 } }}
-                        whileTap={{
-                            scale: 0.9,
-                            transition: { duration: 0.3 },
-                        }}
-                        key={index}
-                        className={'w-full rounded-xl '}
-                    >
-                        <motion.img src={item} alt={'sale'} className=" rounded-xl max-h-[40rem] m-auto"></motion.img>
-                    </motion.div>
-                ))}
-            </Slider>
-
-            {/* arrow */}
+            <>
+                <Slider
+                    ref={sliderRef}
+                    slickGoTo={active}
+                    {...settings}
+                    className="border-none focus:border-none relative cursor-pointer p-4 rounded-xl  mb-4 bg-light-tiny dark:bg-dark-tiny "
+                >
+                    {data.map((item, index) => (
+                        <motion.div
+                            whileHover={{ scale: 1, transition: { duration: 0.3 } }}
+                            whileTap={{
+                                scale: 0.9,
+                                transition: { duration: 0.3 },
+                            }}
+                            key={index}
+                            onDoubleClick={() => {
+                                onDoubleClick();
+                            }}
+                            className={'w-full rounded-xl '}
+                        >
+                            <motion.img
+                                src={item}
+                                alt={'sale'}
+                                className=" rounded-xl max-h-[40rem] m-auto"
+                            ></motion.img>
+                        </motion.div>
+                    ))}
+                </Slider>
+            </>
             <AnimateOpacity
                 onClick={prevSlide}
                 className="group-hover:flex hidden rounded-full absolute top-1/3 left-4  w-fit  justify-center  group items-center bg-btn-second p-2"

@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { NavHeader, UserMenu } from '../../assets/data';
 import logo from '../../assets/img/logo.png';
 import { CiUser, CiSearch, CiShoppingBasket, CiBrightnessDown, CiCloudMoon } from 'react-icons/ci';
@@ -7,17 +7,51 @@ import { CiUser, CiSearch, CiShoppingBasket, CiBrightnessDown, CiCloudMoon } fro
 import MenuUser from './MenuUser';
 import { AnimateHover, AnimateText } from '../Animate';
 import { useTheme } from '../../context/theme';
+import { useLogin } from '../../context/login';
 
 import { motion } from 'framer-motion';
 import { ModalSearch, Button } from '../index';
 import ModalSign from './ModalSign';
+import { IoGift } from 'react-icons/io5';
+import Util from '../../utils/Util';
+import toast from 'react-hot-toast';
+import Constants from '../../Constants';
 
 function Header() {
     const { theme, setTheme } = useTheme();
+    const { account, setAccount } = useLogin();
     const [menuUser, setMenuUser] = useState(false);
     const [modalSearch, setModalSearch] = useState(false);
     const [modalSign, setModalSign] = useState(false);
-    const [login, setLogin] = useState(false);
+    const location = useLocation();
+    const history = useNavigate();
+    const [activeNav, setActiveNav] = useState(0);
+
+    useEffect(() => {
+        const pathName = location.pathname;
+
+        switch (pathName) {
+            case Constants.PRODUCT: {
+                setActiveNav(1);
+                break;
+            }
+            case Constants.BLOGS: {
+                setActiveNav(2);
+                break;
+            }
+            case Constants.FAQ: {
+                setActiveNav(3);
+                break;
+            }
+            case Constants.CONTACT: {
+                setActiveNav(4);
+                break;
+            }
+            default: {
+                setActiveNav(0);
+            }
+        }
+    }, [location]);
 
     const renderHeader = () => {
         return NavHeader.map((item, index) => {
@@ -25,7 +59,9 @@ function Header() {
                 <Link
                     to={item.path}
                     key={index}
-                    className="text-light dark:text-dark hover:text-hover dark:hover:text-hover cursor-pointer rounded-md px-3 py-2 text-sm"
+                    className={`${
+                        index === activeNav ? 'text-primary' : 'text-light dark:text-dark'
+                    }   hover:text-hover dark:hover:text-hover cursor-pointer rounded-md px-3 py-2 text-sm`}
                 >
                     {item.name}
                 </Link>
@@ -36,14 +72,16 @@ function Header() {
     const renderHeaderIcon = () => {
         return NavHeader.map((item, index) => {
             return (
-                <Link
-                    to={item.path}
+                <Button
                     key={index}
+                    onClick={() => {
+                        history(item.path);
+                    }}
                     className="w-1/5 text-white flex flex-col justify-center items-center dark:text-dark hover:text-hover dark:hover:text-hover cursor-pointer rounded-md px-3 py-2 text-sm"
                 >
                     {item.icon}
                     <span>{item.name}</span>
-                </Link>
+                </Button>
             );
         });
     };
@@ -51,23 +89,32 @@ function Header() {
     const renderUserMenu = () => {
         return UserMenu.map((item, index) => {
             return (
-                <Link
+                <Button
                     to={item.path}
                     key={index}
+                    onClick={() => {
+                        if (item.name.toLowerCase() == 'sign out') {
+                            setAccount(null);
+                            Util.logOut();
+                            toast.success('Log out successfully!');
+                        } else {
+                            history(item.path);
+                        }
+                    }}
                     className={`${
                         index === UserMenu.length - 1 && 'rounded-b-lg '
                     } flex justify-start items-center hover:text-hover dark:bg-dark-menu bg-light-menu backdrop-blur-lg pl-4 pr-4 p-2 text-sm hover:brightness-150 dark:hover:bg-dark-hover hover:bg-light-hover`}
                 >
                     {item.icon}
                     <span className="ml-2">{item.name}</span>
-                </Link>
+                </Button>
             );
         });
     };
 
     return (
         <>
-            {modalSign && <ModalSign onClose={(e) => setModalSign(!modalSign)}></ModalSign>}
+            {modalSign && <ModalSign onClose={(e) => setModalSign(!modalSign)} setAccount={setAccount}></ModalSign>}
             {modalSearch && <ModalSearch onClose={(e) => setModalSearch(!modalSearch)} />}
             <div
                 className={
@@ -111,15 +158,15 @@ function Header() {
                             </AnimateText>
                         </AnimateHover>
                     )}
-                    {!login && (
+                    {account === null && (
                         <Button className="ml-5 pt-1 pb-1" style="outline" onClick={(e) => setModalSign(true)}>
                             BUY NOW
                         </Button>
                     )}
 
-                    {login && (
+                    {account !== null && (
                         <AnimateHover>
-                            <motion.div className="relative">
+                            <motion.div onClick={() => history('/cart')} className="relative">
                                 <CiShoppingBasket className="h-6 w-6 mr-2 cursor-pointer hover:text-hover"></CiShoppingBasket>
                                 <motion.div
                                     className="absolute top-0 rounded-full h-4 w-4 flex justify-center items-center right-0"
@@ -131,7 +178,7 @@ function Header() {
                         </AnimateHover>
                     )}
 
-                    {login && (
+                    {account !== null && (
                         <div
                             className="relative group"
                             onMouseEnter={(e) => setMenuUser(true)}

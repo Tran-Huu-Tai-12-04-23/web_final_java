@@ -40,7 +40,7 @@ function Tabs({ tabs = [], active = 0, style = 'default', classItem = '', setAct
             </motion.div>
             <motion.div className="w-full">
                 {tabs.map((item, index) => {
-                    return <>{index == active && item.tabContent}</>;
+                    return <div key={index}>{index == active && item.tabContent}</div>;
                 })}
             </motion.div>
         </motion.div>
