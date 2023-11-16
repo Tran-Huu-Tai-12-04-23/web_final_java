@@ -1,6 +1,7 @@
 package com.example.backend.service;
 
 import com.example.backend.model.Blog;
+import com.example.backend.model.CategoryBlog;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,5 +19,6 @@ public interface IBlogService {
     List<Blog> search(String key, Integer page,Integer size);
 
     void validateBlogRequest(Blog blog);
+    List<CategoryBlog> getAllCategory();
 
 }

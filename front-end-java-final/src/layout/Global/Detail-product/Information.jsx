@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Tabs } from '../../../components';
 import Description from './Description';
+import Specifications from './Specifications';
 import Questions from './Questions';
 import Reviews from './Reviews';
 
@@ -8,7 +9,7 @@ import { BiBookContent } from 'react-icons/bi';
 import { BsPatchQuestion } from 'react-icons/bs';
 import { GoCodeReview } from 'react-icons/go';
 
-function Information() {
+function Information({ data }) {
     const [activeTab, setActiveTab] = useState(0);
     const tabs = [
         {
@@ -16,7 +17,14 @@ function Information() {
             icon: (
                 <BiBookContent className="w-6 h-6 brightness-50 group-hover:text-primary group-hover:brightness-100"></BiBookContent>
             ),
-            tabContent: <Description />,
+            tabContent: <Description data={data?.description} />,
+        },
+        {
+            name: 'Specifications',
+            icon: (
+                <BiBookContent className="w-6 h-6 brightness-50 group-hover:text-primary group-hover:brightness-100"></BiBookContent>
+            ),
+            tabContent: <Specifications data={data?.productSpecification} />,
         },
         {
             name: 'Questions',

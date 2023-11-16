@@ -21,7 +21,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class BlogController {
     private final IBlogService iBlogService;
-    @GetMapping("/all")
+    @GetMapping()
     public ResponseEntity<?> getAllBlogNotDelete(
             @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
             @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size
@@ -50,7 +50,7 @@ public class BlogController {
         }
     }
 
-    @PostMapping("/create")
+    @PostMapping
     public ResponseEntity<?> createBlog(@RequestBody Blog blog) {
         try{
             iBlogService.validateBlogRequest(blog);

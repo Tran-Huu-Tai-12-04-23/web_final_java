@@ -1,28 +1,23 @@
 import { motion } from 'framer-motion';
 import { AnimateOpacity } from '../../../components/Animate';
-import { Button, TextHeader, TextMain } from '../../../components';
+import { Button, TextHeader, TextMain, TextSub } from '../../../components';
 
 import { HiOutlineHomeModern } from 'react-icons/hi2';
 import { BsPatchCheck } from 'react-icons/bs';
 import { TbTruckDelivery } from 'react-icons/tb';
-import Slider from 'react-slick';
+import { colorOptions } from '../../../assets/data';
 
-var settings = {
-    dots: false,
-    infinite: true,
-    speed: 300,
-    slidesToShow: 1,
-    arrows: true,
-    slidesToScroll: 1,
-};
-
-const listOptions = ['8GB ram - 512gb ssd', '16GB ram - 512gb ssd', '16GB ram - 1TB ssd'];
-function Summary() {
+function Summary({ data }) {
+    console.log(data);
+    const color = colorOptions.filter((cl) => cl?.name?.toLowerCase() === data?.color?.toLowerCase())[0];
     return (
         <AnimateOpacity className="w-full">
-            <TextHeader className={'font-bold max-w-[50rem] truncate overflow-hidden'}>
-                MacBook Pro M2 MNEJ3 2022 LLA 13.3 inch
-            </TextHeader>
+            <div className="flex gap-4 justify-start items-end">
+                <TextHeader className={'font-bold max-w-[50rem] truncate overflow-hidden'}>{data?.name}</TextHeader>
+                <TextSub className={'text-second max-w-[50rem] truncate overflow-hidden'}>
+                    {data?.shortDescription}
+                </TextSub>
+            </div>
 
             <TextMain className={'text-xl text-primary font-bold'}>Sold : 33 item</TextMain>
 
@@ -43,60 +38,50 @@ function Summary() {
 
             <div className="flex mt-4 flex-col gap-4">
                 <div className="">
-                    <TextMain className={'text-xl'}>Select color</TextMain>
+                    <TextMain className={'text-xl'}>Color</TextMain>
 
                     <div className="mt-2 flex justify-start items-center gap-2">
-                        <div className="rounded-full cursor-pointer hover:brightness-125 p-4 bg-red-500"></div>
-                        <div className="rounded-full cursor-pointer hover:brightness-125 p-4 bg-green-500"></div>
-                        <div className="rounded-full cursor-pointer hover:brightness-125 p-4 bg-gray-500"></div>
+                        <div
+                            className="rounded-full w-4 h-4 cursor-pointer hover:brightness-125 p-4 "
+                            style={{
+                                background: color?.hexCode,
+                            }}
+                        ></div>
+                        <span> {color?.name}</span>
                     </div>
                 </div>
 
                 <ul className="flex flex-col gap-4 max-w-[26rem] m-4  rounded-md p-4 text-md list-disc">
                     <li className="flex justify-start items-center ">
                         <span className="min-w-[10rem]">Branch :</span>
-                        <div className=" text-left font-bold">Apple</div>
+                        <div className=" text-left font-bold">{data?.branch?.nameBranch}</div>
                     </li>
                     <li className="flex justify-start items-center ">
                         <span className="min-w-[10rem]">Category : </span>
-                        <div className=" text-left font-bold">Laptop</div>
-                    </li>
-                    <li className="flex justify-start items-center ">
-                        <span className="min-w-[10rem]">Modern : </span>
-                        <div className=" text-left font-bold">Apple m1</div>
+                        <div className=" text-left font-bold">{data?.category?.nameCategory}</div>
                     </li>
                     <li className="flex justify-start items-center ">
                         <span className="min-w-[10rem]">Screen size : </span>
-                        <div className=" text-left font-bold">13.3 inches</div>
+                        <div className=" text-left font-bold">{data?.screenSize}</div>
                     </li>
                     <li className="flex justify-start items-center ">
                         <span className="min-w-[10rem]">CPU model : </span>
-                        <div className=" text-left font-bold">m2</div>
+                        <div className=" text-left font-bold">{data?.productSpecification?.typeCPU}</div>
                     </li>
                 </ul>
                 <div className="max-w-[28rem] p-4 pt-0">
-                    <Slider
-                        {...settings}
-                        className="border-none  focus:border-none relative cursor-pointer p-4 rounded-xl  mb-4  "
+                    <motion.div
+                        whileHover={{ scale: 1, transition: { duration: 0.3 } }}
+                        whileTap={{
+                            scale: 0.99,
+                            transition: { duration: 0.1 },
+                        }}
+                        className="rounded-md w-fit p-2 hover:bg-btn-second text-center cursor-pointer"
                     >
-                        {listOptions.map((option, index) => {
-                            return (
-                                <motion.div
-                                    whileHover={{ scale: 1, transition: { duration: 0.3 } }}
-                                    whileTap={{
-                                        scale: 0.99,
-                                        transition: { duration: 0.1 },
-                                    }}
-                                    key={index}
-                                    className="rounded-md w-fit p-2 hover:bg-btn-second text-center cursor-pointer"
-                                >
-                                    <Button className="m-auto" style={'outline'}>
-                                        {option}
-                                    </Button>
-                                </motion.div>
-                            );
-                        })}
-                    </Slider>
+                        <Button className="m-auto" style={'outline'}>
+                            {data?.productSpecification?.ramCapacity + ' - ' + data?.productSpecification?.hardDrive}
+                        </Button>
+                    </motion.div>
                 </div>
             </div>
         </AnimateOpacity>

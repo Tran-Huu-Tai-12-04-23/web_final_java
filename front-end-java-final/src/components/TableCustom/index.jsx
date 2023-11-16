@@ -15,22 +15,31 @@ export default function TableCustom({
     searchBy = '',
     pagination = false,
     numberRow = 5,
+    searchValue = '',
 }) {
     const [numberRowShow, setNumberRowShow] = useState(numberRow);
     const [page, setPage] = useState(0);
-    const [activePage, setActivePage] = useState(1);
-    const [dataShow, setDataShow] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [dataShow, setDataShow] = useState(data);
     const [checkedItems, setCheckedItems] = useState([]);
     const [checkAll, setCheckAll] = useState(false);
     const [search, setSearch] = useState('');
     const [filteredItems, setFilteredItems] = useState(dataShow);
 
     useEffect(() => {
-        if (search) {
-            const filtered = dataShow.filter((item) => item[searchBy].toLowerCase().includes(search.toLowerCase()));
-            setFilteredItems(filtered);
+        if (searchValue !== '') {
+        }
+    }, []);
+    useEffect(() => {
+        if (search !== '') {
+            // const filtered = dataShow.filter((item) => item[searchBy].toLowerCase().includes(search.toLowerCase()));
+            // setFilteredItems(filtered);
         }
     }, [search, dataShow]);
+
+    useEffect(() => {
+        setDataShow(data);
+    }, [data]);
 
     useEffect(() => {
         setCheckedData(checkedItems);
@@ -42,13 +51,20 @@ export default function TableCustom({
     }, [checkedItems]);
 
     useEffect(() => {
-        const newData = getPaginatedData(activePage, numberRowShow, data);
-        setDataShow(newData);
+        if (page > 1) {
+            const newData = getPaginatedData(currentPage, numberRowShow, data);
+            setDataShow(newData);
+        }
         handleUncheckAllItems();
-    }, [page, numberRowShow, activePage]);
+    }, [page, numberRowShow, currentPage]);
 
     useEffect(() => {
-        setPage(Math.ceil(data.length / numberRowShow));
+        const totalPage = Math.ceil(data.length / numberRowShow);
+        setPage(totalPage);
+
+        if (currentPage > totalPage) {
+            setCurrentPage(totalPage);
+        }
     }, [data, numberRowShow]);
 
     const renderColumns = () => {
@@ -112,7 +128,7 @@ export default function TableCustom({
                                 }}
                                 type="checkbox"
                                 checked={check}
-                                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                className="input-no"
                             />
                         </th>
                     )}
@@ -227,7 +243,7 @@ export default function TableCustom({
                                     }}
                                     id="checkbox-all-search"
                                     type="checkbox"
-                                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                    className="input-no"
                                 />
                             </th>
                         )}
@@ -240,10 +256,10 @@ export default function TableCustom({
 
             {pagination && (
                 <div className="mt-3 float-right flex justify-end items-center">
-                    <div className="flex justify-start items-center mr-3">
+                    <div className="flex justify-start items-center mr-3 mt-3">
                         <label
                             htmlFor="countries"
-                            className="block mr-3 text-sm font-medium text-gray-900 dark:text-white"
+                            className="block mr-3  text-sm font-medium text-gray-900 dark:text-white"
                         >
                             Rows
                         </label>
@@ -253,13 +269,19 @@ export default function TableCustom({
                                 setNumberRowShow(parseInt(e.target.value));
                             }}
                             id="countries"
-                            className="dark:bg-gray-800 light:bg-light  border border-light-tiny dark:border-dark-tiny text-gray-900 text-sm rounded-lg block w-fit p-1 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            className="h-8 dark:bg-gray-800 light:bg-light  border border-light-tiny dark:border-dark-tiny text-gray-900 text-sm rounded-lg block w-fit p-1 dark:placeholder-gray-400 dark:text-white dark:focus:ring-transparent dark:focus:border-primary"
                         >
                             {renderOptionNumberRowShows()}
                         </select>
                     </div>
 
-                    <Pagination page={page} activePage={activePage} setActivePage={setActivePage}></Pagination>
+                    {page > 1 && (
+                        <Pagination
+                            currentPage={currentPage}
+                            onPageChange={setCurrentPage}
+                            totalPages={page}
+                        ></Pagination>
+                    )}
                 </div>
             )}
         </div>

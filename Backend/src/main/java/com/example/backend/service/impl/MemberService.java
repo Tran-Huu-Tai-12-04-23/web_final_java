@@ -48,9 +48,9 @@ public class MemberService implements IMemberService {
     }
 
     @Override
-    public List<Member> getAllAccount(Integer page,Integer size) {
+    public List<Member> getAllAccountNotDelete(Integer page,Integer size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "email"));
-        return memberRepository.findAll(pageable).toList();
+        return memberRepository.findAllByIsDeleteFalse(pageable);
     }
 
     @Override
@@ -61,14 +61,31 @@ public class MemberService implements IMemberService {
     @Override
     public Member deleteSoftMember(Long id) {
         Optional<Member> member = memberRepository.findById(id);
-
         if( member.isPresent() ) {
             Optional<Account> account = accountRepository.findById(member.get().getAccount().getId());
-
             if( account.isPresent()) {
-                account.get().setIsDelete(true);
                 accountRepository.save(account.get());
                 member.get().setAccount(account.get());
+                member.get().setIsDelete(true);
+                memberRepository.save(member.get());
+                return member.get();
+            }else {
+                throw new NotFoundException("Member is not found!");
+            }
+        }else {
+            throw new NotFoundException("Member is not found!");
+        }
+    }
+
+    @Override
+    public Member blockMember(Long id) {
+        Optional<Member> member = memberRepository.findById(id);
+        if( member.isPresent() ) {
+            Optional<Account> account = accountRepository.findById(member.get().getAccount().getId());
+            if( account.isPresent()) {
+                accountRepository.save(account.get());
+                member.get().setAccount(account.get());
+                member.get().setStatus(false);
                 memberRepository.save(member.get());
                 return member.get();
             }else {

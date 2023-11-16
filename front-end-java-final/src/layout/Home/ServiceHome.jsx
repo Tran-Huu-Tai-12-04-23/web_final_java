@@ -22,9 +22,7 @@ function ServiceHome() {
         });
     };
     return (
-        <AnimateOpacity
-            className={'mt-20 -ml-10 flex-wrap -mr-10 min-h-[30rem] bg-second flex justify-between items-center'}
-        >
+        <AnimateOpacity className={' -ml-10 flex-wrap -mr-10 min-h-[30rem] flex justify-between items-center'}>
             {renderHomeService()}
         </AnimateOpacity>
     );

@@ -1,24 +1,20 @@
 import { TextMain, TextSub } from '../../components';
 
-function ItemOrderSummary() {
+function ItemOrderSummary({ data }) {
+    console.log(data);
     return (
         <div className="flex p-4 cursor-pointer justify-between gap-4 border-primary-style rounded-md hover:brightness-125 bg-light-tiny dark:bg-dark-tiny">
             <div className="overflow-hidden w-[10rem] flex justify-center items-start rounded-md">
-                <img
-                    className="rounded-md"
-                    src={
-                        'https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:80/plain/https://cellphones.com.vn/media/catalog/product/s/a/samsung-galaxy-z-fold-5-256gb_1.png'
-                    }
-                ></img>
+                <img className="rounded-md" src={data?.thumbnails}></img>
             </div>
 
             <div className="flex flex-col">
-                <TextMain>MacBook Pro M2 MNEJ3 2022 LLA 13.3 inch</TextMain>
-                <TextSub>Black</TextSub>
+                <TextMain>{data?.name}</TextMain>
+                <TextSub>{data?.color}</TextSub>
                 <TextSub>x1</TextSub>
 
                 <div className="w-full">
-                    <TextMain className={'float-right'}>$ 433</TextMain>
+                    <TextMain className={'float-right'}>$ {data?.price}</TextMain>
                 </div>
             </div>
         </div>

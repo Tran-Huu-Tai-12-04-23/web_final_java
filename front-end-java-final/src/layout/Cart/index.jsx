@@ -1,30 +1,79 @@
-import { useState } from 'react';
-import { TextSub, TimeLine, TextMain, Button } from '../../components';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { TextSub, TimeLine, TextMain, Button, Modal } from '../../components';
 import { AnimateOpacity } from '../../components/Animate';
 
 import CartItem from './CartItem';
 import SummaryCart from './SummaryCart';
-import CheckOut from './CheckOut';
+import Checkout from './Checkout';
 import SummaryYourOrder from './SummaryYourOrder';
 
 import { FaRegEdit } from 'react-icons/fa';
+import { AiOutlineClear } from 'react-icons/ai';
+import { request } from '../../services';
+import { useLogin } from '../../context/login';
+import toast from 'react-hot-toast';
+import { Spinner } from 'flowbite-react';
 
 function Cart() {
+    const history = useNavigate();
     const [activeStep, setActiveStep] = useState(0);
+    const [cartItems, setCartItems] = useState([]);
+    const [loading, setLoading] = useState([]);
+    const { account } = useLogin();
+    const [totalPrice, setTotalPrice] = useState(0);
+
+    useEffect(() => {
+        const calculatedTotalPrice = cartItems.reduce((total, item) => total + item.price, 0);
+        setTotalPrice(calculatedTotalPrice);
+    }, [cartItems]);
+    useEffect(() => {
+        if (account == null) {
+            toast("You don't have sign in!", {
+                icon: '⚠️',
+            });
+            history('/');
+        }
+    }, []);
+
+    useEffect(() => {
+        const getData = async () => {
+            setLoading(true);
+            await request('GET', '/api/v1/user/cart?mId=' + account?.memberId)
+                .then((response) => {
+                    console.log(response);
+                    if (response.data) {
+                        setCartItems(response.data.products);
+                    }
+                })
+                .catch((err) => console.error(err));
+
+            setLoading(false);
+        };
+
+        getData();
+    }, []);
     return (
         <div className="pt-[10rem] m-auto max-w-screen-xl ">
             <TimeLine active={activeStep} setActive={setActiveStep}></TimeLine>
 
             {activeStep === 0 && (
-                <div className="flex justify-between gap-10 items-start w-full mt-10">
-                    <div className="flex gap-4 w-2/3 flex-col">
-                        <CartItem></CartItem>
-                        <CartItem></CartItem>
-                        <CartItem></CartItem>
-                        <CartItem></CartItem>
-                    </div>
-                    <div className="w-1/3 h-40 ">
-                        <SummaryCart setActiveStep={setActiveStep}></SummaryCart>
+                <div className="flex flex-col gap-10 items-start w-full mt-10">
+                    <div className="flex justify-between gap-10 items-start w-full ">
+                        <div className="flex gap-4 w-2/3 flex-col">
+                            {loading ? (
+                                <Modal>
+                                    <Spinner color="pink"></Spinner>
+                                </Modal>
+                            ) : (
+                                cartItems.map((item, index) => {
+                                    return <CartItem setCartItems={setCartItems} key={index} data={item}></CartItem>;
+                                })
+                            )}
+                        </div>
+                        <div className="w-1/3  ">
+                            <SummaryCart setActiveStep={setActiveStep}></SummaryCart>
+                        </div>
                     </div>
                 </div>
             )}
@@ -118,18 +167,27 @@ function Cart() {
                                 <span>Edit information to checkout</span>
                             </Button>
 
-                            <Button className="rounded-md text-blue-600 mt-4 w-fit float-left">
+                            <Button className="rounded-md text-primary mt-4 w-fit float-left">
                                 <span>Go Back</span>
                             </Button>
                         </div>
                         <div className="w-1/3">
-                            <SummaryYourOrder setActiveStep={setActiveStep}></SummaryYourOrder>
+                            <SummaryYourOrder setActiveStep={setActiveStep} totalPrice={totalPrice}></SummaryYourOrder>
                         </div>
                     </div>
                 </AnimateOpacity>
             )}
 
-            {activeStep === 2 && <Checkout></Checkout>}
+            {activeStep === 2 && (
+                <div className="flex justify-between gap-10 mt-10">
+                    <div className="w-2/3">
+                        <Checkout></Checkout>
+                    </div>
+                    <div className="w-1/3">
+                        <SummaryYourOrder data={cartItems} setActiveStep={setActiveStep}></SummaryYourOrder>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

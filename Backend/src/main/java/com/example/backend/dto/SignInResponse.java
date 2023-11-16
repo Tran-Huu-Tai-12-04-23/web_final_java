@@ -2,29 +2,23 @@ package com.example.backend.dto;
 
 import com.example.backend.model.Account;
 import com.example.backend.model.Member;
+import lombok.Getter;
 
-public class SignInResponse {
+@Getter
+public class SignInResponse<T> {
     private JWTAuthenticationResponse jwtAuthenticationResponse;
-    private Member member;
-
-    public JWTAuthenticationResponse getJwtAuthenticationResponse() {
-        return jwtAuthenticationResponse;
-    }
+    private T data;
 
     public void setJwtAuthenticationResponse(JWTAuthenticationResponse jwtAuthenticationResponse) {
         this.jwtAuthenticationResponse = jwtAuthenticationResponse;
     }
 
-    public Member getMember() {
-        return member;
+    public void setData(T data) {
+        this.data = data;
     }
 
-    public void setMember(Member member) {
-        this.member = member;
-    }
-
-    public SignInResponse(Member member, JWTAuthenticationResponse jwtAuthenticationResponse) {
-        this.member = member;
+    public SignInResponse(T data, JWTAuthenticationResponse jwtAuthenticationResponse) {
+        this.data = data;
         this.jwtAuthenticationResponse = jwtAuthenticationResponse;
     }
 }

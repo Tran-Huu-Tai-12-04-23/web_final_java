@@ -22,7 +22,7 @@ function CardNew({ width }) {
                 duration: 0.3,
                 ease: 'easeInOut',
             }}
-            className={`${width} cursor-pointer hover:bg-hover p-2 min-w-[15rem] rounded-lg overflow-hidden`}
+            className={`${width} cursor-pointer hover:brightness-125 bg-bg-light-menu dark:bg-bg-dark-menu p-2 min-w-[15rem] rounded-lg overflow-hidden`}
         >
             <motion.div className=" bg-[#ffffff] w-full rounded-lg flex items-center justify-center">
                 <motion.img
@@ -37,7 +37,7 @@ function CardNew({ width }) {
                     <motion.span className="text-yellow-400 mr-2">2</motion.span> reviews
                 </motion.div>
                 <motion.h5 className="text-md font-medium text-orange-400 mb-4">6.000.000 VND</motion.h5>
-                <Button className={'rounded-3xl'}>Add Cart</Button>
+                <Button className={'rounded-md p-2 bg-primary text-white'}>Add Cart</Button>
             </motion.div>
         </motion.div>
     );

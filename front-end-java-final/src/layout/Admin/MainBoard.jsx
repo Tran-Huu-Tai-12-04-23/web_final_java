@@ -1,16 +1,23 @@
-import { lazy, Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { motion } from 'framer-motion';
 import Header from './Header';
-const DashBoard = lazy(() => import('./Scene/DashBoard'));
-const ManagerMember = lazy(() => import('./Scene/Member'));
-const ManagerProduct = lazy(() => import('./Scene/Product'));
+import { useLogin } from '../../context/login';
+import Constants from '../../Constants';
 
 const variants = {
     open: { width: '100vw', x: '-15rem' },
     closed: { width: 'calc(100vw - 15rem)', x: 0 },
 };
 function MainBoard({ activeSidebar, setActiveSidebar, order, setOrder, children }) {
+    const { account } = useLogin();
+    const history = useNavigate();
+    useEffect(() => {
+        if (account?.role !== true) {
+            history(Constants.ADMIN_LOGIN);
+        }
+    }, [account]);
     return (
         <motion.div
             initial={{
@@ -22,7 +29,7 @@ function MainBoard({ activeSidebar, setActiveSidebar, order, setOrder, children 
         >
             <Header activeSidebar={activeSidebar} setActiveSidebar={setActiveSidebar}></Header>
 
-            <div className=" select-none dark:text-dark text-light  dark:bg-dark-second bg-light-second p-10">
+            <div className=" select-none dark:text-dark text-light  dark:bg-dark-second bg-light-second p-4">
                 <Suspense fallback={<div> loading...</div>}>{children}</Suspense>
             </div>
         </motion.div>

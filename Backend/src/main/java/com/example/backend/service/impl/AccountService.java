@@ -32,17 +32,6 @@ public class AccountService implements IAccountService {
         return accountRepository.findAll();
     }
 
-    @Override
-    public Account deleteSoftAccount(Long id) {
-        if( !accountRepository.existsById(id)) {
-            throw new NotFoundException("Sorry, student not found!");
-        }
-
-        return accountRepository.findById(id).map( ac -> {
-            ac.setIsDelete(true);
-            return accountRepository.save(ac);
-        }).orElseThrow(() -> new NotFoundException("Sorry, ths acount could not be found"));
-    }
 
     @Override
     public void deleteAccount(Long id) {

@@ -1,5 +1,3 @@
-import { motion } from 'framer-motion';
-
 function Modal({ children, onClose = () => {} }) {
     return (
         <div

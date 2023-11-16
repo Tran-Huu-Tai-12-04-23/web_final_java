@@ -1,7 +1,7 @@
 import { TextMain, Button } from '../../../components';
 import { CiDiscount1 } from 'react-icons/ci';
 
-function BuySummary() {
+function BuySummary({ data }) {
     return (
         <div className="min-w-[20rem] h-fit p-4 bg-light-tiny dark:bg-dark-tiny rounded-md ">
             <TextMain className={'text-xl font-bold'}>Pay now</TextMain>
@@ -13,12 +13,12 @@ function BuySummary() {
                 </div>
             </div>
             <div className="font-bold text-primary mt-2 pt-4 border-dashed border-t-[1px] border-light-tiny dark:border-dark-tiny">
-                $30.000
+                ${data?.price}
             </div>
             <div className="mt-2 pt-4 border-dashed border-t-[1px] border-light-tiny dark:border-dark-tiny">
                 <TextMain>Last price</TextMain>
                 <div className="flex justify-between items-center">
-                    <span className="line-through">$30.000</span>
+                    <span className="line-through">${data?.price}</span>
                     <div className="text-sale flex justify-start items-center">
                         <CiDiscount1 className="w-8 h-8 brightness-75"></CiDiscount1>
                         <span>18%</span>

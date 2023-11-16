@@ -52,7 +52,7 @@ function App() {
                 className={`fixed top-[3.1rem] z-50  `rounded-r-lg h-[4px] left-0 right-0 bg-btn-primary`}
                 style={{ scaleX: scrollYProgress, transformOrigin: '0%' }}
             ></motion.div> */}
-            <motion.div ref={ref} className="bg-transparent ">
+            <motion.div ref={ref} className="bg-transparent select-none">
                 <AnimatePresence mode="wait">
                     <motion.div className=" transition-all dark:bg-dark bg-light dark:text-dark text-light  ">
                         <ConfigRoute></ConfigRoute>

@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -26,9 +27,11 @@ public class Product {
     @Column(name = "image_link")
     private List<String> linkImages;
 
-    private String color;
+    @Column(columnDefinition = "LONGTEXT")
     private String linkVideo;
-    private String imageLinkThumbnail;
+    @Column(columnDefinition = "LONGTEXT")
+    private String thumbnails;
+    @Column(columnDefinition = "LONGTEXT")
     private String description;
     private String shortDescription;
     private String name;
@@ -37,16 +40,16 @@ public class Product {
     private String screenSize;
     private String chipSet;
     private Date launchDate;
+    private String color;
 
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Date datePublished;
     @Column(columnDefinition = "BOOLEAN DEFAULT 0")
-    private Integer status;
+    private Boolean status;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Date createAt;
-
 
     @Column(columnDefinition = "BOOLEAN DEFAULT false")
     private Boolean isDelete;
@@ -62,8 +65,9 @@ public class Product {
             isDelete = false;
         }
         if( status == null  ) {
-            status = 1;
+            status = true;
         }
+
     }
 
     @ManyToOne
@@ -74,5 +78,32 @@ public class Product {
 
     @ManyToOne
     private Branch branch;
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", linkImages=" + linkImages +
+                ", linkVideo='" + linkVideo + '\'' +
+                ", thumbnails='" + thumbnails + '\'' +
+                ", description='" + description + '\'' +
+                ", shortDescription='" + shortDescription + '\'' +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", quantity=" + quantity +
+                ", screenSize='" + screenSize + '\'' +
+                ", chipSet='" + chipSet + '\'' +
+                ", launchDate=" + launchDate +
+                ", color='" + color + '\'' +
+                ", datePublished=" + datePublished +
+                ", status=" + status +
+                ", createAt=" + createAt +
+                ", isDelete=" + isDelete +
+                ", category=" + category +
+                ", productSpecification=" + productSpecification.toString() +
+                ", branch=" + branch +
+                '}';
+    }
+
 
 }

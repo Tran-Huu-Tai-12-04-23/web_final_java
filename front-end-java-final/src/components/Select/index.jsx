@@ -15,19 +15,21 @@ const variantsSubmenu = {
 };
 
 function Select({
+    position = 'bottom',
+    type = 'default',
     name = 'Default',
     subMenu = [
         {
             name: 'test1',
-            value: 'Text1',
+            id: 'Text1',
         },
         {
             name: 'test2',
-            value: 'Text2',
+            id: 'Text2',
         },
         {
             name: 'test3',
-            value: 'Text3',
+            id: 'Text3',
         },
     ],
 
@@ -41,11 +43,21 @@ function Select({
     const [selectValue, setSelectValue] = useState(null);
 
     useEffect(() => {
-        if (value != null) {
+        if (value != null && type !== 'color') {
             setSelectValue(
                 subMenu.filter((mn) => {
                     return mn.value == value || mn.id == value;
-                })[0].name,
+                })[0]?.name,
+            );
+        }
+    }, [value]);
+
+    useEffect(() => {
+        if (type === 'color') {
+            setSelectValue(
+                subMenu.filter((mn) => {
+                    return mn.name == value;
+                })[0]?.name,
             );
         }
     }, [value]);
@@ -76,7 +88,6 @@ function Select({
         <motion.div
             onClick={(e) => {
                 e.stopPropagation();
-                console.log(open);
                 setOpen(!open);
                 onActive();
             }}
@@ -97,21 +108,39 @@ function Select({
                         duration: 0.3,
                     }}
                     animate={open ? 'active' : 'inActive'}
-                    className="absolute border-primary border-[0.2px] z-[100000] top-11 pt-2 pb-2 w-full right-0 bg-light dark:bg-dark rounded-md shadow-xl"
+                    className={` ${
+                        position === 'bottom' ? ' top-11' : 'bottom-11'
+                    } absolute z-[100000] pt-2 pb-2 w-full right-0 bg-bg-light-menu backdrop-blur-xl  dark:bg-bg-dark-menu rounded-md shadow-xl`}
                 >
                     <ul className="flex flex-col justify-center w-full items-start">
-                        {subMenu.map((menu, index) => {
-                            return (
-                                <li
-                                    className="w-full text-sm p-2 hover:bg-btn-second"
-                                    key={index}
-                                    onClick={() => handleSelectOption(menu.value)}
-                                >
-                                    {menu.name}
-                                    {menu.component}
-                                </li>
-                            );
-                        })}
+                        {type !== 'color' &&
+                            subMenu.map((menu, index) => {
+                                return (
+                                    <li
+                                        className="w-full text-sm p-2 hover:bg-btn-second"
+                                        key={index}
+                                        onClick={() => handleSelectOption(menu.id)}
+                                    >
+                                        {menu.name}
+                                        {menu.component}
+                                    </li>
+                                );
+                            })}
+                        {type === 'color' &&
+                            subMenu.map((menu, index) => {
+                                return (
+                                    <li
+                                        style={{
+                                            background: menu.hexCode,
+                                        }}
+                                        className={`w-full brightness-75 text-sm p-2 hover:bg-btn-second`}
+                                        key={index}
+                                        onClick={() => handleSelectOption(menu.name)}
+                                    >
+                                        {menu.name}
+                                    </li>
+                                );
+                            })}
                     </ul>
                 </motion.div>
             )}

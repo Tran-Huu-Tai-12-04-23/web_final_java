@@ -8,10 +8,7 @@ import com.example.backend.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 @RestController
@@ -38,16 +35,21 @@ public class AuthenticationController {
         JWTAuthenticationResponse jwtAuthenticationResponse = authenticationService.signIn(account);
 
         Member member = authenticationService.getMember(account.getUsername());
-        System.out.println(member.getEmail());
 
-        if( member == null) return ResponseEntity.badRequest().body("Member not found");
+        if( member == null) {
+            Account acc = authenticationService.getAccount(account.getUsername());
+            SignInResponse<Account> signInResponse = new SignInResponse<Account>( acc, jwtAuthenticationResponse);
+            return ResponseEntity.ok(signInResponse);
+        }else {
+            SignInResponse<Member> signInResponse = new SignInResponse<Member>(member, jwtAuthenticationResponse);
+            return ResponseEntity.ok(signInResponse);
+        }
 
-        SignInResponse signInResponse = new SignInResponse(member, jwtAuthenticationResponse);
-        return ResponseEntity.ok(signInResponse);
     }
 
     @PostMapping("/refresh-token")
     public ResponseEntity<JWTAuthenticationResponse> refreshToken(@RequestBody RefreshTokenRequest refreshTokenRequest) {
+        System.out.println(refreshTokenRequest.getToken());
         return ResponseEntity.ok(authenticationService.refreshToken(refreshTokenRequest));
     }
 

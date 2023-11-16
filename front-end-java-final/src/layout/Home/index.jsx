@@ -11,6 +11,7 @@ import BestSeller from './BestSeller';
 import TopBranch from './TopBranch';
 import SlideBannerProduct from './SlideBannerProduct';
 import OurBlog from './OurBlog';
+import { BannerSuperSale } from '../../components';
 
 function Home() {
     const items = [
@@ -69,7 +70,7 @@ function Home() {
             <SaleProduct />
             <NewItem />
             <BannerSale />
-            <BestSeller />
+            <BannerSuperSale />
             <TopBranch />
             <SlideBannerProduct />
             <OurBlog />

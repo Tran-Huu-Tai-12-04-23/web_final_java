@@ -1,10 +1,7 @@
 package com.example.backend.model;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,13 +24,16 @@ public class ProductSpecification {
     private String typeRam;
     private String hardDrive;
     private String material;
-    private Boolean touchScreen;
+    private String touchScreen;
+    @Column(columnDefinition = "LONGTEXT")
     private String screenSize;
+    @Column(columnDefinition = "LONGTEXT")
     private String resolution;
     private String webcam;
     private String OS;
-    private String wf;
+    private String wifi;
     private String bluetooth;
     private String powerCapacity;
+    @Column(columnDefinition = "LONGTEXT")
     private String portSupport;
 }

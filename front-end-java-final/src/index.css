@@ -73,3 +73,48 @@
 .bg-touch {
     @apply bg-gradient-to-b from-[rgba(222,98,98,0.9)] via-[rgba(222,98,98,0.5)] to-[rgba(222,98,98,0.1)];
 }
+
+.input-no {
+    @apply w-4 h-4 text-primary bg-gray-100 border-gray-300 rounded dark:focus:ring-transparent dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-0 outline-none outline-transparent dark:bg-gray-700 dark:border-gray-600;
+}
+
+/* styles.scss */
+.bg-status-cancel {
+    @apply bg-[rgb(244,67,54,0.1)];
+}
+.bg-status-delivery {
+    @apply bg-[rgb(10,179,167,0.3)];
+}
+.bg-status-inprogress {
+    @apply bg-[rgb(69,159,246,0.3)];
+}
+.bg-status-pending {
+    @apply bg-[rgb(64,81,141,0.3)];
+}
+.bg-status-return {
+    @apply bg-[rgb(132,81,137,0.3)];
+}
+.bg-status-complete {
+    @apply bg-[rgb(12,217,202,0.3)];
+}
+.text-status-cancel {
+    @apply text-[rgb(244,67,54)];
+}
+.text-status-delivery {
+    @apply text-[rgb(10,179,167)];
+}
+.text-status-inprogress {
+    @apply text-[rgb(69,159,246)];
+}
+.text-status-pending {
+    @apply text-[rgb(64,81,141)];
+}
+.text-status-return {
+    @apply text-[rgb(132,81,137)];
+}
+.text-status-complete {
+    @apply text-[rgb(12,217,202)];
+}
+iframe#webpack-dev-server-client-overlay {
+    display: none !important;
+}

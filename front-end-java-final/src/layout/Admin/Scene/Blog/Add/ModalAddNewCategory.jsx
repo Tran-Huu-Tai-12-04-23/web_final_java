@@ -1,9 +1,51 @@
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 import { Input, TextMain, Modal, ModalItem } from '../../../../../components';
 
-function ModalAddNewColor({ onRemove = () => {}, onCancel = () => {}, onClose = () => {} }) {
-    const [color, setColor] = useState('');
+import { request } from '../../../../../services';
+
+function ModalAddNewCategory({
+    onRemove = () => {},
+    onCancel = () => {},
+    onClose = () => {},
+    onAddNewCategory = (value) => {},
+}) {
+    const [category, setCategory] = useState('');
     const [close, setClose] = useState(false);
+
+    const handleAddNewCategory = () => {
+        return request('POST', 'api/v1/admin/category/create', {
+            nameCategory: category,
+        })
+            .then((response) => {
+                const data = response.data;
+                if (data) {
+                    onAddNewCategory({
+                        ...data,
+                        name: data?.nameBranch,
+                    });
+                }
+                setClose(true);
+                return data;
+            })
+            .catch((errors) => {
+                console.error(errors);
+                // Re-throw the error to propagate it
+                throw errors;
+            });
+    };
+    const addNewCategory = async () => {
+        if (category === '') {
+            toast.error('Name branch is required!');
+            return;
+        }
+
+        toast.promise(handleAddNewCategory(), {
+            loading: 'Creating...',
+            success: <b>Create successful!</b>,
+            error: <b>Create failed.</b>,
+        });
+    };
 
     return (
         <Modal onClose={() => setClose(true)}>
@@ -14,26 +56,17 @@ function ModalAddNewColor({ onRemove = () => {}, onCancel = () => {}, onClose = 
                             'font-bold text-xl border-b-[1px] border-dashed border-light-tiny dark:border-dark-tiny pb-4'
                         }
                     >
-                        Add new color
+                        Add new category
                     </TextMain>
 
                     <div className="flex flex-col mt-4">
                         <Input
-                            value={color}
-                            onChange={(e) => setColor(e.target.value)}
-                            placeholder="Enter color name..."
-                            label={'Color name'}
-                            className={`mb-4 ${'bg-[' + [color] + ']'}`}
+                            value={category}
+                            onChange={(e) => setCategory(e.target.value)}
+                            placeholder="Enter category name..."
+                            label={'Branch name'}
+                            className="mb-4"
                         ></Input>
-
-                        <TextMain>Choose color code</TextMain>
-                        <input
-                            type={'color'}
-                            value={color}
-                            onChange={(e) => setColor(e.target.value)}
-                            placeholder="Chosse code color..."
-                            className="mb-4 h-12 bg-transparent w-full rounded-md"
-                        ></input>
 
                         <div className="flex justify-end items-center border-t-[1px] border-dashed border-light-tiny dark:border-dark-tiny mt-5 pt-5 pb-5 gap-4">
                             <button
@@ -47,6 +80,7 @@ function ModalAddNewColor({ onRemove = () => {}, onCancel = () => {}, onClose = 
                             </button>
                             <button
                                 type="submit"
+                                onClick={addNewCategory}
                                 className="py-2 px-3 text-sm font-medium text-center text-white bg-green-700 rounded-md pl-4 pr-4 hover:bg-green-800 focus:outline-none  dark:bg-green-600 dark:hover:bg-green-700 "
                             >
                                 Save
@@ -59,4 +93,4 @@ function ModalAddNewColor({ onRemove = () => {}, onCancel = () => {}, onClose = 
     );
 }
 
-export default ModalAddNewColor;
+export default ModalAddNewCategory;

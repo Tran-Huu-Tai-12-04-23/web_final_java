@@ -61,9 +61,10 @@ function Header() {
                     key={index}
                     className={`${
                         index === activeNav ? 'text-primary' : 'text-light dark:text-dark'
-                    }   hover:text-hover dark:hover:text-hover cursor-pointer rounded-md px-3 py-2 text-sm`}
+                    }  relative group hover:text-hover dark:hover:text-hover cursor-pointer rounded-md px-3 py-2 text-sm`}
                 >
                     {item.name}
+                    {item.subNav}
                 </Link>
             );
         });
@@ -103,7 +104,7 @@ function Header() {
                     }}
                     className={`${
                         index === UserMenu.length - 1 && 'rounded-b-lg '
-                    } flex justify-start items-center hover:text-hover dark:bg-dark-menu bg-light-menu backdrop-blur-lg pl-4 pr-4 p-2 text-sm hover:brightness-150 dark:hover:bg-dark-hover hover:bg-light-hover`}
+                    } flex w-full min-w-[12rem] justify-start items-center hover:text-hover dark:bg-dark-menu bg-light-menu backdrop-blur-lg pl-4 pr-4 p-2 text-sm hover:brightness-150 dark:hover:bg-dark-hover hover:bg-light-hover`}
                 >
                     {item.icon}
                     <span className="ml-2">{item.name}</span>

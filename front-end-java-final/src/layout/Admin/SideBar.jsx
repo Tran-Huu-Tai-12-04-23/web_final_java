@@ -11,8 +11,11 @@ import { PiSealQuestionLight, PiShoppingCartSimpleLight, PiBankLight } from 'rea
 import { AiFillThunderbolt, AiOutlineFileProtect, AiOutlineBarChart, AiOutlineAppstoreAdd } from 'react-icons/ai';
 import { SiGoogletagmanager } from 'react-icons/si';
 import { IoMdAdd } from 'react-icons/io';
+import { BsPostcard } from 'react-icons/bs';
 
 import Constants from '../../Constants';
+import Util from '../../utils/Util';
+import { useLogin } from '../../context/login';
 
 const variants = {
     open: { x: 0 },
@@ -20,6 +23,7 @@ const variants = {
 };
 
 function SideBar({ activeSidebar, setOrder, order }) {
+    const { setAccount } = useLogin();
     const location = useLocation();
     const history = useNavigate();
     const navigate = [
@@ -62,8 +66,8 @@ function SideBar({ activeSidebar, setOrder, order }) {
             order: 4,
             submenu: [
                 {
-                    name: 'Create Member',
-                    icon: <GoHome className="text-xl"></GoHome>,
+                    name: 'Manager',
+                    icon: <SiGoogletagmanager className="text-xl"></SiGoogletagmanager>,
                     order: 1,
                 },
                 {
@@ -102,45 +106,49 @@ function SideBar({ activeSidebar, setOrder, order }) {
             ],
         },
         {
-            name: 'Questions',
-            path: '/admin/questions',
-            icon: <PiSealQuestionLight className="text-xl"></PiSealQuestionLight>,
+            name: 'Blogs',
+            icon: <BsPostcard className="text-xl"></BsPostcard>,
             order: 6,
+            path: Constants.ADMIN_BLOG,
             submenu: [
                 {
-                    name: 'Create Member',
-                    icon: <GoHome className="text-xl"></GoHome>,
+                    name: 'Manager',
+                    path: Constants.ADMIN_BLOG,
+                    icon: <SiGoogletagmanager className="text-xl"></SiGoogletagmanager>,
                     order: 1,
                 },
                 {
-                    name: 'Members',
-                    icon: <GoHome className="text-xl"></GoHome>,
+                    name: 'Add blog',
+                    path: Constants.ADMIN_ADD_BLOG,
+                    icon: <IoMdAdd className="text-xl"></IoMdAdd>,
                     order: 2,
                 },
-                {
-                    name: 'Members Is Delete',
-                    icon: <GoHome className="text-xl"></GoHome>,
-                    order: 3,
-                },
             ],
+        },
+        {
+            name: 'Questions',
+            path: '/admin/questions',
+            icon: <PiSealQuestionLight className="text-xl"></PiSealQuestionLight>,
+            order: 7,
+            submenu: [],
         },
         {
             name: 'Guarantee',
             path: '/admin/Guarantees',
             icon: <AiOutlineFileProtect className="text-xl"></AiOutlineFileProtect>,
-            order: 7,
+            order: 8,
         },
         {
             name: 'Bank setting',
             path: '/admin/bank-setting',
             icon: <PiBankLight className="text-xl"></PiBankLight>,
-            order: 8,
+            order: 9,
         },
         {
             name: 'Charts',
             path: '/admin/chart',
             icon: <AiOutlineBarChart className="text-xl"></AiOutlineBarChart>,
-            order: 9,
+            order: 10,
         },
     ];
     return (
@@ -194,7 +202,14 @@ function SideBar({ activeSidebar, setOrder, order }) {
                     );
                 })}
             </div>
-            <AnimateHover className={'flex justify-start items-center hover:text-primary cursor-pointer'}>
+            <AnimateHover
+                onClick={() => {
+                    Util.logOut();
+                    setAccount(null);
+                    history(Constants.ADMIN_LOGIN);
+                }}
+                className={'flex justify-start items-center hover:text-primary cursor-pointer'}
+            >
                 <IoExitOutline className="h-6 mr-2 hover:text-primary cursor-pointer w-6 ml-2 "></IoExitOutline>
                 <span>Eixt</span>
             </AnimateHover>

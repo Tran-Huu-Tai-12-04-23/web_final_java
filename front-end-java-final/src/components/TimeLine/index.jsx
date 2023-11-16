@@ -40,7 +40,7 @@ function TimeLine({ active = 0, setActive = () => {} }) {
                             variants={variantsStep}
                             animate={index <= active ? 'active' : 'inActive'}
                             className={`${
-                                active === index ? 'bg-primary scale-125' : 'bg-light-tiny dark:bg-dark-tiny'
+                                active === index ? 'bg-primary scale-125 text-white' : 'bg-light-tiny dark:bg-dark-tiny'
                             } rounded-full p-2  border-primary-style `}
                         >
                             {st.icon}

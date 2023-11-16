@@ -35,10 +35,9 @@ public class Account implements UserDetails {
         if (createAt == null) {
             createAt = new Date();
         }
+
     }
 
-    @Column(columnDefinition = "BOOLEAN DEFAULT false")
-    private Boolean isDelete;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

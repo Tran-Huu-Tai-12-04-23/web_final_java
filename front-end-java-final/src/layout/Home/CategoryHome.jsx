@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { AnimateHover } from '../../components/Animate';
 import { TextMain } from '../../components';
 import { Category } from '../../assets/data';
+import { Link } from 'react-router-dom';
 
 const container = {
     hidden: { opacity: 1, scale: 0 },
@@ -26,31 +27,28 @@ const item = {
 };
 
 const CategoryHome = () => (
-    <motion.div className="w-full pt-10 pb-10">
-        <motion.ul
+    <div className="w-full pb-10">
+        <ul
             className="w-full flex justify-center items-center flex-wrap"
             variants={container}
             initial="hidden"
             animate="visible"
         >
             {Category.map((cate, index) => (
-                <motion.li
+                <Link
+                    to={cate.path}
                     key={index}
-                    className="xl:w-1/6 lg:w-1/3 md:w-1/3 sm:w-1/2 w-full block cursor-pointer pt-4 pb-4 select-none "
+                    className="xl:w-1/6 scale-75 lg:w-1/3 md:w-1/3 sm:w-1/2 w-full block cursor-pointer pt-4 pb-4 select-none "
                     variants={item}
                 >
-                    <AnimateHover
-                        className={
-                            'flex flex-col justify-center items-center border-[1px] w-full rounded-xl border-solid border-gray-300 shadow-lg'
-                        }
-                    >
-                        <motion.img className="h-[10rem] scale-75 rounded-lg " src={cate.linkImg}></motion.img>
+                    <AnimateHover className={'flex flex-col justify-center items-center w-full rounded-xl shadow-md'}>
+                        <img className="h-[10rem] scale-75 rounded-lg " src={cate.linkImg}></img>
                         <TextMain className={'text-xl font-bold mb-5'}>{cate.name}</TextMain>
                     </AnimateHover>
-                </motion.li>
+                </Link>
             ))}
-        </motion.ul>
-    </motion.div>
+        </ul>
+    </div>
 );
 
 export default CategoryHome;

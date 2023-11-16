@@ -1,7 +1,9 @@
-package com.example.backend.controller.admin;
+package com.example.backend.controller.publicpath;
 
 import com.example.backend.model.Branch;
 import com.example.backend.model.Category;
+import com.example.backend.model.CategoryBlog;
+import com.example.backend.service.IBlogService;
 import com.example.backend.service.IBranchService;
 import com.example.backend.service.ICategoryService;
 import lombok.RequiredArgsConstructor;
@@ -11,14 +13,19 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/admin/category")
+@RequestMapping("/api/v1/public/category")
 @RequiredArgsConstructor
 public class CategoryController {
     private final ICategoryService iCategoryService;
+    private final IBlogService iBlogService;
 
-    @GetMapping("/all")
-    public ResponseEntity<List<Category>> getAllCategory() {
+    @GetMapping("/product")
+    public ResponseEntity<List<Category>> getAllCategoryProduct() {
         return ResponseEntity.ok(iCategoryService.getAll());
+    }
+    @GetMapping("/blog")
+    public ResponseEntity<List<CategoryBlog>> getAllCategoryBlog() {
+        return ResponseEntity.ok(iBlogService.getAllCategory());
     }
 
     @PostMapping("/create")

@@ -1,5 +1,5 @@
-import { useState } from 'react';
-
+import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 import { motion } from 'framer-motion';
 import SubHeader from '../../Includes/SubHeader';
 import { AnimateHover, AnimateOpacity } from '../../../../components/Animate';
@@ -13,32 +13,152 @@ import { BsTrash } from 'react-icons/bs';
 import { members, WrappedColumnsTableMember } from '../../../../assets/data';
 import ModalConfirmRemove from '../../Includes/ModalConfirmRemove';
 import ModalEditMember from './ModalEditMember';
+import { request } from '../../../../services';
+import ModalConfirmBlockMember from './ModelConfirmBlockMember';
 
 function ManagerMember() {
-    const [confirmRemoveMember, setConfirmRemoveMember] = useState(false);
+    const [confirmRemoveSoftMember, setConfirmRemoveSoftMember] = useState(false);
+    const [confirmBlockMember, setConfirmBlockMember] = useState(false);
     const [editMember, setEditMember] = useState(false);
     const [memberSelected, setMemberSelected] = useState([]);
     const [filters, setFilters] = useState(null);
     const [search, setSearch] = useState('');
+    const [data, setData] = useState([]);
+    const [memberIdForRemove, setMemberIdForRemove] = useState(null);
+    const [memberIdForBlock, setMemberIdForBlock] = useState(null);
     const columnsMember = WrappedColumnsTableMember({
         onRemove: (value) => {
-            setConfirmRemoveMember(true);
+            setConfirmRemoveSoftMember(true);
+            setMemberIdForRemove(value);
         },
         onEdit: (value) => {
             setEditMember(true);
         },
+        onBlock: (value) => {
+            setMemberIdForBlock(value);
+            setConfirmBlockMember(true);
+        },
     });
+
+    const handleRemoveSoftMember = async () => {
+        try {
+            await request('DELETE', '/api/v1/admin/member/delete-soft?id=' + memberIdForRemove)
+                .then((response) => {
+                    if (!response) {
+                        return Promise.reject(false);
+                    }
+                    setData((prev) => prev.filter((dt) => dt.id !== memberIdForRemove));
+                    setMemberIdForRemove(null);
+                    return Promise.resolve(true);
+                })
+                .catch((err) => {
+                    console.log(err);
+                    return Promise.reject(false);
+                });
+        } catch (error) {
+            console.error(error);
+            return Promise.reject(false);
+        }
+    };
+
+    const removeSoftMember = async () => {
+        if (memberIdForRemove == null) return;
+
+        toast.promise(handleRemoveSoftMember(), {
+            loading: 'Deleting ...',
+            success: <b>Delete successful!</b>,
+            error: <b>Delete failed.</b>,
+        });
+    };
+
+    const handleBlockMember = async () => {
+        try {
+            await request('GET', '/api/v1/admin/member/block?id=' + memberIdForBlock)
+                .then((response) => {
+                    if (!response) {
+                        return Promise.reject(false);
+                    }
+                    setData((prev) =>
+                        prev.map((dt) => {
+                            if (dt.id === memberIdForBlock) {
+                                return {
+                                    ...dt,
+                                    status: false,
+                                };
+                            }
+
+                            return dt;
+                        }),
+                    );
+                    setMemberIdForBlock(null);
+                    return Promise.resolve(true);
+                })
+                .catch((err) => {
+                    console.log(err);
+                    return Promise.reject(false);
+                });
+        } catch (error) {
+            console.error(error);
+            return Promise.reject(false);
+        }
+    };
+
+    const blockMember = async () => {
+        if (memberIdForBlock == null) return;
+
+        toast.promise(handleBlockMember(), {
+            loading: 'Blocking ...',
+            success: <b>Block member successful!</b>,
+            error: <b>Block member failed.</b>,
+        });
+    };
+
+    useEffect(() => {
+        const getData = async () => {
+            await request('GET', '/api/v1/admin/member/all')
+                .then((res) => {
+                    const dataRes = res.data;
+
+                    if (!dataRes) return;
+                    const dataF = dataRes.map((dt) => {
+                        const idMember = dt.id;
+                        return {
+                            ...dt,
+                            ...dt?.account,
+                            id: idMember,
+                        };
+                    });
+                    setData(dataF);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        };
+
+        getData();
+    }, []);
 
     return (
         <motion.div>
             {/* modal */}
-            {confirmRemoveMember && (
+            {confirmRemoveSoftMember && (
                 <ModalConfirmRemove
                     onClose={() => {
-                        setConfirmRemoveMember(false);
+                        setConfirmRemoveSoftMember(false);
                     }}
+                    onRemove={removeSoftMember}
                     onCancel={() => {}}
                 ></ModalConfirmRemove>
+            )}
+
+            {confirmBlockMember && (
+                <ModalConfirmBlockMember
+                    onClose={() => {
+                        setConfirmBlockMember(false);
+                    }}
+                    onConfirm={blockMember}
+                    onCancel={() => {}}
+                ></ModalConfirmBlockMember>
             )}
 
             {editMember === true && (
@@ -130,7 +250,7 @@ function ManagerMember() {
 
                     <TableCustom
                         columns={columnsMember}
-                        data={members}
+                        data={data}
                         checked={true}
                         numberRow={10}
                         pagination={true}

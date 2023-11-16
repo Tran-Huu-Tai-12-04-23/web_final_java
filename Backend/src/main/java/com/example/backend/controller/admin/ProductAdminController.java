@@ -1,14 +1,12 @@
 package com.example.backend.controller.admin;
 
 import com.example.backend.dto.ErrorResponse;
-import com.example.backend.model.Member;
 import com.example.backend.model.Product;
 import com.example.backend.model.ProductSpecification;
 import com.example.backend.service.IProductService;
 import com.example.backend.utils.AppConstants;
 import com.example.backend.utils.Utils;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.autoconfigure.integration.IntegrationProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +18,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/v1/admin/product")
 @RequiredArgsConstructor
-public class ProductController {
+public class ProductAdminController {
     private final IProductService iProductService;
     @GetMapping("/all")
     public ResponseEntity<List<Product>> getAllProduct(
@@ -28,12 +26,13 @@ public class ProductController {
             @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size
     ) {
         Utils.validatePageNumberAndSize(page, size);
-        return ResponseEntity.ok(iProductService.getAll(page, size));
+        return ResponseEntity.ok(iProductService.getAllItemNotDelete(page, size));
     }
 
     @PostMapping("/create")
     public ResponseEntity<?> createProduct(@RequestBody Product product) {
         try{
+            System.out.println(product.toString());
             ProductSpecification productSpecification = product.getProductSpecification();
 
             if(productSpecification == null )   return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Product Specification product is not null!");
@@ -86,7 +85,8 @@ public class ProductController {
     }
 
     @DeleteMapping("/delete-soft")
-    public ResponseEntity<?> removeSoftProduct(@RequestBody Long id) {
+    public ResponseEntity<?> removeSoftProduct(@RequestParam Long id) {
+        System.out.println(id);
         try{
             boolean deleteSoftProductResult = iProductService.deleteSoft(id);
             if( deleteSoftProductResult) {
@@ -103,7 +103,7 @@ public class ProductController {
     }
 
     @DeleteMapping
-    public ResponseEntity<?> removeProduct(@RequestBody Long id) {
+    public ResponseEntity<?> removeProduct(@RequestParam Long id) {
         try{
             boolean deleteSoftProductResult = iProductService.delete(id);
             if( deleteSoftProductResult) {

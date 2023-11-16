@@ -9,8 +9,6 @@ function ManagerProducts({}) {
     return (
         <motion.div className="">
             <Manager></Manager>
-            {/* {order.submenu == 3 && <Edit></Edit>}
-                {order.submenu == 2 && <AddProduct></AddProduct>} */}
         </motion.div>
     );
 }

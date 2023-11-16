@@ -5,8 +5,8 @@ import { Button, Input, TextMain, Toggle } from '../index';
 import { FiUser } from 'react-icons/fi';
 import { LiaKeySolid } from 'react-icons/lia';
 import { Link } from 'react-router-dom';
-import APIService from '../../services/index';
 import Utils from '../../utils/Util';
+import { request, setAuthHeader, setRefreshToken } from '../../services/index';
 
 import { RiFacebookLine } from 'react-icons/ri';
 import { PiGoogleLogoLight } from 'react-icons/pi';
@@ -22,29 +22,28 @@ function LoginForm({ onClose = () => {}, setAccount = () => {} }) {
         };
 
         try {
-            const data = await APIService.post('auth/sign-in', user);
+            await request('POST', '/api/v1/auth/sign-in', user)
+                .then((response) => {
+                    const data = response.data;
+                    setAuthHeader(data.jwtAuthenticationResponse.token);
+                    setRefreshToken(data.jwtAuthenticationResponse.refreshToken);
 
-            console.log(data);
-            if (data === null) {
-                return Promise.reject(false);
-            }
-
-            const jwtData = data.jwtAuthenticationResponse;
-            var member = data.member;
-            const userData = {
-                memberId: member?.id,
-                accountId: member?.account?.id,
-                username: member?.account?.username,
-            };
-            member.password = null;
-            // member?.account?.password = null;
-
-            Utils.addLoginStorage(userData);
-            Utils.addToken(jwtData.token);
-            Utils.addRefreshToken(jwtData.refreshToken);
-            setAccount(userData);
-            onClose();
-            return Promise.resolve(true);
+                    const member = data.data;
+                    const userData = {
+                        memberId: member?.id,
+                        accountId: member?.account?.id,
+                        username: member?.account?.username,
+                    };
+                    Utils.addLoginStorage(userData);
+                    setAccount(userData);
+                    onClose();
+                    return Promise.resolve(true);
+                })
+                .catch((error) => {
+                    setAuthHeader(null);
+                    console.log(error);
+                    return Promise.reject(error);
+                });
         } catch (error) {
             return Promise.reject(error);
         }

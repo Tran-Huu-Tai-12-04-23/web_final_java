@@ -1,12 +1,13 @@
 import { toast } from 'react-hot-toast';
 import { motion } from 'framer-motion';
-import { Button, Input, TextMain, Toggle } from '../index';
+import { Button, Input, TextMain, Toggle, Modal } from '../index';
 import { CiMail, CiUser } from 'react-icons/ci';
 import { LiaKeySolid } from 'react-icons/lia';
 import { BsTelephone } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import APIService from '../../services/index';
+import { request, setAuthHeader } from '../../services/index';
+import { Spinner } from 'flowbite-react';
 
 function RegisterForm({ switchLogin = () => {} }) {
     const [username, setUsername] = useState('');
@@ -14,6 +15,7 @@ function RegisterForm({ switchLogin = () => {} }) {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const handleRegister = async () => {
         const user = {
@@ -24,21 +26,22 @@ function RegisterForm({ switchLogin = () => {} }) {
             email,
         };
 
-        try {
-            const data = await APIService.post('auth/sign-up', user);
+        setLoading(true);
+        await request('POST', '/api/v1/auth/sign-up', user)
+            .then((response) => {
+                console.log(response);
+                // toast.promise(handleRegister(), {
+                //     loading: 'Registering in...',
+                //     success: <b>Register successful!</b>,
+                //     error: <b>Register failed.</b>,
+                // });
+            })
+            .catch((error) => {
+                console.log(error);
+                throw new Error(error);
+            });
 
-            console.log(data);
-            if (data == null) {
-                return Promise.reject(false);
-            }
-
-            let account = data.account;
-            account.password = null;
-            switchLogin();
-            return Promise.resolve(true);
-        } catch (error) {
-            return Promise.reject(error);
-        }
+        setLoading(false);
     };
 
     const register = async () => {
@@ -69,11 +72,7 @@ function RegisterForm({ switchLogin = () => {} }) {
             return;
         }
 
-        toast.promise(handleRegister(), {
-            loading: 'Registering in...',
-            success: <b>Register successful!</b>,
-            error: <b>Register failed.</b>,
-        });
+        await handleRegister();
     };
     return (
         <motion.form
@@ -94,6 +93,11 @@ function RegisterForm({ switchLogin = () => {} }) {
             }}
             className="pt-10 w-full"
         >
+            {loading && (
+                <Modal>
+                    <Spinner color="pink" aria-label="Pink spinner example" />
+                </Modal>
+            )}
             <TextMain className={'font-bold text-center text-xl mb-5'}>Create Your Account</TextMain>
             <Input
                 placeholder="Username"

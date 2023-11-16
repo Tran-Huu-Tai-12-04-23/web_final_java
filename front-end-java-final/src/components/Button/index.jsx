@@ -48,7 +48,7 @@ function Button({ children, style = 'default', className = 'p-2', onClick = () =
                 duration: 0.3,
                 ease: 'easeInOut',
             }}
-            className={`${classStyle}  ${className}  `}
+            className={`${classStyle}  ${className} `}
         >
             {children}
         </motion.button>

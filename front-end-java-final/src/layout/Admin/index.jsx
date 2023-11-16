@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 import { motion } from 'framer-motion';
@@ -8,6 +8,7 @@ import Constants from '../../Constants';
 
 function Admin({ children }) {
     const [activeSidebar, setActiveSidebar] = useState(true);
+    const history = useNavigate();
     const [order, setOrder] = useState({
         menu: 1,
         submenu: null,
@@ -44,6 +45,41 @@ function Admin({ children }) {
                 setOrder({
                     menu: 3,
                     submenu: 2,
+                });
+                break;
+            }
+            case Constants.ADMIN_ORDER: {
+                setOrder({
+                    menu: 4,
+                    submenu: 1,
+                });
+                break;
+            }
+            case Constants.ADMIN_ORDER_DETAIL: {
+                setOrder({
+                    menu: 4,
+                    submenu: null,
+                });
+                break;
+            }
+            case Constants.ADMIN_BLOG: {
+                setOrder({
+                    menu: 6,
+                    submenu: 1,
+                });
+                break;
+            }
+            case Constants.ADMIN_ADD_BLOG: {
+                setOrder({
+                    menu: 6,
+                    submenu: 2,
+                });
+                break;
+            }
+            case Constants.ADMIN_QUESTION: {
+                setOrder({
+                    menu: 7,
+                    submenu: null,
                 });
                 break;
             }

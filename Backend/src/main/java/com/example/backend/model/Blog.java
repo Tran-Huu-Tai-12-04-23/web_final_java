@@ -21,8 +21,11 @@ public class Blog {
     Long id;
 
     private String title;
+    @Column(columnDefinition = "LONGTEXT")
     private String content;
     private Boolean isDelete;
+    private String thumbnails;
+    private Boolean status;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
@@ -35,11 +38,13 @@ public class Blog {
         if( isDelete == null ){
             isDelete = false;
         }
+        if( status == null ){
+            status = false;
+        }
     }
 
     @ManyToOne
     @JoinColumn(name = "category_blog_id")
-    private CategoryBlog categoryBlog;
-
+    private CategoryBlog category;
 
 }

@@ -16,4 +16,5 @@ public interface AuthenticationService {
     JWTAuthenticationResponse refreshToken(RefreshTokenRequest refreshTokenRequest);
 
     Member getMember(String username);
+    Account getAccount(String username);
 }

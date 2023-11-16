@@ -30,7 +30,7 @@ function Tabs({ tabs = [], active = 0, style = 'default', classItem = '', setAct
                             key={index}
                             className={`${
                                 index == active && 'text-primary border-primary'
-                            } group flex justify-between items-center text-sm pl-5 min-w-[10rem] pr-5 cursor-pointer rounded-t-lg pt-2 pb-2 text-center border-b-[1px] border-solid hover:border-primary hover:text-primary ${classItem}`}
+                            } group flex justify-center gap-3 items-center text-sm pl-5 min-w-[10rem] pr-5 cursor-pointer rounded-t-lg pt-2 pb-2 text-center border-b-[1px] border-solid hover:border-primary hover:text-primary ${classItem}`}
                         >
                             {item.icon}
                             <span>{item.name}</span>

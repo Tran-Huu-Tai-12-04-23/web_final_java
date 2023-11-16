@@ -61,7 +61,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         newAccount.setUsername(signUpMemberRequest.getUsername());
         newAccount.setRole(Role.USER);
         newAccount.setPassword(passwordEncoder.encode(signUpMemberRequest.getPassword()));
-        newAccount.setIsDelete(false);
         Account accountSave = accountRepository.save(newAccount);
         Member newMember = new Member();
         newMember.setAccount(accountSave);
@@ -132,5 +131,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         if( account == null) return null;
 
         return memberRepository.findByAccount(account);
+    }
+
+    @Override
+    public Account getAccount(String username) {
+        return accountRepository.findByUsername(username).orElseThrow(() -> new IllegalAccessError("Account not found"));
     }
 }

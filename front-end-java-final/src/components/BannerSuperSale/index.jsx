@@ -19,7 +19,7 @@ var settings = {
 };
 function BannerSuperSale() {
     return (
-        <div className="shadow-xl rounded-xl bg-btn-second p-[5%] w-full flex justify-between items-center gap-10 mb-10">
+        <div className="shadow-xl select-none rounded-xl bg-btn-second p-[5%] w-full flex justify-between items-center gap-10 mb-10">
             <Information></Information>
             <Slider
                 {...settings}
@@ -33,7 +33,7 @@ function BannerSuperSale() {
                             transition: { duration: 0.3 },
                         }}
                         key={index}
-                        className={'w-full rounded-xl '}
+                        className={'w-full select-none rounded-xl border-none '}
                     >
                         <motion.img src={item} alt={'sale'} className=" rounded-xl max-h-[40rem] m-auto"></motion.img>
                     </motion.div>

@@ -1,9 +1,51 @@
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 import { Input, TextMain, Modal, ModalItem } from '../../../../../components';
 
-function ModalAddNewCategory({ onRemove = () => {}, onCancel = () => {}, onClose = () => {} }) {
+import { request } from '../../../../../services';
+
+function ModalAddNewCategory({
+    onRemove = () => {},
+    onCancel = () => {},
+    onClose = () => {},
+    onAddNewCategory = (value) => {},
+}) {
     const [category, setCategory] = useState('');
     const [close, setClose] = useState(false);
+
+    const handleAddNewCategory = () => {
+        return request('POST', 'api/v1/admin/category/create', {
+            nameCategory: category,
+        })
+            .then((response) => {
+                const data = response.data;
+                if (data) {
+                    onAddNewCategory({
+                        ...data,
+                        name: data?.nameBranch,
+                    });
+                }
+                setClose(true);
+                return data;
+            })
+            .catch((errors) => {
+                console.error(errors);
+                // Re-throw the error to propagate it
+                throw errors;
+            });
+    };
+    const addNewCategory = async () => {
+        if (category === '') {
+            toast.error('Name branch is required!');
+            return;
+        }
+
+        toast.promise(handleAddNewCategory(), {
+            loading: 'Creating...',
+            success: <b>Create successful!</b>,
+            error: <b>Create failed.</b>,
+        });
+    };
 
     return (
         <Modal onClose={() => setClose(true)}>
@@ -38,6 +80,7 @@ function ModalAddNewCategory({ onRemove = () => {}, onCancel = () => {}, onClose
                             </button>
                             <button
                                 type="submit"
+                                onClick={addNewCategory}
                                 className="py-2 px-3 text-sm font-medium text-center text-white bg-green-700 rounded-md pl-4 pr-4 hover:bg-green-800 focus:outline-none  dark:bg-green-600 dark:hover:bg-green-700 "
                             >
                                 Save

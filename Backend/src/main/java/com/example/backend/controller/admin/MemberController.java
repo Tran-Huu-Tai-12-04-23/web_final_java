@@ -25,7 +25,7 @@ public class MemberController {
             @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size
     ) {
         Utils.validatePageNumberAndSize(page, size);
-        return ResponseEntity.ok(iMemberService.getAllAccount(page, size));
+        return ResponseEntity.ok(iMemberService.getAllAccountNotDelete(page, size));
     }
 
     @PutMapping
@@ -34,9 +34,20 @@ public class MemberController {
     }
 
     @DeleteMapping("/delete-soft")
-    public ResponseEntity<?> DeleteSoft(@RequestParam Long id) {
+    public ResponseEntity<?> deleteSoft(@RequestParam Long id) {
         try{
             return ResponseEntity.ok(iMemberService.deleteSoftMember(id));
+        }catch (Exception e) {
+            ErrorResponse err = new ErrorResponse();
+            err.setMessage(err.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(err);
+        }
+    }
+
+    @GetMapping("/block")
+    public ResponseEntity<?> block(@RequestParam Long id) {
+        try{
+            return ResponseEntity.ok(iMemberService.blockMember(id));
         }catch (Exception e) {
             ErrorResponse err = new ErrorResponse();
             err.setMessage(err.getMessage());

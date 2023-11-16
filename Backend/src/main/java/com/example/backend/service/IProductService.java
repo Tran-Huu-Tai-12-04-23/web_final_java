@@ -11,7 +11,7 @@ public interface IProductService {
     boolean deleteSoft(Long id);
     boolean delete(Long id);
     Product update(Product pro, Long id);
-    List<Product> getAll(Integer page, Integer size);
+    List<Product> getAllItemNotDelete(Integer page, Integer size);
     Optional<Product> getProduct(Long id);
 
     void validateProductRequest(Product product);
@@ -20,4 +20,5 @@ public interface IProductService {
 
     ProductSpecification createNewProductSpecification(ProductSpecification productSpecification);
 
+    List<Product> getProductByCategory(String nameCategory, Integer page, Integer size);
 }

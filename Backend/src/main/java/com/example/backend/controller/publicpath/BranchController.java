@@ -1,4 +1,4 @@
-package com.example.backend.controller.admin;
+package com.example.backend.controller.publicpath;
 
 import com.example.backend.model.Branch;
 import com.example.backend.model.Category;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/admin/branch")
+@RequestMapping("/api/v1/public/branch")
 @RequiredArgsConstructor
 public class BranchController {
     private final IBranchService iBranchService;
