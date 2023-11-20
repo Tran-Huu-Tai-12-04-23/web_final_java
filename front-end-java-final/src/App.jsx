@@ -12,7 +12,10 @@ const Home = lazy(() => import('./layout/Home'));
 const Admin = lazy(() => import('./layout/Admin'));
 const Sign = lazy(() => import('./layout/Sign'));
 const Contact = lazy(() => import('./layout/Contact'));
-const FAQs = lazy(() => import('./layout/FAQs'))
+const FAQs = lazy(() => import('./layout/FAQs'));
+const AccountInfo = lazy(() => import('./layout/AccountInfo'));
+const AccountInstallment = lazy(() => import('./layout/AccountInstallment'));
+const AccountOrder = lazy(() => import('./layout/AccountOrder'));
 function App() {
     const ref = useRef(null);
     const { theme, setTheme } = useTheme();
@@ -81,7 +84,7 @@ function App() {
                                         index
                                         element={
                                             <AccountLayout>
-                                                
+                                                <AccountInfo></AccountInfo>
                                             </AccountLayout>
                                         }
                                     />
@@ -103,6 +106,24 @@ function App() {
                                             </MainLayout>
                                         }
                                     />
+                                    <Route
+                                    path='/payment-installment'
+                                    element={
+                                        <AccountLayout>
+                                            <AccountInstallment></AccountInstallment>
+                                        </AccountLayout>
+                                    }
+                                    >
+                                    </Route>
+                                    <Route
+                                    path='orders'
+                                    element={
+                                        <AccountLayout>
+                                            <AccountOrder></AccountOrder>
+                                        </AccountLayout>
+                                    }
+                                    >
+                                    </Route>
                                 </Routes>
                             </BrowserRouter>
                         </Suspense>

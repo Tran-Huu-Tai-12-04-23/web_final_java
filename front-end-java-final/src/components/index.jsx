@@ -21,3 +21,7 @@ export { default as Pagination } from './Pagination';
 export { default as Select } from './Select';
 export { default as ModalItem } from './Modal/ModalItem';
 export { default as Editor } from './Editor';
+export { default as AccountMenu} from './AccountMenu';
+export { default as InstallmentItem} from './InstallmentItem';
+export { default as OrderItem} from './OrderItem';
+export { default as InformationCard} from './InformationCard';
