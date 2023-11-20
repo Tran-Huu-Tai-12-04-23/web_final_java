@@ -25,3 +25,4 @@ export { default as AccountMenu} from './AccountMenu';
 export { default as InstallmentItem} from './InstallmentItem';
 export { default as OrderItem} from './OrderItem';
 export { default as InformationCard} from './InformationCard';
+export { default as OrderDetailItem} from './OrderDetailItem';
