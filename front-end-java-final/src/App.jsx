@@ -2,7 +2,7 @@ import { lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useEffect, useRef } from 'react';
 import { Loading, Modal } from './components';
-import {  AccountLayout, MainLayout } from './layout';
+import {  AccountLayout, AccountWishlist, MainLayout } from './layout';
 import { useTheme } from './context/theme';
 import { motion, useScroll, AnimatePresence } from 'framer-motion';
 import { Toaster } from 'react-hot-toast';
@@ -16,6 +16,7 @@ const FAQs = lazy(() => import('./layout/FAQs'));
 const AccountInfo = lazy(() => import('./layout/AccountInfo'));
 const AccountInstallment = lazy(() => import('./layout/AccountInstallment'));
 const AccountOrder = lazy(() => import('./layout/AccountOrder'));
+// const AccountWishlist = lazy(() => import('./layout/AccountWishlist'));
 function App() {
     const ref = useRef(null);
     const { theme, setTheme } = useTheme();
@@ -124,6 +125,14 @@ function App() {
                                     }
                                     >
                                     </Route>
+                                    <Route
+                                    path='wishlist'
+                                    element={
+                                        <AccountLayout>
+                                            <AccountWishlist></AccountWishlist>
+                                        </AccountLayout>
+                                    }
+                                    ></Route>
                                 </Routes>
                             </BrowserRouter>
                         </Suspense>

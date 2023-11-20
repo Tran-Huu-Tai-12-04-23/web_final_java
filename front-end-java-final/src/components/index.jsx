@@ -26,3 +26,4 @@ export { default as InstallmentItem} from './InstallmentItem';
 export { default as OrderItem} from './OrderItem';
 export { default as InformationCard} from './InformationCard';
 export { default as OrderDetailItem} from './OrderDetailItem';
+export { default as WishlistItem} from './WishlistItem';

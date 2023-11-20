@@ -17,7 +17,7 @@ function OrderNavBar(){
         </div> */}
         <ul class="flex border-b mt-4">
             <li className="-mb-px mr-1 flex">
-                <a className="bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-primary flex items-center">
+                <a className="bg-white border-l border-t border-r rounded-t py-2 px-4 text-primary flex items-center">
                     <TextMain>Current</TextMain>
                     <div className="h-5 bg-rose-400 rounded-[40px] flex-col justify-center items-center gap-2.5 inline-flex ml-2">
                         <div className="text-center text-white leading-normal"><TextMain>{currentOrder}</TextMain></div>
