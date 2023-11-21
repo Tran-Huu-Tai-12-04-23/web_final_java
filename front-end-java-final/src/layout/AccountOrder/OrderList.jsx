@@ -9,9 +9,10 @@ function OrderList(){
                 <div className="font-light"><TextSub>Track, return or purchase items</TextSub></div>
             </div> 
             <OrderNavBar></OrderNavBar>
-            <div><OrderItem userName={"Nguyen Dat Khuong"}></OrderItem></div>
-            <div><OrderItem userName={"Nguyen Dat Khuong"}></OrderItem></div>
-            <div><OrderItem userName={"Nguyen Dat Khuong"}></OrderItem></div> 
+            <div><OrderItem userName={"Nguyen Dat Khuong"} orderStatus={"Delivered"}></OrderItem></div>
+            <div><OrderItem userName={"Nguyen Dat Khuong"} orderStatus={"Processing"}></OrderItem></div>
+            <div><OrderItem userName={"Nguyen Dat Khuong"} orderStatus={"Order Placed"}></OrderItem></div> 
+            <div><OrderItem userName={"Nguyen Dat Khuong"} orderStatus={"On the way"}></OrderItem></div> 
         </div>
     );
 }

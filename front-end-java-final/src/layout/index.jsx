@@ -8,3 +8,5 @@ export {default as AccountLayout} from './AccountLayout';
 export {default as AccountInstallment} from './AccountInstallment';
 export {default as AccountOrder} from './AccountOrder';
 export {default as AccountWishlist} from './AccountWishlist';
+export {default as AccountSecurity} from './AccountSecurity';
+export {default as AccountNotification} from './AccountNotification';
