@@ -28,3 +28,4 @@ export { default as InformationCard} from './InformationCard';
 export { default as OrderDetailItem} from './OrderDetailItem';
 export { default as WishlistItem} from './WishlistItem';
 export { default as NotificationItem} from './NotificationItem';
+export { default as DiscountItem} from './DiscountItem';

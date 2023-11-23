@@ -19,6 +19,7 @@ const AccountOrder = lazy(() => import('./layout/AccountOrder'));
 const AccountWishlist = lazy(() => import('./layout/AccountWishlist'));
 const AccountSecurity = lazy(() => import('./layout/AccountSecurity'));
 const AccountNotification = lazy(() => import("./layout/AccountNotification"));
+const AccountDiscount = lazy(() => import('./layout/AccountDiscount'));
 function App() {
     const ref = useRef(null);
     const { theme, setTheme } = useTheme();
@@ -153,6 +154,14 @@ function App() {
                                     }
                                     >
                                     </Route>
+                                    <Route
+                                    path='discounts'
+                                    element={
+                                        <AccountLayout>
+                                            <AccountDiscount></AccountDiscount>
+                                        </AccountLayout>
+                                    }
+                                    ></Route>
                                 </Routes>
                             </BrowserRouter>
                         </Suspense>

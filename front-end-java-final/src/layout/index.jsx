@@ -10,3 +10,4 @@ export {default as AccountOrder} from './AccountOrder';
 export {default as AccountWishlist} from './AccountWishlist';
 export {default as AccountSecurity} from './AccountSecurity';
 export {default as AccountNotification} from './AccountNotification';
+export {default as AccountDiscount} from './AccountDiscount';
