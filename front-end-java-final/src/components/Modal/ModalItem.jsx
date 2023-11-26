@@ -27,14 +27,15 @@ function ModalItem({ children, onClose = () => {}, close = false, className = ''
 
     useEffect(() => {
         const handleClose = async () => {
-            setY(-100);
-            setOpacity(0);
-            const waitClose = async () => {
-                setTimeout(() => {
-                    onClose();
-                }, 400);
-            };
-            await waitClose();
+            // alert('window click');
+            // setY(-100);
+            // setOpacity(0);
+            // const waitClose = async () => {
+            //     setTimeout(() => {
+            //         onClose();
+            //     }, 400);
+            // };
+            // await waitClose();
         };
 
         window.addEventListener('click', handleClose);
@@ -65,7 +66,7 @@ function ModalItem({ children, onClose = () => {}, close = false, className = ''
                 duration: 0.3,
                 ease: 'easeInOut',
             }}
-            className={`${className} relative w-fit h-fit  p-10 shadow-xl bg-white dark:bg-dark  rounded-xl flex flex-col `}
+            className={`${className} border-primary-style relative w-fit h-fit  p-10 shadow-xl bg-bg-light-menu dark:bg-bg-dark-menu backdrop-blur-3xl rounded-xl flex flex-col `}
         >
             <AnimateHover onClick={handleClose} className="absolute top-4 right-4 cursor-pointer hover:text-primary">
                 <AiOutlineClose className="h-6 w-6" />

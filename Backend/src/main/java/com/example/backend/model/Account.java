@@ -25,6 +25,7 @@ public class Account implements UserDetails {
     private Long id;
     private String username;
     private String password;
+
     private Role role;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -34,6 +35,9 @@ public class Account implements UserDetails {
     public void prePersist() {
         if (createAt == null) {
             createAt = new Date();
+        }
+        if (role == null) {
+            role = Role.USER;
         }
 
     }

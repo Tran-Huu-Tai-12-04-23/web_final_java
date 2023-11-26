@@ -15,7 +15,7 @@ import java.util.List;
 public class BranchController {
     private final IBranchService iBranchService;
 
-    @GetMapping("/all")
+    @GetMapping("")
     public ResponseEntity<List<Branch>> getAllBranch() {
         return ResponseEntity.ok(iBranchService.getAllBranch());
     }

@@ -6,7 +6,6 @@ import { Loading, Modal } from '../components';
 import { MainRoutes } from './UserRoutes';
 import { AdminRoutes } from './AdminRoutes';
 import Constants from '../Constants';
-import Parent from '../test/parent';
 
 const Login = lazy(() => import('../layout/Admin/Scene/Login'));
 
@@ -31,7 +30,6 @@ const ConfigRoute = () => {
                         })}
 
                         <Route path={Constants.ADMIN_LOGIN} element={<Login></Login>} />
-                        <Route path="/test" element={<Parent> </Parent>} />
                         <Route
                             path="*"
                             element={

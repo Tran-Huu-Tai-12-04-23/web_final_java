@@ -1,7 +1,7 @@
 import { lazy } from 'react';
 
 import Constants from '../Constants';
-import DetailProduct from '../layout/Global/Detail-product';
+import DetailProduct from '../layout/Global/DetailProduct';
 import OrderDetail from '../layout/Admin/Scene/Order/Detail';
 import Question from '../layout/Admin/Scene/Question';
 const Admin = lazy(() => import('../layout/Admin'));
@@ -16,7 +16,7 @@ const OrderInvoice = lazy(() => import('../layout/Admin/Scene/Order/Invoice/inde
 const BlogManger = lazy(() => import('../layout/Admin/Scene/Blog/Manager'));
 const AddBlog = lazy(() => import('../layout/Admin/Scene/Blog/Add'));
 const EditBlog = lazy(() => import('../layout/Admin/Scene/Blog/Edit'));
-const DetailBlog = lazy(() => import('../layout/Admin/Scene/Blog/Edit'));
+const DetailBlog = lazy(() => import('../layout/Global/DetailBlog'));
 
 export const AdminRoutes = [
     {
@@ -109,18 +109,18 @@ export const AdminRoutes = [
         ),
     },
     {
-        path: Constants.ADMIN_EDIT_EDIT + '/:id',
-        component: (
-            <Admin>
-                <EditBlog />
-            </Admin>
-        ),
-    },
-    {
         path: Constants.ADMIN_ADD_BLOG,
         component: (
             <Admin>
                 <AddBlog />
+            </Admin>
+        ),
+    },
+    {
+        path: Constants.ADMIN_EDIT_BLOG + '/:id',
+        component: (
+            <Admin>
+                <EditBlog />
             </Admin>
         ),
     },

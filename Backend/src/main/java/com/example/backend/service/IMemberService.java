@@ -12,6 +12,7 @@ public interface IMemberService {
     Member getMember(Long id);
     Member deleteSoftMember(Long id);
     Member blockMember(Long id);
+    Member unLockMember(Long id);
     void deleteMember(Long id);
 
     Member updateAccumulatePoints(double accumulatePoints,  Long id);

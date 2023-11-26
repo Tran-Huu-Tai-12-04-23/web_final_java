@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { v4 as ID } from 'uuid';
 import toast from 'react-hot-toast';
 
@@ -17,9 +18,11 @@ import { PiImageSquareDuotone } from 'react-icons/pi';
 import uploadImage from '../../../../../services/Firebase';
 import { request } from '../../../../../services';
 import { Spinner } from 'flowbite-react';
+import Constants from '../../../../../Constants';
 
-function AddBlog({ mode = 'add', data = null }) {
-    // data state of product
+function AddBlog({ modeEdit = false, data }) {
+    const history = useNavigate();
+    // data state of blog
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [thumbnails, setThumbnails] = useState(null);
@@ -70,7 +73,6 @@ function AddBlog({ mode = 'add', data = null }) {
         if (files[0]) {
             const img = await handleUploadIMG(files[0]);
             setThumbnails(img);
-            console.log(img);
         }
     };
 
@@ -108,8 +110,6 @@ function AddBlog({ mode = 'add', data = null }) {
             status,
         };
 
-        console.log(data);
-
         data = {
             ...data,
             category: {
@@ -129,21 +129,57 @@ function AddBlog({ mode = 'add', data = null }) {
         setThumbnails(null);
     };
 
-    const update = async () => {};
+    const update = async () => {
+        let dataReq = {
+            title,
+            content,
+            category,
+            thumbnails: thumbnails,
+            status,
+        };
+        console.log(dataReq);
+        console.log(thumbnails);
+        dataReq = {
+            ...dataReq,
+            category: {
+                id: dataReq.category,
+            },
+        };
+
+        await request('PUT', '/api/v1/admin/blog/' + data?.id, dataReq)
+            .then((res) => {
+                if (res.status === 200) {
+                    toast.success('Update blog successfully!');
+                    history(Constants.ADMIN_BLOG);
+                }
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+    };
+
+    useEffect(() => {
+        if (data) {
+            setThumbnails(data?.thumbnails);
+            setTitle(data?.title);
+            setStatus(data?.status);
+            setCategory(data?.category?.id);
+            setContent(data?.content);
+        }
+    }, [data]);
+
     return (
-        <motion.div className="">
+        <div className="">
             {/* modal */}
             {addNewCategoryModal && (
                 <ModalAddNewCategory onClose={() => setAddNewCategoryModal(false)}></ModalAddNewCategory>
             )}
-
             {loading && (
                 <Modal>
                     <Spinner color={'pink'}></Spinner>
                 </Modal>
             )}
             {/* end modal */}
-
             <input
                 type="file"
                 accept="image/*"
@@ -151,17 +187,17 @@ function AddBlog({ mode = 'add', data = null }) {
                 ref={inputRefThumbnails}
                 onChange={handleFileChangeThumbnails}
             ></input>
-            <SubHeader nameHeader={'Products'} sub={`${(mode = 'edit' ? 'Edit' : 'Add')}`} main="Products"></SubHeader>
+            <SubHeader nameHeader={'Blogs'} sub={`${modeEdit ? 'Edit' : 'Add'}`} main="Blogs"></SubHeader>
             <AnimateOpacity>
                 <motion.div className="p-4 rounded-md bg-light dark:bg-dark mt-10 shadow-xl">
                     <motion.div className="flex justify-between items-center border-b-[1px] border-dashed pb-4 dark:border-dark-tiny border-light-tiny">
-                        {mode == 'edit' && <TextMain>Edit product</TextMain>}
-                        {mode != 'edit' && <TextMain>Edit product</TextMain>}
+                        {modeEdit && <TextMain>Edit blog</TextMain>}
+                        {!modeEdit && <TextMain>Add blog</TextMain>}
                     </motion.div>
                 </motion.div>
 
-                <div className="w-full flex flex-col gap-4">
-                    {/* main property product about */}
+                <div className="w-full mt-5 flex flex-col gap-4">
+                    {/* main property blog about */}
                     <div className="  flex flex-col bg-light dark:bg-dark rounded-md p-4 shadow-xl">
                         <div className="flex flex-col  gap-4">
                             <div className="flex  flex-col ">
@@ -268,22 +304,20 @@ function AddBlog({ mode = 'add', data = null }) {
                 </div>
             </AnimateOpacity>
 
-            {mode != 'edit' && (
+            {!modeEdit ? (
                 <div className="flex justify-start items-center mt-5">
                     <Button onClick={AddBlog} style="submit" className={''}>
                         Submit
                     </Button>
                 </div>
-            )}
-
-            {mode == 'edit' && (
+            ) : (
                 <div className="flex justify-start items-center mt-5">
                     <Button onClick={update} style="submit" className={''}>
                         Update
                     </Button>
                 </div>
             )}
-        </motion.div>
+        </div>
     );
 }
 

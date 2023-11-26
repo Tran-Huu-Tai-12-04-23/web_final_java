@@ -14,7 +14,7 @@ function ItemOrderSummary({ data }) {
                 <TextSub>x1</TextSub>
 
                 <div className="w-full">
-                    <TextMain className={'float-right'}>$ {data?.price}</TextMain>
+                    <TextMain className={'float-right'}> {data?.price} vnd</TextMain>
                 </div>
             </div>
         </div>

@@ -67,11 +67,12 @@ public class CartService implements ICartService {
 
             return pro.get();
         }
-
         listPro = cart.getProducts();
-        listPro.add(pro.get());
-        cart.setProducts(listPro);
-        cartRepository.save(cart);
+        if (!listPro.contains(pro.get())) {
+            listPro.add(pro.get());
+            cart.setProducts(listPro);
+            cartRepository.save(cart);
+        }
         return pro.get();
     }
 
@@ -89,6 +90,17 @@ public class CartService implements ICartService {
 
         return cart;
 
+    }
+
+    @Override
+    public int countItemCart(Long mId) {
+        Member member = new Member();
+        member.setId(mId);
+        Cart cart = cartRepository.findByMember(member);
+        if( cart == null ) {
+            return 0;
+        }
+        return cart.getProducts().size();
     }
 
     public Cart removeItemFromCart(Long memberId, Long proId) {

@@ -37,24 +37,24 @@ function CartItem({ data, setCartItems = () => {} }) {
 
                 <div className="flex w-full flex-col">
                     <TextMain>{data?.name}</TextMain>
-                    <di className="flex justify-start items-center gap-4 mt-2">
+                    <div className="flex justify-start items-center gap-4 mt-2">
                         <div className="p-2 rounded-full w-4 h-4 bg-black border-solid border-[1px] border-s-emerald-50"></div>
                         <span>{data?.color}</span>
-                    </di>
+                    </div>
 
                     <div className="flex mt-3 gap-4 justify-start items-center">
                         <CiDeliveryTruck className="h-6 w-6 text-primary"></CiDeliveryTruck>
-                        <span>Free delivery</span>
+                        <span>Miễn phí vận chuyển</span>
                     </div>
                     <div className="flex mt-3 gap-4 justify-start items-center">
                         <AiOutlineFileProtect className="h-6 w-6 text-primary"></AiOutlineFileProtect>
-                        <span>Guaranteed </span>
+                        <span>Hòa trả và bảo hành uy tín</span>
                     </div>
 
                     <div className="flex mt-4 justify-between items-center">
                         <div className="flex w-2/3 justify-start items-center gap-4">
-                            <TextSub className={'line-through text-second'}>$1222</TextSub>
-                            <TextMain>$ {Math.floor(data?.price, 2)}</TextMain>
+                            <TextSub className={'line-through text-second'}>12.000 vnd</TextSub>
+                            <TextMain>{data?.price} vnd</TextMain>
                         </div>
 
                         <div className="w-[10rem] flex justify-end items-center gap-4 absolute bottom-4 right-4">

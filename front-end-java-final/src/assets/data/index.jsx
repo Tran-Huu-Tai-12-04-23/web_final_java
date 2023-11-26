@@ -14,7 +14,14 @@ import {
 import { RxHome } from 'react-icons/rx';
 import { BiCategoryAlt, BiBlock } from 'react-icons/bi';
 import { PiBookOpenTextDuotone, PiDesktopLight } from 'react-icons/pi';
-import { BsQuestionDiamond, BsArrowRightShort, BsTabletLandscape, BsSmartwatch, BsClockHistory } from 'react-icons/bs';
+import {
+    BsQuestionDiamond,
+    BsUnlock,
+    BsArrowRightShort,
+    BsTabletLandscape,
+    BsSmartwatch,
+    BsClockHistory,
+} from 'react-icons/bs';
 import { TiContacts } from 'react-icons/ti';
 import { MdEdit } from 'react-icons/md';
 import { IoMdTrash } from 'react-icons/io';
@@ -68,49 +75,13 @@ const NavHeader = [
         name: 'Products',
         path: '/products',
         icon: <BiCategoryAlt className="h-6 w-6"></BiCategoryAlt>,
-        subNav: (
-            <>
-                <div className="h-10 w-full bg-transparent absolute top-[90%] group"></div>
-                <ul className="text-black dark:text-white hidden group-hover:flex top-[110%] flex-col gap-4 p-4 rounded-md absolute z-50 min-w-[15rem] dark:bg-bg-dark-menu bg-bg-light-menu backdrop-blur-3xl">
-                    {subnavProduct.map((subNav, index) => {
-                        return (
-                            <Link
-                                to={subNav.path}
-                                key={index}
-                                className="peer justify-between flex items-center hover:bg-btn-second p-2 rounded-md cursor-pointer"
-                            >
-                                <span>{subNav.name}</span>
-                                <BsArrowRightShort className="w-6 h-6 hidden peer-hover:block"></BsArrowRightShort>
-                            </Link>
-                        );
-                    })}
-                </ul>
-            </>
-        ),
+        subNav: subnavProduct,
     },
     {
         name: 'Blog',
         path: '/blogs',
         icon: <PiBookOpenTextDuotone className="h-6 w-6"></PiBookOpenTextDuotone>,
-        subNav: (
-            <>
-                <div className="h-10 w-full bg-transparent absolute top-[90%] group"></div>
-                <ul className="text-black dark:text-white hidden group-hover:flex top-[110%] flex-col gap-4 p-4 rounded-md absolute z-50 min-w-[15rem] dark:bg-bg-dark-menu bg-bg-light-menu backdrop-blur-3xl">
-                    {subnavBlog.map((subNav, index) => {
-                        return (
-                            <Link
-                                key={index}
-                                to={subNav.path}
-                                className="peer justify-between flex items-center hover:bg-btn-second p-2 rounded-md cursor-pointer"
-                            >
-                                <span>{subNav.name}</span>
-                                <BsArrowRightShort className="w-6 h-6 hidden peer-hover:block"></BsArrowRightShort>
-                            </Link>
-                        );
-                    })}
-                </ul>
-            </>
-        ),
+        subNav: subnavBlog,
     },
     {
         name: 'FAQ',
@@ -1997,6 +1968,7 @@ export const WrappedColumnsTableMember = ({
     onEdit = () => {},
     onView = () => {},
     onBlock = () => {},
+    onUnLock = () => {},
 }) => {
     return [
         {
@@ -2035,11 +2007,32 @@ export const WrappedColumnsTableMember = ({
             },
             filed: 'status',
         },
+
         {
             title: 'Action',
             render: (value) => {
                 return (
                     <div className={`gap-4 flex justify-start items-center `}>
+                        <Tooltip content="UnLock member">
+                            <AnimateHover
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    onUnLock(value);
+                                }}
+                            >
+                                <BsUnlock className="w-6 h-6 brightness-50 text-yellow-200"></BsUnlock>
+                            </AnimateHover>
+                        </Tooltip>
+                        <Tooltip content="Block member">
+                            <AnimateHover
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    onBlock(value);
+                                }}
+                            >
+                                <BiBlock className="w-6 h-6 brightness-50 text-yellow-200"></BiBlock>
+                            </AnimateHover>
+                        </Tooltip>
                         <Tooltip content="Watch detail">
                             <AnimateHover
                                 onClick={(e) => {
@@ -2060,16 +2053,7 @@ export const WrappedColumnsTableMember = ({
                                 <MdEdit className="w-6 h-6 text-blue-600"></MdEdit>
                             </AnimateHover>
                         </Tooltip>
-                        <Tooltip content="Block member">
-                            <AnimateHover
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    onBlock(value);
-                                }}
-                            >
-                                <BiBlock className="w-6 h-6 brightness-50 text-yellow-200"></BiBlock>
-                            </AnimateHover>
-                        </Tooltip>
+
                         <Tooltip content="Remove member">
                             <AnimateHover
                                 onClick={(e) => {
@@ -3230,17 +3214,25 @@ export const WrapperColumnsTableBlog = ({ onRemove = () => {}, onEdit = () => {}
             filed: 'title',
         },
         {
-            title: 'Price',
-            filed: 'price',
-        },
-        {
-            title: 'Quantity',
-            filed: 'quantity',
-            center: true,
-        },
-        {
             title: 'Category',
             filed: 'category',
+        },
+        {
+            title: 'Status',
+            filed: 'status',
+            render: (status) => {
+                return (
+                    <div
+                        className={`${
+                            status == false
+                                ? 'text-status-cancel bg-status-cancel '
+                                : 'text-status-complete bg-status-complete'
+                        } flex justify-center items-center w-fit rounded-md p-2`}
+                    >
+                        {status == false ? 'Draft' : 'Published'}
+                    </div>
+                );
+            },
         },
         {
             title: 'Action',

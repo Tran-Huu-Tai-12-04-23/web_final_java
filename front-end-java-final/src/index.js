@@ -5,15 +5,18 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import ThemeProviderApp from './context/theme';
 import LoginProviderApp from './context/login';
+import LoadingProviderApp from './context/loadingContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
-        <LoginProviderApp>
-            <ThemeProviderApp>
-                <App />
-            </ThemeProviderApp>
-        </LoginProviderApp>
+        <LoadingProviderApp>
+            <LoginProviderApp>
+                <ThemeProviderApp>
+                    <App />
+                </ThemeProviderApp>
+            </LoginProviderApp>
+        </LoadingProviderApp>
     </React.StrictMode>,
 );
 

@@ -6,7 +6,7 @@ import { FiUser } from 'react-icons/fi';
 import { LiaKeySolid } from 'react-icons/lia';
 import { Link } from 'react-router-dom';
 import Utils from '../../utils/Util';
-import { request, setAuthHeader, setRefreshToken } from '../../services/index';
+import { requestSign, setAuthHeader, setRefreshToken } from '../../services/index';
 
 import { RiFacebookLine } from 'react-icons/ri';
 import { PiGoogleLogoLight } from 'react-icons/pi';
@@ -22,9 +22,10 @@ function LoginForm({ onClose = () => {}, setAccount = () => {} }) {
         };
 
         try {
-            await request('POST', '/api/v1/auth/sign-in', user)
+            await requestSign('POST', '/api/v1/auth/sign-in', user)
                 .then((response) => {
                     const data = response.data;
+                    if (data == null) return Promise.reject(false);
                     setAuthHeader(data.jwtAuthenticationResponse.token);
                     setRefreshToken(data.jwtAuthenticationResponse.refreshToken);
 
@@ -42,6 +43,9 @@ function LoginForm({ onClose = () => {}, setAccount = () => {} }) {
                 .catch((error) => {
                     setAuthHeader(null);
                     console.log(error);
+                    if (error.response) {
+                        if (error.response.data.message) toast.error(error.response.data.message);
+                    }
                     return Promise.reject(error);
                 });
         } catch (error) {

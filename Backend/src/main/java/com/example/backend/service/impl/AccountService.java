@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import javax.security.auth.login.AccountNotFoundException;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -69,6 +70,10 @@ public class AccountService implements IAccountService {
         };
     }
 
+    @Override
+    public Optional<Account> getAccount(Long id) {
+        return accountRepository.findById(id);
+    }
 
 
 }

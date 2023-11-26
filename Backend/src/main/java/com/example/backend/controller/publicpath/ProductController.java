@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/public/product")
@@ -25,6 +26,21 @@ public class ProductController {
     ) {
         Utils.validatePageNumberAndSize(page, size);
         return ResponseEntity.ok(iProductService.getAllItemNotDelete(page, size));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getProductDetail(@PathVariable Long id) {
+        try{
+            Optional<Product> product = iProductService.getProduct(id);
+            ErrorResponse err = new ErrorResponse();
+            err.setMessage("Product not found");
+            return product.isPresent() ? ResponseEntity.ok(product.get()) : ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(err);
+        }catch (Exception e) {
+            e.printStackTrace();
+            ErrorResponse err = new ErrorResponse();
+            err.setMessage(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(err);
+        }
     }
 
     @PostMapping("/create")

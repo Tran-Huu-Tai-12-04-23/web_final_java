@@ -11,10 +11,9 @@ function DetailProduct({ mode = 'user' }) {
     const { id } = useParams();
     const [data, setData] = useState(null);
     const [viewModeSlide, setViewModeSlide] = useState(false);
-
     useEffect(() => {
         const getData = async () => {
-            await request('GET', '/api/v1/admin/product/' + id)
+            await request('GET', '/api/v1/public/product/' + id)
                 .then((response) => {
                     const data = response?.data;
                     if (!data) return;

@@ -41,6 +41,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final String EMAIL_INVALID = "Email invalid";
     private final String PHONE_NUMBER_INVALID = "Phone number invalid invalid";
     private final String PASSWORD_CONFIRM_NOT_MATCH = "Password and confirm password does not match!";
+    private final String PHONE_EXIST = "Phone number in use!";
+    private final String EMAIL_EXIST = "Email in use!";
 
 
     public Member signUp(SignUpMemberRequest signUpMemberRequest) throws ResponseStatusException{
@@ -51,6 +53,14 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Account already exists");
         }
 
+        boolean checkEmailExist = memberRepository.existsByEmail(signUpMemberRequest.getEmail());
+        if(checkEmailExist) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, EMAIL_EXIST);
+        }
+        boolean checkPhoneExist = memberRepository.existsByPhoneNumber(signUpMemberRequest.getPhoneNumber());
+        if(checkPhoneExist) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, PHONE_EXIST);
+        }
         String checkDataInputMessage = checkRequestDataInput(signUpMemberRequest);
 
         if( !checkDataInputMessage.isEmpty()) {

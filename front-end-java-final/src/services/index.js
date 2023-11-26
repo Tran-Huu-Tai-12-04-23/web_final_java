@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { Alert } from 'flowbite-react';
 
 export const getAuthToken = () => {
     return window.localStorage.getItem('auth_token');
@@ -38,6 +39,14 @@ export const getRefreshToken = () => {
 axios.defaults.baseURL = 'http://localhost:8099';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
+export const requestSign = async (method, url, data) => {
+    return await axios({
+        method: method,
+        url: url,
+        data: data,
+    });
+};
+
 export const request = async (method, url, data) => {
     let headers = {};
     const authToken = getAuthToken();
@@ -75,11 +84,11 @@ export const request = async (method, url, data) => {
                 } catch (error) {
                     console.error('Error making request after token refresh:', error);
                     console.log(error);
+                    return error;
                 }
             }
         } else {
-            console.error('Error making request:', error);
-            console.log(error);
+            return error;
         }
     }
 };

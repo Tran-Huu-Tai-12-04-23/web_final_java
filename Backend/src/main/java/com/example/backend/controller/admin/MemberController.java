@@ -19,7 +19,7 @@ public class MemberController {
 
     private final IMemberService iMemberService;
 
-    @GetMapping("/all")
+    @GetMapping("")
     public ResponseEntity<List<Member>> getAllMember(
             @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
             @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size
@@ -28,9 +28,20 @@ public class MemberController {
         return ResponseEntity.ok(iMemberService.getAllAccountNotDelete(page, size));
     }
 
-    @PutMapping
+    @PostMapping
     public ResponseEntity<Member> createMember(@RequestBody Member member) {
         return ResponseEntity.ok(iMemberService.update(member, member.getId()));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateMember(@RequestBody Member member, @PathVariable Long id) {
+        try{
+            return ResponseEntity.ok(iMemberService.update(member, id));
+        }catch (Exception e) {
+            ErrorResponse err = new ErrorResponse();
+            err.setMessage(err.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(err);
+        }
     }
 
     @DeleteMapping("/delete-soft")
@@ -55,6 +66,17 @@ public class MemberController {
         }
     }
 
+
+    @GetMapping("/un-lock")
+    public ResponseEntity<?> unLock(@RequestParam Long id) {
+        try{
+            return ResponseEntity.ok(iMemberService.unLockMember(id));
+        }catch (Exception e) {
+            ErrorResponse err = new ErrorResponse();
+            err.setMessage(err.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(err);
+        }
+    }
     @GetMapping("/search")
     public ResponseEntity<?> searchMember(
             @RequestParam String key,

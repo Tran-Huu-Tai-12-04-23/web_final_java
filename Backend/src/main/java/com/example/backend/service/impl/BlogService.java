@@ -48,6 +48,7 @@ public class BlogService implements IBlogService {
             bl.setTitle(blog.getTitle());
             bl.setCategory(blog.getCategory());
             bl.setContent(blog.getContent());
+            bl.setThumbnails(blog.getThumbnails());
             return blogRepository.save(bl);
         }).orElseThrow(() -> new NotFoundException("Blog is not found!"));
     }
@@ -72,11 +73,17 @@ public class BlogService implements IBlogService {
 
     @Override
     public Blog changeStatusDelete(Long id, Boolean delete) {
-        return blogRepository.findById(id).map(bl -> {
-            bl.setIsDelete(delete);
-            return blogRepository.save(bl);
-        }).orElseThrow(() -> new NotFoundException("Blog not found"));
+        try {
+            Blog blog = blogRepository.findById(id)
+                    .orElseThrow(() -> new NotFoundException("Blog not found with id: " + id));
+            blog.setIsDelete(delete);
+            return blogRepository.save(blog);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error updating blog status", e);
+        }
     }
+
 
     @Override
     public void delete(Long id) {

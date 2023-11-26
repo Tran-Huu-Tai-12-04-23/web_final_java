@@ -21,11 +21,11 @@ function Specifications({ data = {} }) {
                         index <= showRow && (
                             <div
                                 className={`${
-                                    index % 2 === 1 ? 'bg-light-tiny dark:bg-dark-tiny' : 'bg-transparent'
-                                } p-2 flex rounded-md justify-between items-center`}
+                                    index % 2 === 1 ? 'bg-bg-light-menu dark:bg-bg-dark-menu' : 'bg-transparent'
+                                } p-2 flex rounded-md justify-between items-start`}
                                 key={index}
                             >
-                                <span>{key.charAt(0).toUpperCase() + key.slice(1)}</span>
+                                <span className="mr-4">{key.charAt(0).toUpperCase() + key.slice(1)}</span>
                                 <span>{value}</span>
                             </div>
                         ),

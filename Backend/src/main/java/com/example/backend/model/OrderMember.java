@@ -20,18 +20,81 @@ public class OrderMember {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
+    private Double total;
+    private Integer amount;
+
     @Column(columnDefinition = "BOOLEAN DEFAULT false")
     private Boolean isCancel;
 
     @Column(columnDefinition = "BOOLEAN DEFAULT false")
     private Boolean isDelete;
 
-    @ManyToOne
-    @JoinColumn(name = "order_status_id")
+    @Column(columnDefinition = "INT DEFAULT 0")
     private OrderStatus orderStatus;
 
-    @OneToMany
-    @JoinColumn(name = "detail_orders")
-    private List<DetailOrder> detailOrders;
+    @Column(columnDefinition = "BOOLEAN DEFAULT false")
+    private Boolean isPayment;
+
+    @Column(columnDefinition = "INT DEFAULT 0")
+    private MethodPayment methodPayment;
+
+    @ManyToOne
+    @JoinColumn(name = "address_id")
+    private Address address;
+
+    @OneToMany(mappedBy = "orderMember", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OrderDetail> orderDetails;
+
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private Member member;
+
+    @PrePersist
+    public void prePersist() {
+        if (orderStatus == null) {
+            orderStatus = OrderStatus.PREPARE;
+        }
+        if (isPayment == null) {
+            isPayment = false;
+        }
+
+        if (isDelete == null) {
+            isDelete = false;
+        }
+
+        if (isCancel == null) {
+            isCancel = false;
+        }
+
+        if (methodPayment == null) {
+            methodPayment = MethodPayment.CASH;
+        }
+    }
+
+    public Double calculateTotal() {
+        if (orderDetails == null || orderDetails.isEmpty()) {
+            return 0.0;
+        }
+
+        double total = 0.0;
+        for (OrderDetail orderDetail : orderDetails) {
+            total += orderDetail.getProduct().getPrice() * orderDetail.getProduct().getQuantity();
+        }
+
+        return total;
+    }
+
+    public Integer calAmount() {
+        if (orderDetails == null || orderDetails.isEmpty()) {
+            return 0;
+        }
+
+        Integer amount = 0;
+        for (OrderDetail orderDetail : orderDetails) {
+            amount += orderDetail.getProduct().getQuantity();
+        }
+
+        return amount;
+    }
 
 }

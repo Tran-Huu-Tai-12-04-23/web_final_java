@@ -42,6 +42,9 @@ public class Member {
         if( status == null ) {
             status = true;
         }
+        if( accumulatePoints == null ) {
+            accumulatePoints = (double) 0;
+        }
     }
 
 }

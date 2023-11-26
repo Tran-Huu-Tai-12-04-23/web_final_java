@@ -32,6 +32,7 @@ function Manager({}) {
     const [data, setData] = useState([]);
     const [category, setCategory] = useState(0);
     const [categoryOptions, setCategoryOptions] = useState([]);
+    console.log(data);
     // data
 
     // filter data
@@ -56,7 +57,7 @@ function Manager({}) {
     // handle get option for category and branch
     const handleRemoveSoftBlog = async () => {
         try {
-            await request('DELETE', '/api/v1/admin/product/delete-soft?id=' + blogIdForConfirm)
+            await request('DELETE', '/api/v1/admin/blog/delete-soft?id=' + blogIdForConfirm)
                 .then((response) => {
                     console.log(response);
 
@@ -96,7 +97,7 @@ function Manager({}) {
                         const newData = data.map((dt) => {
                             return {
                                 ...dt,
-                                category: dt?.nameCategory,
+                                category: dt?.category?.nameCategory,
                             };
                         });
                         setData(newData);

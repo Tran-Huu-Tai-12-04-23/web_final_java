@@ -17,7 +17,7 @@ function MainFilter({ filters = {}, setFilters = () => {} }) {
     useEffect(() => {
         const getCategoryOptions = async () => {
             try {
-                await request('GET', '/api/v1/public/category/all')
+                await request('GET', '/api/v1/public/category/product')
                     .then((response) => {
                         const data = response.data;
                         if (!data) return;
@@ -41,7 +41,7 @@ function MainFilter({ filters = {}, setFilters = () => {} }) {
     useEffect(() => {
         const getBranchOptions = async () => {
             try {
-                await request('GET', '/api/v1/public/branch/all')
+                await request('GET', '/api/v1/public/branch')
                     .then((response) => {
                         const data = response.data;
                         if (!data) return;
@@ -147,7 +147,7 @@ function MainFilter({ filters = {}, setFilters = () => {} }) {
             </div>
             <div className="gap-4 flex w-full mb-4 h-fit border-primary-style p-4 rounded-md items-center">
                 <MultiSelect
-                    placeholder="Choose category"
+                    placeholder="Choose branch"
                     active={activeMultiSelect === 1}
                     onActive={() => {
                         setActiveMultiSelect(1);
@@ -172,7 +172,7 @@ function MainFilter({ filters = {}, setFilters = () => {} }) {
                 ></MultiSelect>
 
                 <MultiSelect
-                    placeholder={'Choose branch'}
+                    placeholder={'Choose category'}
                     active={activeMultiSelect === 2}
                     onActive={() => {
                         setActiveMultiSelect(2);

@@ -3,7 +3,7 @@ import { Header, Footer } from '../../components';
 
 function MainLayout({ children }) {
     return (
-        <motion.div className="">
+        <motion.div className="bg-light dark:bg-dark">
             <Header></Header>
             {children}
             <Footer></Footer>

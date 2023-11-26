@@ -16,6 +16,7 @@ public interface ICartService {
     Product addToCart(Long productId, Long memberId);
 
     Cart getDetailCartByMember(Long memberId);
+    int countItemCart(Long mId);
     Cart removeItemFromCart(Long memberId, Long proId);
 
 }

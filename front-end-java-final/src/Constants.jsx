@@ -21,6 +21,7 @@ class Constants {
     static FAQ = '/faq';
     static CONTACT = '/contact';
     static CART = '/cart';
+    static USER_ORDER = '/user/order';
 }
 
 export default Constants;

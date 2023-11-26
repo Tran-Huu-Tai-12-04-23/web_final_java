@@ -26,17 +26,23 @@ function ManagerMember() {
     const [data, setData] = useState([]);
     const [memberIdForRemove, setMemberIdForRemove] = useState(null);
     const [memberIdForBlock, setMemberIdForBlock] = useState(null);
+    const [dataEdit, setDataEdit] = useState(null);
+
     const columnsMember = WrappedColumnsTableMember({
         onRemove: (value) => {
             setConfirmRemoveSoftMember(true);
             setMemberIdForRemove(value);
         },
         onEdit: (value) => {
+            setDataEdit(data.find((dt) => dt.id === value));
             setEditMember(true);
         },
         onBlock: (value) => {
             setMemberIdForBlock(value);
             setConfirmBlockMember(true);
+        },
+        onUnLock: async (value) => {
+            await unLockMember(value);
         },
     });
 
@@ -71,6 +77,37 @@ function ManagerMember() {
         });
     };
 
+    const handleUnLockMember = async (value) => {
+        try {
+            await request('GET', '/api/v1/admin/member/un-lock?id=' + value)
+                .then((response) => {
+                    if (!response) {
+                        return Promise.reject(false);
+                    }
+                    setData((prev) =>
+                        prev.map((dt) => {
+                            if (dt.id === value) {
+                                return {
+                                    ...dt,
+                                    status: true,
+                                };
+                            }
+
+                            return dt;
+                        }),
+                    );
+                    setMemberIdForBlock(null);
+                    return Promise.resolve(true);
+                })
+                .catch((err) => {
+                    console.log(err);
+                    return Promise.reject(false);
+                });
+        } catch (error) {
+            console.error(error);
+            return Promise.reject(false);
+        }
+    };
     const handleBlockMember = async () => {
         try {
             await request('GET', '/api/v1/admin/member/block?id=' + memberIdForBlock)
@@ -102,11 +139,17 @@ function ManagerMember() {
             return Promise.reject(false);
         }
     };
-
-    const blockMember = async () => {
+    const unLockMember = async (value) => {
+        toast.promise(handleUnLockMember(value), {
+            loading: 'Unlock ...',
+            success: <b>Unlock member successful!</b>,
+            error: <b>Unlock member failed.</b>,
+        });
+    };
+    const blockMember = async (value) => {
         if (memberIdForBlock == null) return;
 
-        toast.promise(handleBlockMember(), {
+        toast.promise(handleBlockMember(value), {
             loading: 'Blocking ...',
             success: <b>Block member successful!</b>,
             error: <b>Block member failed.</b>,
@@ -115,7 +158,7 @@ function ManagerMember() {
 
     useEffect(() => {
         const getData = async () => {
-            await request('GET', '/api/v1/admin/member/all')
+            await request('GET', '/api/v1/admin/member?page=0&&size=30')
                 .then((res) => {
                     const dataRes = res.data;
 
@@ -124,7 +167,7 @@ function ManagerMember() {
                         const idMember = dt.id;
                         return {
                             ...dt,
-                            ...dt?.account,
+                            username: dt?.account?.username,
                             id: idMember,
                         };
                     });
@@ -163,6 +206,8 @@ function ManagerMember() {
 
             {editMember === true && (
                 <ModalEditMember
+                    setListMember={setData}
+                    data={dataEdit}
                     onClose={() => {
                         setEditMember(false);
                     }}

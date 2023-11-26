@@ -8,6 +8,7 @@ const FAQs = lazy(() => import('../layout/FAQs'));
 const ProductUser = lazy(() => import('../layout/Product'));
 const Blog = lazy(() => import('../layout/Blog'));
 const Cart = lazy(() => import('../layout/Cart'));
+const DetailProductUser = lazy(() => import('../layout/DetailProductUser'));
 
 export const MainRoutes = [
     {
@@ -24,6 +25,15 @@ export const MainRoutes = [
         component: (
             <MainLayout>
                 <ProductUser />
+            </MainLayout>
+        ),
+    },
+
+    {
+        path: Constants.PRODUCT + '/:id',
+        component: (
+            <MainLayout>
+                <DetailProductUser />
             </MainLayout>
         ),
     },

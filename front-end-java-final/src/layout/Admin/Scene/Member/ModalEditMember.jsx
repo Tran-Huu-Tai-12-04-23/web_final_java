@@ -1,20 +1,106 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Input, Select, TextMain } from '../../../../components';
 // import DatePicker from 'react-datepicker';
 // import 'react-datepicker/dist/react-datepicker.css';
 import { Modal, ModalItem } from '../../../../components';
+import toast from 'react-hot-toast';
+import { BsEarFill } from 'react-icons/bs';
+import { request } from '../../../../services';
 
-import { Datepicker } from 'flowbite-react';
-
-function ModalEditMember({ onRemove = () => {}, onCancel = () => {}, onClose = () => {}, data }) {
+function ModalEditMember({
+    onRemove = () => {},
+    onCancel = () => {},
+    onClose = () => {},
+    data,
+    setListMember = () => {},
+}) {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
-    const [deleted, setDeleted] = useState(false);
-    const [createAt, setCreateAt] = useState(new Date());
-    const [focus, setFocus] = useState(false);
+    const [status, setStatus] = useState(false);
+    const optionsStatus = [
+        {
+            name: 'Active',
+            value: false,
+            id: 0,
+        },
+        {
+            name: 'Block',
+            value: true,
+            id: 1,
+        },
+    ];
 
     const [close, setClose] = useState(false);
+    const handleUpdateMember = async () => {
+        const dataReq = {
+            username: name,
+            email,
+            phoneNumber,
+            status: status === 0 ? 1 : 0,
+        };
+
+        if (name === '') {
+            toast('Please enter name for member!', {
+                icon: '⚠️',
+            });
+            return;
+        } else if (email === '') {
+            toast('Please enter email!', {
+                icon: '⚠️',
+            });
+            return;
+        } else if (phoneNumber === '') {
+            toast('Please enter phone! ', {
+                icon: '⚠️',
+            });
+            return;
+        }
+
+        try {
+            const response = await request('PUT', '/api/v1/admin/member/' + data?.id, dataReq);
+
+            if (!response) {
+                return Promise.reject(false);
+            }
+
+            setListMember((prev) => {
+                return prev.map((mem) => {
+                    if (mem.id === data.id) {
+                        return {
+                            ...mem,
+                            ...dataReq,
+                        };
+                    }
+                    return mem;
+                });
+            });
+
+            setClose(true);
+
+            return Promise.resolve(true);
+        } catch (error) {
+            console.error(error);
+            return Promise.reject(false);
+        }
+    };
+
+    const updateMember = async () => {
+        toast.promise(handleUpdateMember(), {
+            loading: 'Updating ...',
+            success: <b>Update successful!</b>,
+            error: <b>Update failed.</b>,
+        });
+    };
+
+    useEffect(() => {
+        if (data) {
+            setName(data?.username);
+            setEmail(data?.email);
+            setPhoneNumber(data?.phoneNumber);
+            setStatus(data?.status === false ? 1 : 0);
+        }
+    }, [data]);
 
     return (
         <Modal onClose={() => setClose(true)}>
@@ -53,30 +139,12 @@ function ModalEditMember({ onRemove = () => {}, onCancel = () => {}, onClose = (
                             className="mb-4"
                         ></Input>
 
-                        <label className="mb-2  ml-1">Join date</label>
-                        <div className="relative z-[1000000]">
-                            <Datepicker
-                                defaultDate={createAt}
-                                className=" bg-transparent w-full mb-4 outline-none rounded-lg focus:ring-transparent focus:border-primary focus:outline-none border-none"
-                                onSelectedDateChanged={(date) => setCreateAt(date)}
-                            />
-                        </div>
-
                         <label className="mb-2 ml-1">Status</label>
                         <Select
                             name="Status"
-                            subMenu={[
-                                {
-                                    name: 'Active',
-                                    value: false,
-                                },
-                                {
-                                    name: 'Block',
-                                    value: true,
-                                },
-                            ]}
-                            value={deleted}
-                            setValue={setDeleted}
+                            subMenu={optionsStatus}
+                            onSelect={(value) => setStatus(value)}
+                            value={status}
                             className={'p-2'}
                         ></Select>
 
@@ -92,6 +160,7 @@ function ModalEditMember({ onRemove = () => {}, onCancel = () => {}, onClose = (
                             </button>
                             <button
                                 type="submit"
+                                onClick={updateMember}
                                 className="py-2 px-3 text-sm font-medium text-center text-white bg-green-700 rounded-md pl-4 pr-4 hover:bg-green-800 focus:outline-none  dark:bg-green-600 dark:hover:bg-green-700 "
                             >
                                 Save

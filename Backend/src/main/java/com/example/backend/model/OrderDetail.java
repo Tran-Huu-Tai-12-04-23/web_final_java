@@ -14,13 +14,15 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class DetailOrder {
+public class OrderDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    private Double total;
-
+    @Column(columnDefinition = "DOUBLE DEFAULT 0")
+    Double subTotal;
+    @Column(columnDefinition = "INT DEFAULT 1")
+    Integer subAmount;
     @Temporal(TemporalType.TIMESTAMP)
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Date createAt;
@@ -29,16 +31,18 @@ public class DetailOrder {
         if (createAt == null) {
             createAt = new Date();
         }
-    }
+        if(subTotal == null) {
+            subTotal = 0.0;
+        }
+        if( subAmount == null ) {
+            subAmount = 1;
+        }
 
-    @ManyToOne
-    @JoinColumn(name = "member_id")
-    private Member member;
+    }
 
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
-
 
     @ManyToOne
     @JoinColumn(name = "order_id")

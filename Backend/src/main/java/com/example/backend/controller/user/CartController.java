@@ -24,7 +24,6 @@ import java.util.List;
 public class CartController {
     private final ICartService iCartService;
 
-
     @PostMapping
     public ResponseEntity<?> addProductToCart(@RequestBody CartRequest cartRequest) {
         try {
@@ -45,8 +44,18 @@ public class CartController {
         }
     }
 
+    @GetMapping("/size")
+    public ResponseEntity<?> countItemCart(@RequestParam Long mId) {
+        try {
+            int quantity = iCartService.countItemCart(mId);
+            return ResponseEntity.ok(quantity);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("failed get detail cart");
+        }
+    }
+
     @DeleteMapping
-    public ResponseEntity<?> getCart(@RequestParam Long mId, Long proId) {
+    public ResponseEntity<?> removeItemCart(@RequestParam Long mId, Long proId) {
         try {
             Cart cart = iCartService.removeItemFromCart(mId, proId);
             return ResponseEntity.ok(cart);
@@ -54,7 +63,6 @@ public class CartController {
             return ResponseEntity.badRequest().body("failed get detail cart");
         }
     }
-
 
 
 }

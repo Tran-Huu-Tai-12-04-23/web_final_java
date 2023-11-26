@@ -6,8 +6,9 @@ import { LiaKeySolid } from 'react-icons/lia';
 import { BsTelephone } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import { request, setAuthHeader } from '../../services/index';
+import { requestSign } from '../../services/index';
 import { Spinner } from 'flowbite-react';
+import Util from '../../utils/Util';
 
 function RegisterForm({ switchLogin = () => {} }) {
     const [username, setUsername] = useState('');
@@ -27,18 +28,19 @@ function RegisterForm({ switchLogin = () => {} }) {
         };
 
         setLoading(true);
-        await request('POST', '/api/v1/auth/sign-up', user)
+        await requestSign('POST', '/api/v1/auth/sign-up', user)
             .then((response) => {
-                console.log(response);
-                // toast.promise(handleRegister(), {
-                //     loading: 'Registering in...',
-                //     success: <b>Register successful!</b>,
-                //     error: <b>Register failed.</b>,
-                // });
+                toast.promise(handleRegister(), {
+                    loading: 'Registering in...',
+                    success: <b>Register successful!</b>,
+                    error: <b>Register failed.</b>,
+                });
+                switchLogin();
             })
             .catch((error) => {
-                console.log(error);
-                throw new Error(error);
+                if (error.response) {
+                    error.response.data.message && toast.error(error.response.data.message);
+                }
             });
 
         setLoading(false);
@@ -70,8 +72,17 @@ function RegisterForm({ switchLogin = () => {} }) {
                 icon: '⚠️',
             });
             return;
+        } else if (!Util.validateEmail(email)) {
+            toast('Email is not valid! ', {
+                icon: '⚠️',
+            });
+            return;
+        } else if (!Util.validatePhoneNumber(phoneNumber)) {
+            toast('Phone number is not valid! ', {
+                icon: '⚠️',
+            });
+            return;
         }
-
         await handleRegister();
     };
     return (
@@ -91,7 +102,7 @@ function RegisterForm({ switchLogin = () => {} }) {
                 duration: 0.3,
                 ease: 'easeInOut',
             }}
-            className="pt-10 w-full"
+            className="pt-10 w-full flex flex-col gap-4"
         >
             {loading && (
                 <Modal>
@@ -101,21 +112,18 @@ function RegisterForm({ switchLogin = () => {} }) {
             <TextMain className={'font-bold text-center text-xl mb-5'}>Create Your Account</TextMain>
             <Input
                 placeholder="Username"
-                className="mb-3 "
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 iconLeft={<CiUser className="w-6 h-6 ml-2 text-gray-400"></CiUser>}
             ></Input>
             <Input
                 placeholder="E-mail"
-                className="mb-3 "
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 iconLeft={<CiMail className="w-6 h-6 ml-2 text-gray-400"></CiMail>}
             ></Input>
             <Input
                 placeholder="Phone number"
-                className="mb-3 "
                 value={phoneNumber}
                 onChange={(e) => setPhoneNumber(e.target.value)}
                 iconLeft={<BsTelephone className="w-6 h-6 ml-2 text-gray-400"></BsTelephone>}
@@ -123,10 +131,9 @@ function RegisterForm({ switchLogin = () => {} }) {
             <Input
                 placeholder="Password"
                 type={'password'}
-                className=" mb-3 "
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                iconLeft={<LiaKeySolid className="w-6 h-6ml-2 text-gray-400"></LiaKeySolid>}
+                iconLeft={<LiaKeySolid className="w-6 h-6 ml-2 text-gray-400"></LiaKeySolid>}
             ></Input>
             <Input
                 placeholder="Confirm password"

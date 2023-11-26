@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Button, Input, Pagination } from '../../components';
-
+import { Input, Pagination } from '../../components';
+import nores from '../../assets/img/no-res.png';
 function getPaginatedData(page, numberRowShow, data) {
     const startIndex = (page - 1) * numberRowShow;
     const endIndex = startIndex + numberRowShow;
@@ -253,7 +253,11 @@ export default function TableCustom({
                 </thead>
                 <tbody>{renderRowsData()}</tbody>
             </table>
-
+            {dataShow.length === 0 && (
+                <div className="w-full flex justify-center p-4 items-center">
+                    <img src={nores} className="w-40 h-40" alt="no-result"></img>
+                </div>
+            )}
             {pagination && (
                 <div className="mt-3 float-right flex justify-end items-center">
                     <div className="flex justify-start items-center mr-3 mt-3">

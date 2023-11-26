@@ -13,5 +13,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     List<Member> findByEmailContaining(String email, Pageable pageable);
 
     List<Member> findAllByIsDeleteFalse(Pageable pageable);
+    boolean existsByEmail(String email);
+    boolean existsByPhoneNumber(String phoneNumber);
 
 }

@@ -18,19 +18,7 @@ const sliderSettings = {
 };
 
 function SaleProduct() {
-    const [arrow, setArrow] = useState(false);
-    const [x, setX] = useState(0);
     const [data, setData] = useState([]);
-    const wrapperContent = useRef(null);
-
-    const moveItemUp = (fromIndex, toIndex) => {
-        const updatedItems = [...data]; // Tạo một bản sao mới của mảng items
-        const [movedItem] = updatedItems.splice(fromIndex, 1); // Xóa phần tử từ vị trí fromIndex và lấy nó ra
-        updatedItems.splice(toIndex, 0, movedItem); // Chèn phần tử vào vị trí toIndex
-        setData(updatedItems); // Cập nhật state với mảng mới
-    };
-
-    const handleNextItem = () => {};
 
     useEffect(() => {
         const getData = async () => {
@@ -50,8 +38,6 @@ function SaleProduct() {
 
     return (
         <AnimateOpacity
-            onMouseEnter={() => setArrow(true)}
-            onMouseLeave={() => setArrow(false)}
             className={
                 'w-full relative p-10 flex justify-between  items-center rounded-lg bg-second dark:bg-bg-dark-menu'
             }
@@ -64,7 +50,7 @@ function SaleProduct() {
                 </Button>
             </div>
 
-            <motion.div className="2xl:w-4/5 xl:w-4/5 lg:w-4/5 md:w-4/5 w-full overflow-hidden ">
+            <div className="2xl:w-4/5 xl:w-4/5 lg:w-4/5 md:w-4/5 w-full overflow-hidden ">
                 <Slider {...sliderSettings}>
                     {data.map((card, index) => (
                         <div key={index} className="scale-90 flex justify-center items-center">
@@ -72,7 +58,7 @@ function SaleProduct() {
                         </div>
                     ))}
                 </Slider>
-            </motion.div>
+            </div>
         </AnimateOpacity>
     );
 }

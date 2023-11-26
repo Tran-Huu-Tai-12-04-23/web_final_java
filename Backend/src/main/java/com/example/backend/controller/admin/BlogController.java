@@ -77,7 +77,7 @@ public class BlogController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(err);
         }
     }
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<?> editBlog(@RequestBody Blog blog, @PathVariable Long id) {
         try{
             iBlogService.validateBlogRequest(blog);
@@ -92,7 +92,7 @@ public class BlogController {
     }
 
     @DeleteMapping("/delete-soft")
-    public ResponseEntity<?> removeSoftBlog(@RequestBody Long id) {
+    public ResponseEntity<?> removeSoftBlog(@RequestParam Long id) {
         try{
             Blog blog = iBlogService.changeStatusDelete(id, true);
             if( blog != null ) {

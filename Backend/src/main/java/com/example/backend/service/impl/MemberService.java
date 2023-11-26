@@ -41,6 +41,7 @@ public class MemberService implements IMemberService {
     public Member update(Member member, Long id) {
         return memberRepository.findById(id).map( mem -> {
             mem.setEmail(member.getEmail());
+            mem.setStatus(member.getStatus());
             mem.setPhoneNumber(member.getPhoneNumber());
             mem.setAccumulatePoints(member.getAccumulatePoints());
             return memberRepository.save(mem);
@@ -86,6 +87,25 @@ public class MemberService implements IMemberService {
                 accountRepository.save(account.get());
                 member.get().setAccount(account.get());
                 member.get().setStatus(false);
+                memberRepository.save(member.get());
+                return member.get();
+            }else {
+                throw new NotFoundException("Member is not found!");
+            }
+        }else {
+            throw new NotFoundException("Member is not found!");
+        }
+    }
+
+    @Override
+    public Member unLockMember(Long id) {
+        Optional<Member> member = memberRepository.findById(id);
+        if( member.isPresent() ) {
+            Optional<Account> account = accountRepository.findById(member.get().getAccount().getId());
+            if( account.isPresent()) {
+                accountRepository.save(account.get());
+                member.get().setAccount(account.get());
+                member.get().setStatus(true);
                 memberRepository.save(member.get());
                 return member.get();
             }else {

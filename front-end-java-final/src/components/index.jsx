@@ -29,3 +29,6 @@ export { default as MainScreenShowProduct } from './MainScreenShowProduct';
 export { default as BannerSuperSale } from './BannerSuperSale';
 export { default as TimeLine } from './TimeLine';
 export { default as ModalConfirmRemove } from './ModalConfirmRemove';
+export { default as Skeleton } from './Skeleton';
+export { default as ProvincesAndDistricts } from './ProvincesAndDistricts';
+export { default as AddressItem } from './AddressItem';
