@@ -92,7 +92,7 @@ function LoginForm({ onClose = () => {}, setAccount = () => {} }) {
             }}
             className="pt-10 w-full"
         >
-            <TextMain className={'font-bold text-center text-xl mb-5'}>Login To Get Tech Device</TextMain>
+            <TextMain className={'font-bold text-center text-xl mb-5'}>Đăng nhập vào GetTech</TextMain>
             <Input
                 placeholder="Username"
                 className="mb-3 "
@@ -108,16 +108,16 @@ function LoginForm({ onClose = () => {}, setAccount = () => {} }) {
                 iconLeft={<LiaKeySolid className="w-6 h-6 ml-2 text-gray-400"></LiaKeySolid>}
             ></Input>
             <Link to="" className="hover:text-primary text-sm w-full block text-right mt-2 ml-auto">
-                Forgot password?
+                Quên mật khẩu?
             </Link>
-            <Toggle name="Save Me"></Toggle>
+            <Toggle name="Lưu mật khẩu"></Toggle>
 
             <Button className={'w-full rounded-lg p-3 text-center mt-5 bg-primary text-white '} onClick={login}>
-                LOGIN
+                ĐĂNG NHẬP
             </Button>
             <div className="flex justify-between items-center mt-5 ">
                 <div className="h-[1px] bg-gray-300 w-1/3"></div>
-                <TextMain>Or Login With</TextMain>
+                <TextMain>hoặc đăng nhập với</TextMain>
                 <div className="h-[1px] bg-gray-300 w-1/3"></div>
             </div>
             <div className="flex justify-between items-center mt-3 w-full select-none">

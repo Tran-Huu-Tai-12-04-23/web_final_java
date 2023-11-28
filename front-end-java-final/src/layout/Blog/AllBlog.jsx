@@ -22,7 +22,7 @@ function AllBlog() {
     return (
         <div className="2xl:p-10 xl:p-10 lg:p-10">
             <div className="flex justify-between items-center">
-                <h1 className="text-3xl font-bold">All blog posts</h1>
+                <h1 className="text-3xl font-bold">Tất cả Blogs</h1>
             </div>
             <div className="flex justify-center items-center gap-4">
                 {blogs &&
@@ -32,7 +32,7 @@ function AllBlog() {
             </div>
 
             <div className="w-full flex justify-center items-center mt-5">
-                <Button className="text-blue-500 m-auto w-fit">More</Button>
+                <Button className="text-blue-500 m-auto w-fit">Xem thêm</Button>
             </div>
         </div>
     );

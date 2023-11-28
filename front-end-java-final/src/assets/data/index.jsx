@@ -67,13 +67,13 @@ const subnavBlog = [
 ];
 const NavHeader = [
     {
-        name: 'Home',
+        name: 'Trang chủ',
         path: '/',
         icon: <RxHome className="h-6 w-6"></RxHome>,
         subNav: null,
     },
     {
-        name: 'Products',
+        name: 'Sản phẩm',
         path: '/products',
         icon: <BiCategoryAlt className="h-6 w-6"></BiCategoryAlt>,
         subNav: subnavProduct,
@@ -91,7 +91,7 @@ const NavHeader = [
         subNav: null,
     },
     {
-        name: 'Contact',
+        name: 'Liên hệ',
         path: '/contact',
         icon: <TiContacts className="h-6 w-6"></TiContacts>,
         subNav: null,
@@ -139,9 +139,9 @@ const ContactSocial = [
 
 const HomeService = [
     {
-        name: 'Reliable Shipping',
+        name: 'Vận Chuyển Đáng Tin Cậy',
         description:
-            'Green Society provides Canada Post express Shipping right to your doorstep! You can also opt in for shipping insurance. For orders over $149, shipping is free!',
+            'Green Society cung cấp dịch vụ vận chuyển Canada Post Express trực tiếp đến cửa nhà của bạn! Bạn cũng có thể chọn bảo hiểm vận chuyển. Đối với đơn hàng trên $149, vận chuyển miễn phí!',
         icon: (
             <AnimateHover className={'h-[10rem] rounded-full w-[20rem] mr-4 overflow-hidden'}>
                 <img
@@ -153,9 +153,9 @@ const HomeService = [
         ),
     },
     {
-        name: 'You’re Safe With Us',
+        name: 'An Toàn Khi Giao Dịch Với Chúng Tôi',
         description:
-            'Our secure payment system accepts the most common forms of payments making the checkout process quicker! The payments we accept are debit, all major credit cards, and cryptocurrency.',
+            'Hệ thống thanh toán an toàn của chúng tôi chấp nhận các hình thức thanh toán phổ biến nhất, giúp quá trình thanh toán trở nên nhanh chóng! Chúng tôi chấp nhận thanh toán bằng thẻ ghi nợ, tất cả các thẻ tín dụng chính và tiền điện tử.',
         icon: (
             <AnimateHover className={'h-[10rem] rounded-full w-[20rem] mr-4 overflow-hidden'}>
                 <img
@@ -167,9 +167,9 @@ const HomeService = [
         ),
     },
     {
-        name: 'Best Quality & Pricing',
+        name: 'Chất Lượng và Giá Cả Tốt Nhất',
         description:
-            'Here at our shop, we take pride in the quality of our products and service. Our prices are set to ensure you receive your order at a reasonable price and safely.',
+            'Tại cửa hàng của chúng tôi, chúng tôi tự hào về chất lượng sản phẩm và dịch vụ của mình. Giá cả được đặt để đảm bảo bạn nhận được đơn hàng của mình với một giá hợp lý và an toàn.',
         icon: (
             <AnimateHover className={'h-[10rem] rounded-full w-[20rem] mr-4 overflow-hidden'}>
                 <img
@@ -181,6 +181,7 @@ const HomeService = [
         ),
     },
 ];
+
 
 const Category = [
     {

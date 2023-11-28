@@ -24,11 +24,11 @@ function ModalSign({ onClose = () => {}, setAccount = () => {} }) {
 
     const tabs = [
         {
-            name: 'LOGIN',
+            name: 'ĐĂNG NHẬP',
             tabContent: <LoginForm onClose={onClose} setAccount={setAccount} />,
         },
         {
-            name: 'CREATE ACCOUNT',
+            name: 'TẠO TÀI KHOẢN',
             tabContent: <RegisterForm switchLogin={() => setActive(0)} />,
         },
     ];

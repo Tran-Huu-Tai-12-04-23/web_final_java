@@ -109,7 +109,7 @@ function RegisterForm({ switchLogin = () => {} }) {
                     <Spinner color="pink" aria-label="Pink spinner example" />
                 </Modal>
             )}
-            <TextMain className={'font-bold text-center text-xl mb-5'}>Create Your Account</TextMain>
+            <TextMain className={'font-bold text-center text-xl mb-5'}>Tạo tài khoản</TextMain>
             <Input
                 placeholder="Username"
                 value={username}
@@ -143,11 +143,11 @@ function RegisterForm({ switchLogin = () => {} }) {
                 iconLeft={<LiaKeySolid className="w-6 h-6 ml-2 text-gray-400"></LiaKeySolid>}
             ></Input>
             <Link to="" className="hover:text-primary text-sm w-full block text-right mt-2 ml-auto">
-                Forgot password?
+                Quên mật khẩu?
             </Link>
-            <Toggle name="I agree to all Term & Conditions"></Toggle>
+            <Toggle name="Tôi đồng ý với các điều khoản"></Toggle>
             <Button className={'w-full rounded-lg p-3 text-center mt-5 bg-primary text-white '} onClick={register}>
-                Create Account
+                Tạo tài khoản
             </Button>
         </motion.form>
     );

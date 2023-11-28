@@ -27,7 +27,7 @@ function BestSeller() {
         <motion.div className="p-10">
             <motion.div className="flex justify-between items-center border-b-[1px] border-solid border-primary">
                 <motion.h1 className="text-3xl font-bold">Best Seller</motion.h1>
-                <motion.h4 className="underline cursor-pointer hover:text-primary">View All</motion.h4>
+                <motion.h4 className="underline cursor-pointer hover:text-primary">Xem tất cả</motion.h4>
             </motion.div>
             <motion.div className="flex justify-between items-center mt-10 overflow-hidden">
                 {data.map((item, index) => {

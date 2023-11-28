@@ -194,7 +194,7 @@ function Header() {
                     )}
                     {account === null && (
                         <Button className="ml-5 pt-1 pb-1" style="outline" onClick={(e) => setModalSign(true)}>
-                            BUY NOW
+                            MUA NGAY
                         </Button>
                     )}
 

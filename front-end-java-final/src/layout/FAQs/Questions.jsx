@@ -5,12 +5,12 @@ import { TextReveal } from "../../components/Animate";
 function TableOfContent({ onCategorySelect }) {
   return (
     <div className="mt-5 w-[184px] h-[180px] flex-col justify-start items-start gap-6 inline-flex ml-20">
-      <TextMain className={'text-neutral-950 font-bold text-xl'}>Table of Contents</TextMain>
+      <TextMain className={'text-neutral-950 font-bold text-xl'}>Mục lục</TextMain>
       <div className="self-stretch h-[132px] flex-col justify-start items-start gap-3 flex">
-        <NavItem onClick={() => onCategorySelect("general")}>General</NavItem>
-        <NavItem onClick={() => onCategorySelect("trusts-safety")}>Trusts & Safety</NavItem>
-        <NavItem onClick={() => onCategorySelect("services")}>Services</NavItem>
-        <NavItem onClick={() => onCategorySelect("billing")}>Billing</NavItem>
+        <NavItem onClick={() => onCategorySelect("general")}>Chung</NavItem>
+        <NavItem onClick={() => onCategorySelect("trusts-safety")}>Chính sách mua hàng</NavItem>
+        <NavItem onClick={() => onCategorySelect("services")}>Dịch vụ</NavItem>
+        <NavItem onClick={() => onCategorySelect("billing")}>Thanh toán</NavItem>
       </div>
     </div>
   );
@@ -51,94 +51,95 @@ function FAQ() {
   const categoryData = {
     "general": [
       {
-        question: "Can I purchase products from Get Tech using installment payments?",
-        answer: "Yes, Tech Heim offers the option to purchase products using both cash and installment payments. This allows you to choose the payment method that suits your needs and budget."
+        question: "Tôi có thể mua sản phẩm từ Get Tech bằng cách thanh toán trả góp không?",
+        answer: "Có, Tech Heim cung cấp tùy chọn mua sản phẩm bằng cả tiền mặt và thanh toán trả góp. Điều này cho phép bạn chọn phương thức thanh toán phù hợp với nhu cầu và ngân sách của bạn."
       },
       {
-        question: "Is there a return policy for products?",
-        answer: "Yes, we have a flexible return policy. If you are not satisfied with your purchase, you can return it within 30 days for a refund or exchange."
+        question: "Có chính sách đổi trả cho sản phẩm không?",
+        answer: "Có, chúng tôi có một chính sách đổi trả linh hoạt. Nếu bạn không hài lòng với sản phẩm, bạn có thể trả lại nó trong vòng 30 ngày để được hoàn tiền hoặc đổi sản phẩm khác."
       },
       {
-        question: "How can I engage with the magazine content on Get Tech ?",
-        answer: "You can actively engage with the magazine content by leaving comments and participating in the question-and-answer section. Feel free to share your thoughts, ask questions, and interact with fellow tech enthusiasts in the community."
+        question: "Làm cách nào để tương tác với nội dung trên Get Tech Magazine?",
+        answer: "Bạn có thể tương tác tích cực với nội dung trên tạp chí bằng cách để lại bình luận và tham gia vào phần hỏi đáp. Hãy thoải mái chia sẻ ý kiến, đặt câu hỏi và tương tác với cộng đồng người hâm mộ công nghệ."
       },
       {
-        question: "Does Get Tech offer a warranty on its products?",
-        answer: "Yes, Tech Heim provides a warranty on all eligible products. The specific warranty details may vary depending on the manufacturer and product category. Please refer to the product description or contact our customer support for more information."
+        question: "Get Tech có cung cấp bảo hành cho sản phẩm không?",
+        answer: "Có, Tech Heim cung cấp bảo hành cho tất cả các sản phẩm đủ điều kiện. Chi tiết bảo hành cụ thể có thể thay đổi tùy thuộc vào nhà sản xuất và danh mục sản phẩm. Vui lòng tham khảo mô tả sản phẩm hoặc liên hệ với bộ phận hỗ trợ khách hàng của chúng tôi để biết thêm thông tin."
       },
       {
-        question: "How can I get assistance with my purchase or any other inquiries?",
-        answer: "If you need assistance with your purchase or have any questions, our dedicated customer support team is here to help. You can reach out to us through the contact page on our website, and we'll be happy to assist you promptly."
+        question: "Làm thế nào để nhận sự hỗ trợ với việc mua sắm hoặc bất kỳ yêu cầu nào khác?",
+        answer: "Nếu bạn cần sự hỗ trợ với việc mua sắm hoặc có bất kỳ câu hỏi nào khác, đội ngũ hỗ trợ khách hàng cam kết của chúng tôi sẵn sàng giúp đỡ. Bạn có thể liên hệ với chúng tôi qua trang liên hệ trên trang web, và chúng tôi sẽ vui lòng hỗ trợ bạn ngay lập tức."
       },
     ],
     "trusts-safety": [
       {
-        question: "What measures are in place to prevent fraud and scams?",
-        answer: "We have a dedicated team monitoring transactions for suspicious activity and employ fraud detection tools to protect our users. In case of any issues, we have a dispute resolution process in place."
+        question: "Có những biện pháp nào để ngăn chặn gian lận và lừa đảo không?",
+        answer: "Chúng tôi có một đội ngũ chuyên nghiệp theo dõi các giao dịch để phát hiện hoạt động đáng ngờ và sử dụng các công cụ phát hiện gian lận để bảo vệ người dùng của chúng tôi. Trong trường hợp có vấn đề, chúng tôi có quy trình giải quyết tranh chấp."
       },
       {
-        question: "How do we verify the authenticity of products sold on our platform?",
-        answer: "We work closely with verified sellers and employ stringent quality control measures to ensure that products listed on our platform are genuine and meet our quality standards."
+        question: "Làm thế nào để xác minh tính xác thực của các sản phẩm được bán trên nền tảng của chúng tôi?",
+        answer: "Chúng tôi hợp tác chặt chẽ với các người bán được xác minh và áp dụng các biện pháp kiểm soát chất lượng nghiêm ngặt để đảm bảo rằng các sản phẩm được liệt kê trên nền tảng của chúng tôi là chính hãng và đáp ứng tiêu chuẩn chất lượng của chúng tôi."
       },
       {
-        question: "Can I report a safety concern or inappropriate content?",
-        answer: "Yes, we have a reporting system in place. If you come across unsafe or inappropriate content, please report it to our support team, and we will take appropriate action."
+        question: "Có thể báo cáo về mối quan ngại về an toàn hoặc nội dung không phù hợp không?",
+        answer: "Có, chúng tôi có hệ thống báo cáo. Nếu bạn gặp nội dung không an toàn hoặc không phù hợp, vui lòng báo cáo cho đội ngũ hỗ trợ của chúng tôi, và chúng tôi sẽ thực hiện các biện pháp thích hợp."
       },
       {
-        question: "How do we handle user data and privacy?",
-        answer: "We follow strict privacy policies and comply with data protection regulations. Your data is stored securely, and we do not share it with third parties without your consent."
+        question: "Chúng tôi xử lý dữ liệu và quyền riêng tư như thế nào?",
+        answer: "Chúng tôi tuân thủ chặt chẽ các chính sách quyền riêng tư và tuân thủ các quy định về bảo vệ dữ liệu. Dữ liệu của bạn được lưu trữ an toàn, và chúng tôi không chia sẻ nó với bên thứ ba mà không có sự đồng ý của bạn."
       },
       {
-        question: "Is it safe to make transactions with other users on our platform?",
-        answer: "We provide secure payment options, and we recommend using them for all transactions. If you encounter any issues, our support team is here to assist you."
+        question: "Việc thực hiện giao dịch với người dùng khác trên nền tảng của chúng tôi có an toàn không?",
+        answer: "Chúng tôi cung cấp các tùy chọn thanh toán an toàn, và chúng tôi khuyến khích việc sử dụng chúng cho tất cả các giao dịch. Nếu bạn gặp vấn đề nào, đội ngũ hỗ trợ của chúng tôi sẽ ở đây để hỗ trợ bạn."
       },
     ],
     "services": [
       {
-        question: "What is the typical turnaround time for product repair services?",
-        answer: "The turnaround time for product repair depends on the type of repair and availability of parts. Our service team will provide you with an estimated timeframe."
+        question: "Thời gian xử lý thông thường cho dịch vụ sửa chữa sản phẩm là bao lâu?",
+        answer: "Thời gian xử lý cho dịch vụ sửa chữa sản phẩm phụ thuộc vào loại sửa chữa và sự có sẵn của linh kiện. Đội ngũ dịch vụ của chúng tôi sẽ cung cấp cho bạn một khung thời gian ước lượng."
       },
       {
-        question: "Do you offer on-site service or should I send my product for repair?",
-        answer: "We offer both on-site and in-store repair services, depending on your location and the type of repair required."
+        question: "Chúng tôi có cung cấp dịch vụ tận nơi hay tôi phải gửi sản phẩm của mình để sửa chữa?",
+        answer: "Chúng tôi cung cấp cả dịch vụ sửa chữa tận nơi và tại cửa hàng, phụ thuộc vào địa điểm của bạn và loại sửa chữa cần thiết."
       },
       {
-        question: "Can I customize a product to my specifications?",
-        answer: "Yes, we offer product customization services. Contact our customization team to discuss your requirements and options."
+        question: "Tôi có thể tùy chỉnh một sản phẩm theo yêu cầu của mình không?",
+        answer: "Có, chúng tôi cung cấp dịch vụ tùy chỉnh sản phẩm. Hãy liên hệ với đội ngũ tùy chỉnh của chúng tôi để thảo luận về yêu cầu và lựa chọn của bạn."
       },
       {
-        question: "Are there warranties on services provided?",
-        answer: "We offer warranties on our services. The warranty period varies based on the type of service, and details can be found in the service agreement."
+        question: "Có bảo hành cho các dịch vụ được cung cấp không?",
+        answer: "Chúng tôi cung cấp bảo hành cho các dịch vụ của chúng tôi. Thời gian bảo hành có thể thay đổi tùy thuộc vào loại dịch vụ, và chi tiết có thể được tìm thấy trong hợp đồng dịch vụ."
       },
       {
-        question: "How can I track the status of my service request?",
-        answer: " You can track the status of your service request by logging into your account on our platform or by contacting our customer support team."
+        question: "Làm thế nào để theo dõi tình trạng yêu cầu dịch vụ của tôi?",
+        answer: "Bạn có thể theo dõi tình trạng yêu cầu dịch vụ của mình bằng cách đăng nhập vào tài khoản của bạn trên nền tảng của chúng tôi hoặc liên hệ với đội ngũ hỗ trợ khách hàng của chúng tôi."
       },
     ],
     "billing": [
       {
-        question: "Can I set up recurring payments for my subscription?",
-        answer: "Yes, we offer the option to set up recurring payments for subscriptions, making it convenient for you to manage your bills."
+        question: "Tôi có thể thiết lập thanh toán định kỳ cho đăng ký của mình không?",
+        answer: "Có, chúng tôi cung cấp tùy chọn thiết lập thanh toán định kỳ cho đăng ký, giúp bạn dễ dàng quản lý hóa đơn của mình."
       },
       {
-        question: "What happens if there is an issue with my billing statement?",
-        answer: "If you have questions or concerns about your billing statement, please contact our billing department, and we'll assist you in resolving any discrepancies."
+        question: "Nếu có vấn đề với bảng cước thanh toán của tôi, điều gì sẽ xảy ra?",
+        answer: "Nếu bạn có câu hỏi hoặc lo ngại về bảng cước thanh toán của mình, vui lòng liên hệ với bộ phận thanh toán của chúng tôi, và chúng tôi sẽ hỗ trợ bạn giải quyết mọi không nhất quán."
       },
       {
-        question: "Do you offer discounts or promotions for certain payment methods?",
-        answer: "Yes, we may offer discounts or promotions for specific payment methods. Check our promotions page or contact our support team for details."
+        question: "Chúng tôi có cung cấp giảm giá hoặc khuyến mãi cho một số phương thức thanh toán không?",
+        answer: "Có, chúng tôi có thể cung cấp giảm giá hoặc khuyến mãi cho một số phương thức thanh toán cụ thể. Kiểm tra trang khuyến mãi của chúng tôi hoặc liên hệ với đội ngũ hỗ trợ để biết chi tiết."
       },
       {
-        question: "Is there a late fee for overdue payments?",
-        answer: " We have a grace period for payments, but if a payment becomes overdue, a late fee may be applied. Please ensure your payments are made on time."
+        question: "Có phí trễ hạn cho thanh toán quá hạn không?",
+        answer: "Chúng tôi có một khoảng thời gian ân hạn cho thanh toán, nhưng nếu thanh toán trễ, có thể áp dụng phí trễ hạn. Vui lòng đảm bảo thanh toán đúng hạn."
       },
       {
-        question: "Can I view and download my billing history and receipts?",
-        answer: "Yes, you can access your billing history and download receipts through your account on our platform. It's easy to keep track of your financial transactions."
+        question: "Tôi có thể xem và tải lịch sử thanh toán và biên nhận của mình không?",
+        answer: "Có, bạn có thể truy cập lịch sử thanh toán và tải xuống biên nhận thông qua tài khoản của bạn trên nền tảng của chúng tôi. Điều này giúp bạn dễ dàng theo dõi các giao dịch tài chính của mình."
       },
-    ]
+    ],
+    // Các danh mục khác được giữ nguyên.
   };
-
+  
   const questionsAndAnswers = categoryData[selectedCategory] || [];
   return (
     <>

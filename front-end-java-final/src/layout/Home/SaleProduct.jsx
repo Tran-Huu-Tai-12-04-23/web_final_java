@@ -43,10 +43,10 @@ function SaleProduct() {
             }
         >
             <div className="w-1/5 xl:flex lg:flex 2xl:flex md:flex hidden justify-start items-start flex-col">
-                <h1 className="font-bold text-3xl ">Product On Sale</h1>
+                <h1 className="font-bold text-3xl ">Sản phẩm đang sale</h1>
                 <Button className="p-2 text-white bg-primary mt-4 rounded-md flex justify-center items-center">
                     <CiShop className="w-6 h-6"></CiShop>
-                    <span>Shop Now</span>
+                    <span>Mua ngay</span>
                 </Button>
             </div>
 

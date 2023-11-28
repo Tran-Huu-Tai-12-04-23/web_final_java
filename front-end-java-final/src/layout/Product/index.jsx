@@ -43,7 +43,7 @@ function Product({ category }) {
                 ) : (
                     <MainScreenShowProduct data={products}></MainScreenShowProduct>
                 )}
-                <Button className="p-2 rounded-md bg-btn-second pl-4 pr-4 m-auto">More</Button>
+                <Button className="p-2 rounded-md bg-btn-second pl-4 pr-4 m-auto">Xem thêm</Button>
             </div>
             <BannerSale></BannerSale>
 
