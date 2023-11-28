@@ -68,7 +68,7 @@ public class BlogController {
         try{
             Optional<Blog>  blog = iBlogService.get(id);
             ErrorResponse err = new ErrorResponse();
-            err.setMessage("Product not found");
+            err.setMessage("Blog not found");
             return blog.isPresent() ? ResponseEntity.ok(blog.get()) : ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(err);
         }catch (Exception e) {
             e.printStackTrace();

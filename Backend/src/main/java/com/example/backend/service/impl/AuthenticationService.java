@@ -3,13 +3,11 @@ package com.example.backend.service.impl;
 import com.example.backend.dto.JWTAuthenticationResponse;
 import com.example.backend.dto.RefreshTokenRequest;
 import com.example.backend.dto.SignUpMemberRequest;
-import com.example.backend.exception.AlreadyExistException;
 import com.example.backend.model.Account;
 import com.example.backend.model.Member;
 import com.example.backend.model.Role;
 import com.example.backend.repository.AccountRepository;
 import com.example.backend.repository.MemberRepository;
-import com.example.backend.service.AuthenticationService;
 import com.example.backend.service.JWTService;
 import com.example.backend.utils.Utils;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +23,7 @@ import java.util.HashMap;
 
 @Service
 @RequiredArgsConstructor
-public class AuthenticationServiceImpl implements AuthenticationService {
+public class AuthenticationService implements com.example.backend.service.AuthenticationService {
 
     private final AccountRepository accountRepository;
     private final MemberRepository memberRepository;

@@ -17,11 +17,21 @@ class Constants {
 
     static HOME = '/';
     static PRODUCT = '/products';
-    static BLOGS = '/blogs';
+    static BLOGS = '/blog';
     static FAQ = '/faq';
     static CONTACT = '/contact';
     static CART = '/cart';
     static USER_ORDER = '/user/order';
+
+    //account
+    static ACCOUNT_INFO = '/account';
+    static ACCOUNT_ADDRESS = '/account/address';
+    static ACCOUNT_CHANGE_PASSWORD = '/account/change-password';
+    static ACCOUNT_PAYMENT_INSTALLMENT = '/account/payment-install';
+    static ACCOUNT_ORDER = '/account/order';
+    static ACCOUNT_WISHLIST = '/account/wishlist';
+    static ACCOUNT_SECURITY_ACCESS = '/account/security-access';
+    static ACCOUNT_NOTIFICATION = '/account/notification';
 }
 
 export default Constants;

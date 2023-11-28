@@ -29,6 +29,15 @@ public class ProductAdminController {
         return ResponseEntity.ok(iProductService.getAllItemNotDelete(page, size));
     }
 
+    @GetMapping("/all/state")
+    public ResponseEntity<List<Product>> getAllProductByState(
+            @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
+            @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size,
+            @RequestParam(name = "state", required = false, defaultValue = "false") Boolean state
+    ) {
+        Utils.validatePageNumberAndSize(page, size);
+        return ResponseEntity.ok(iProductService.getProductByState(state,page, size));
+    }
     @PostMapping("/create")
     public ResponseEntity<?> createProduct(@RequestBody Product product) {
         try{

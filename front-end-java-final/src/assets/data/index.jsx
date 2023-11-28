@@ -35,6 +35,7 @@ import policy from '../img/policy.png';
 import product from '../img/product.png';
 import { AnimateHover } from '../../components/Animate';
 import { Link } from 'react-router-dom';
+import { MdManageAccounts } from 'react-icons/md';
 const subnavProduct = [
     {
         name: 'Laptop',
@@ -79,7 +80,7 @@ const NavHeader = [
     },
     {
         name: 'Blog',
-        path: '/blogs',
+        path: '/blog',
         icon: <PiBookOpenTextDuotone className="h-6 w-6"></PiBookOpenTextDuotone>,
         subNav: subnavBlog,
     },
@@ -99,9 +100,9 @@ const NavHeader = [
 
 const UserMenu = [
     {
-        name: 'Profile',
-        icon: <CiFaceSmile className="h-6 w-6" />,
-        path: '/profile',
+        name: 'Account',
+        icon: <MdManageAccounts className="h-6 w-6" />,
+        path: '/account',
     },
     {
         name: 'Orders',
@@ -2770,16 +2771,12 @@ export const productManagersItems = [
 export const WrapperColumnsTableProduct = ({ onRemove = () => {}, onEdit = () => {}, onView = () => {} }) => {
     return [
         {
-            title: 'ID',
-            filed: 'id',
-        },
-        {
             title: 'Image',
             filed: 'thumbnails',
             render: (src) => {
                 return (
                     <div className="group relative transition-all">
-                        <img className="h-20 w-20 rounded-md" src={src}></img>
+                        <img className="w-[10rem] rounded-md" src={src}></img>
                     </div>
                 );
             },
@@ -2787,6 +2784,9 @@ export const WrapperColumnsTableProduct = ({ onRemove = () => {}, onEdit = () =>
         {
             title: 'Name',
             filed: 'name',
+            render: (value) => {
+                return <div className="group max-w-[20rem] truncate relative transition-all">{value}</div>;
+            },
         },
         {
             title: 'Price',
@@ -2800,10 +2800,6 @@ export const WrapperColumnsTableProduct = ({ onRemove = () => {}, onEdit = () =>
         {
             title: 'Category',
             filed: 'category',
-        },
-        {
-            title: 'Branch',
-            filed: 'branch',
         },
         {
             title: 'Status',

@@ -46,7 +46,7 @@ public class App implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         Account adminAccount = accountRepository.findByRole(Role.ADMIN);
-        addMember();
+//        addMember();
         if( null == adminAccount) {
             Account acc = new Account();
             acc.setUsername("Admin");

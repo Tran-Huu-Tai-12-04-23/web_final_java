@@ -12,7 +12,6 @@ import { useLogin } from '../../context/login';
 import { motion } from 'framer-motion';
 import { ModalSearch, Button } from '../index';
 import ModalSign from './ModalSign';
-import { IoGift } from 'react-icons/io5';
 import Util from '../../utils/Util';
 import toast from 'react-hot-toast';
 import Constants from '../../Constants';
@@ -128,7 +127,7 @@ function Header() {
                     to={item.path}
                     key={index}
                     onClick={() => {
-                        if (item.name.toLowerCase() == 'sign out') {
+                        if (item.name.toLowerCase() === 'sign out') {
                             setAccount(null);
                             Util.logOut();
                             toast.success('Log out successfully!');
@@ -235,6 +234,7 @@ function Header() {
                         items={renderUserMenu()}
                     ></MenuUser>
                 )}
+
                 {/* <div className="relative ">
                 <div className="group">
                     <button

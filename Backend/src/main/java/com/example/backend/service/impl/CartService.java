@@ -64,7 +64,6 @@ public class CartService implements ICartService {
             newCart.setMember(member.get());
             newCart.setProducts(listPro);
             cart = this.createNew(newCart);
-
             return pro.get();
         }
         listPro = cart.getProducts();
@@ -89,7 +88,6 @@ public class CartService implements ICartService {
         }
 
         return cart;
-
     }
 
     @Override

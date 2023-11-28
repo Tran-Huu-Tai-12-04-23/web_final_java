@@ -98,6 +98,7 @@ public class UserOrderController {
             boolean isResult = iUserOrderService.removeAddress(id);
             return isResult ? ResponseEntity.ok("Address deleted successfully.") :   ResponseEntity.badRequest().body("Failed to delete address.");
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body("Failed to delete address.");
         }
     }

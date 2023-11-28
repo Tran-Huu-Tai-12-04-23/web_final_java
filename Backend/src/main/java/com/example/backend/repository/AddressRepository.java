@@ -13,4 +13,5 @@ public interface AddressRepository extends JpaRepository<Address, Long> {
     Address getAddressById(Long addressId);
     Boolean removeAddressById(Long addressId);
     Address getAddressByAccountIdAndIsDefaultTrue(Long addressId);
+    void removeById(Long id);
 }

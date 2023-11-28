@@ -38,7 +38,7 @@ function Input({
                     style={{
                         border: 'none',
                     }}
-                    className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none bg-transparent w-full p-2 outline-none rounded-lg focus:ring-transparent focus:border-primary focus:outline-none border-none"
+                    className="select-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none bg-transparent w-full p-2 outline-none rounded-lg focus:ring-transparent focus:border-primary focus:outline-none border-none"
                 />
                 {iconRight}
                 {type === 'password' && !password && (

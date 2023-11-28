@@ -122,4 +122,10 @@ public class ProductService implements IProductService {
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "createAt"));
         return productRepository.findByCategory(nameCategory, pageable);
     }
+
+    @Override
+    public List<Product> getProductByState(Boolean state, Integer page, Integer size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "createAt"));
+        return productRepository.findAllByStatus(state, pageable);
+    }
 }

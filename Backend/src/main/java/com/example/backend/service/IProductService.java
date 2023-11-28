@@ -21,4 +21,5 @@ public interface IProductService {
     ProductSpecification createNewProductSpecification(ProductSpecification productSpecification);
 
     List<Product> getProductByCategory(String nameCategory, Integer page, Integer size);
+    List<Product> getProductByState(Boolean state, Integer page, Integer size);
 }

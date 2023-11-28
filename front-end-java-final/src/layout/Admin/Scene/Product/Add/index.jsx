@@ -60,7 +60,7 @@ function AddProduct({ mode = 'add', data = null }) {
     useEffect(() => {
         const getCategoryOptions = async () => {
             try {
-                await request('GET', '/api/v1/admin/category/product')
+                await request('GET', '/api/v1/public/category/product')
                     .then((response) => {
                         const data = response.data;
                         if (!data) return;
@@ -86,7 +86,7 @@ function AddProduct({ mode = 'add', data = null }) {
     useEffect(() => {
         const getBranchOptions = async () => {
             try {
-                await request('GET', '/api/v1/admin/branch/all')
+                await request('GET', '/api/v1/public/branch')
                     .then((response) => {
                         const data = response.data;
                         if (!data) return;

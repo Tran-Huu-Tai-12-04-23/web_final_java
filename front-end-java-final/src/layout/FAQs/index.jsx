@@ -1,4 +1,4 @@
-import FAQsImage from "./FAQsContact";
+import FAQsImage from "./FAQsImage";
 import TableOfContent from "./TableOfContent";
 import Question from "./Questions";
 function FAQs(){

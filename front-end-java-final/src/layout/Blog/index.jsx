@@ -13,7 +13,6 @@ function Blog() {
             <CategoryBlog></CategoryBlog>
             <RecentBlog></RecentBlog>
             <AllBlog></AllBlog>
-            <Pagination></Pagination>
         </motion.div>
     );
 }

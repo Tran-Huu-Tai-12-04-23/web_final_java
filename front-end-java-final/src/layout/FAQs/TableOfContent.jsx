@@ -1,11 +1,10 @@
 import React from "react";
+import { TextMain } from "../../components";
 
 function TableOfContent() {
   return (
-    <div className="mt-6 w-[184px] h-[180px] flex-col justify-start items-start gap-6 inline-flex ml-20">
-      <div className="self-stretch text-neutral-950 text-xl font-bold font-['Inter']">
-        Table of Contents
-      </div>
+    <div className="mt-5 w-[184px] h-[180px] flex-col justify-start items-start gap-6 inline-flex ml-20">
+      <TextMain className={'text-neutral-950 font-bold text-xl'}>Table of Contents</TextMain>
       <div className="self-stretch h-[132px] flex-col justify-start items-start gap-3 flex">
         <NavItem href="#general">General</NavItem>
         <NavItem href="#trusts-safety">Trusts & Safety</NavItem>

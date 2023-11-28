@@ -9,6 +9,14 @@ const ProductUser = lazy(() => import('../layout/Product'));
 const Blog = lazy(() => import('../layout/Blog'));
 const Cart = lazy(() => import('../layout/Cart'));
 const DetailProductUser = lazy(() => import('../layout/DetailProductUser'));
+const Account = lazy(() => import('../layout/Account'));
+const AccountInfo = lazy(() => import('../layout/Account/Scene/AccountInfo'));
+const AccountAddress = lazy(() => import('../layout/Account/Scene/AccountAddress'));
+const AccountChangePassword = lazy(() => import('../layout/Account/Scene/AccountChangePassword'));
+const AccountOrder = lazy(() => import('../layout/Account/Scene/AccountOrder'));
+const AccountNotification = lazy(() => import('../layout/Account/Scene/AccountNotification'));
+const AccountOrderDetail = lazy(() => import('../layout/Account/Scene/AccountOrderDetail'));
+const DetailBlog = lazy(() => import('../layout/Global/DetailBlog'));
 
 export const MainRoutes = [
     {
@@ -18,6 +26,82 @@ export const MainRoutes = [
                 <Home />
             </MainLayout>
         ),
+    },
+    {
+        path: Constants.ACCOUNT_INFO,
+        component: (
+            <MainLayout>
+                <Account>
+                    <AccountInfo />
+                </Account>
+            </MainLayout>
+        ),
+    },
+    {
+        path: Constants.ACCOUNT_ADDRESS,
+        component: (
+            <MainLayout>
+                <Account>
+                    <AccountAddress />
+                </Account>
+            </MainLayout>
+        ),
+    },
+    {
+        path: Constants.ACCOUNT_CHANGE_PASSWORD,
+        component: (
+            <MainLayout>
+                <Account>
+                    <AccountChangePassword />
+                </Account>
+            </MainLayout>
+        ),
+    },
+    {
+        path: Constants.ACCOUNT_ORDER,
+        component: (
+            <MainLayout>
+                <Account>
+                    <AccountOrder />
+                </Account>
+            </MainLayout>
+        ),
+    },
+    {
+        path: Constants.ACCOUNT_ORDER + '/:id',
+        component: (
+            <MainLayout>
+                <Account>
+                    <AccountOrderDetail />
+                </Account>
+            </MainLayout>
+        ),
+    },
+    {
+        path: Constants.ACCOUNT_NOTIFICATION,
+        component: (
+            <MainLayout>
+                <Account>
+                    <AccountNotification />
+                </Account>
+            </MainLayout>
+        ),
+    },
+    {
+        path: Constants.ACCOUNT_PAYMENT_INSTALLMENT,
+        component: <div></div>,
+    },
+    {
+        path: Constants.ACCOUNT_WISHLIST,
+        component: <div></div>,
+    },
+    {
+        path: Constants.ACCOUNT_SECURITY_ACCESS,
+        component: <div></div>,
+    },
+    {
+        path: Constants.ACCOUNT_NOTIFICATION,
+        component: <div></div>,
     },
 
     {
@@ -50,6 +134,14 @@ export const MainRoutes = [
         component: (
             <MainLayout>
                 <Blog />
+            </MainLayout>
+        ),
+    },
+    {
+        path: Constants.BLOGS + '/:id',
+        component: (
+            <MainLayout>
+                <DetailBlog />
             </MainLayout>
         ),
     },

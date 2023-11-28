@@ -66,7 +66,7 @@ function ModalItem({ children, onClose = () => {}, close = false, className = ''
                 duration: 0.3,
                 ease: 'easeInOut',
             }}
-            className={`${className} border-primary-style relative w-fit h-fit  p-10 shadow-xl bg-bg-light-menu dark:bg-bg-dark-menu backdrop-blur-3xl rounded-xl flex flex-col `}
+            className={`${className}  z-[1000000000] backdrop-blur-3xl border-primary-style relative w-fit h-fit  p-10 shadow-xl bg-bg-light-menu dark:bg-bg-dark-menu rounded-xl flex flex-col `}
         >
             <AnimateHover onClick={handleClose} className="absolute top-4 right-4 cursor-pointer hover:text-primary">
                 <AiOutlineClose className="h-6 w-6" />

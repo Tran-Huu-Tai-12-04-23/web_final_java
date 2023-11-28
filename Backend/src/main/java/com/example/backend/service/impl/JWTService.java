@@ -1,10 +1,8 @@
 package com.example.backend.service.impl;
 
-import com.example.backend.service.JWTService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -17,7 +15,7 @@ import java.util.function.Function;
 
 
 @Service
-public class JWTServiceImpl implements JWTService {
+public class JWTService implements com.example.backend.service.JWTService {
     private static final String SECRET_KEY = "your-secret-key-value-12231312312";
 
     public String generateToken(UserDetails userDetails) {

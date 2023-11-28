@@ -38,9 +38,10 @@ public class OrderMember {
     @Column(columnDefinition = "INT DEFAULT 0")
     private MethodPayment methodPayment;
 
-    @ManyToOne
-    @JoinColumn(name = "address_id")
-    private Address address;
+    private String phoneNumberTakeOrder;
+    private String address;
+    private String detailAddress;
+    private String fullName;
 
     @OneToMany(mappedBy = "orderMember", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderDetail> orderDetails;

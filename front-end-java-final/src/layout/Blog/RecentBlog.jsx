@@ -1,32 +1,38 @@
-import { motion } from 'framer-motion';
-import { BlogItem } from '../../components';
+import { useEffect, useState } from 'react';
+import { BlogItem, Button } from '../../components';
+import { request } from '../../services';
+import { useLoading } from '../../context/loadingContext';
 
 function RecentBlog() {
+    const { startLoading, stopLoading } = useLoading();
+    const [blogs, setBlogs] = useState([]);
+    useEffect(() => {
+        const getBlogs = async () => {
+            await request('GET', '/api/v1/public/blog')
+                .then((res) => {
+                    res.data && setBlogs(res.data);
+                })
+                .catch((err) => console.error(err));
+        };
+
+        getBlogs();
+    }, []);
     return (
-        <motion.div className="2xl:p-10 xl:p-10 lg:p-10">
-            <motion.div className="flex justify-between items-center">
-                <motion.h1 className="text-3xl font-bold">Recent blog posts</motion.h1>
-            </motion.div>
-            <motion.div className="grid grid-cols-2 gap-4 mt-10 grid-rows-2 overflow-hidden">
-                <motion.div className="grid gap-4 2xl:col-span-1 xl:col-span-1 lg:col-span-1 col-span-2 row-span-2">
-                    <BlogItem className="col-span-2 "></BlogItem>
-                </motion.div>
-                <motion.div className="hidden gap-4 xl:grid 2xl:grid lg:grid col-span-1 row-span-2">
-                    <BlogItem className="col-span-2 " direction="horizontal"></BlogItem>
-                    <BlogItem className="col-span-2 " direction="horizontal"></BlogItem>
-                </motion.div>
-                <motion.div className="grid gap-4 xl:hidden 2xl:hidden lg:hidden col-span-2 row-span-2">
-                    <BlogItem className="col-span-2 "></BlogItem>
-                    <BlogItem className="col-span-2 "></BlogItem>
-                </motion.div>
-            </motion.div>
-            <motion.div className="hidden gap-4 xl:grid 2xl:grid lg:grid col-span-2 row-span-2 mt-4">
-                <BlogItem className="col-span-2 " direction="horizontal"></BlogItem>
-            </motion.div>
-            <motion.div className="grid gap-4 xl:hidden 2xl:hidden lg:hidden col-span-2 row-span-2 mt-4">
-                <BlogItem className="col-span-2 "></BlogItem>
-            </motion.div>
-        </motion.div>
+        <div className="2xl:p-10 xl:p-10 lg:p-10">
+            <div className="flex justify-between items-center">
+                <h1 className="text-3xl font-bold">Recent blog posts</h1>
+            </div>
+            <div className="flex justify-center items-center gap-4">
+                {blogs &&
+                    blogs.map((blg, index) => {
+                        return <BlogItem key={index} data={blg}></BlogItem>;
+                    })}
+            </div>
+
+            <div className="w-full flex justify-center items-center mt-5">
+                <Button className="text-blue-500 m-auto w-fit">More</Button>
+            </div>
+        </div>
     );
 }
 

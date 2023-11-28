@@ -26,17 +26,18 @@ import ModalConfirmRemove from '../../../Includes/ModalConfirmRemove';
 import Constants from '../../../../../Constants';
 import { request } from '../../../../../services/index';
 
+import { useLoading } from '../../../../../context/loadingContext';
+
 import MainFilter from './MainFilter';
 
 function Manager({}) {
+    const { startLoading, stopLoading } = useLoading();
     const history = useNavigate();
     const [filters, setFilters] = useState({});
     const [searchValue, setSearchValue] = useState('');
     const [data, setData] = useState([]);
-    const [status, setStatus] = useState(0);
-
+    const [status, setStatus] = useState(2);
     // data
-
     // filter data
     const [confirmRemoveMember, setConfirmRemoveMember] = useState(false);
     const [editProduct, setEditProduct] = useState(false);
@@ -55,31 +56,76 @@ function Manager({}) {
         },
     });
 
-    useEffect(() => {
-        const getData = async () => {
-            try {
-                await request('GET', '/api/v1/admin/product/all')
-                    .then((response) => {
-                        let data = response.data;
-                        if (!data) return;
-                        const newData = data.map((dt) => {
-                            return {
-                                ...dt,
-                                branch: dt?.nameBranch,
-                                category: dt?.nameCategory,
-                            };
-                        });
-                        setData(newData);
-                    })
-                    .catch((error) => {
-                        console.log(error);
+    const getProductByState = async (state) => {
+        try {
+            startLoading();
+            await request('GET', `/api/v1/admin/product/all/state?state=${state}`)
+                .then((response) => {
+                    let data = response.data;
+                    if (!data) return;
+                    const newData = data.map((dt) => {
+                        return {
+                            ...dt,
+                            category: dt?.category?.nameCategory,
+                        };
                     });
-            } catch (err) {
-                console.log(err);
-                return;
-            }
-        };
+                    setData(newData);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        } catch (err) {
+            console.log(err);
+            return;
+        }
+        stopLoading();
+    };
 
+    const getData = async () => {
+        try {
+            startLoading();
+            await request('GET', '/api/v1/admin/product/all')
+                .then((response) => {
+                    let data = response.data;
+                    if (!data) return;
+                    const newData = data.map((dt) => {
+                        return {
+                            ...dt,
+                            category: dt?.category?.nameCategory,
+                        };
+                    });
+                    setData(newData);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        } catch (err) {
+            console.log(err);
+            return;
+        }
+        stopLoading();
+    };
+
+    useEffect(() => {
+        switch (status) {
+            case 0: {
+                getProductByState(false);
+                break;
+            }
+            case 1: {
+                getProductByState(true);
+                break;
+            }
+            case 2: {
+                getData();
+                break;
+            }
+            default: {
+                getData();
+            }
+        }
+    }, [status]);
+    useEffect(() => {
         getData();
     }, []);
 
@@ -180,18 +226,18 @@ function Manager({}) {
                                 subMenu={[
                                     {
                                         name: 'Draft',
-                                        value: false,
-                                        id: false,
+                                        value: 0,
+                                        id: 0,
                                     },
                                     {
                                         name: 'Published',
-                                        value: true,
-                                        id: true,
+                                        value: 1,
+                                        id: 1,
                                     },
                                     {
                                         name: 'All',
-                                        value: null,
-                                        id: 3,
+                                        value: 2,
+                                        id: 2,
                                     },
                                 ]}
                             ></Select>

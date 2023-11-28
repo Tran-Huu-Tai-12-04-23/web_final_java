@@ -1,26 +1,21 @@
 package com.example.backend.service.impl;
 
 import com.example.backend.dto.OrderRequest;
-import com.example.backend.exception.AlreadyExistException;
 import com.example.backend.exception.NotFoundException;
 import com.example.backend.model.*;
 import com.example.backend.repository.*;
-import com.example.backend.service.IAccountService;
 import com.example.backend.service.IUserOrderService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import javax.security.auth.login.AccountNotFoundException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class UseOderServiceImpl implements IUserOrderService {
+public class UseOderService implements IUserOrderService {
 
     private final AddressRepository addressRepository;
     private final MemberRepository memberRepository;
@@ -44,7 +39,13 @@ public class UseOderServiceImpl implements IUserOrderService {
         orderMember.setTotal(orderRequest.getTotal());
         // Assuming you have an 'address' property in OrderMember
         System.out.println(orderRequest.getAddress().getId());
-        orderMember.setAddress(orderRequest.getAddress());
+        Optional<Address> addressOptional = addressRepository.findById(orderRequest.getAddress().getId());
+        if(addressOptional.isEmpty())  throw new NotFoundException("address not found");
+        Address address = addressOptional.get();
+        orderMember.setAddress(address.getAddress());
+        orderMember.setFullName(address.getFullName());
+        orderMember.setPhoneNumberTakeOrder(address.getPhoneNumberTakeOrder());
+        orderMember.setDetailAddress(address.getDetailAddress());
         // Assuming you have an 'amount' property in OrderMember
         orderMember.setAmount(orderRequest.getAmount());
         orderMember.setMethodPayment(orderRequest.getMethodPayment())   ;
@@ -71,8 +72,31 @@ public class UseOderServiceImpl implements IUserOrderService {
     }
 
     @Override
+    @Transactional
     public Boolean removeAddress(Long addressId) {
-        return addressRepository.removeAddressById(addressId);
+        Optional<Address> addressOptional = addressRepository.findById(addressId);
+
+        if (addressOptional.isEmpty()) {
+            return false;
+        }
+
+        Address address = addressOptional.get();
+//
+        if (address.getIsDefault()) {
+            List<Address> addressList = addressRepository.findAllByAccountId(address.getAccount().getId());
+
+            List<Address> filteredAddresses = addressList.stream()
+                    .filter(ad -> !Objects.equals(ad.getId(), addressId))
+                    .toList();
+
+            if (!filteredAddresses.isEmpty()) {
+                Address newDefaultAddress = filteredAddresses.get(0);
+                setAddressIsDefault(newDefaultAddress);
+            }
+        }
+//
+        addressRepository.removeById(addressId);
+        return true;
     }
     @Override
     public Address updateAddress(Address address, Long id) {
