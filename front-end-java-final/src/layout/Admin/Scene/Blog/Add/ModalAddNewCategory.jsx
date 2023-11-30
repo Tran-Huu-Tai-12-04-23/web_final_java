@@ -42,8 +42,8 @@ function ModalAddNewCategory({
 
         toast.promise(handleAddNewCategory(), {
             loading: 'Creating...',
-            success: <b>Create successful!</b>,
-            error: <b>Create failed.</b>,
+            success: <b>Tạo thành công!</b>,
+            error: <b>Tạo thất bại!</b>,
         });
     };
 
@@ -56,7 +56,7 @@ function ModalAddNewCategory({
                             'font-bold text-xl border-b-[1px] border-dashed border-light-tiny dark:border-dark-tiny pb-4'
                         }
                     >
-                        Add new category
+                        Thêm một phân loại mới
                     </TextMain>
 
                     <div className="flex flex-col mt-4">
@@ -76,14 +76,14 @@ function ModalAddNewCategory({
                                 type="button"
                                 className="py-2 px-3 text-sm font-medium text-gray-500 bg-light-tiny  dark:bg-dark-tiny rounded-md pl-4 pr-4 hover:text-gray-900  dark:text-gray-300 dark:hover:text-white dark:hover:bg-btn-second "
                             >
-                                Close
+                                Hủy
                             </button>
                             <button
                                 type="submit"
                                 onClick={addNewCategory}
                                 className="py-2 px-3 text-sm font-medium text-center text-white bg-green-700 rounded-md pl-4 pr-4 hover:bg-green-800 focus:outline-none  dark:bg-green-600 dark:hover:bg-green-700 "
                             >
-                                Save
+                                Lưu
                             </button>
                         </div>
                     </div>

@@ -103,15 +103,15 @@ const ProductSpecification = ({ data = laptopData, onSelectData = () => {} }) =>
 
     return (
         <div className="relative overflow-x-auto rounded-md mt-5 bg-light-tiny dark:bg-dark-tiny p-4 ">
-            <TextMain className={'mb-5 border-b-primary'}>Enter Product Specification</TextMain>
+            <TextMain className={'mb-5 border-b-primary'}>Nhập vào thông tin chi tiết sản phẩm</TextMain>
             <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
                         <th scope="col" className="px-6 py-3">
-                            Field
+                            Trường thông tin
                         </th>
                         <th scope="col" className="px-6 py-3">
-                            Value
+                            Giá trị
                         </th>
                     </tr>
                 </thead>

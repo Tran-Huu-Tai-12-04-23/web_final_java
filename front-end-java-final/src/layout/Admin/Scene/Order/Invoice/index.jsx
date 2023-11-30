@@ -21,15 +21,15 @@ function Invoice() {
                             <TextMain>gettech.com.vn</TextMain>
                         </div>
                         <div className="flex justify-between items-center">
-                            <TextSub>Contact no : </TextSub>
+                            <TextSub>Số điện thoại : </TextSub>
                             <TextMain>+ 012 000 929</TextMain>
                         </div>
                         <div className="flex justify-between items-center">
-                            <TextSub>Address : </TextSub>
+                            <TextSub>Địa chỉ : </TextSub>
                             <TextMain>458/21 HCM city</TextMain>
                         </div>
                         <div className="flex justify-between items-center">
-                            <TextSub>Zip code : </TextSub>
+                            <TextSub>Mã zip : </TextSub>
                             <TextMain>650000</TextMain>
                         </div>
                     </div>
@@ -37,24 +37,24 @@ function Invoice() {
 
                 <div className="flex justify-between  mt-3 items-center pb-3">
                     <div className="flex flex-col gap-2">
-                        <TextMain>Invoice code</TextMain>
+                        <TextMain>Mã hóa đơn</TextMain>
                         <TextSub className={'text-second'}>#invo001</TextSub>
                     </div>
                     <div className="flex flex-col gap-2">
-                        <TextMain>Date</TextMain>
+                        <TextMain>Ngày</TextMain>
                         <TextSub className={'text-second'}>12/04/2003</TextSub>
                     </div>
                     <div className="flex flex-col gap-2">
-                        <TextMain>Payment status</TextMain>
+                        <TextMain>Trạng thái thanh toán</TextMain>
                         <TextSub className={'text-second'}>paid</TextSub>
                     </div>
                     <div className="flex flex-col gap-2">
-                        <TextMain>Total amount</TextMain>
+                        <TextMain>Tổng giá trị</TextMain>
                         <TextSub className={'text-second'}>$ 755.96</TextSub>
                     </div>
                 </div>
                 <div className="flex flex-col gap-1 border-t-primary pt-3">
-                    <TextMain className={'mb-2'}>Shipping Address</TextMain>
+                    <TextMain className={'mb-2'}>Địa chỉ giao hàng</TextMain>
                     <TextSub className={'text-second'}>TranHuu Tai</TextSub>
                     <TextSub className={'text-second'}>459/21 hynh tan phat HCM city</TextSub>
                     <TextSub className={'text-second'}>+ 843 76 100 548</TextSub>
@@ -63,9 +63,9 @@ function Invoice() {
                 <div className="flex flex-col pb-3 border-b-primary">
                     <div className="mt-10 border-t-primary pt-3 bg-bg-light-menu dark:bg-bg-dark-menu p-2 flex justify-between items-center">
                         <TextMain>#</TextMain>
-                        <TextMain>Product Details</TextMain>
-                        <TextMain>Quantity</TextMain>
-                        <TextMain>Cost</TextMain>
+                        <TextMain>Chi tiết sản phẩm</TextMain>
+                        <TextMain>Số lượng</TextMain>
+                        <TextMain>Chi phí</TextMain>
                     </div>
                     <div className=" p-2 flex justify-between items-center">
                         <TextMain>01</TextMain>
@@ -76,36 +76,33 @@ function Invoice() {
                 </div>
                 <div className="flex w-[20rem] gap-3 mt-3 ml-auto flex-col">
                     <div className="flex w-full justify-between items-center">
-                        <TextMain>Sub Total : </TextMain>
+                        <TextMain>Tạm tính : </TextMain>
                         <TextSub>$ 359.96</TextSub>
                     </div>
                     <div className="flex w-full justify-between items-center">
-                        <TextMain>Discount : </TextMain>
+                        <TextMain>Giảm giá : </TextMain>
                         <TextSub>$53</TextSub>
                     </div>
                     <div className="flex w-full justify-between pb-2 border-b-primary items-center">
-                        <TextMain>Shipping : </TextMain>
+                        <TextMain>Phí giao hàng : </TextMain>
                         <TextSub>$ 13</TextSub>
                     </div>
                     <div className="flex w-full justify-between items-center">
-                        <TextMain>Total : </TextMain>
+                        <TextMain>Tổng cộng : </TextMain>
                         <TextSub>$ 359.96</TextSub>
                     </div>
                 </div>
 
                 <div className="p-2 rounded-sm bg-status-inprogress mt-10">
                     <TextSub>
-                        NOTES: All accounts are to be paid within 7 days from receipt of invoice. To be paid by cheque
-                        or credit card or direct payment online. If account is not paid within 7 days the credits
-                        details supplied as confirmation of work undertaken will be charged the agreed quoted fee noted
-                        above.
+                    Tất cả các tài khoản phải được thanh toán trong vòng 7 ngày kể từ khi nhận hóa đơn. Thanh toán có thể thực hiện bằng séc, thẻ tín dụng hoặc thanh toán trực tuyến trực tiếp. Nếu tài khoản không được thanh toán trong vòng 7 ngày, chi phí đã được báo giá như đã ghi chú sẽ được tính cho các chi tiết tín dụng đã cung cấp như làm việc đã thực hiện.
                     </TextSub>
                 </div>
 
                 <div className="justify-end flex mt-4 pt-4 border-t-primary items-center">
                     <Button className="flex p-2  justify-center items-center gap-3 rounded-md bg-submit">
                         <AiOutlinePrinter className="w-4 h-4"></AiOutlinePrinter>
-                        <span>Print</span>
+                        <span>In</span>
                     </Button>
                 </div>
             </div>

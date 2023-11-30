@@ -20,12 +20,12 @@ function ModalEditMember({
     const [status, setStatus] = useState(false);
     const optionsStatus = [
         {
-            name: 'Active',
+            name: 'Hoạt động',
             value: false,
             id: 0,
         },
         {
-            name: 'Block',
+            name: 'Bị chặn',
             value: true,
             id: 1,
         },
@@ -41,17 +41,17 @@ function ModalEditMember({
         };
 
         if (name === '') {
-            toast('Please enter name for member!', {
+            toast('Vui lòng nhập tên thành viên!', {
                 icon: '⚠️',
             });
             return;
         } else if (email === '') {
-            toast('Please enter email!', {
+            toast('Vui lòng nhập email!', {
                 icon: '⚠️',
             });
             return;
         } else if (phoneNumber === '') {
-            toast('Please enter phone! ', {
+            toast('Vui lòng nhập số điện thoại! ', {
                 icon: '⚠️',
             });
             return;
@@ -87,9 +87,9 @@ function ModalEditMember({
 
     const updateMember = async () => {
         toast.promise(handleUpdateMember(), {
-            loading: 'Updating ...',
-            success: <b>Update successful!</b>,
-            error: <b>Update failed.</b>,
+            loading: 'Đang cập nhật ...',
+            success: <b>Cập nhật thành công!</b>,
+            error: <b>Cập nhật thất bại.</b>,
         });
     };
 
@@ -118,7 +118,7 @@ function ModalEditMember({
                         <Input
                             value={name}
                             onChange={(e) => setName(e.target.value)}
-                            placeholder="Name member"
+                            placeholder="Tên thành viên"
                             label={'Name'}
                             className="mb-4"
                         ></Input>
@@ -126,7 +126,7 @@ function ModalEditMember({
                         <Input
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            placeholder="Email member"
+                            placeholder="Email thành viên"
                             label={'Email'}
                             className="mb-4"
                         ></Input>
@@ -134,7 +134,7 @@ function ModalEditMember({
                         <Input
                             value={phoneNumber}
                             onChange={(e) => setPhoneNumber(e.target.value)}
-                            placeholder="Phone number of member"
+                            placeholder="Số điện thoại thành viên"
                             label={'Phone number'}
                             className="mb-4"
                         ></Input>
@@ -156,14 +156,14 @@ function ModalEditMember({
                                 type="button"
                                 className="py-2 px-3 text-sm font-medium text-gray-500 bg-light-tiny  dark:bg-dark-tiny rounded-md pl-4 pr-4 hover:text-gray-900  dark:text-gray-300 dark:hover:text-white dark:hover:bg-btn-second "
                             >
-                                Close
+                                Hủy
                             </button>
                             <button
                                 type="submit"
                                 onClick={updateMember}
                                 className="py-2 px-3 text-sm font-medium text-center text-white bg-green-700 rounded-md pl-4 pr-4 hover:bg-green-800 focus:outline-none  dark:bg-green-600 dark:hover:bg-green-700 "
                             >
-                                Save
+                                Lưu
                             </button>
                         </div>
                     </div>

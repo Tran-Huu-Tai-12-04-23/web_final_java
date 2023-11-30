@@ -71,7 +71,7 @@ function ManagerMember() {
         if (memberIdForRemove == null) return;
 
         toast.promise(handleRemoveSoftMember(), {
-            loading: 'Deleting ...',
+            loading: 'Đang xóa ...',
             success: <b>Delete successful!</b>,
             error: <b>Delete failed.</b>,
         });
@@ -141,7 +141,7 @@ function ManagerMember() {
     };
     const unLockMember = async (value) => {
         toast.promise(handleUnLockMember(value), {
-            loading: 'Unlock ...',
+            loading: 'Mở khóa ...',
             success: <b>Unlock member successful!</b>,
             error: <b>Unlock member failed.</b>,
         });
@@ -150,7 +150,7 @@ function ManagerMember() {
         if (memberIdForBlock == null) return;
 
         toast.promise(handleBlockMember(value), {
-            loading: 'Blocking ...',
+            loading: 'Đang chặn ...',
             success: <b>Block member successful!</b>,
             error: <b>Block member failed.</b>,
         });
@@ -219,7 +219,7 @@ function ManagerMember() {
             <AnimateOpacity>
                 <motion.div className="p-4 rounded-md bg-light dark:bg-dark mt-10">
                     <motion.div className="flex justify-between items-center border-b-[1px] border-dashed pb-4 dark:border-dark-tiny border-light-tiny">
-                        <TextMain>Member list</TextMain>
+                        <TextMain>Danh sách thành viên</TextMain>
                         <div className="flex justify-end items-center gap-4">
                             {memberSelected.length > 0 && (
                                 <AnimateHover
@@ -232,7 +232,7 @@ function ManagerMember() {
                             )}
                             <Button style="normal">
                                 <IoIosAdd className="w-6 h-6 mr-2"></IoIosAdd>
-                                <span>Add Member</span>
+                                <span>Thêm thành viên</span>
                             </Button>
                         </div>
                     </motion.div>
@@ -259,7 +259,7 @@ function ManagerMember() {
                             ></PickedRangeDate>
                             <Select
                                 className="w-full "
-                                name="Status"
+                                name="Trạng thái"
                                 value={filters !== null ? filters.status : null}
                                 onSelect={(value) => {
                                     setFilters((prev) => {
@@ -271,11 +271,11 @@ function ManagerMember() {
                                 }}
                                 subMenu={[
                                     {
-                                        name: 'Active',
+                                        name: 'Hoạt động',
                                         value: true,
                                     },
                                     {
-                                        name: 'In Active',
+                                        name: 'Bị chặn',
                                         value: false,
                                     },
                                 ]}

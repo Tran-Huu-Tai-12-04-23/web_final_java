@@ -28,31 +28,31 @@ function SideBar({ activeSidebar, setOrder, order }) {
     const history = useNavigate();
     const navigate = [
         {
-            name: 'DashBoard',
+            name: 'Bảng thống kê',
             icon: <GoHome className="text-xl"></GoHome>,
             order: 1,
             path: Constants.ADMIN,
         },
         {
-            name: 'Members',
+            name: 'Thành viên',
             icon: <FiUser className="text-xl"></FiUser>,
             order: 2,
             path: Constants.ADMIN_MEMBER,
         },
         {
-            name: 'Products',
+            name: 'Sản phẩm',
             icon: <AiFillThunderbolt className="text-xl"></AiFillThunderbolt>,
             order: 3,
             path: Constants.ADMIN_PRODUCT,
             submenu: [
                 {
-                    name: 'Manager',
+                    name: 'Quản lý',
                     path: Constants.ADMIN_PRODUCT,
                     icon: <SiGoogletagmanager className="text-xl"></SiGoogletagmanager>,
                     order: 1,
                 },
                 {
-                    name: 'Add product',
+                    name: 'Thêm sản phẩm',
                     path: Constants.ADMIN_ADD_PRODUCT,
                     icon: <IoMdAdd className="text-xl"></IoMdAdd>,
                     order: 2,
@@ -60,46 +60,46 @@ function SideBar({ activeSidebar, setOrder, order }) {
             ],
         },
         {
-            name: 'Orders',
+            name: 'Danh sách đơn hàng',
             path: '/admin/orders',
             icon: <PiShoppingCartSimpleLight className="text-xl"></PiShoppingCartSimpleLight>,
             order: 4,
             submenu: [
                 {
-                    name: 'Manager',
+                    name: 'Quản lý',
                     icon: <SiGoogletagmanager className="text-xl"></SiGoogletagmanager>,
                     order: 1,
                 },
                 {
-                    name: 'Members',
+                    name: 'Thành viên',
                     icon: <GoHome className="text-xl"></GoHome>,
                     order: 2,
                 },
                 {
-                    name: 'Members Is Delete',
+                    name: 'Thành viên đã bị xóa',
                     icon: <GoHome className="text-xl"></GoHome>,
                     order: 3,
                 },
             ],
         },
         {
-            name: 'Reviews',
+            name: 'Đánh giá',
             icon: <GoCodeReview className="text-xl"></GoCodeReview>,
             order: 5,
             path: '/admin/reviews',
             submenu: [
                 {
-                    name: 'Create Member',
+                    name: 'Tạo thành viên',
                     icon: <GoHome className="text-xl"></GoHome>,
                     order: 1,
                 },
                 {
-                    name: 'Members',
+                    name: 'Thành viên',
                     icon: <GoHome className="text-xl"></GoHome>,
                     order: 2,
                 },
                 {
-                    name: 'Members Is Delete',
+                    name: 'Thành viên bị xóa',
                     icon: <GoHome className="text-xl"></GoHome>,
                     order: 3,
                 },
@@ -112,13 +112,13 @@ function SideBar({ activeSidebar, setOrder, order }) {
             path: Constants.ADMIN_BLOG,
             submenu: [
                 {
-                    name: 'Manager',
+                    name: 'Quản lý',
                     path: Constants.ADMIN_BLOG,
                     icon: <SiGoogletagmanager className="text-xl"></SiGoogletagmanager>,
                     order: 1,
                 },
                 {
-                    name: 'Add blog',
+                    name: 'Thêm blog',
                     path: Constants.ADMIN_ADD_BLOG,
                     icon: <IoMdAdd className="text-xl"></IoMdAdd>,
                     order: 2,
@@ -126,26 +126,26 @@ function SideBar({ activeSidebar, setOrder, order }) {
             ],
         },
         {
-            name: 'Questions',
+            name: 'Câu hỏi',
             path: '/admin/questions',
             icon: <PiSealQuestionLight className="text-xl"></PiSealQuestionLight>,
             order: 7,
             submenu: [],
         },
         {
-            name: 'Guarantee',
+            name: 'Chính sách bảo hiểm',
             path: '/admin/Guarantees',
             icon: <AiOutlineFileProtect className="text-xl"></AiOutlineFileProtect>,
             order: 8,
         },
         {
-            name: 'Bank setting',
+            name: 'Quản lý ngân hàng',
             path: '/admin/bank-setting',
             icon: <PiBankLight className="text-xl"></PiBankLight>,
             order: 9,
         },
         {
-            name: 'Charts',
+            name: 'Đồ thị',
             path: '/admin/chart',
             icon: <AiOutlineBarChart className="text-xl"></AiOutlineBarChart>,
             order: 10,
@@ -158,7 +158,7 @@ function SideBar({ activeSidebar, setOrder, order }) {
             variants={variants}
         >
             <h1 className="mb-10 text-xl  font-bold font-mono border-b-4 border-solid border-primary w-fit">
-                Dashboard Admin
+                Bảng thống kê Admin
             </h1>
             <div className="h-full w-full">
                 {navigate.map((nav, index) => {
@@ -211,7 +211,7 @@ function SideBar({ activeSidebar, setOrder, order }) {
                 className={'flex justify-start items-center hover:text-primary cursor-pointer'}
             >
                 <IoExitOutline className="h-6 mr-2 hover:text-primary cursor-pointer w-6 ml-2 "></IoExitOutline>
-                <span>Eixt</span>
+                <span>Thoát</span>
             </AnimateHover>
         </motion.div>
     );

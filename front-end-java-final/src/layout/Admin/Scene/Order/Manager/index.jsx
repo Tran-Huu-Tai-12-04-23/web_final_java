@@ -107,9 +107,9 @@ function Manager({}) {
         if (productIdConfirmRemove == null) return;
 
         toast.promise(handleRemoveProduct(), {
-            loading: 'Deleting ...',
-            success: <b>Delete successful!</b>,
-            error: <b>Delete failed.</b>,
+            loading: 'Đang xóa ...',
+            success: <b>Xóa thành công!</b>,
+            error: <b>Xóa thất bại!</b>,
         });
     };
     return (
@@ -130,7 +130,7 @@ function Manager({}) {
                 <div className="p-4 rounded-md bg-light dark:bg-dark mt-10 w-full">
                     {/* header */}
                     <div className="flex justify-between items-center border-b-[1px] border-dashed pb-4 dark:border-dark-tiny border-light-tiny">
-                        <TextMain>Order list</TextMain>
+                        <TextMain>Danh sách đơn hàng</TextMain>
                         {orderSelected.length > 0 && (
                             <AnimateHover
                                 className={
@@ -144,7 +144,7 @@ function Manager({}) {
                     {/* //feature filter */}
                     <div className="flex mb-4 2xl:flex-row xl:flex-row lg:flex-row flex-col justify-between items-center mt-5 gap-4  border-b-[1px] border-dashed pb-4 dark:border-dark-tiny border-light-tiny">
                         <Input
-                            placeholder="Search for name, description, something ... "
+                            placeholder="Tìm kiếm tên, mô tả, hoặc một thứ gì đó,... "
                             className="w-full"
                             iconRight={<IoSearchOutline className="w-6 h-6 mr-3"></IoSearchOutline>}
                         ></Input>

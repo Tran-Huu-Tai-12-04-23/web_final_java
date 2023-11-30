@@ -191,8 +191,8 @@ function AddBlog({ modeEdit = false, data }) {
             <AnimateOpacity>
                 <motion.div className="p-4 rounded-md bg-light dark:bg-dark mt-10 shadow-xl">
                     <motion.div className="flex justify-between items-center border-b-[1px] border-dashed pb-4 dark:border-dark-tiny border-light-tiny">
-                        {modeEdit && <TextMain>Edit blog</TextMain>}
-                        {!modeEdit && <TextMain>Add blog</TextMain>}
+                        {modeEdit && <TextMain>Chỉnh sửa blog</TextMain>}
+                        {!modeEdit && <TextMain>Thêm blog</TextMain>}
                     </motion.div>
                 </motion.div>
 
@@ -201,7 +201,7 @@ function AddBlog({ modeEdit = false, data }) {
                     <div className="  flex flex-col bg-light dark:bg-dark rounded-md p-4 shadow-xl">
                         <div className="flex flex-col  gap-4">
                             <div className="flex  flex-col ">
-                                <TextMain className={'mb-2 ml-2'}>Title</TextMain>
+                                <TextMain className={'mb-2 ml-2'}>Tựa đề</TextMain>
                                 <Input
                                     value={title}
                                     onChange={(e) => setTitle(e.target.value)}
@@ -210,7 +210,7 @@ function AddBlog({ modeEdit = false, data }) {
                                 ></Input>
                             </div>
                             <div className="flex  flex-col ">
-                                <TextMain className={'mb-2 ml-2'}>Content</TextMain>
+                                <TextMain className={'mb-2 ml-2'}>Nội dung</TextMain>
                                 <Editor
                                     value={content}
                                     onChange={(value) => {
@@ -273,7 +273,7 @@ function AddBlog({ modeEdit = false, data }) {
                                                 className={'w-full flex justify-center items-center '}
                                             >
                                                 <IoIosAdd className="w-8 h-8 hover:text-white brightness-75"></IoIosAdd>
-                                                <span>Add new category</span>
+                                                <span>Thêm phân loại mới</span>
                                             </Button>
                                         ),
                                     },
@@ -307,13 +307,13 @@ function AddBlog({ modeEdit = false, data }) {
             {!modeEdit ? (
                 <div className="flex justify-start items-center mt-5">
                     <Button onClick={AddBlog} style="submit" className={''}>
-                        Submit
+                        Xác nhận
                     </Button>
                 </div>
             ) : (
                 <div className="flex justify-start items-center mt-5">
                     <Button onClick={update} style="submit" className={''}>
-                        Update
+                        Cập nhật
                     </Button>
                 </div>
             )}

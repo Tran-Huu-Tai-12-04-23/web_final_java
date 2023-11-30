@@ -19,11 +19,11 @@ function DashBoard() {
     useEffect(() => {
         const currentHour = new Date().getHours();
         if (currentHour >= 5 && currentHour < 12) {
-            setTextHello('Morning');
+            setTextHello('Buổi sáng');
         } else if (currentHour >= 12 && currentHour < 18) {
-            setTextHello('Afternoon');
+            setTextHello('Buổi chiều');
         } else {
-            setTextHello('Night');
+            setTextHello('Buổi tối');
         }
     }, []);
 
@@ -31,8 +31,8 @@ function DashBoard() {
         <motion.div>
             <motion.div className="flex justify-between items-center">
                 <AnimateText>
-                    <TextMain>Good {textHello}, </TextMain>
-                    <TextSub>You! Here's what's happening with your store today.</TextSub>
+                    <TextMain>Chào {textHello}, </TextMain>
+                    <TextSub>bạn! Đây là những điều diễn ra trong cửa hàng ngày hôm nay.</TextSub>
                 </AnimateText>
                 <motion.div className="w-2/3 flex justify-end items-center">
                     <motion.div className="w-2/3">
@@ -40,7 +40,7 @@ function DashBoard() {
                     </motion.div>
                     <Button style="normal" className={'ml-4 '}>
                         <IoAdd className="w-6 h-6 mr-2"></IoAdd>
-                        <span>Add Product</span>
+                        <span>Thêm sản phẩm</span>
                     </Button>
                 </motion.div>
             </motion.div>
@@ -53,9 +53,9 @@ function DashBoard() {
                 </div>
                 <div className="w-1/2 h-full flex flex-col justify-between">
                     <motion.div className="flex justify-between items-center border-b-[1px] border-dashed border-light-tiny dark:border-dark-tiny">
-                        <TextMain className={'pb-1 font-bold text-xl'}>Order Recently</TextMain>
+                        <TextMain className={'pb-1 font-bold text-xl'}>Danh sách đơn hàng gần đây</TextMain>
                         <Link to={''} className="hover:text-primary cursor-pointer underline">
-                            View More
+                            Xem thêm
                         </Link>
                     </motion.div>
                     <TableCustom
@@ -71,9 +71,9 @@ function DashBoard() {
             </div>
             <motion.div>
                 <motion.div className="flex justify-between items-center border-b-[1px] border-dashed border-light-tiny dark:border-dark-tiny">
-                    <TextMain className={'mb-2 font-bold text-xl'}>New Product</TextMain>
+                    <TextMain className={'mb-2 font-bold text-xl'}>Thêm sản phẩm mới</TextMain>
                     <Link to={''} className="hover:text-primary cursor-pointer underline">
-                        View More
+                        Xem thêm
                     </Link>
                 </motion.div>
                 <TableCustom

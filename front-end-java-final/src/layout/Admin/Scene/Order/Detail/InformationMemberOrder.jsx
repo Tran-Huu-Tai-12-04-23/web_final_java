@@ -9,9 +9,9 @@ function InformationMemberOrder() {
             {/* information user */}
             <div className="bg-light-tiny dark:bg-dark-tiny w-full p-4  rounded-md">
                 <div className="flex justify-between items-center pb-2 border-b-primary">
-                    <TextMain>Customer Details</TextMain>
+                    <TextMain>Thông tin chi tiết khách hàng</TextMain>
 
-                    <Button className="underline text-blue-700">View profile</Button>
+                    <Button className="underline text-blue-700">Xem hồ sơ cá nhân</Button>
                 </div>
 
                 <div className="flex flex-col mt-4 gap-3">
@@ -34,7 +34,7 @@ function InformationMemberOrder() {
             <div className="bg-light-tiny dark:bg-dark-tiny w-full p-4  rounded-md">
                 <div className="flex justify-start items-center gap-3 pb-3 border-b-primary">
                     <CiLocationArrow1 className="w-4 h-4"></CiLocationArrow1>
-                    <TextMain>Shipping address</TextMain>
+                    <TextMain>Địa chỉ giao hàng</TextMain>
                 </div>
 
                 <div className="flex flex-col gap-3">
@@ -48,16 +48,16 @@ function InformationMemberOrder() {
             <div className="bg-light-tiny dark:bg-dark-tiny w-full p-4  rounded-md">
                 <div className="flex justify-start items-center gap-3 pb-3 border-b-primary">
                     <MdPayments className="w-4 h-4"></MdPayments>
-                    <TextMain>Payment details</TextMain>
+                    <TextMain>Phương thức thanh toán</TextMain>
                 </div>
 
                 <div className="flex flex-col gap-3 mt-2">
                     <div className="flex justify-start items-center gap-3">
-                        <TextSub className={''}>Payment method : </TextSub>
-                        <TextSub className={'font-bold'}>Debit card</TextSub>
+                        <TextSub className={''}>Phương thức thanh toán : </TextSub>
+                        <TextSub className={'font-bold'}>Thẻ debit : </TextSub>
                     </div>
                     <div className="flex justify-start  items-center gap-3">
-                        <TextSub className={''}>Total : </TextSub>
+                        <TextSub className={''}>Tổng cộng : </TextSub>
                         <TextSub className={'font-bold'}>$ 200</TextSub>
                     </div>
                 </div>

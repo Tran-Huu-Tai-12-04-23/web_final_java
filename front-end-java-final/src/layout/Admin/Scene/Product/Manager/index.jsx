@@ -156,9 +156,9 @@ function Manager({}) {
         if (productIdConfirmRemove == null) return;
 
         toast.promise(handleRemoveProduct(), {
-            loading: 'Deleting ...',
-            success: <b>Delete successful!</b>,
-            error: <b>Delete failed.</b>,
+            loading: 'Đang xóa ...',
+            success: <b>Xóa thành công!</b>,
+            error: <b>Xóa thất bại.</b>,
         });
     };
     return (
@@ -188,7 +188,7 @@ function Manager({}) {
             <AnimateOpacity className={'flex justify-between gap-4'}>
                 <div className="p-4 rounded-md bg-light dark:bg-dark mt-5 w-full">
                     <div className="flex mb-4 justify-between items-center border-b-[1px] border-dashed pb-4 dark:border-dark-tiny border-light-tiny">
-                        <TextMain>Product list</TextMain>
+                        <TextMain>Danh sách sản phẩm</TextMain>
                         <div className="flex justify-end items-center gap-4">
                             {memberSelected.length > 0 && (
                                 <AnimateHover
@@ -201,7 +201,7 @@ function Manager({}) {
                             )}
                             <Button style="normal" onClick={() => history(Constants.ADMIN_ADD_PRODUCT)}>
                                 <IoIosAdd className="w-6 h-6 mr-2"></IoIosAdd>
-                                <span>Add Product</span>
+                                <span>Thêm sản phẩm</span>
                             </Button>
                         </div>
                     </div>
@@ -211,7 +211,7 @@ function Manager({}) {
                     {/* //feature filter */}
                     <div className="flex mb-4 2xl:flex-row xl:flex-row lg:flex-row flex-col justify-between items-center mt-5 gap-4  border-b-[1px] border-dashed pb-4 dark:border-dark-tiny border-light-tiny">
                         <Input
-                            placeholder="Search for name, description, something ... "
+                            placeholder="Tìm kiếm tên, mô tả hoặc ... "
                             className="w-full"
                             iconRight={<IoSearchOutline className="w-6 h-6 mr-3"></IoSearchOutline>}
                         ></Input>
@@ -219,18 +219,18 @@ function Manager({}) {
                         <div className="flex w-full justify-end items-center gap-5">
                             <PickedRangeDate></PickedRangeDate>
                             <Select
-                                name="Status"
+                                name="Trạng thái"
                                 value={status}
                                 onSelect={(value) => setStatus(value)}
                                 className="bg-light-tiny dark:bg-dark-tiny rounded-md"
                                 subMenu={[
                                     {
-                                        name: 'Draft',
+                                        name: 'Bản nháp',
                                         value: 0,
                                         id: 0,
                                     },
                                     {
-                                        name: 'Published',
+                                        name: 'Xuất bản',
                                         value: 1,
                                         id: 1,
                                     },

@@ -13,28 +13,28 @@ function Question() {
 
     const tabs = [
         {
-            name: 'ALL',
+            name: 'Tất cả',
             icon: (
                 <DiGhostSmall className="w-6 h-6 brightness-50 group-hover:text-primary group-hover:brightness-100"></DiGhostSmall>
             ),
             tabContent: <ViewQuestion></ViewQuestion>,
         },
         {
-            name: 'Wait for reply',
+            name: 'Đợi phản hồi',
             icon: (
                 <BsReplyAll className="w-6 h-6 brightness-50 group-hover:text-primary group-hover:brightness-100"></BsReplyAll>
             ),
             tabContent: <ViewQuestion></ViewQuestion>,
         },
         {
-            name: 'Sended',
+            name: 'Đã gửi',
             icon: (
                 <VscSend className="w-6 h-6 brightness-50 group-hover:text-primary group-hover:brightness-100"></VscSend>
             ),
             tabContent: <ViewQuestion></ViewQuestion>,
         },
         {
-            name: 'Trash',
+            name: 'Thư rác',
             tabContent: <ViewQuestion></ViewQuestion>,
             icon: (
                 <LiaTrashAltSolid className="w-6 h-6 brightness-50 group-hover:text-primary group-hover:brightness-100"></LiaTrashAltSolid>
@@ -47,7 +47,7 @@ function Question() {
 
             <div className="mt-5 rounded-md p-4 bg-light-tiny dark:bg-dark-tiny">
                 <div className="flex justify-between mb-5 border-b-primary items-center">
-                    <TextMain>Question</TextMain>
+                    <TextMain>Câu hỏi</TextMain>
                 </div>
 
                 <Tabs

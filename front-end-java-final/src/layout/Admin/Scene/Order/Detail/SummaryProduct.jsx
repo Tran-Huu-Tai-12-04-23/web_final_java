@@ -11,19 +11,19 @@ function SummaryProduct() {
 
             <div className="flex w-[20rem] gap-4 float-right flex-col">
                 <div className="flex w-full justify-between items-center">
-                    <TextMain>Sub Total : </TextMain>
+                    <TextMain>Tạm tính : </TextMain>
                     <TextSub>$ 359.96</TextSub>
                 </div>
                 <div className="flex w-full justify-between items-center">
-                    <TextMain>Discount : </TextMain>
+                    <TextMain>Giảm giá : </TextMain>
                     <TextSub>$53</TextSub>
                 </div>
                 <div className="flex w-full justify-between pb-2 border-b-primary items-center">
-                    <TextMain>Shipping : </TextMain>
+                    <TextMain>Phí giao hàng : </TextMain>
                     <TextSub>$ 13</TextSub>
                 </div>
                 <div className="flex w-full justify-between items-center">
-                    <TextMain>Total : </TextMain>
+                    <TextMain>Tổng : </TextMain>
                     <TextSub>$ 359.96</TextSub>
                 </div>
             </div>

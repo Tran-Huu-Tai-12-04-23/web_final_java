@@ -82,8 +82,8 @@ function Manager({}) {
 
         toast.promise(handleRemoveSoftBlog(), {
             loading: 'Deleting ...',
-            success: <b>Delete successful!</b>,
-            error: <b>Delete failed.</b>,
+            success: <b>Xóa thành công!</b>,
+            error: <b>Xóa thất bại!</b>,
         });
     };
 
@@ -166,7 +166,7 @@ function Manager({}) {
             <AnimateOpacity className={'flex justify-between gap-4'}>
                 <div className="p-4 rounded-md bg-light dark:bg-dark mt-5 w-full">
                     <div className="flex mb-4 justify-between items-center border-b-[1px] border-dashed pb-4 dark:border-dark-tiny border-light-tiny">
-                        <TextMain>Post blog list</TextMain>
+                        <TextMain>Danh sách Blog đã đăng</TextMain>
                         <div className="flex justify-end items-center gap-4">
                             {blogSelected.length > 0 && (
                                 <AnimateHover
@@ -179,7 +179,7 @@ function Manager({}) {
                             )}
                             <Button style="normal" onClick={() => history(Constants.ADMIN_ADD_BLOG)}>
                                 <IoIosAdd className="w-6 h-6 mr-2"></IoIosAdd>
-                                <span>Add Blog</span>
+                                <span>Thêm Blog</span>
                             </Button>
                         </div>
                     </div>

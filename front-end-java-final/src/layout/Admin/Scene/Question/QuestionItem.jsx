@@ -24,8 +24,8 @@ function QuestionItem({ index = 0 }) {
                 />
                 <TextMain>Tran Huu Tai</TextMain>
                 <p className="text-second block max-w-[50rem] truncate overflow-clip">
-                    Everyone realizes why a new common language would be desirable: one could refuse to pay expensive
-                    translators. To achieve this, it would be necessary to have uniform grammar pronunciation.
+
+                Mọi người đều nhận thức tại sao việc có một ngôn ngữ chung mới là điều đáng mong muốn: người ta có thể từ chối thanh toán cho các biên dịch đắt tiền. Để đạt được điều này, sẽ cần có ngữ pháp và cách phát âm đồng đều.
                 </p>
             </div>
 

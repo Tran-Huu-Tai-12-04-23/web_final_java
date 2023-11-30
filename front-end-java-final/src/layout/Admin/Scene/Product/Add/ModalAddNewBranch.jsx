@@ -35,14 +35,14 @@ function ModalAddNewBranch({
     };
     const addNewBranch = async () => {
         if (branch === '') {
-            toast.error('Name branch is required!');
+            toast.error('Tên thương hiệu không được bỏ trống!');
             return;
         }
 
         toast.promise(handleAddNewBranch(), {
-            loading: 'Creating...',
-            success: <b>Create successful!</b>,
-            error: <b>Create failed.</b>,
+            loading: 'Đang tạo...',
+            success: <b>Tạo thành công!</b>,
+            error: <b>Tạo thất bại.</b>,
         });
     };
 
@@ -55,15 +55,15 @@ function ModalAddNewBranch({
                             'font-bold text-xl border-b-[1px] border-dashed border-light-tiny dark:border-dark-tiny pb-4'
                         }
                     >
-                        Add new branch
+                        Thêm thương hiệu mới
                     </TextMain>
 
                     <div className="flex flex-col mt-4">
                         <Input
                             value={branch}
                             onChange={(e) => setBranch(e.target.value)}
-                            placeholder="Enter branch name..."
-                            label={'Branch name'}
+                            placeholder="Nhập tên thương hiệu..."
+                            label={'Tên thương hiệu'}
                             className="mb-4"
                         ></Input>
 
@@ -75,14 +75,14 @@ function ModalAddNewBranch({
                                 type="button"
                                 className="py-2 px-3 text-sm font-medium text-gray-500 bg-light-tiny  dark:bg-dark-tiny rounded-md pl-4 pr-4 hover:text-gray-900  dark:text-gray-300 dark:hover:text-white dark:hover:bg-btn-second "
                             >
-                                Close
+                                Hủy
                             </button>
                             <button
                                 type="submit"
                                 onClick={addNewBranch}
                                 className="py-2 px-3 text-sm font-medium text-center text-white bg-green-700 rounded-md pl-4 pr-4 hover:bg-green-800 focus:outline-none  dark:bg-green-600 dark:hover:bg-green-700 "
                             >
-                                Save
+                                Lưu
                             </button>
                         </div>
                     </div>

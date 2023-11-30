@@ -30,7 +30,7 @@ function Login() {
                     const data = response.data;
 
                     if (!data) {
-                        toast.error('Login failed!!');
+                        toast.error('Đăng nhập thất bại!!');
                         return;
                     }
                     setAuthHeader(data.jwtAuthenticationResponse.token);
@@ -65,14 +65,14 @@ function Login() {
     const login = async (e) => {
         e.preventDefault();
         if (username === '') {
-            toast.error('Please enter username!');
+            toast.error('Vui lòng nhập tài khoản!');
         } else if (password === '') {
-            toast.error('Please enter password!');
+            toast.error('Vui lòng nhập mật khẩu!');
         }
         toast.promise(handleLogin(), {
-            loading: 'Logging in...',
-            success: <b>Login successful!</b>,
-            error: <b>Login failed.</b>,
+            loading: 'Đang đăng nhập...',
+            success: <b>Đăng nhập thành công!</b>,
+            error: <b>Đăng nhập thất bại!</b>,
         });
     };
     return (
@@ -86,11 +86,11 @@ function Login() {
                     <div className="mb-12 md:mb-0 md:w-8/12 lg:w-5/12 xl:w-5/12">
                         <form>
                             <div className="flex flex-row items-center justify-center lg:justify-start">
-                                <p className="font-bold  font-mono mb-0 mr-4 text-xl">Welcome to admin DashBoard</p>
+                                <p className="font-bold  font-mono mb-0 mr-4 text-xl">Chào mừng đến với trang quản lý</p>
                             </div>
 
                             <div className="relative mb-6 mt-5 pl-4" data-te-input-wrapper-init>
-                                <label className="mb-3">Username</label>
+                                <label className="mb-3">Tên tài khoản</label>
                                 <Input
                                     placeholder=""
                                     onChange={(e) => setUsername(e.target.value)}
@@ -98,7 +98,7 @@ function Login() {
                                 ></Input>
                             </div>
                             <div className="relative mb-6 mt-5 pl-4" data-te-input-wrapper-init>
-                                <label className="mb-3">Password</label>
+                                <label className="mb-3">Mật khẩu</label>
                                 <Input
                                     placeholder=""
                                     onChange={(e) => setPassword(e.target.value)}
@@ -112,7 +112,7 @@ function Login() {
                                     className="inline-block rounded bg-primary px-7 pb-2.5 pt-3 text-sm font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
                                     onClick={login}
                                 >
-                                    Login
+                                    Đăng nhập
                                 </button>
                             </div>
                         </form>

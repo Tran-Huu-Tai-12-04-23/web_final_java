@@ -5,7 +5,7 @@ import { AnimateOpacity } from '../../components/Animate';
 
 import CartItem from './CartItem';
 import SummaryCart from './SummaryCart';
-import Checkout from './Checkout';
+import Checkout from './CheckOut';
 import SummaryYourOrder from './SummaryYourOrder';
 
 import { FaRegEdit } from 'react-icons/fa';

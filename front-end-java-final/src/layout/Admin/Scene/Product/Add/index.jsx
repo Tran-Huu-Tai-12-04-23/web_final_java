@@ -135,7 +135,7 @@ function AddProduct({ mode = 'add', data = null }) {
             setLoadLinkImages(false);
 
             if (data === false) {
-                toast.error('Uploading file failed!');
+                toast.error('Đăng file thất bại!');
                 return;
             }
             setLinkImages((prev) => {
@@ -222,9 +222,9 @@ function AddProduct({ mode = 'add', data = null }) {
         }
 
         toast.promise(handleAddProduct(data), {
-            loading: 'Uploading product...',
-            success: <b>Upload successful!</b>,
-            error: <b>Upload failed.</b>,
+            loading: 'Đang cập nhật...',
+            success: <b>Cập nhật thành công!</b>,
+            error: <b>Cập nhật thất bại.</b>,
         });
     };
 
@@ -245,19 +245,19 @@ function AddProduct({ mode = 'add', data = null }) {
 
     function verifyData(data) {
         if (!Array.isArray(data.linkImages) || data.linkImages.length === 0) {
-            return { success: false, message: 'LinkImages is required and must be a non-empty array.' };
+            return { success: false, message: 'Đường link hình ảnh là không được bỏ trống.' };
         }
 
         if (typeof data.name !== 'string' || data.name.trim() === '') {
-            return { success: false, message: 'Please provide name of product!' };
+            return { success: false, message: 'Vui lòng nhập tên sản phẩm!' };
         }
 
         if (typeof data.description !== 'string' || data.description.trim() === '') {
-            return { success: false, message: 'Please provide description of product!' };
+            return { success: false, message: 'Vui lòng nhập mô tả sản phẩm!' };
         }
 
         if (typeof data.color !== 'string' || data.color.trim() === '') {
-            return { success: false, message: 'Color is required and must be a non-empty string.' };
+            return { success: false, message: 'Màu sản phẩm không được bỏ trống.' };
         }
 
         // Kiểm tra price
@@ -273,33 +273,33 @@ function AddProduct({ mode = 'add', data = null }) {
 
         // Kiểm tra screenSize
         if (typeof data.screenSize !== 'string' || data.screenSize.trim() === '') {
-            return { success: false, message: 'screenSize is required and must be a non-empty string.' };
+            return { success: false, message: 'Kích cỡ màn hình sản phẩm không được bỏ trống.' };
         }
 
         // Kiểm tra chipSet
         if (typeof data.chipSet !== 'string' || data.chipSet.trim() === '') {
-            return { success: false, message: 'chipSet is required and must be a non-empty string.' };
+            return { success: false, message: 'Vi xử lý sản phẩm không được bỏ trống.' };
         }
 
         // Kiểm tra launchDate
         if (!(data.launchDate instanceof Date) || isNaN(data.launchDate.getTime())) {
-            return { success: false, message: 'launchDate is required and must be a valid Date object.' };
+            return { success: false, message: 'Ngày ra mắt không hợp lệ.' };
         }
 
         // Kiểm tra productSpecification
         if (!data.productSpecification || typeof data.productSpecification !== 'object') {
-            return { success: false, message: 'Product Specification is required and must be an object.' };
+            return { success: false, message: 'Mô tả sản phẩm phải là một đối tượng.' };
         }
 
         // Kiểm tra branch
         if (!data.branch || typeof data.branch !== 'object') {
-            return { success: false, message: 'Branch is required and must be an object.' };
+            return { success: false, message: 'Thương hiệu phải là một đối tượng.' };
         }
         // Kiểm tra branch properties (tùy thuộc vào loại dữ liệu và các yêu cầu cụ thể)
 
         // Kiểm tra category
         if (!data.category || typeof data.category !== 'object') {
-            return { success: false, message: 'Category is required and must be an object.' };
+            return { success: false, message: 'Phân loại sản phẩm phải là một đối tượng.' };
         }
         return { success: true };
     }
@@ -337,8 +337,8 @@ function AddProduct({ mode = 'add', data = null }) {
             <AnimateOpacity>
                 <motion.div className="p-4 rounded-md bg-light dark:bg-dark mt-10 shadow-xl">
                     <motion.div className="flex justify-between items-center border-b-[1px] border-dashed pb-4 dark:border-dark-tiny border-light-tiny">
-                        {mode == 'edit' && <TextMain>Edit product</TextMain>}
-                        {mode != 'edit' && <TextMain>Edit product</TextMain>}
+                        {mode == 'edit' && <TextMain>Chỉnh sửa sản phẩm</TextMain>}
+                        {mode != 'edit' && <TextMain>Chỉnh sửa sản phẩm</TextMain>}
                     </motion.div>
                 </motion.div>
 
@@ -348,7 +348,7 @@ function AddProduct({ mode = 'add', data = null }) {
                         <div className="  flex flex-col bg-light dark:bg-dark rounded-md p-4 shadow-xl">
                             <div className="flex flex-col  gap-4">
                                 <div className="flex  flex-col ">
-                                    <TextMain className={'mb-2 ml-2'}>Name</TextMain>
+                                    <TextMain className={'mb-2 ml-2'}>Tên</TextMain>
                                     <Input
                                         value={name}
                                         onChange={(e) => setName(e.target.value)}
@@ -357,7 +357,7 @@ function AddProduct({ mode = 'add', data = null }) {
                                     ></Input>
                                 </div>
                                 <div className="flex  flex-col ">
-                                    <TextMain className={'mb-2 ml-2'}>Description</TextMain>
+                                    <TextMain className={'mb-2 ml-2'}>Mô tả</TextMain>
                                     <Editor
                                         placeholder="Enter product name..."
                                         value={description}
@@ -376,7 +376,7 @@ function AddProduct({ mode = 'add', data = null }) {
                                         ' ml-2 border-dashed mt-5 pb-5 text-xl border-light-tiny dark:border-dark-tiny border-b-[1px]'
                                     }
                                 >
-                                    Product linkImages
+                                    Hình ảnh sản phẩm
                                 </TextMain>
                                 <div className="flex  flex-col ">
                                     <TextMain className={'mb-2 ml-2'}>Thumbnails</TextMain>
@@ -410,9 +410,9 @@ function AddProduct({ mode = 'add', data = null }) {
                                 </div>
 
                                 <div className="flex  flex-col ">
-                                    <TextMain className={'mb-2 ml-2'}>Product linkImages</TextMain>
+                                    <TextMain className={'mb-2 ml-2'}>Hình ảnh sản phẩm</TextMain>
                                     <TextSub className={'mb-2 ml-2 text-second'}>
-                                        Add Product linkImages Images.
+                                        Thêm đường dẫn hình ảnh sản phẩm.
                                     </TextSub>
                                     <div className="relative p-4 w-full bg-light-tiny dark:bg-dark-tiny mt-2 rounded-md border-dashed border-[1px] border-light-tiny dark:border-dark-tiny h-fit gap-4 grid 2xl:grid-cols-6  xl:grid-cols-5 lg:grid-cols-5 md:grid-col-4 grid-col-3  flex-wrap">
                                         {/* render item linkImages */}
@@ -464,7 +464,7 @@ function AddProduct({ mode = 'add', data = null }) {
                         {/* normal property */}
                         <div className=" flex flex-col gap-4 bg-light dark:bg-dark rounded-md p-4 shadow-xl">
                             <div className="flex  flex-col ">
-                                <TextMain className={'mb-2 ml-2'}>Short description</TextMain>
+                                <TextMain className={'mb-2 ml-2'}>Mô tả ngắn</TextMain>
                                 <Input
                                     value={shortDescription}
                                     onChange={(e) => setShortDescription(e.target.value)}
@@ -474,7 +474,7 @@ function AddProduct({ mode = 'add', data = null }) {
                             </div>
 
                             <div className="flex  flex-col ">
-                                <TextMain className={'mb-2 ml-2'}>Price $(Dollar)</TextMain>
+                                <TextMain className={'mb-2 ml-2'}>Giá tiền $(Dollar)</TextMain>
                                 <InputCountNumberCustom
                                     onDecrease={() => {
                                         if (price > 1) {
@@ -496,7 +496,7 @@ function AddProduct({ mode = 'add', data = null }) {
                             </div>
 
                             <div className="flex  flex-col ">
-                                <TextMain className={'mb-2 ml-2'}>Quantity (Number) </TextMain>
+                                <TextMain className={'mb-2 ml-2'}>Số lướng (Number) </TextMain>
                                 <InputCountNumberCustom
                                     onChange={(e) => {
                                         setQuantity(e.target.value);
@@ -512,7 +512,7 @@ function AddProduct({ mode = 'add', data = null }) {
                                     onIncrease={() => {
                                         setQuantity(+quantity + 1);
                                     }}
-                                    placeholder="Enter quantity..."
+                                    placeholder="Nhập số lượng..."
                                     className="bg-light-tiny dark:bg-dark-tiny rounded-md"
                                 ></InputCountNumberCustom>
                             </div>
@@ -521,24 +521,24 @@ function AddProduct({ mode = 'add', data = null }) {
                             <Select
                                 active={active == 0}
                                 onActive={() => setActive(0)}
-                                name="Status"
+                                name="Trạng thái"
                                 value={status}
                                 onSelect={(value) => setStatus(value)}
                                 className="bg-light-tiny dark:bg-dark-tiny rounded-md"
                                 subMenu={[
                                     {
-                                        name: 'Draft',
+                                        name: 'Bản nháp',
                                         id: false,
                                     },
                                     {
-                                        name: 'Published',
+                                        name: 'Xuất bản',
                                         id: true,
                                     },
                                 ]}
                             ></Select>
                             <Select
                                 onActive={() => setActive(1)}
-                                name="Category"
+                                name="Phân loại"
                                 value={category}
                                 onSelect={(value) => setCategory(value)}
                                 className="bg-light-tiny dark:bg-dark-tiny rounded-md"
@@ -564,7 +564,7 @@ function AddProduct({ mode = 'add', data = null }) {
                                 onSelect={(value) => setBranch(value)}
                                 active={active == 2}
                                 onActive={() => setActive(2)}
-                                name="Branch"
+                                name="Thương hiệu"
                                 value={branch}
                                 className="bg-light-tiny dark:bg-dark-tiny rounded-md"
                                 subMenu={[
@@ -589,7 +589,7 @@ function AddProduct({ mode = 'add', data = null }) {
                                 onSelect={(value) => setColor(value)}
                                 active={active == 3}
                                 onActive={() => setActive(3)}
-                                name="Color"
+                                name="Màu sắc"
                                 value={color}
                                 type="color"
                                 className="bg-light-tiny dark:bg-dark-tiny rounded-md"
@@ -597,7 +597,7 @@ function AddProduct({ mode = 'add', data = null }) {
                             ></Select>
 
                             <div className="flex  flex-col ">
-                                <TextMain className={'mb-2 ml-2'}>Date published</TextMain>
+                                <TextMain className={'mb-2 ml-2'}>Ngày ra mắt</TextMain>
 
                                 <Datepicker
                                     defaultDate={launchDate ? launchDate : new Date(Date.now())}
@@ -618,7 +618,7 @@ function AddProduct({ mode = 'add', data = null }) {
             {mode != 'edit' && (
                 <div className="flex justify-start items-center mt-5">
                     <Button onClick={addProduct} style="submit" className={''}>
-                        Submit
+                        Xác nhận
                     </Button>
                 </div>
             )}
@@ -626,7 +626,7 @@ function AddProduct({ mode = 'add', data = null }) {
             {mode == 'edit' && (
                 <div className="flex justify-start items-center mt-5">
                     <Button onClick={update} style="submit" className={''}>
-                        Update
+                        Cập nhật
                     </Button>
                 </div>
             )}

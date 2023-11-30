@@ -4,13 +4,13 @@ import { Bar } from 'react-chartjs-2';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+const labels = ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7'];
 
 const data = {
     labels,
     datasets: [
         {
-            label: '7 months',
+            label: '7 tháng',
             data: [65, 59, 80, 81, 56, 55, 40],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.7)',
@@ -48,7 +48,7 @@ function BarChart({ height = '25rem' }) {
             },
             title: {
                 display: true,
-                text: 'Order recent at 7 months',
+                text: 'Đơn hàng trong 7 tháng gần đây',
             },
         },
     };
