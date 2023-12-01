@@ -8,6 +8,6 @@ spring:
     password: admin123
     driver-class-name: com.mysql.jdbc.Driver
   jpa:
-#    hibernate:
-#      ddl-auto: update
+    hibernate:
+      ddl-auto: create-drop
     show-sql: true

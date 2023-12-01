@@ -53,7 +53,6 @@ public class App implements CommandLineRunner {
             acc.setPassword(new BCryptPasswordEncoder().encode("admin"));
             acc.setRole(Role.ADMIN);
             accountRepository.save(acc);
-
         }
 
 //        crawlData();
