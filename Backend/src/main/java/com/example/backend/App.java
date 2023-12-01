@@ -35,18 +35,16 @@ public class App implements CommandLineRunner {
     private final CategoryBlogRepository categoryBlogRepository;
     private final ProductSpecificationRepository productSpecificationRepository;
     private final ProductRepository productRepository;
-    private final MemberRepository memberRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(com.example.backend.App.class, args);
         //getAllProductDetail();
-
     }
 
     @Override
     public void run(String... args) throws Exception {
         Account adminAccount = accountRepository.findByRole(Role.ADMIN);
-//        addMember();
+
         if( null == adminAccount) {
             Account acc = new Account();
             acc.setUsername("Admin");
@@ -54,148 +52,127 @@ public class App implements CommandLineRunner {
             acc.setRole(Role.ADMIN);
             accountRepository.save(acc);
 
-        }
+            String[] listBranch = {"Apple", "Samsung", "Oppo", "Sony", "Xiaomi","Asus","Acer","Dell","MSI","Lenovo","LG"};
 
-//        crawlData();
+            for( String branch : listBranch) {
+                Branch newBranch = new Branch();
+                newBranch.setNameBranch(branch);
+                branchRepository.save(newBranch);
+            }
 
-    }
+            String[] listCategory = {"Tablet", "Mobile Phone", "Camera", "Laptop", "PC"};
+            for( String category : listCategory) {
+                Category newCategory = new Category();
+                newCategory.setNameCategory(category);
+                categoryRepository.save(newCategory);
+            }
 
-    public void addMember() {
-        for( int i = 0; i < 100 ; i++ ) {
-            Account account = new Account();
-            account.setPassword("ADMIN");
-            account.setUsername("user " + i);
-
-            account = accountRepository.save(account);
-            Member member = new Member();
-            member.setAccount(account);
-            member.setPhoneNumber("012345678"+i);
-            member.setEmail("user" +i+"@gmail.com");
-            memberRepository.save(member);
-        }
-    }
-
-    public void crawlData() {
-        String[] listBranch = {"Apple", "Samsung", "Oppo", "Sony", "Xiaomi","Asus","Acer","Dell","MSI","Lenovo","LG"};
-
-        for( String branch : listBranch) {
-            Branch newBranch = new Branch();
-            newBranch.setNameBranch(branch);
-            branchRepository.save(newBranch);
-        }
-
-        String[] listCategory = {"Tablet", "Mobile Phone", "Camera", "Laptop", "PC"};
-        for( String category : listCategory) {
-            Category newCategory = new Category();
-            newCategory.setNameCategory(category);
-            categoryRepository.save(newCategory);
-        }
-
-        String[] listCategoryBlog = {"Tech information", "Discovery", "S-Game", "Rate Tech", "Review", "Feature product"};
-        for( String categoryBl : listCategoryBlog) {
-            CategoryBlog newCategoryBlog = new CategoryBlog();
-            newCategoryBlog.setNameCategory(categoryBl);
-            categoryBlogRepository.save(newCategoryBlog);
-        }
+            String[] listCategoryBlog = {"Tech information", "Discovery", "S-Game", "Rate Tech", "Review", "Feature product"};
+            for( String categoryBl : listCategoryBlog) {
+                CategoryBlog newCategoryBlog = new CategoryBlog();
+                newCategoryBlog.setNameCategory(categoryBl);
+                categoryBlogRepository.save(newCategoryBlog);
+            }
 
 
 //add chi tiet của product  truocws
-        ProductSpecification productSpecification = new ProductSpecification();
-        productSpecification.setId(1L);
-        productSpecification.setTypeCard("Integrated Graphics");
-        productSpecification.setTypeCPU("Intel Core i7");
-        productSpecification.setRamCapacity("16 GB");
-        productSpecification.setTypeRam("DDR4");
-        productSpecification.setHardDrive("512 GB SSD");
-        productSpecification.setMaterial("Aluminum");
-        productSpecification.setTouchScreen("YES");
-        productSpecification.setScreenSize("15.6 inches");
-        productSpecification.setResolution("1920x1080");
-        productSpecification.setWebcam("HD Webcam");
-        productSpecification.setOS("Windows 10");
-        productSpecification.setWifi("Wi-Fi 6");
-        productSpecification.setBluetooth("Bluetooth 5.0");
-        productSpecification.setPowerCapacity("65 W");
-        productSpecification.setPortSupport("USB-C, HDMI, etc.");
+            ProductSpecification productSpecification = new ProductSpecification();
+            productSpecification.setId(1L);
+            productSpecification.setTypeCard("Integrated Graphics");
+            productSpecification.setTypeCPU("Intel Core i7");
+            productSpecification.setRamCapacity("16 GB");
+            productSpecification.setTypeRam("DDR4");
+            productSpecification.setHardDrive("512 GB SSD");
+            productSpecification.setMaterial("Aluminum");
+            productSpecification.setTouchScreen("Yes");
+            productSpecification.setScreenSize("15.6 inches");
+            productSpecification.setResolution("1920x1080");
+            productSpecification.setWebcam("HD Webcam");
+            productSpecification.setOS("Windows 10");
+            productSpecification.setWifi("Wi-Fi 6");
+            productSpecification.setBluetooth("Bluetooth 5.0");
+            productSpecification.setPowerCapacity("65 W");
+            productSpecification.setPortSupport("USB-C, HDMI, etc.");
 
-        productSpecification = productSpecificationRepository.save(productSpecification);
-        if( productSpecification == null) {
-            System.out.println("Error at create product specification!");
-        }
+            productSpecification = productSpecificationRepository.save(productSpecification);
+            if( productSpecification == null) {
+                System.out.println("Error at create product specification!");
+            }
 
 
 //            dung for them duoc nhieu nha này tự xử lý -> có thể viết code cào dữ liệu hoặc nhập tay
 //            /giờ thêm product
 
-        List<String> listImg = new ArrayList<>();
-        listImg.add("link1");
-        listImg.add("link2");
+            List<String> listImg = new ArrayList<>();
+            listImg.add("link1");
+            listImg.add("link2");
 //            add tiep
-        ///........
+            ///........
 
-        Product product = new Product();
-        product.setId(1L);
-        product.setLinkImages(listImg);
-        product.setColor(null);
-        product.setLinkVideo(null);
-        product.setThumbnails(null);
-        product.setDescription("test");
-        product.setShortDescription(null);
-        product.setName("New Product3");
-        product.setPrice(100.0);
-        product.setQuantity(10);
-        product.setScreenSize("5 inches");
-        product.setChipSet("Example Chipset");
-        product.setLaunchDate(null);
-        product.setStatus(true);
-        product.setIsDelete(false);
+            Product product = new Product();
+            product.setId(1L);
+            product.setLinkImages(listImg);
+            product.setColor(null);
+            product.setLinkVideo(null);
+            product.setThumbnails(null);
+            product.setDescription("test");
+            product.setShortDescription(null);
+            product.setName("New Product3");
+            product.setPrice(100.0);
+            product.setQuantity(10);
+            product.setScreenSize("5 inches");
+            product.setChipSet("Example Chipset");
+            product.setLaunchDate(null);
+            product.setStatus(true);
+            product.setIsDelete(false);
 
 //            set product specification o tren moi upload
-        product.setProductSpecification(productSpecification);
+            product.setProductSpecification(productSpecification);
 
-        product = productRepository.save(product);
+            product = productRepository.save(product);
 
-        if( product == null) System.out.println("Upload product failed");
+            if( product == null) System.out.println("Upload product failed");
 
 //            end upload product
 
 
-        //add laptop
-        String laptopBrandURL[] = {"https://gearvn.com/collections/laptop-asus-hoc-tap-va-lam-viec","https://gearvn.com/collections/laptop-acer-hoc-tap-va-lam-viec"
-                ,"https://gearvn.com/collections/laptop-dell-hoc-tap-va-lam-viec","https://gearvn.com/collections/laptop-msi-hoc-tap-va-lam-viec",
-                "https://gearvn.com/collections/laptop-lenovo-hoc-tap-va-lam-viec","https://gearvn.com/collections/laptop-lg-gram"};
-        addByBrandLaptop(laptopBrandURL[0],6L,listImg);
-        addByBrandLaptop(laptopBrandURL[1],7L,listImg);
-        addByBrandLaptop(laptopBrandURL[2],8L,listImg);
-        addByBrandLaptop(laptopBrandURL[3],9L,listImg);
-        addByBrandLaptop(laptopBrandURL[4],10L,listImg);
-        addByBrandLaptop(laptopBrandURL[5],11L,listImg);
-        //add tablet
-        String tabletBrandUrl [] ={"https://hoanghamobile.com/tablet/ipad","https://hoanghamobile.com/tablet/samsung","https://hoanghamobile.com/tablet/oppo","https://hoanghamobile.com/tablet/xiaomi"};
-        addByBrandTablet(tabletBrandUrl[0],1L,listImg);
-        addByBrandTablet(tabletBrandUrl[1],2L,listImg);
-        addByBrandTablet(tabletBrandUrl[2],3L,listImg);
-        addByBrandTablet(tabletBrandUrl[3],5L,listImg);
-        //add phone ( use the same method as tablet)
-        String phoneBrandUrl[] ={"https://hoanghamobile.com/dien-thoai-di-dong/iphone","https://hoanghamobile.com/dien-thoai-di-dong/samsung","https://hoanghamobile.com/dien-thoai-di-dong/xiaomi","https://hoanghamobile.com/dien-thoai-di-dong/oppo"};
-        addByBrandPhone(phoneBrandUrl[0],1L,listImg);
-        addByBrandPhone(phoneBrandUrl[1],2L,listImg);
-        addByBrandPhone(phoneBrandUrl[2],5L,listImg);
-        addByBrandPhone(phoneBrandUrl[3],3L,listImg);
+            //add laptop
+            String laptopBrandURL[] = {"https://gearvn.com/collections/laptop-asus-hoc-tap-va-lam-viec","https://gearvn.com/collections/laptop-acer-hoc-tap-va-lam-viec"
+                    ,"https://gearvn.com/collections/laptop-dell-hoc-tap-va-lam-viec","https://gearvn.com/collections/laptop-msi-hoc-tap-va-lam-viec",
+                    "https://gearvn.com/collections/laptop-lenovo-hoc-tap-va-lam-viec","https://gearvn.com/collections/laptop-lg-gram"};
+            addByBrandLaptop(laptopBrandURL[0],6L,listImg);
+            addByBrandLaptop(laptopBrandURL[1],7L,listImg);
+            addByBrandLaptop(laptopBrandURL[2],8L,listImg);
+            addByBrandLaptop(laptopBrandURL[3],9L,listImg);
+            addByBrandLaptop(laptopBrandURL[4],10L,listImg);
+            addByBrandLaptop(laptopBrandURL[5],11L,listImg);
+            //add tablet
+            String tabletBrandUrl [] ={"https://hoanghamobile.com/tablet/ipad","https://hoanghamobile.com/tablet/samsung","https://hoanghamobile.com/tablet/oppo","https://hoanghamobile.com/tablet/xiaomi"};
+            addByBrandTablet(tabletBrandUrl[0],1L,listImg);
+            addByBrandTablet(tabletBrandUrl[1],2L,listImg);
+            addByBrandTablet(tabletBrandUrl[2],3L,listImg);
+            addByBrandTablet(tabletBrandUrl[3],5L,listImg);
+//            add phone ( use the same method as tablet)
+            String phoneBrandUrl[] ={"https://hoanghamobile.com/dien-thoai-di-dong/iphone","https://hoanghamobile.com/dien-thoai-di-dong/samsung","https://hoanghamobile.com/dien-thoai-di-dong/xiaomi","https://hoanghamobile.com/dien-thoai-di-dong/oppo"};
+            addByBrandPhone(phoneBrandUrl[0],1L,listImg);
+            addByBrandPhone(phoneBrandUrl[1],2L,listImg);
+            addByBrandPhone(phoneBrandUrl[2],5L,listImg);
+            addByBrandPhone(phoneBrandUrl[3],3L,listImg);
+        }
     }
     public void addByBrandPhone(String brandUrl,Long brandId,List<String> listImg){
         for (String productUrl: getTabletURLs(brandUrl)){
-            addPhoneProduct(getTabletDescription(productUrl),listImg,brandId);
+            addPhoneProduct(getTabletDescription(productUrl),brandId,productUrl);
         }
     }
     public void addByBrandLaptop(String brandUrl,Long brandId,List<String> listImg){
         for (String productUrl : getProductUrls(brandUrl)){
-            addLaptopProduct(getLaptopDescription(productUrl),listImg,brandId);
+            addLaptopProduct(getLaptopDescription(productUrl),brandId,productUrl);
         }
     }
     public void addByBrandTablet(String brandURL,Long brandId,List<String> listImg){
         for (String productUrl: getTabletURLs(brandURL)){
-            addTableProduct(getTabletDescription(productUrl),listImg,brandId);
+            addTableProduct(getTabletDescription(productUrl),brandId,productUrl);
         }
     }
     public ProductSpecification addPhoneSpecification(List<String> productInfo){
@@ -205,7 +182,7 @@ public class App implements CommandLineRunner {
         productSpecification.setHardDrive(getFeature(productInfo,"Bộ nhớ trong"));
         productSpecification.setScreenSize(getFeature(productInfo,"Kích thước màn hình"));
         productSpecification.setMaterial("Aluminum");
-        productSpecification.setTouchScreen("YES");
+        productSpecification.setTouchScreen("Yes");
         productSpecification.setResolution(getFeature(productInfo,"Độ phân giải"));
         productSpecification.setOS(getFeature(productInfo,"Hệ điều hành"));
         productSpecification.setWifi(getFeature(productInfo,"WiFi"));
@@ -219,11 +196,11 @@ public class App implements CommandLineRunner {
         System.out.println("Add product successfully");
         return productSpecification;
     }
-    public void addPhoneProduct(List<String> productInfo,List<String> listImg,Long brandId){
+    public void addPhoneProduct(List<String> productInfo,Long brandId,String productUrl){
         Product product = new Product();
         product.setCategory(categoryRepository.findById(2L).get());
         product.setBranch(branchRepository.findById(brandId).get());
-        product.setLinkImages(listImg);
+        product.setLinkImages(getImageListPhone_Tablet(productUrl));
         product.setColor("Black");
         product.setLinkVideo(null);
         product.setThumbnails(getFeature(productInfo,"ImageSrc"));
@@ -251,7 +228,7 @@ public class App implements CommandLineRunner {
         productSpecification.setRamCapacity(getFeature(productInfo,"RAM: "));
         productSpecification.setHardDrive(getFeature(productInfo,"Bộ nhớ trong"));
         productSpecification.setMaterial("Aluminum");
-        productSpecification.setTouchScreen("YES");
+        productSpecification.setTouchScreen("Yes");
         productSpecification.setScreenSize("15.6 inches");
         productSpecification.setResolution(getFeature(productInfo,"Công nghệ màn hình"));
         productSpecification.setOS(getFeature(productInfo,"Hệ điều hành"));
@@ -267,12 +244,12 @@ public class App implements CommandLineRunner {
         System.out.println("Add product successfully");
         return productSpecification;
     }
-    public void addTableProduct(List<String> productInfo,List<String> listImg, Long brandID){
+    public void addTableProduct(List<String> productInfo, Long brandID,String productURL){
         Product product = new Product();
 //        product.setId(id);
         product.setCategory(categoryRepository.findById(1L).get());
         product.setBranch(branchRepository.findById(brandID).get());
-        product.setLinkImages(listImg);
+        product.setLinkImages(getImageListPhone_Tablet(productURL));
         product.setColor("Black");
         product.setLinkVideo(null);
         product.setThumbnails(getFeature(productInfo,"ImageSrc"));
@@ -338,7 +315,7 @@ public class App implements CommandLineRunner {
         productSpecification.setTypeRam("DDR4");
         productSpecification.setHardDrive(getFeature(productInfo,"Ổ cứng"));
         productSpecification.setMaterial("Aluminum");
-        productSpecification.setTouchScreen("YES");
+        productSpecification.setTouchScreen("Yes");
         //productSpecification.setScreenSize(getFeature(productInfo,"Màn hình"));
         productSpecification.setScreenSize("14 inch");
         productSpecification.setResolution("1920x1080");
@@ -364,11 +341,11 @@ public class App implements CommandLineRunner {
         System.out.println("Add product successfully");
         return productSpecification;
     }
-    public void addLaptopProduct(List<String> productInfo,List<String> listImg,Long brandID){
+    public void addLaptopProduct(List<String> productInfo,Long brandID,String productUrl){
         Product product = new Product();
         product.setCategory(categoryRepository.findById(4L).get());
         product.setBranch(branchRepository.findById(brandID).get());
-        product.setLinkImages(listImg);
+        product.setLinkImages(getImageLaptop(productUrl));
         product.setColor(getFeature(productInfo,"Màu sắc"));
         product.setLinkVideo(null);
         product.setThumbnails(getFeature(productInfo,"Product imgSrc"));
@@ -378,7 +355,7 @@ public class App implements CommandLineRunner {
         product.setPrice(priceFormat(getFeature(productInfo,"Product price")));
         product.setQuantity(10);
         product.setScreenSize("14 inch");
-//        product.setScreenSize(getFeature(productInfo,"Màn hình: "));
+        product.setScreenSize(getFeature(productInfo,"Màn hình: "));
         product.setChipSet(getFeature(productInfo,"CPU"));
         product.setLaunchDate(new Date());
         product.setStatus(true);
@@ -439,6 +416,33 @@ public class App implements CommandLineRunner {
         }
         return productInfoList;
     }
+    public static List<String> getImageLaptop(String url){
+        List<String> imageSrcList = new ArrayList<>();
+        try{
+            Document document = Jsoup.connect(url).get();
+            Elements imageElements = document.select("div.swiper-wrapper img.product-thumb--photo");
+            for (Element imgSrc : imageElements){
+                imageSrcList.add("https:"+imgSrc.attr("src"));
+            }
+        }catch (IOException exception){
+            exception.printStackTrace();
+        }
+        return imageSrcList;
+    }
+    public static List<String> getImageListPhone_Tablet(String url){
+        List<String> imgSrcList = new ArrayList<>();
+        try{
+            Document document = Jsoup.connect(url).get();
+            Elements imgSrcListEl = document.select("div[data-u='slides'] img");
+            for (Element imgSrc: imgSrcListEl){
+                imgSrcList.add(imgSrc.attr("src"));
+            }
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        return imgSrcList;
+    }
+
     public static String getFeature(List<String> technicalInfoList, String filteredFeature){
         for (String feature : technicalInfoList){
             if (feature.contains(filteredFeature)){

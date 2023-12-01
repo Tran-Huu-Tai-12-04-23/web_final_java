@@ -37,6 +37,7 @@ public class Product {
     private String name;
     private Double price;
     private Integer quantity;
+    @Column(columnDefinition = "LONGTEXT")
     private String screenSize;
     private String chipSet;
     private Date launchDate;
