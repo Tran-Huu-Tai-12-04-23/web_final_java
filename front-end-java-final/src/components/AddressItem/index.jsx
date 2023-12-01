@@ -42,7 +42,7 @@ function AddressItem({
                 }
             })
             .catch((err) => {
-                toast.error('Đặt địa chỉ mặc định failed!');
+                toast.error('Đặt địa chỉ mặc định thất bại!');
             });
         stopLoading();
     };
@@ -72,7 +72,7 @@ function AddressItem({
                 }
             })
             .catch((err) => {
-                toast.error('Đặt địa chỉ mặc định failed!');
+                toast.error('Đặt địa chỉ mặc định thất bại!');
             });
         stopLoading();
     };

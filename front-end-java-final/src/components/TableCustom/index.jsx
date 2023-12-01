@@ -196,7 +196,7 @@ export default function TableCustom({
             {searchBy && (
                 <div className="pb-4 ml-2">
                     <label htmlFor="table-search" className="sr-only">
-                        Search
+                        Tìm kiếm
                     </label>
                     <div className="relative mt-1">
                         <Input
@@ -265,7 +265,7 @@ export default function TableCustom({
                             htmlFor="countries"
                             className="block mr-3  text-sm font-medium text-gray-900 dark:text-white"
                         >
-                            Rows
+                            Dòng
                         </label>
                         <select
                             defaultValue={numberRow}

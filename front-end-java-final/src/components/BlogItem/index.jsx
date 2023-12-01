@@ -36,11 +36,11 @@ function BlogItem({ data = {}, width, className, direction = 'vertical' }) {
                 <div className="flex w-3/4 justify-between items-center">
                     <div className="flex w-fit justify-start items-center">
                         <BsCalendar4Week className=" mr-2 h-4 w-4"></BsCalendar4Week>
-                        <TextSub>August, 8, 2023</TextSub>
+                        <TextSub>9 ,Tháng 8, 2023</TextSub>
                     </div>
                     <div className="flex  w-fit justify-end items-center">
                         <GiAlarmClock className="mr-2 h-4 w-4"></GiAlarmClock>
-                        <TextSub>3 hours ago</TextSub>
+                        <TextSub>3 giờ trước</TextSub>
                     </div>
                 </div>
                 <div className="w-full">

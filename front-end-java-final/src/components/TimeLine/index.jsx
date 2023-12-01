@@ -15,17 +15,17 @@ const variantsStep = {
 function TimeLine({ active = 0, setActive = () => {} }) {
     const step = [
         {
-            name: 'Cart',
+            name: 'Giỏ hàng',
             icon: <BsMinecartLoaded className="w-6 h-6 "></BsMinecartLoaded>,
             step: 0,
         },
         {
-            name: 'Check out',
+            name: 'Thanh toán',
             icon: <CiDeliveryTruck className="w-6 h-6"></CiDeliveryTruck>,
             step: 1,
         },
         {
-            name: 'Check out',
+            name: 'Thanh toán',
             step: 2,
             icon: <MdOutlinePayments className="w-6 h-6 "></MdOutlinePayments>,
         },

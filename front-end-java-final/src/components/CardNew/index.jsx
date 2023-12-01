@@ -34,10 +34,10 @@ function CardNew({ width }) {
                 <motion.h3 className="text-gray-400">Smart phone</motion.h3>
                 <motion.h1 className="text-md font-medium">Iphone 15 pro max</motion.h1>
                 <motion.div className="flex justify-center items-center">
-                    <motion.span className="text-yellow-400 mr-2">2</motion.span> reviews
+                    <motion.span className="text-yellow-400 mr-2">2</motion.span> đánh giá
                 </motion.div>
                 <motion.h5 className="text-md font-medium text-orange-400 mb-4">6.000.000 VND</motion.h5>
-                <Button className={'rounded-md p-2 bg-primary text-white'}>Add Cart</Button>
+                <Button className={'rounded-md p-2 bg-primary text-white'}>Thêm vào giỏ hàng</Button>
             </motion.div>
         </motion.div>
     );

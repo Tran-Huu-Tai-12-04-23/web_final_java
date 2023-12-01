@@ -47,22 +47,22 @@ function CardMain({ width = undefined, sale = true, data }) {
                 .then((response) => {
                     const data = response.data;
                     if (response.status === 200) {
-                        toast.success('Add ' + data?.name + ' to cart successfully!');
+                        toast.success('Thêm ' + data?.name + ' vào giỏ hàng thành công!');
                     } else {
                         toast.error(response.message);
                     }
                 })
                 .catch((error) => {
-                    toast.error('add ' + data?.name + ' to cart failed');
+                    toast.error('Thêm vào ' + data?.name + 'giỏ hàng thất bại');
                 });
         } catch (error) {
-            toast.error('add ' + data?.name + ' to cart failed');
+            toast.error('Thêm ' + data?.name + ' vào giỏ hàng thất bại');
         }
     };
     const addToCart = async (e) => {
         e.stopPropagation();
         if (account === null) {
-            toast('Please sign in to add product to cart!', {
+            toast('Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng!', {
                 icon: '⚠️',
             });
 

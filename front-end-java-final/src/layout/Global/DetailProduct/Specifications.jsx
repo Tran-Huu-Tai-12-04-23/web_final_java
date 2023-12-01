@@ -45,7 +45,7 @@ function Specifications({ data = {} }) {
                         <motion.div variants={variants} animate={showRow === 4 ? 'active' : 'inActive'}>
                             <MdKeyboardArrowDown className="w-6 h-6"></MdKeyboardArrowDown>
                         </motion.div>
-                        <span>{showRow === 4 ? 'More' : 'Less'}</span>
+                        <span>{showRow === 4 ? 'Xem thêm' : 'Thu gọn'}</span>
                     </Button>
                 </div>
             </div>

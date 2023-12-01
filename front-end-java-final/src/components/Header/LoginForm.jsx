@@ -94,14 +94,14 @@ function LoginForm({ onClose = () => {}, setAccount = () => {} }) {
         >
             <TextMain className={'font-bold text-center text-xl mb-5'}>Đăng nhập vào GetTech</TextMain>
             <Input
-                placeholder="Username"
+                placeholder="Tên đăng nhập"
                 className="mb-3 "
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 iconLeft={<FiUser className="w-6 h-6 ml-2 text-gray-400"></FiUser>}
             ></Input>
             <Input
-                placeholder="Password"
+                placeholder="Mật khẩu"
                 type={'password'}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}

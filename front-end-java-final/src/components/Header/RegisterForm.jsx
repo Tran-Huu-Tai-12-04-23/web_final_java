@@ -111,7 +111,7 @@ function RegisterForm({ switchLogin = () => {} }) {
             )}
             <TextMain className={'font-bold text-center text-xl mb-5'}>Tạo tài khoản</TextMain>
             <Input
-                placeholder="Username"
+                placeholder="Tên đăng nhập"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 iconLeft={<CiUser className="w-6 h-6 ml-2 text-gray-400"></CiUser>}
@@ -123,20 +123,20 @@ function RegisterForm({ switchLogin = () => {} }) {
                 iconLeft={<CiMail className="w-6 h-6 ml-2 text-gray-400"></CiMail>}
             ></Input>
             <Input
-                placeholder="Phone number"
+                placeholder="Số điện thoại"
                 value={phoneNumber}
                 onChange={(e) => setPhoneNumber(e.target.value)}
                 iconLeft={<BsTelephone className="w-6 h-6 ml-2 text-gray-400"></BsTelephone>}
             ></Input>
             <Input
-                placeholder="Password"
+                placeholder="Mật khẩu"
                 type={'password'}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 iconLeft={<LiaKeySolid className="w-6 h-6 ml-2 text-gray-400"></LiaKeySolid>}
             ></Input>
             <Input
-                placeholder="Confirm password"
+                placeholder="Xác thực mật khẩu"
                 type={'password'}
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}

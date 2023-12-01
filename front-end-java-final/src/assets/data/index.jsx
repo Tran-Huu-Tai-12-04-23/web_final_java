@@ -42,7 +42,7 @@ const subnavProduct = [
         path: '/products/laptop',
     },
     {
-        name: 'Mobile phone',
+        name: 'Điện thoại di động',
         path: '/products/mobile-phone',
     },
     {
@@ -57,7 +57,7 @@ const subnavBlog = [
         path: '/products/laptop',
     },
     {
-        name: 'Mobile phone',
+        name: 'Điện thoại di động',
         path: '/products/mobile-phone',
     },
     {
@@ -186,7 +186,7 @@ const HomeService = [
 const Category = [
     {
         path: '/product/accessories',
-        name: 'Accessories',
+        name: 'Phụ kiện',
         linkImg:
             'https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:80/plain/https://cellphones.com.vn/media/catalog/product/g/r/group_182_1__3.png',
     },
@@ -204,7 +204,7 @@ const Category = [
     },
     {
         path: '/product/mobile-phone',
-        name: 'Smart Phone',
+        name: 'Điện thoại',
         linkImg:
             'https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:80/plain/https://cellphones.com.vn/media/catalog/product/g/a/galaxy-z-fold-5-xanh-1.jpg',
     },
@@ -215,7 +215,7 @@ const Category = [
     },
     {
         path: '/product/smart-watch',
-        name: 'Smart Watch',
+        name: 'SmartWatch',
         linkImg:
             'https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:80/plain/https://cellphones.com.vn/media/catalog/product/w/a/watch6_thumbnail.png',
     },
@@ -223,7 +223,7 @@ const Category = [
 
 export const categoryBlog = [
     {
-        name: 'Tech',
+        name: 'Công nghệ',
         icon: <CiMobile3 className="h-6 w-6" />,
     },
     {
@@ -235,22 +235,22 @@ export const categoryBlog = [
         icon: <BsTabletLandscape className="h-6 w-6" />,
     },
     {
-        name: 'Market',
+        name: 'Thị trường',
         icon: <TfiHeadphone className="h-6 w-6" />,
     },
     {
-        name: 'Design',
+        name: 'Thiết kế',
         icon: <BsSmartwatch className="h-6 w-6" />,
     },
     {
-        name: 'Guidance',
+        name: 'Hướng dẫn',
         icon: <BsClockHistory className="h-6 w-6" />,
     },
 ];
 
 export const categoryProduct = [
     {
-        name: 'Mobile Phone',
+        name: 'Điện thoại',
         icon: <CiMobile3 className="h-6 w-6" />,
         path: '/product/mobile-phone',
     },
@@ -263,7 +263,7 @@ export const categoryProduct = [
         icon: <BsTabletLandscape className="h-6 w-6" />,
     },
     {
-        name: 'Head phone',
+        name: 'Tai nghe',
         icon: <TfiHeadphone className="h-6 w-6" />,
     },
     {
@@ -271,11 +271,11 @@ export const categoryProduct = [
         icon: <HiOutlineComputerDesktop className="h-6 w-6" />,
     },
     {
-        name: 'Smart watch',
+        name: 'SmartWatch',
         icon: <BsSmartwatch className="h-6 w-6" />,
     },
     {
-        name: 'Other',
+        name: 'Khác',
         icon: <MdOutlineDevicesOther className="h-6 w-6" />,
     },
 ];
