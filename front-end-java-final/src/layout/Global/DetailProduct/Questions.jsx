@@ -76,7 +76,7 @@ Thân mến !`,
                                     <span>{boxQues.content}</span>
                                     <Button className="flex justify-start ml-4 items-center brightness-75 hover:text-primary cursor-pointer">
                                         <LiaCommentAltSolid className="mr-1 w-6 h-6 "></LiaCommentAltSolid>
-                                        <span>Reply</span>
+                                        <span>Trở lời</span>
                                     </Button>
                                 </div>
 
@@ -89,13 +89,13 @@ Thân mến !`,
                 })}
 
                 <div className="flex justify-between gap-4 mt-3 items-center pt-3 pl-2 pr-2 border-t-primary">
-                    <Input className="w-full" placeholder="Enter your question..."></Input>
+                    <Input className="w-full" placeholder="Nhập vào câu hỏi..."></Input>
                     <Button
                         className="pl-4 flex justify-center p-2 rounded-md items-center pr-4 cursor-pointer bg-primary"
                         style=""
                     >
                         <VscSend className="w-4 h-4 mr-2"></VscSend>
-                        <span>Send</span>
+                        <span>Gửi</span>
                     </Button>
                 </div>
             </div>

@@ -19,26 +19,26 @@ function Summary({ data }) {
                 </TextSub>
             </div>
 
-            <TextMain className={'text-xl text-primary font-bold'}>Sold : 33 item</TextMain>
+            <TextMain className={'text-xl text-primary font-bold'}>Đã bán : 33 sản phẩm</TextMain>
 
             <div className="flex mt-4 gap-4">
                 <div className="flex justify-start items-center">
                     <HiOutlineHomeModern className="w-8 h-8 mr-2 text-primary"></HiOutlineHomeModern>
-                    <TextMain> In Stock</TextMain>
+                    <TextMain> Còn hàng</TextMain>
                 </div>
                 <div className="flex justify-start items-center">
                     <BsPatchCheck className="w-8 h-8 mr-2 text-primary"></BsPatchCheck>
-                    <TextMain>Guaranteed</TextMain>
+                    <TextMain>Uy tín</TextMain>
                 </div>
                 <div className="flex justify-start items-center">
                     <TbTruckDelivery className="w-8 h-8 mr-2 text-primary"></TbTruckDelivery>
-                    <TextMain>Delivery</TextMain>
+                    <TextMain>Vận chuyển</TextMain>
                 </div>
             </div>
 
             <div className="flex mt-4 flex-col gap-4">
                 <div className="">
-                    <TextMain className={'text-xl'}>Color</TextMain>
+                    <TextMain className={'text-xl'}>Màu sắc</TextMain>
 
                     <div className="mt-2 flex justify-start items-center gap-2">
                         <div
@@ -53,19 +53,19 @@ function Summary({ data }) {
 
                 <ul className="flex flex-col gap-4 max-w-[26rem] m-4  rounded-md p-4 text-md list-disc">
                     <li className="flex justify-start items-center ">
-                        <span className="min-w-[10rem]">Branch :</span>
+                        <span className="min-w-[10rem]">Thương hiệu :</span>
                         <div className=" text-left font-bold">{data?.branch?.nameBranch}</div>
                     </li>
                     <li className="flex justify-start items-center ">
-                        <span className="min-w-[10rem]">Category : </span>
+                        <span className="min-w-[10rem]">Phân loại : </span>
                         <div className=" text-left font-bold">{data?.category?.nameCategory}</div>
                     </li>
                     <li className="flex justify-start items-center ">
-                        <span className="min-w-[10rem]">Screen size : </span>
+                        <span className="min-w-[10rem]">Kích cỡ màn hình : </span>
                         <div className=" text-left font-bold">{data?.screenSize}</div>
                     </li>
                     <li className="flex justify-start items-center ">
-                        <span className="min-w-[10rem]">CPU model : </span>
+                        <span className="min-w-[10rem]">Vi xử lý : </span>
                         <div className=" text-left font-bold">{data?.productSpecification?.typeCPU}</div>
                     </li>
                 </ul>

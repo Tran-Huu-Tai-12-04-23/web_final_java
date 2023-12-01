@@ -12,7 +12,7 @@ function Specifications({ data = {} }) {
     const [showRow, setShowRow] = useState(4);
     return (
         <AnimateOpacity className="p-4 rounded-md">
-            <TextMain className={'border-b-primary pb-3'}>Technical details</TextMain>
+            <TextMain className={'border-b-primary pb-3'}>Thông tin cấu hình chi tiết</TextMain>
 
             <div className="flex flex-col mt-3">
                 {Object.entries(data).map(

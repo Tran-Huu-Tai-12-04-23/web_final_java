@@ -45,7 +45,7 @@ function Reviews({}) {
 
     return (
         <AnimateOpacity className={'p-4 rounded-md'}>
-            <TextMain className={'border-b-primary pb-3'}>Reviews</TextMain>
+            <TextMain className={'border-b-primary pb-3'}>Đánh giá</TextMain>
 
             <div className="flex flex-col gap-4 mt-5 border-primary-style rounded-md p-4">
                 {dataPres.map((rv, index) => {

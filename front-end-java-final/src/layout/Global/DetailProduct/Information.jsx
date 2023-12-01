@@ -13,28 +13,28 @@ function Information({ data }) {
     const [activeTab, setActiveTab] = useState(0);
     const tabs = [
         {
-            name: 'Description',
+            name: 'Mô tả',
             icon: (
                 <BiBookContent className="w-6 h-6 brightness-50 group-hover:text-primary group-hover:brightness-100"></BiBookContent>
             ),
             tabContent: <Description data={data?.description} />,
         },
         {
-            name: 'Specifications',
+            name: 'Thông tin chi tiết',
             icon: (
                 <BiBookContent className="w-6 h-6 brightness-50 group-hover:text-primary group-hover:brightness-100"></BiBookContent>
             ),
             tabContent: <Specifications data={data?.productSpecification} />,
         },
         {
-            name: 'Questions',
+            name: 'Câu hỏi',
             tabContent: <Questions />,
             icon: (
                 <BsPatchQuestion className="w-6 h-6 brightness-50 group-hover:text-primary group-hover:brightness-100"></BsPatchQuestion>
             ),
         },
         {
-            name: 'Reviews',
+            name: 'Đánh giá',
             tabContent: <Reviews />,
             icon: (
                 <GoCodeReview className="w-6 h-6 brightness-50 group-hover:text-primary group-hover:brightness-100"></GoCodeReview>

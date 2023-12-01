@@ -35,7 +35,7 @@ function BuySummary({ data }) {
     };
     const addToCart = async () => {
         if (account === null) {
-            toast('Please sign in to add product to cart!', {
+            toast('Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng!', {
                 icon: '⚠️',
             });
 
@@ -48,7 +48,7 @@ function BuySummary({ data }) {
     };
     return (
         <div className="min-w-[20rem] h-fit p-4 bg-light-tiny dark:bg-dark-tiny rounded-md ">
-            <TextMain className={'text-xl font-bold'}>Pay now</TextMain>
+            <TextMain className={'text-xl font-bold'}>Thanh toán ngay</TextMain>
 
             <div className="mt-2 pt-4 border-dashed border-t-[1px] border-light-tiny dark:border-dark-tiny">
                 <div className="flex flex-col gap-4">
@@ -59,10 +59,10 @@ function BuySummary({ data }) {
                             history('/cart');
                         }}
                     >
-                        Buy now
+                        Mua ngay
                     </Button>
                     <Button style={'outline'} onClick={addToCart}>
-                        Add to cart
+                        Thêm vào giỏ hàng
                     </Button>
                 </div>
             </div>
@@ -70,7 +70,7 @@ function BuySummary({ data }) {
                 ${data?.price}
             </div>
             <div className="mt-2 pt-4 border-dashed border-t-[1px] border-light-tiny dark:border-dark-tiny">
-                <TextMain>Last price</TextMain>
+                <TextMain>Giá cuối cùng</TextMain>
                 <div className="flex justify-between items-center">
                     <span className="line-through">${data?.price}</span>
                     <div className="text-sale flex justify-start items-center">
