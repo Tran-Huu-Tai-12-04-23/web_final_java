@@ -6,9 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Fetch;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -37,6 +35,7 @@ public class Product {
     private String name;
     private Double price;
     private Integer quantity;
+    @Column(columnDefinition = "LONGTEXT")
     private String screenSize;
     private String chipSet;
     private Date launchDate;
@@ -77,7 +76,7 @@ public class Product {
     private ProductSpecification productSpecification;
 
     @ManyToOne
-    private Branch branch;
+    private Brand brand;
 
     @Override
     public String toString() {
@@ -101,7 +100,7 @@ public class Product {
                 ", isDelete=" + isDelete +
                 ", category=" + category +
                 ", productSpecification=" + productSpecification.toString() +
-                ", branch=" + branch +
+                ", branch=" + brand +
                 '}';
     }
 

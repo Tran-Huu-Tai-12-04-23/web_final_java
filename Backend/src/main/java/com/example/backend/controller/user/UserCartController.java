@@ -1,27 +1,17 @@
 package com.example.backend.controller.user;
 
 import com.example.backend.dto.CartRequest;
-import com.example.backend.dto.ErrorResponse;
-import com.example.backend.model.Cart;
-import com.example.backend.model.Member;
-import com.example.backend.model.Product;
-import com.example.backend.model.ProductSpecification;
+import com.example.backend.dto.CartUpdateRequest;
+import com.example.backend.model.*;
 import com.example.backend.service.ICartService;
-import com.example.backend.service.IProductService;
-import com.example.backend.utils.AppConstants;
-import com.example.backend.utils.Utils;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/user/cart")
 @RequiredArgsConstructor
-public class CartController {
+public class UserCartController {
     private final ICartService iCartService;
 
     @PostMapping
@@ -29,6 +19,16 @@ public class CartController {
         try {
             Product product = iCartService.addToCart(cartRequest.getProductId(), cartRequest.getMemberId());
             return ResponseEntity.ok(product);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Failed to add product to cart.");
+        }
+    }
+
+    @PutMapping("/update-quantity")
+    public ResponseEntity<?> updateQuantityCart(@RequestBody CartUpdateRequest cartUpdateRequest) {
+        try {
+            CartItem cartItem = iCartService.updateQuantityForItem(cartUpdateRequest);
+            return ResponseEntity.ok(cartItem);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Failed to add product to cart.");
         }

@@ -88,13 +88,15 @@ function Carousel({ data = defaultData, onDoubleClick = () => {} }) {
                             onDoubleClick={() => {
                                 onDoubleClick();
                             }}
-                            className={'w-full rounded-xl '}
+                            className={'w-full rounded-xl  flex justify-center items-center'}
                         >
-                            <motion.img
-                                src={item}
-                                alt={'sale'}
-                                className=" rounded-xl max-h-[40rem] m-auto"
-                            ></motion.img>
+                            <div className="w-full h-full  min-h-[30rem] flex justify-center items-center">
+                                <img
+                                    src={item}
+                                    alt={'sale'}
+                                    className="  min-h-[15rem] rounded-xl scale-125 m-auto"
+                                ></img>
+                            </div>
                         </motion.div>
                     ))}
                 </Slider>

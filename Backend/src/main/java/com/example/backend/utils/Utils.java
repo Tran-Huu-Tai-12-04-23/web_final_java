@@ -4,7 +4,12 @@ import com.example.backend.exception.MainException;
 import com.example.backend.model.Product;
 import org.springframework.http.HttpStatus;
 
+import java.security.SecureRandom;
+
 public class Utils {
+    private static final String CHAR_UPPER = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    private static final String CHAR_LOWER = "abcdefghijklmnopqrstuvwxyz";
+    private static final String DIGITS = "0123456789";
     public static boolean isPhoneNumberValid(String phoneNumber) {
         String regex = "^(\\+\\d{1,3}[- ]?)?\\d{10}$";
         return phoneNumber.matches(regex);
@@ -62,6 +67,24 @@ public class Utils {
             }
         }
 
+    }
+
+
+
+    private static final String ALL_CHARACTERS = CHAR_UPPER + CHAR_LOWER + DIGITS;
+
+    public static String generateRandomCode(int length) {
+        SecureRandom random = new SecureRandom();
+
+        StringBuilder codeBuilder = new StringBuilder();
+
+        for (int i = 0; i < length; i++) {
+            int randomIndex = random.nextInt(ALL_CHARACTERS.length());
+            char randomChar = ALL_CHARACTERS.charAt(randomIndex);
+            codeBuilder.append(randomChar);
+        }
+
+        return codeBuilder.toString();
     }
 
 

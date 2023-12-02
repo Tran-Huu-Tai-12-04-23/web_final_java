@@ -1,14 +1,21 @@
 import { motion } from 'framer-motion';
-import { Input, TextMain, Modal } from '../index';
+import { Input, Button } from '../index';
 import { AiOutlineClose } from 'react-icons/ai';
 import { AnimateHover } from '../Animate';
 import { useState } from 'react';
-import { AiOutlineFire } from 'react-icons/ai';
-import ItemSearch from './ItemSearch';
+import { useEffect } from 'react';
+import { AiOutlineSearch } from 'react-icons/ai';
+import { useSearch } from '../../context/search';
+import Constants from '../../Constants';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 function ModalSearch({ onClose = () => {} }) {
+    const history = useNavigate();
+    const location = useLocation();
+    const { key, search } = useSearch();
     const [y, setY] = useState(0);
     const [opacity, setOpacity] = useState(1);
+    const [searchInput, setSearchInput] = useState('');
 
     const handleClose = async () => {
         setY(-100);
@@ -20,48 +27,69 @@ function ModalSearch({ onClose = () => {} }) {
         };
         await waitClose();
     };
+
+    useEffect(() => {
+        window.addEventListener('click', handleClose);
+
+        return () => {
+            window.removeEventListener('click', handleClose);
+        };
+    }, []);
     return (
-        <Modal>
-            <motion.div
-                initial={{
-                    y: -100,
-                    opacity: 0,
-                }}
-                animate={{
-                    y: y,
-                    opacity: opacity,
-                }}
-                exit={{
-                    y: 100,
-                    opacity: 0,
-                }}
-                transition={{
-                    duration: 0.3,
-                    ease: 'easeInOut',
-                }}
-                className="relative p-6 min-h-[20rem] w-4/5 ml-10 mr-10 max-w-40rem h-4/5 max-h-[22rem]  shadow-xl  min-w-[20rem] bg-white dark:bg-dark  rounded-xl flex flex-col "
-            >
-                <AnimateHover
-                    onClick={handleClose}
-                    className="absolute top-4 right-4 cursor-pointer hover:text-primary"
+        <motion.div
+            initial={{
+                y: -100,
+                opacity: 0,
+            }}
+            animate={{
+                y: y,
+                opacity: opacity,
+            }}
+            exit={{
+                y: 100,
+                opacity: 0,
+            }}
+            transition={{
+                duration: 0.3,
+                ease: 'easeInOut',
+            }}
+            onClick={(e) => e.stopPropagation()}
+            className="fixed  z-[1000000] top-0 left-0 right p-4 w-full h-[header] shadow-xl  bg-white dark:bg-dark flex flex-col "
+        >
+            <div className="flex  select-none justify-between gap-2 items-center">
+                <Input
+                    value={searchInput}
+                    onChange={(e) => setSearchInput(e.target.value)}
+                    onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                            if (!location.pathname.includes(Constants.PRODUCT)) {
+                                history(Constants.PRODUCT);
+                            }
+                            search(searchInput);
+                            handleClose();
+                        }
+                    }}
+                    className="w-full"
+                    placeholder="Enter keyword ... "
+                ></Input>
+                <Button
+                    className="bg-primary text-white flex-shrink-0 rounded-md ml-5 p-2 flex justify-center items-center"
+                    style=""
+                    onClick={() => {
+                        if (!location.pathname.includes(Constants.PRODUCT)) {
+                            history(Constants.PRODUCT);
+                        }
+                        search(searchInput);
+                    }}
                 >
+                    <AiOutlineSearch className="w-6 h-6" />
+                    <div>Tìm kiếm</div>
+                </Button>
+                <AnimateHover onClick={handleClose} className="cursor-pointer hover:text-primary">
                     <AiOutlineClose className="h-6 w-6" />
                 </AnimateHover>
-                <Input className="w-[80%] bg-gray-100" placeholder="Enter keyword ... "></Input>
-
-                <motion.div className="mt-5 flex justify-start items-center">
-                    <TextMain className={'font-bold'}>Sản phẩm được tìm kiếm nhiều nhất</TextMain>
-                    <AiOutlineFire className="w-6 h-6"></AiOutlineFire>
-                </motion.div>
-                <motion.div className="mt-2 overflow-y-scroll max-h-[18rem] flex w-full flex-wrap justify-between items-center">
-                    <ItemSearch></ItemSearch>
-                    <ItemSearch></ItemSearch>
-                    <ItemSearch></ItemSearch>
-                    <ItemSearch></ItemSearch>
-                </motion.div>
-                <TextMain className={'hover:text-primary mt-2 underline m-auto'}>Xem thêm</TextMain>
-            </motion.div>
-        </Modal>
+            </div>
+        </motion.div>
     );
 }
 

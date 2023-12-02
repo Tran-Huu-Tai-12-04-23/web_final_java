@@ -1,9 +1,7 @@
 import { useEffect, useRef } from 'react';
-import { Loading, Modal } from './components';
-import { AccountLayout, MainLayout } from './layout';
 import { useTheme } from './context/theme';
 import { useLogin } from './context/login';
-import { motion, useScroll, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Toaster } from 'react-hot-toast';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -15,7 +13,6 @@ function App() {
     const ref = useRef(null);
     const { theme, setTheme } = useTheme();
     const { setAccount } = useLogin();
-    const { scrollYProgress } = useScroll({ container: ref });
 
     useEffect(() => {
         const storedTheme = localStorage.getItem('theme');

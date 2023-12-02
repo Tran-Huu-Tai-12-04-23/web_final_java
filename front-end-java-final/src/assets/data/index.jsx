@@ -182,7 +182,6 @@ const HomeService = [
     },
 ];
 
-
 const Category = [
     {
         path: '/product/accessories',
@@ -252,31 +251,38 @@ export const categoryProduct = [
     {
         name: 'Điện thoại',
         icon: <CiMobile3 className="h-6 w-6" />,
-        path: '/product/mobile-phone',
+        path: '/products?category=2',
+        category: '2',
     },
     {
         name: 'Laptop',
+        path: '/products?category=4',
+        category: '4',
         icon: <PiDesktopLight className="h-6 w-6" />,
     },
     {
-        name: 'Tablet',
+        name: 'Máy tính bảng',
+        path: '/products?category=1',
+        category: '1',
         icon: <BsTabletLandscape className="h-6 w-6" />,
     },
     {
         name: 'Tai nghe',
+        path: '/products?category=',
+        category: '',
         icon: <TfiHeadphone className="h-6 w-6" />,
     },
     {
         name: 'PC',
+        path: '/products?category=5',
+        category: '5',
         icon: <HiOutlineComputerDesktop className="h-6 w-6" />,
     },
     {
-        name: 'SmartWatch',
+        name: 'Đồng hồ thông minh',
+        category: '',
+        path: '/products?category=',
         icon: <BsSmartwatch className="h-6 w-6" />,
-    },
-    {
-        name: 'Khác',
-        icon: <MdOutlineDevicesOther className="h-6 w-6" />,
     },
 ];
 

@@ -6,8 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
 
+import java.util.Date;
 
 @Entity
 @Getter
@@ -26,6 +26,7 @@ public class VerifyCode {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Date createAt;
+    private String code;
     @PrePersist
     public void prePersist() {
         if (createAt == null) {
@@ -33,5 +34,7 @@ public class VerifyCode {
         }
     }
 
-    private Integer timeExist;
+
+
+
 }

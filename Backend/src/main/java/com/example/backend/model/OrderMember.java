@@ -1,6 +1,7 @@
 package com.example.backend.model;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -44,6 +45,7 @@ public class OrderMember {
     private String fullName;
 
     @OneToMany(mappedBy = "orderMember", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<OrderDetail> orderDetails;
 
     @ManyToOne

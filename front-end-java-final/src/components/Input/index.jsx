@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { PiEyeSlashLight, PiEyeLight } from 'react-icons/pi';
 
 function Input({
+    onKeyDown = () => {},
     disabled = false,
     label = '',
     iconRight,
@@ -30,6 +31,7 @@ function Input({
             >
                 {iconLeft}
                 <input
+                    onKeyDown={onKeyDown}
                     disabled={disabled}
                     value={value}
                     onChange={onChange}

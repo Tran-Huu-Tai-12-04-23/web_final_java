@@ -5,13 +5,26 @@ import { TextMain, MultiSelect, InputCountNumberCustom, TextSub, Button } from '
 import { AiOutlineClose, AiOutlineClear } from 'react-icons/ai';
 import { request } from '../../../../../services';
 
-function MainFilter({ filters = {}, setFilters = () => {} }) {
+function MainFilter({ filters = {}, setFilters = () => {}, hideCategory = false }) {
     const [branchOptions, setBranchOptions] = useState(['test1 ', 'test2 ', 'test3']);
     const [categoryOptions, setCategoryOptions] = useState(['test1 ', 'test2 ', 'test3']);
     const [branchOptionsDB, setBranchOptionsDB] = useState(['test1 ', 'test2 ', 'test3']);
     const [categoryOptionsDB, setCategoryOptionsDB] = useState(['test1 ', 'test2 ', 'test3']);
     const [discountList, setDiscountList] = useState(['50%', '40%', '30%', '20%', '10%', 'Ít hơn 10%']);
+    const [sortType, setSortType] = useState([
+        {
+            name: 'Giá thấp đến cao',
+            value: 'ASC',
+        },
+        {
+            name: 'Giá cao đến thấp',
+            value: 'DESC',
+        },
+    ]);
     const [activeMultiSelect, setActiveMultiSelect] = useState(null);
+    const [minPrice, setMinPrice] = useState(0);
+    const [maxPrice, setMaxPrice] = useState(4000);
+    const [selectedSort, setSelectedSort] = useState('ASC');
 
     // handle get option for category and branch
     useEffect(() => {
@@ -46,7 +59,8 @@ function MainFilter({ filters = {}, setFilters = () => {} }) {
                         const data = response.data;
                         if (!data) return;
                         const newData = data.map((data) => {
-                            return data.nameBranch;
+                            console.log(data);
+                            return data.nameBrand;
                         });
                         setBranchOptions(newData);
                         setBranchOptionsDB(newData);
@@ -120,25 +134,14 @@ function MainFilter({ filters = {}, setFilters = () => {} }) {
         }
     };
 
-    const handleChangePrice = (value, type) => {
-        if (filters) {
-            if (type == 1) {
-                setFilters((prev) => {
-                    return {
-                        ...prev,
-                        maxPrice: value,
-                    };
-                });
-            } else {
-                setFilters((prev) => {
-                    return {
-                        ...prev,
-                        minPrice: value,
-                    };
-                });
-            }
-        }
-    };
+    useEffect(() => {
+        setFilters((prev) => {
+            return {
+                ...prev,
+                selectedSort,
+            };
+        });
+    }, [selectedSort]);
 
     return (
         <div className="flex flex-col w-full">
@@ -171,30 +174,32 @@ function MainFilter({ filters = {}, setFilters = () => {} }) {
                     dataSelected={filters && filters.branchList && filters.branchList}
                 ></MultiSelect>
 
-                <MultiSelect
-                    placeholder={'Chọn phân loại'}
-                    active={activeMultiSelect === 2}
-                    onActive={() => {
-                        setActiveMultiSelect(2);
-                    }}
-                    data={categoryOptions}
-                    name={'Phân loại'}
-                    onSelect={(value) => {
-                        if (filters) {
-                            setFilters((prev) => {
-                                return {
-                                    ...prev,
-                                    categoryList: prev.categoryList ? [...prev.categoryList, value] : [value],
-                                };
-                            });
-                        } else {
-                            setFilters({
-                                categoryList: value,
-                            });
-                        }
-                    }}
-                    dataSelected={filters && filters.categoryList && filters.categoryList}
-                ></MultiSelect>
+                {!hideCategory && (
+                    <MultiSelect
+                        placeholder={'Chọn phân loại'}
+                        active={activeMultiSelect === 2}
+                        onActive={() => {
+                            setActiveMultiSelect(2);
+                        }}
+                        data={categoryOptions}
+                        name={'Phân loại'}
+                        onSelect={(value) => {
+                            if (filters) {
+                                setFilters((prev) => {
+                                    return {
+                                        ...prev,
+                                        categoryList: prev.categoryList ? [...prev.categoryList, value] : [value],
+                                    };
+                                });
+                            } else {
+                                setFilters({
+                                    categoryList: value,
+                                });
+                            }
+                        }}
+                        dataSelected={filters && filters.categoryList && filters.categoryList}
+                    ></MultiSelect>
+                )}
 
                 <div className="relative group">
                     <Button className="bg-btn-second p-2 rounded-md pl-4 pr-4 w-[10rem]">Chọn giá</Button>
@@ -208,41 +213,30 @@ function MainFilter({ filters = {}, setFilters = () => {} }) {
                         </label>
                         <input
                             type="range"
-                            min="0"
+                            min="1"
                             max="10000"
-                            value={filters.minPrice}
+                            value={minPrice}
                             onChange={(e) => {
-                                handleChangePrice(e.target.value, 0);
+                                setMinPrice(+e.target.value);
                             }}
                             className="range-thumb-color w-full h-2 mb-2 bg-gray-200 rounded-lg appearance-none cursor-pointer  dark:bg-gray-700"
                         />
 
                         <InputCountNumberCustom
-                            value={filters.minPrice}
-                            onChange={(e) =>
-                                setFilters((prev) => {
-                                    return {
-                                        ...prev,
-                                        minPrice: e.target.value,
-                                    };
-                                })
-                            }
+                            value={minPrice}
+                            onChange={(e) => {
+                                if (+e.target.value > 1 && +e.target.value < +maxPrice) {
+                                    setMinPrice(+e.target.value);
+                                }
+                            }}
                             onIncrease={() => {
-                                setFilters((prev) => {
-                                    return {
-                                        ...prev,
-                                        minPrice: filters.minPrice ? prev.minPrice + 1 : 1,
-                                    };
-                                });
+                                if (+minPrice + 1 < +maxPrice) {
+                                    setMinPrice((prev) => prev + 1);
+                                }
                             }}
                             onDecrease={() => {
-                                if (filters.minPrice >= 1) {
-                                    setFilters((prev) => {
-                                        return {
-                                            ...prev,
-                                            minPrice: filters.minPrice ? prev.minPrice - 1 : 1,
-                                        };
-                                    });
+                                if (+minPrice >= 1) {
+                                    setMinPrice((prev) => prev - 1);
                                 }
                             }}
                         ></InputCountNumberCustom>
@@ -255,51 +249,54 @@ function MainFilter({ filters = {}, setFilters = () => {} }) {
                         </label>
                         <input
                             type="range"
-                            min="0"
-                            max="1000"
-                            value={filters.maxPrice}
+                            min="1"
+                            max="10000"
+                            value={maxPrice}
                             onChange={(e) => {
-                                handleChangePrice(e.target.value, 1);
+                                setMaxPrice(+e.target.value);
                             }}
                             className="   range-thumb-color w-full h-2 bg-gray-200 mb-2 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
                         />
 
                         <InputCountNumberCustom
-                            value={filters.maxPrice}
-                            onChange={(e) =>
-                                setFilters((prev) => {
-                                    return {
-                                        ...prev,
-                                        maxPrice: e.target.value,
-                                    };
-                                })
-                            }
+                            value={maxPrice}
+                            onChange={(e) => {
+                                if (+e.target.value > +minPrice) {
+                                    setMaxPrice(+e.target.value);
+                                }
+                            }}
                             onIncrease={() => {
-                                setFilters((prev) => {
-                                    return {
-                                        ...prev,
-                                        maxPrice: filters.maxPrice ? prev.maxPrice + 1 : 1,
-                                    };
-                                });
+                                if (+maxPrice + 1 <= 10000) {
+                                    setMaxPrice((prev) => prev + 1);
+                                }
                             }}
                             onDecrease={() => {
-                                if (filters.minPrice >= 1) {
-                                    setFilters((prev) => {
-                                        return {
-                                            ...prev,
-                                            maxPrice: filters.maxPrice ? prev.maxPrice - 1 : 1,
-                                        };
-                                    });
+                                if (+maxPrice - 1 > +minPrice) {
+                                    setMaxPrice((prev) => prev - 1);
                                 }
                             }}
                         ></InputCountNumberCustom>
+                        <Button
+                            className="p-2 rounded-md mt-2 pl-4 pr-4 bg-primary"
+                            onClick={() => {
+                                setFilters((prev) => {
+                                    return {
+                                        ...prev,
+                                        minPrice: +minPrice,
+                                        maxPrice: +maxPrice,
+                                    };
+                                });
+                            }}
+                        >
+                            Áp dụng
+                        </Button>
                     </div>
                 </div>
                 <div className="relative group">
-                    <Button className="bg-btn-second p-2 rounded-md pl-4 pr-4">Chọn giảm giá</Button>
+                    <Button className="bg-btn-second p-2 rounded-md pl-4 pr-4">Sắp xếp</Button>
                     <div className="h-10 w-full bg-transparent absolute top-[90%] group"></div>
                     <ul className="hidden group-hover:flex top-[110%] flex-col gap-4 p-4 rounded-md absolute z-50 min-w-[15rem] dark:bg-bg-dark-menu bg-bg-light-menu backdrop-blur-3xl">
-                        {discountList.map((discount, index) => {
+                        {sortType.map((sort, index) => {
                             return (
                                 <li
                                     key={index}
@@ -308,11 +305,15 @@ function MainFilter({ filters = {}, setFilters = () => {} }) {
                                     <input
                                         id={'default-discount-' + index}
                                         type="radio"
-                                        value=""
-                                        name="discount"
+                                        name="sort"
+                                        value={sort.value}
+                                        onChange={(event) => {
+                                            setSelectedSort(event.target.value);
+                                        }}
+                                        checked={selectedSort === sort.value}
                                         className="w-4 h-4 text-primary mr-3 bg-gray-100 border-gray-300 rounded focus:ring-transparent dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600"
                                     />
-                                    <label htmlFor={'default-discount-' + index}>{discount} hoặc hơn</label>
+                                    <label htmlFor={`default-discount-${index}`}>{sort.name}</label>
                                 </li>
                             );
                         })}
@@ -368,7 +369,10 @@ function MainFilter({ filters = {}, setFilters = () => {} }) {
                     </div>
                     <div className="flex justify-start items-center gap-10 ">
                         <Button className="p-2 w-[15rem]  bg-btn-second rounded-md">Tìm kiếm bằng bộ lọc</Button>
-                        <Button className="p-2 h-fit rounded-md flex justify-center items-center bg-btn-second pl-4 pr-5 ">
+                        <Button
+                            onClick={() => setFilters({})}
+                            className="p-2 h-fit rounded-md flex justify-center items-center bg-btn-second pl-4 pr-5 "
+                        >
                             <AiOutlineClear className="w-6 h-6 mr-2"></AiOutlineClear>
                             <span>Xóa bộ lọc</span>
                         </Button>

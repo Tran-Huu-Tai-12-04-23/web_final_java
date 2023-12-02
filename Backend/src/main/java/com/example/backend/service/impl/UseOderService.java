@@ -21,6 +21,7 @@ public class UseOderService implements IUserOrderService {
     private final MemberRepository memberRepository;
     private final OrderMemberRepository orderMemberRepository;
     private final OrderDetailRepository orderDetailRepository;
+    private final ProductRepository productRepository;
     private final CartService cartService;
 
     @Override
@@ -59,12 +60,18 @@ public class UseOderService implements IUserOrderService {
             orderDetail.setSubAmount(pro.getQuantity());
             orderDetail.setSubTotal(pro.getPrice() * pro.getQuantity());
             orderDetail.setOrderMember(finalOrderMember);
+            Optional<Product> productOptional = productRepository.findById(pro.getId());
+            if( productOptional.isEmpty()) throw  new NotFoundException("Product not found!");
+
+            Product product = productOptional.get();
+            product.setQuantity(product.getQuantity() - pro.getQuantity());
 
             cartService.removeItemFromCart(memberOrder.getId(), pro.getId());
             orderDetailRepository.save(orderDetail);
         });
 
-        return orderMemberRepository.findById(finalOrderMember.getId()).orElse(null);
+        return orderMemberRepository.findById(finalOrderMember.getId())
+                .orElseThrow(() -> new RuntimeException("Order failed!"));
     }
     @Override
     public Address createAddress(Address address) {
