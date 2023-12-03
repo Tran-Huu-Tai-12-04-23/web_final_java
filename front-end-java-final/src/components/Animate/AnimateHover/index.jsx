@@ -3,7 +3,7 @@ function AnimateHover({ children, className, onClick = () => {} }) {
     return (
         <motion.div
             onClick={onClick}
-            className={className}
+            className={`cursor-pointer ${className}`}
             whileHover={{ scale: 1.2, transition: { duration: 0.3 } }}
             whileTap={{
                 scale: 0.8,

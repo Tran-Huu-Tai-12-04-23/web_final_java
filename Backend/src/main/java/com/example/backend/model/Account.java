@@ -25,6 +25,7 @@ public class Account implements UserDetails {
     private Long id;
     private String username;
     private String password;
+
     private Role role;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -35,10 +36,12 @@ public class Account implements UserDetails {
         if (createAt == null) {
             createAt = new Date();
         }
+        if (role == null) {
+            role = Role.USER;
+        }
+
     }
 
-    @Column(columnDefinition = "BOOLEAN DEFAULT false")
-    private Boolean isDelete;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -2,28 +2,25 @@ package com.example.backend.service.impl;
 
 import com.example.backend.exception.MainException;
 import com.example.backend.exception.NotFoundException;
-import com.example.backend.model.Account;
-import com.example.backend.model.Member;
 import com.example.backend.model.Product;
-import com.example.backend.repository.MemberRepository;
+import com.example.backend.model.ProductSpecification;
 import com.example.backend.repository.ProductRepository;
+import com.example.backend.repository.ProductSpecificationRepository;
 import com.example.backend.service.IProductService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class ProductService implements IProductService {
     private final ProductRepository productRepository;
+    private final ProductSpecificationRepository productSpecificationRepository;
 
     @Override
     public Product createNew(Product pro) throws Exception {
@@ -61,7 +58,6 @@ public class ProductService implements IProductService {
             pro.setIsDelete(product.getIsDelete());
             pro.setName(product.getName());
             pro.setBranch(product.getBranch());
-            pro.setChipSet(product.getChipSet());
             pro.setCategory(product.getCategory());
             pro.setQuantity(product.getQuantity());
             pro.setLinkImages(product.getLinkImages());
@@ -70,9 +66,9 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public List<Product> getAll(Integer page, Integer size) {
+    public List<Product> getAllItemNotDelete(Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "createAt"));
-        return productRepository.findAll(pageable).toList();
+        return productRepository.findAllByIsDeleteFalse(pageable);
     }
 
     @Override
@@ -114,5 +110,22 @@ public class ProductService implements IProductService {
         }else {
             return  listProduct;
         }
+    }
+
+    @Override
+    public ProductSpecification createNewProductSpecification(ProductSpecification productSpecification) {
+        return productSpecificationRepository.save(productSpecification);
+    }
+
+    @Override
+    public List<Product> getProductByCategory(String nameCategory, Integer page, Integer size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "createAt"));
+        return productRepository.findByCategory(nameCategory, pageable);
+    }
+
+    @Override
+    public List<Product> getProductByState(Boolean state, Integer page, Integer size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "createAt"));
+        return productRepository.findAllByStatus(state, pageable);
     }
 }

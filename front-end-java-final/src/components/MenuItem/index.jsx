@@ -55,16 +55,16 @@ function MenuItem({
                     transition={{
                         duration: 0.3,
                     }}
-                    animate={active && activeSubmenu && openSubmenu ? 'open' : 'close'}
+                    animate={active && openSubmenu ? 'open' : 'close'}
                     className="flex justify-center select-none w-full overflow-hidden items-start flex-col ml-4"
                 >
                     {submenu.map((subm, index) => {
                         return (
                             <motion.div
-                                onClick={() => handleOnClickSubMenu(subm.order)}
+                                onClick={() => handleOnClickSubMenu(subm)}
                                 key={index}
                                 className={`${
-                                    activeSubmenu === subm.order && 'text-primary '
+                                    activeSubmenu == subm.order && 'text-primary '
                                 }w-full mt-2 hover:text-primary rounded-md cursor-pointer flex justify-start items-center p-2`}
                             >
                                 {subm.icon}

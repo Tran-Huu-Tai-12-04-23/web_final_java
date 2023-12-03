@@ -7,10 +7,12 @@ import java.util.List;
 public interface IMemberService {
     Member createNew(Member member);
     Member update(Member member, Long id);
-    List<Member> getAllAccount(Integer page,Integer size);
+    List<Member> getAllAccountNotDelete(Integer page,Integer size);
 
     Member getMember(Long id);
     Member deleteSoftMember(Long id);
+    Member blockMember(Long id);
+    Member unLockMember(Long id);
     void deleteMember(Long id);
 
     Member updateAccumulatePoints(double accumulatePoints,  Long id);

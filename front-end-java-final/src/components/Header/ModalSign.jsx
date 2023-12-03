@@ -6,7 +6,7 @@ import { useState } from 'react';
 import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
 
-function ModalSign({ onClose = () => {} }) {
+function ModalSign({ onClose = () => {}, setAccount = () => {} }) {
     const [y, setY] = useState(0);
     const [opacity, setOpacity] = useState(1);
     const [active, setActive] = useState(0);
@@ -24,12 +24,12 @@ function ModalSign({ onClose = () => {} }) {
 
     const tabs = [
         {
-            name: 'LOGIN',
-            tabContent: <LoginForm />,
+            name: 'ĐĂNG NHẬP',
+            tabContent: <LoginForm onClose={onClose} setAccount={setAccount} />,
         },
         {
-            name: 'CREATE ACCOUNT',
-            tabContent: <RegisterForm />,
+            name: 'TẠO TÀI KHOẢN',
+            tabContent: <RegisterForm switchLogin={() => setActive(0)} />,
         },
     ];
     return (
@@ -51,7 +51,7 @@ function ModalSign({ onClose = () => {} }) {
                     duration: 0.3,
                     ease: 'easeInOut',
                 }}
-                className="relative overflow-hidden p-10 min-h-[35rem] shadow-xl h-4/5 max-h-[36rem]  min-w-[20rem] w-4/5 max-w-[30rem] bg-white dark:bg-dark  rounded-xl flex flex-col "
+                className="relative overflow-hidden p-10 shadow-xl h-fit max-h-[45rem]  min-w-[20rem] w-4/5 max-w-[30rem] bg-white dark:bg-dark  rounded-xl flex flex-col "
             >
                 <AnimateHover
                     onClick={handleClose}

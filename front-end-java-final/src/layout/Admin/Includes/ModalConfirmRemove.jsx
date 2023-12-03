@@ -22,7 +22,7 @@ function ModalConfirmRemove({ onRemove = () => {}, onCancel = () => {}, onClose 
                             ></path>
                         </svg>
                         <p className="mb-4 text-gray-500 dark:text-gray-300">
-                            Are you sure you want to remove this record?
+                            Bạn có chắc chắn xóa dòng dữ liệu này không ?
                         </p>
                         <div className="flex justify-center items-center space-x-4">
                             <button
@@ -33,7 +33,7 @@ function ModalConfirmRemove({ onRemove = () => {}, onCancel = () => {}, onClose 
                                 type="button"
                                 className="py-2 px-3 text-sm font-medium text-gray-500 bg-light-tiny  dark:bg-dark-tiny rounded-md pl-4 pr-4 hover:text-gray-900  dark:text-gray-300 dark:hover:text-white dark:hover:bg-btn-second "
                             >
-                                Close
+                                Hủy
                             </button>
                             <button
                                 onClick={() => {
@@ -43,7 +43,7 @@ function ModalConfirmRemove({ onRemove = () => {}, onCancel = () => {}, onClose 
                                 type="submit"
                                 className="py-2 px-3 text-sm font-medium text-center text-white bg-red-600 rounded-md pl-2 pr-2 hover:bg-red-700 focus:outline-none  dark:bg-red-500 dark:hover:bg-red-600 "
                             >
-                                Yes, Remove it
+                                Chắc chắn
                             </button>
                         </div>
                     </div>

@@ -32,64 +32,64 @@ function Footer() {
             >
                 <div className="flex justify-between flex-wrap">
                     <div className="p-5 w-48 ">
-                        <div className="text-xs uppercase text-gray-200 font-medium">Home</div>
+                        <div className="text-xs uppercase text-gray-200 font-medium">Trang chủ</div>
                         <a className="my-3 block" href="/#">
-                            Services <span className="text-white text-xs p-1"></span>
+                            Dịch vụ <span className="text-white text-xs p-1"></span>
                         </a>
                         <a className="my-3 block" href="/#">
-                            Products <span className="text-white text-xs p-1"></span>
+                            Sản phẩm <span className="text-white text-xs p-1"></span>
                         </a>
                         <a className="my-3 block" href="/#">
-                            About Us <span className="text-white text-xs p-1"></span>
+                            Về chúng tôi <span className="text-white text-xs p-1"></span>
                         </a>
                         <a className="my-3 block" href="/#">
-                            Pricing <span className="text-white text-xs p-1"></span>
+                            Giá cả <span className="text-white text-xs p-1"></span>
                         </a>
                         <a className="my-3 block" href="/#">
-                            Partners <span className="text-white text-xs p-1">New</span>
-                        </a>
-                    </div>
-                    <div className="p-5 w-48 ">
-                        <div className="text-xs uppercase text-gray-200 font-medium">User</div>
-                        <a className="my-3 block" href="/#">
-                            Sign in <span className="text-white text-xs p-1"></span>
-                        </a>
-                        <a className="my-3 block" href="/#">
-                            New Account <span className="text-white text-xs p-1"></span>
-                        </a>
-                        <a className="my-3 block" href="/#">
-                            Demo <span className="text-white text-xs p-1">New</span>
+                            Đối tác <span className="text-white text-xs p-1">Mới</span>
                         </a>
                     </div>
                     <div className="p-5 w-48 ">
-                        <div className="text-xs uppercase text-gray-200 font-medium">Resources</div>
+                        <div className="text-xs uppercase text-gray-200 font-medium">Người dùng</div>
                         <a className="my-3 block" href="/#">
-                            Support <span className="text-white text-xs p-1">New</span>
+                            Đăng nhập <span className="text-white text-xs p-1"></span>
+                        </a>
+                        <a className="my-3 block" href="/#">
+                            Tạo tài khoản <span className="text-white text-xs p-1"></span>
+                        </a>
+                        <a className="my-3 block" href="/#">
+                            Demo <span className="text-white text-xs p-1">Mới</span>
                         </a>
                     </div>
                     <div className="p-5 w-48 ">
-                        <div className="text-xs uppercase text-gray-200 font-medium">Product</div>
+                        <div className="text-xs uppercase text-gray-200 font-medium">Nguồn</div>
                         <a className="my-3 block" href="/#">
-                            Our Products <span className="text-white text-xs p-1"></span>
-                        </a>
-                        <a className="my-3 block" href="/#">
-                            Great Deals <span className="text-white text-xs p-1">New</span>
+                            Hỗ trợ <span className="text-white text-xs p-1">Mới</span>
                         </a>
                     </div>
                     <div className="p-5 w-48 ">
-                        <div className="text-xs uppercase text-gray-200 font-medium">Support</div>
+                        <div className="text-xs uppercase text-gray-200 font-medium">Sản phẩm</div>
                         <a className="my-3 block" href="/#">
-                            Help Center <span className="text-white text-xs p-1"></span>
+                            Sản phẩm của chúng tôi <span className="text-white text-xs p-1"></span>
                         </a>
                         <a className="my-3 block" href="/#">
-                            Privacy Policy <span className="text-white text-xs p-1"></span>
-                        </a>
-                        <a className="my-3 block" href="/#">
-                            Conditions <span className="text-white text-xs p-1"></span>
+                            Deal giá hời <span className="text-white text-xs p-1">Mới</span>
                         </a>
                     </div>
                     <div className="p-5 w-48 ">
-                        <div className="text-xs uppercase text-gray-200 font-medium">Contact us</div>
+                        <div className="text-xs uppercase text-gray-200 font-medium">Hỗ trợ</div>
+                        <a className="my-3 block" href="/#">
+                            Trung tâm hỗ trợ <span className="text-white text-xs p-1"></span>
+                        </a>
+                        <a className="my-3 block" href="/#">
+                            Chính sách bảo mật <span className="text-white text-xs p-1"></span>
+                        </a>
+                        <a className="my-3 block" href="/#">
+                            Điều kiện <span className="text-white text-xs p-1"></span>
+                        </a>
+                    </div>
+                    <div className="p-5 w-48 ">
+                        <div className="text-xs uppercase text-gray-200 font-medium">Liên hệ chúng tôi</div>
                         <a className="my-3 block" href="/#">
                             012345678910, HCM <span className="text-white text-xs p-1"></span>
                         </a>

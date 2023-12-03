@@ -1,20 +1,15 @@
 package com.example.backend.controller;
 
 
-import com.example.backend.dto.ErrorResponse;
-import com.example.backend.dto.JWTAuthenticationResponse;
-import com.example.backend.dto.RefreshTokenRequest;
-import com.example.backend.dto.SignUpMemberRequest;
+import com.example.backend.dto.*;
 import com.example.backend.model.Account;
 import com.example.backend.model.Member;
 import com.example.backend.service.AuthenticationService;
+import com.example.backend.service.IAccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 @RestController
@@ -37,12 +32,34 @@ public class AuthenticationController {
     }
 
     @PostMapping("/sign-in")
-    public ResponseEntity<JWTAuthenticationResponse> signIn(@RequestBody Account account) {
-        return ResponseEntity.ok(authenticationService.signIn(account));
+    public ResponseEntity<?> signIn(@RequestBody Account account) {
+        JWTAuthenticationResponse jwtAuthenticationResponse = authenticationService.signIn(account);
+
+        if(jwtAuthenticationResponse == null) {
+            return ResponseEntity.badRequest().body("Invalid username or password!");
+        }
+        Member member = authenticationService.getMember(account.getUsername());
+
+        if( member == null) {
+            Account acc = authenticationService.getAccount(account.getUsername());
+            SignInResponse<Account> signInResponse = new SignInResponse<Account>( acc, jwtAuthenticationResponse);
+            return ResponseEntity.ok(signInResponse);
+        }else {
+            if(!member.getStatus()) {
+                ErrorResponse errorResponse = new ErrorResponse();
+                errorResponse.setMessage("User blocked!");
+                return ResponseEntity.badRequest().body(errorResponse);
+            }
+
+            SignInResponse<Member> signInResponse = new SignInResponse<Member>(member, jwtAuthenticationResponse);
+            return ResponseEntity.ok(signInResponse);
+        }
+
     }
 
     @PostMapping("/refresh-token")
     public ResponseEntity<JWTAuthenticationResponse> refreshToken(@RequestBody RefreshTokenRequest refreshTokenRequest) {
+        System.out.println(refreshTokenRequest.getToken());
         return ResponseEntity.ok(authenticationService.refreshToken(refreshTokenRequest));
     }
 

@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { PiEyeSlashLight, PiEyeLight } from 'react-icons/pi';
 
 function Input({
+    disabled = false,
     label = '',
     iconRight,
     placeholder = 'default',
@@ -23,20 +24,21 @@ function Input({
                 onBlur={(e) => setBorder(false)}
                 className={`${className} rounded-lg select-none relative flex justify-center items-center border-[1px] border-solid  ${
                     border
-                        ? 'border-[rgba(251,111,146,0.5)]'
-                        : ' dark:border-[rgba(255,255,255,0.1)] border-[rgba(0,0,0,0.1)]'
-                }`}
+                        ? 'border-[rgba(251,111,146,0.5)] '
+                        : ' dark:border-[rgba(255,255,255,0.1)] border-[rgba(0,0,0,0.1)] '
+                } ${disabled ? 'brightness-50' : ''}`}
             >
                 {iconLeft}
                 <input
+                    disabled={disabled}
                     value={value}
                     onChange={onChange}
-                    type={type === 'password' && password === true ? 'password' : 'text'}
+                    type={type === 'password' && password == true ? 'password' : 'text'}
                     placeholder={placeholder}
                     style={{
                         border: 'none',
                     }}
-                    className="bg-transparent w-full p-2 outline-none rounded-lg focus:ring-transparent focus:border-primary focus:outline-none border-none"
+                    className="select-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none bg-transparent w-full p-2 outline-none rounded-lg focus:ring-transparent focus:border-primary focus:outline-none border-none"
                 />
                 {iconRight}
                 {type === 'password' && !password && (

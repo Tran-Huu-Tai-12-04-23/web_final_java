@@ -28,5 +28,23 @@ public class Member {
     private String phoneNumber;
     private Double accumulatePoints;
 
+    @Column(columnDefinition = "BOOLEAN DEFAULT false")
+    private Boolean isDelete;
+
+    @Column(columnDefinition = "BOOLEAN DEFAULT true")
+    private Boolean status;
+
+    @PrePersist
+    public void prePersist() {
+        if( isDelete == null) {
+            isDelete = false;
+        }
+        if( status == null ) {
+            status = true;
+        }
+        if( accumulatePoints == null ) {
+            accumulatePoints = (double) 0;
+        }
+    }
 
 }

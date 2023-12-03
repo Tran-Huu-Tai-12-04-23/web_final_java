@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Button, Input, Pagination } from '../../components';
-
+import { Input, Pagination } from '../../components';
+import nores from '../../assets/img/no-res.png';
 function getPaginatedData(page, numberRowShow, data) {
     const startIndex = (page - 1) * numberRowShow;
     const endIndex = startIndex + numberRowShow;
@@ -15,22 +15,31 @@ export default function TableCustom({
     searchBy = '',
     pagination = false,
     numberRow = 5,
+    searchValue = '',
 }) {
     const [numberRowShow, setNumberRowShow] = useState(numberRow);
     const [page, setPage] = useState(0);
-    const [activePage, setActivePage] = useState(1);
-    const [dataShow, setDataShow] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [dataShow, setDataShow] = useState(data);
     const [checkedItems, setCheckedItems] = useState([]);
     const [checkAll, setCheckAll] = useState(false);
     const [search, setSearch] = useState('');
     const [filteredItems, setFilteredItems] = useState(dataShow);
 
     useEffect(() => {
-        if (search) {
-            const filtered = dataShow.filter((item) => item[searchBy].toLowerCase().includes(search.toLowerCase()));
-            setFilteredItems(filtered);
+        if (searchValue !== '') {
+        }
+    }, []);
+    useEffect(() => {
+        if (search !== '') {
+            // const filtered = dataShow.filter((item) => item[searchBy].toLowerCase().includes(search.toLowerCase()));
+            // setFilteredItems(filtered);
         }
     }, [search, dataShow]);
+
+    useEffect(() => {
+        setDataShow(data);
+    }, [data]);
 
     useEffect(() => {
         setCheckedData(checkedItems);
@@ -42,19 +51,26 @@ export default function TableCustom({
     }, [checkedItems]);
 
     useEffect(() => {
-        const newData = getPaginatedData(activePage, numberRowShow, data);
-        setDataShow(newData);
+        if (page > 1) {
+            const newData = getPaginatedData(currentPage, numberRowShow, data);
+            setDataShow(newData);
+        }
         handleUncheckAllItems();
-    }, [page, numberRowShow, activePage]);
+    }, [page, numberRowShow, currentPage]);
 
     useEffect(() => {
-        setPage(Math.ceil(data.length / numberRowShow));
+        const totalPage = Math.ceil(data.length / numberRowShow);
+        setPage(totalPage);
+
+        if (currentPage > totalPage) {
+            setCurrentPage(totalPage);
+        }
     }, [data, numberRowShow]);
 
     const renderColumns = () => {
         return columns.map((col, index) => {
             return (
-                <th key={index} scope="col" className="px-6 py-3">
+                <th key={index} scope="col" className={`px-6 py-3  ${col.center ? 'text-center' : ''}`}>
                     {col.title}
                 </th>
             );
@@ -67,11 +83,14 @@ export default function TableCustom({
             if (col.render) {
                 // console.log(col.render(pre));
             }
+
             return (
                 <th
                     key={index}
                     scope="row"
-                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    className={`${
+                        col.center ? 'text-center' : ''
+                    } px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white`}
                 >
                     {col.render ? <>{col.render && col.render(pre)}</> : pre}
                 </th>
@@ -109,7 +128,7 @@ export default function TableCustom({
                                 }}
                                 type="checkbox"
                                 checked={check}
-                                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                className="input-no"
                             />
                         </th>
                     )}
@@ -177,13 +196,13 @@ export default function TableCustom({
             {searchBy && (
                 <div className="pb-4 ml-2">
                     <label htmlFor="table-search" className="sr-only">
-                        Search
+                        Tìm kiếm
                     </label>
                     <div className="relative mt-1">
                         <Input
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
-                            placeholder="Search ..."
+                            placeholder="Tìm kiếm ..."
                             className="w-fit"
                             iconRight={
                                 <div className="mr-3 inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -224,7 +243,7 @@ export default function TableCustom({
                                     }}
                                     id="checkbox-all-search"
                                     type="checkbox"
-                                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                    className="input-no"
                                 />
                             </th>
                         )}
@@ -234,15 +253,19 @@ export default function TableCustom({
                 </thead>
                 <tbody>{renderRowsData()}</tbody>
             </table>
-
+            {dataShow.length === 0 && (
+                <div className="w-full flex justify-center p-4 items-center">
+                    <img src={nores} className="w-40 h-40" alt="no-result"></img>
+                </div>
+            )}
             {pagination && (
                 <div className="mt-3 float-right flex justify-end items-center">
-                    <div className="flex justify-start items-center mr-3">
+                    <div className="flex justify-start items-center mr-3 mt-3">
                         <label
                             htmlFor="countries"
-                            className="block mr-3 text-sm font-medium text-gray-900 dark:text-white"
+                            className="block mr-3  text-sm font-medium text-gray-900 dark:text-white"
                         >
-                            Rows
+                            Dòng
                         </label>
                         <select
                             defaultValue={numberRow}
@@ -250,13 +273,19 @@ export default function TableCustom({
                                 setNumberRowShow(parseInt(e.target.value));
                             }}
                             id="countries"
-                            className="dark:bg-gray-800 light:bg-light  border border-light-tiny dark:border-dark-tiny text-gray-900 text-sm rounded-lg block w-fit p-1 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            className="h-8 dark:bg-gray-800 light:bg-light  border border-light-tiny dark:border-dark-tiny text-gray-900 text-sm rounded-lg block w-fit p-1 dark:placeholder-gray-400 dark:text-white dark:focus:ring-transparent dark:focus:border-primary"
                         >
                             {renderOptionNumberRowShows()}
                         </select>
                     </div>
 
-                    <Pagination page={page} activePage={activePage} setActivePage={setActivePage}></Pagination>
+                    {page > 1 && (
+                        <Pagination
+                            currentPage={currentPage}
+                            onPageChange={setCurrentPage}
+                            totalPages={page}
+                        ></Pagination>
+                    )}
                 </div>
             )}
         </div>

@@ -6,7 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -25,19 +27,30 @@ public class Product {
     @Column(name = "image_link")
     private List<String> linkImages;
 
+    @Column(columnDefinition = "LONGTEXT")
     private String linkVideo;
+    @Column(columnDefinition = "LONGTEXT")
+    private String thumbnails;
+    @Column(columnDefinition = "LONGTEXT")
     private String description;
-    private String contentReview;
+    private String shortDescription;
     private String name;
     private Double price;
     private Integer quantity;
-    private String useage;
+    @Column(columnDefinition = "LONGTEXT")
     private String screenSize;
     private String chipSet;
+    private Date launchDate;
+    private String color;
+
+    @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private Date datePublished;
+    @Column(columnDefinition = "BOOLEAN DEFAULT 0")
+    private Boolean status;
+
     @Temporal(TemporalType.TIMESTAMP)
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Date createAt;
-
 
     @Column(columnDefinition = "BOOLEAN DEFAULT false")
     private Boolean isDelete;
@@ -46,15 +59,52 @@ public class Product {
         if (createAt == null) {
             createAt = new Date();
         }
+        if( datePublished == null ) {
+            datePublished = new Date();
+        }
         if( isDelete == null ) {
             isDelete = false;
         }
+        if( status == null  ) {
+            status = true;
+        }
+
     }
 
     @ManyToOne
     private Category category;
 
     @ManyToOne
+    private ProductSpecification productSpecification;
+
+    @ManyToOne
     private Branch branch;
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", linkImages=" + linkImages +
+                ", linkVideo='" + linkVideo + '\'' +
+                ", thumbnails='" + thumbnails + '\'' +
+                ", description='" + description + '\'' +
+                ", shortDescription='" + shortDescription + '\'' +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", quantity=" + quantity +
+                ", screenSize='" + screenSize + '\'' +
+                ", chipSet='" + chipSet + '\'' +
+                ", launchDate=" + launchDate +
+                ", color='" + color + '\'' +
+                ", datePublished=" + datePublished +
+                ", status=" + status +
+                ", createAt=" + createAt +
+                ", isDelete=" + isDelete +
+                ", category=" + category +
+                ", productSpecification=" + productSpecification.toString() +
+                ", branch=" + branch +
+                '}';
+    }
+
 
 }

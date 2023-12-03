@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import javax.security.auth.login.AccountNotFoundException;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -32,17 +33,6 @@ public class AccountService implements IAccountService {
         return accountRepository.findAll();
     }
 
-    @Override
-    public Account deleteSoftAccount(Long id) {
-        if( !accountRepository.existsById(id)) {
-            throw new NotFoundException("Sorry, student not found!");
-        }
-
-        return accountRepository.findById(id).map( ac -> {
-            ac.setIsDelete(true);
-            return accountRepository.save(ac);
-        }).orElseThrow(() -> new NotFoundException("Sorry, ths acount could not be found"));
-    }
 
     @Override
     public void deleteAccount(Long id) {
@@ -80,6 +70,10 @@ public class AccountService implements IAccountService {
         };
     }
 
+    @Override
+    public Optional<Account> getAccount(Long id) {
+        return accountRepository.findById(id);
+    }
 
 
 }

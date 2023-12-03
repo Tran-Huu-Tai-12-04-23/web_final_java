@@ -43,7 +43,7 @@ function Header({ activeSidebar, setActiveSidebar }) {
                             <IoSearchOutline className="h-6 w-6 mr-2 hover:text-primary text-gray-600"></IoSearchOutline>
                         </AnimateHover>
                     }
-                    placeholder={'Enter keyword...'}
+                    placeholder={'Nhập keyword...'}
                 ></Input>
             </div>
 
@@ -75,7 +75,7 @@ function Header({ activeSidebar, setActiveSidebar }) {
                 )}
                 <IoIosNotificationsOutline className="text-3xl mr-3 cursor-pointer hover:text-primary hover:scale-125 transition-all " />
                 <FullScreen></FullScreen>
-                <h5 className="text-md font-bold font-mono mr-2 text-primary ml-4">Hello, Admin</h5>
+                <h5 className="text-md font-bold font-mono mr-2 text-primary ml-4">Xin chào, Admin</h5>
                 <img
                     className="rounded-full h-6 w-6 "
                     src={

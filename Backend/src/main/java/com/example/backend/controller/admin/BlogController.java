@@ -21,7 +21,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class BlogController {
     private final IBlogService iBlogService;
-    @GetMapping("/all")
+    @GetMapping()
     public ResponseEntity<?> getAllBlogNotDelete(
             @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
             @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size
@@ -50,7 +50,7 @@ public class BlogController {
         }
     }
 
-    @PostMapping("/create")
+    @PostMapping
     public ResponseEntity<?> createBlog(@RequestBody Blog blog) {
         try{
             iBlogService.validateBlogRequest(blog);
@@ -68,7 +68,7 @@ public class BlogController {
         try{
             Optional<Blog>  blog = iBlogService.get(id);
             ErrorResponse err = new ErrorResponse();
-            err.setMessage("Product not found");
+            err.setMessage("Blog not found");
             return blog.isPresent() ? ResponseEntity.ok(blog.get()) : ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(err);
         }catch (Exception e) {
             e.printStackTrace();
@@ -77,7 +77,7 @@ public class BlogController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(err);
         }
     }
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<?> editBlog(@RequestBody Blog blog, @PathVariable Long id) {
         try{
             iBlogService.validateBlogRequest(blog);
@@ -92,7 +92,7 @@ public class BlogController {
     }
 
     @DeleteMapping("/delete-soft")
-    public ResponseEntity<?> removeSoftBlog(@RequestBody Long id) {
+    public ResponseEntity<?> removeSoftBlog(@RequestParam Long id) {
         try{
             Blog blog = iBlogService.changeStatusDelete(id, true);
             if( blog != null ) {

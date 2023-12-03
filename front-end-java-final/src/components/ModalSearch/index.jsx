@@ -50,7 +50,7 @@ function ModalSearch({ onClose = () => {} }) {
                 <Input className="w-[80%] bg-gray-100" placeholder="Enter keyword ... "></Input>
 
                 <motion.div className="mt-5 flex justify-start items-center">
-                    <TextMain className={'font-bold'}>The Most Searched Items</TextMain>
+                    <TextMain className={'font-bold'}>Sản phẩm được tìm kiếm nhiều nhất</TextMain>
                     <AiOutlineFire className="w-6 h-6"></AiOutlineFire>
                 </motion.div>
                 <motion.div className="mt-2 overflow-y-scroll max-h-[18rem] flex w-full flex-wrap justify-between items-center">
@@ -59,7 +59,7 @@ function ModalSearch({ onClose = () => {} }) {
                     <ItemSearch></ItemSearch>
                     <ItemSearch></ItemSearch>
                 </motion.div>
-                <TextMain className={'hover:text-primary mt-2 underline m-auto'}>Watch More</TextMain>
+                <TextMain className={'hover:text-primary mt-2 underline m-auto'}>Xem thêm</TextMain>
             </motion.div>
         </Modal>
     );

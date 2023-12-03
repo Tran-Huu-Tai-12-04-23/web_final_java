@@ -8,23 +8,24 @@ function ListItem({ text }) {
     );
   }
 function PageDescription(){
-    const impressiveFeatures = [
-        'Diverse digital gadgets for purchase in cash or installments',
-        'A blog with reviews and articles about the latest technology and gadgets',
-        'User comments and Q&A section for community interaction',
-        'Represents a tech-savvy "home" with all necessary technology',
-        'Easy-to-use interface for a great user experience',
-        'Consistent and visually appealing design',
-        'A hub for tech enthusiasts to connect and share insights',
-        'Helps users make informed purchase decisions',
-      ];
+  const impressiveFeatures = [
+    'Đa dạng các thiết bị số có thể mua bằng tiền mặt hoặc trả góp',
+    'Một blog với đánh giá và bài viết về công nghệ và thiết bị số mới nhất',
+    'Phần bình luận của người dùng và phần hỏi đáp để tương tác cộng đồng',
+    'Đại diện cho một "ngôi nhà" công nghệ với tất cả các công nghệ cần thiết',
+    'Giao diện dễ sử dụng để mang lại trải nghiệm tuyệt vời cho người dùng',
+    'Thiết kế nhất quán và hấp dẫn mắt',
+    'Trung tâm kết nối và chia sẻ thông tin cho những người đam mê công nghệ',
+    'Hỗ trợ người dùng đưa ra quyết định mua sắm có thông tin',
+  ];
+  
     
       return (
         <div className="mt-10 max-w-screen-xl mx-auto px-4 text-justify">
-            Get Tech is an innovative online store that offers a diverse selection of digital gadgets, available for purchase in both cash and installment options. Embodying the motto "Join the digital revolution today," the website not only provides a seamless shopping experience but also features a captivating blog section filled with insightful reviews, articles, and videos about cutting-edge technology and digital gadgets. Users can actively engage with the content through comments and a question-answer section, fostering a dynamic community of tech enthusiasts.
+          Get Tech là một cửa hàng trực tuyến sáng tạo cung cấp một lựa chọn đa dạng về các thiết bị số, có sẵn để mua bằng cả tiền mặt và tùy chọn trả góp. Hòa mình trong khẩu hiệu "Tham gia cách mạng số hóa ngay hôm nay," trang web không chỉ cung cấp trải nghiệm mua sắm mượt mà mà còn có một phần blog hấp dẫn, đầy đủ đánh giá sâu sắc, bài viết và video về công nghệ tiên tiến và các thiết bị số. Người dùng có thể tương tác tích cực với nội dung qua phần bình luận và một phần hỏi đáp, tạo ra một cộng đồng năng động của những người yêu công nghệ.
           <TextMain className="text-neutral-950 font-light leading-7 mb-6"></TextMain>
           <div className="text-neutral-950 text-xl font-medium mb-4">
-            Some of Get Tech’s impressive features:
+          Một số tính năng ấn tượng của Get Tech bao gồm:
           </div>
     
           <ul className="list-disc pl-6">

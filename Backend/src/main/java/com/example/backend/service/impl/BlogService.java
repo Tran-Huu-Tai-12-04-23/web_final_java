@@ -3,12 +3,10 @@ package com.example.backend.service.impl;
 import com.example.backend.exception.AlreadyExistException;
 import com.example.backend.exception.MainException;
 import com.example.backend.exception.NotFoundException;
-import com.example.backend.model.Account;
-import com.example.backend.model.Blog;
-import com.example.backend.model.Member;
-import com.example.backend.model.Product;
+import com.example.backend.model.*;
 import com.example.backend.repository.AccountRepository;
 import com.example.backend.repository.BlogRepository;
+import com.example.backend.repository.CategoryBlogRepository;
 import com.example.backend.repository.MemberRepository;
 import com.example.backend.service.IBlogService;
 import com.example.backend.service.IMemberService;
@@ -29,6 +27,7 @@ import java.util.Optional;
 public class BlogService implements IBlogService {
 
     private final BlogRepository blogRepository;
+    private final CategoryBlogRepository categoryBlogRepository;
 
 
     @Override
@@ -47,8 +46,9 @@ public class BlogService implements IBlogService {
     public Blog update(Blog blog, Long id) {
         return blogRepository.findById(id).map( bl -> {
             bl.setTitle(blog.getTitle());
-            bl.setCategoryBlog(blog.getCategoryBlog());
+            bl.setCategory(blog.getCategory());
             bl.setContent(blog.getContent());
+            bl.setThumbnails(blog.getThumbnails());
             return blogRepository.save(bl);
         }).orElseThrow(() -> new NotFoundException("Blog is not found!"));
     }
@@ -73,11 +73,17 @@ public class BlogService implements IBlogService {
 
     @Override
     public Blog changeStatusDelete(Long id, Boolean delete) {
-        return blogRepository.findById(id).map(bl -> {
-            bl.setIsDelete(delete);
-            return blogRepository.save(bl);
-        }).orElseThrow(() -> new NotFoundException("Blog not found"));
+        try {
+            Blog blog = blogRepository.findById(id)
+                    .orElseThrow(() -> new NotFoundException("Blog not found with id: " + id));
+            blog.setIsDelete(delete);
+            return blogRepository.save(blog);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error updating blog status", e);
+        }
     }
+
 
     @Override
     public void delete(Long id) {
@@ -100,11 +106,16 @@ public class BlogService implements IBlogService {
         if (blog.getTitle() == null || blog.getTitle().isEmpty()) {
             throw new MainException(HttpStatus.BAD_REQUEST, "Please provide title for blog! ");
         }
-        if (blog.getCategoryBlog() == null ) {
+        if (blog.getCategory() == null ) {
             throw new MainException(HttpStatus.BAD_REQUEST, "Please provide a valid category for the blog.");
         }
         if (blog.getContent() == null || blog.getContent().isEmpty()) {
             throw new MainException(HttpStatus.BAD_REQUEST, "Please provide a content  for the blog.");
         }
+    }
+
+    @Override
+    public List<CategoryBlog> getAllCategory() {
+        return categoryBlogRepository.findAll();
     }
 }

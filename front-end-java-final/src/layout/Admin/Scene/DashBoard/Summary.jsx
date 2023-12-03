@@ -10,11 +10,11 @@ import { Link } from 'react-router-dom';
 function Summary() {
     const [items, setItems] = useState([
         {
-            name: 'Totals',
+            name: 'Tổng cộng',
             icon: '',
             content: '$559.25k',
             link: '',
-            nameLink: 'View detail',
+            nameLink: 'Xem chi tiết',
             icon: (
                 <div className={`rounded-md flex justify-center items-center p-2  bg-[rgba(10,179,161,0.1)]`}>
                     <CiBadgeDollar className="w-6 h-6 text-[rgb(10,179,161)]"></CiBadgeDollar>
@@ -23,11 +23,11 @@ function Summary() {
             color: 'rgb(218,244,240)',
         },
         {
-            name: 'Orders',
+            name: 'Đơn hàng',
             icon: '',
             content: '36',
             link: '',
-            nameLink: 'View all orders',
+            nameLink: 'Xem tất cả đơn hàng',
             icon: (
                 <div className={`rounded-md flex justify-center items-center p-2  bg-[rgba(76,163,220,0.1)]`}>
                     <PiBagSimpleThin className="w-6 h-6 text-[rgb(76,163,220)]"></PiBagSimpleThin>
@@ -36,11 +36,11 @@ function Summary() {
             color: 'rgb(223,240,250)',
         },
         {
-            name: 'Member Registration',
+            name: 'Đăng ký thành viên',
             icon: '',
             content: '18.35M',
             link: '',
-            nameLink: 'View all member registration',
+            nameLink: 'Xem danh sách tất cả thành viên đã đăng ký',
             icon: (
                 <div className={`rounded-md flex justify-center items-center p-2  bg-[rgba(247,184,75,0.1)]`}>
                     <BsPersonAdd className="w-6 h-6 text-[rgb(247,184,75)]"></BsPersonAdd>
@@ -49,11 +49,11 @@ function Summary() {
             color: 'rgb(254,244,228)',
         },
         {
-            name: 'Balance',
+            name: 'Doanh thu',
             icon: '',
             content: '$165',
             link: '',
-            nameLink: 'View detail',
+            nameLink: 'Xem chi tiết',
             icon: (
                 <div className={`rounded-md flex justify-center items-center p-2  bg-[rgba(85,102,143,0.1)]`}>
                     <CiWallet className="w-6 h-6 text-[rgb(85,102,143)]"></CiWallet>

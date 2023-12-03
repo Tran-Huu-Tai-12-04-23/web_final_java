@@ -1,18 +1,106 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Input, Select, TextMain } from '../../../../components';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
+// import DatePicker from 'react-datepicker';
+// import 'react-datepicker/dist/react-datepicker.css';
 import { Modal, ModalItem } from '../../../../components';
+import toast from 'react-hot-toast';
+import { BsEarFill } from 'react-icons/bs';
+import { request } from '../../../../services';
 
-function ModalEditMember({ onRemove = () => {}, onCancel = () => {}, onClose = () => {}, data }) {
+function ModalEditMember({
+    onRemove = () => {},
+    onCancel = () => {},
+    onClose = () => {},
+    data,
+    setListMember = () => {},
+}) {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
-    const [deleted, setDeleted] = useState(false);
-    const [createAt, setCreateAt] = useState(new Date());
-    const [focus, setFocus] = useState(false);
+    const [status, setStatus] = useState(false);
+    const optionsStatus = [
+        {
+            name: 'Hoạt động',
+            value: false,
+            id: 0,
+        },
+        {
+            name: 'Bị chặn',
+            value: true,
+            id: 1,
+        },
+    ];
 
     const [close, setClose] = useState(false);
+    const handleUpdateMember = async () => {
+        const dataReq = {
+            username: name,
+            email,
+            phoneNumber,
+            status: status === 0 ? 1 : 0,
+        };
+
+        if (name === '') {
+            toast('Vui lòng nhập tên thành viên!', {
+                icon: '⚠️',
+            });
+            return;
+        } else if (email === '') {
+            toast('Vui lòng nhập email!', {
+                icon: '⚠️',
+            });
+            return;
+        } else if (phoneNumber === '') {
+            toast('Vui lòng nhập số điện thoại! ', {
+                icon: '⚠️',
+            });
+            return;
+        }
+
+        try {
+            const response = await request('PUT', '/api/v1/admin/member/' + data?.id, dataReq);
+
+            if (!response) {
+                return Promise.reject(false);
+            }
+
+            setListMember((prev) => {
+                return prev.map((mem) => {
+                    if (mem.id === data.id) {
+                        return {
+                            ...mem,
+                            ...dataReq,
+                        };
+                    }
+                    return mem;
+                });
+            });
+
+            setClose(true);
+
+            return Promise.resolve(true);
+        } catch (error) {
+            console.error(error);
+            return Promise.reject(false);
+        }
+    };
+
+    const updateMember = async () => {
+        toast.promise(handleUpdateMember(), {
+            loading: 'Đang cập nhật ...',
+            success: <b>Cập nhật thành công!</b>,
+            error: <b>Cập nhật thất bại.</b>,
+        });
+    };
+
+    useEffect(() => {
+        if (data) {
+            setName(data?.username);
+            setEmail(data?.email);
+            setPhoneNumber(data?.phoneNumber);
+            setStatus(data?.status === false ? 1 : 0);
+        }
+    }, [data]);
 
     return (
         <Modal onClose={() => setClose(true)}>
@@ -30,7 +118,7 @@ function ModalEditMember({ onRemove = () => {}, onCancel = () => {}, onClose = (
                         <Input
                             value={name}
                             onChange={(e) => setName(e.target.value)}
-                            placeholder="Name member"
+                            placeholder="Tên thành viên"
                             label={'Name'}
                             className="mb-4"
                         ></Input>
@@ -38,7 +126,7 @@ function ModalEditMember({ onRemove = () => {}, onCancel = () => {}, onClose = (
                         <Input
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            placeholder="Email member"
+                            placeholder="Email thành viên"
                             label={'Email'}
                             className="mb-4"
                         ></Input>
@@ -46,37 +134,17 @@ function ModalEditMember({ onRemove = () => {}, onCancel = () => {}, onClose = (
                         <Input
                             value={phoneNumber}
                             onChange={(e) => setPhoneNumber(e.target.value)}
-                            placeholder="Phone number of member"
+                            placeholder="Số điện thoại thành viên"
                             label={'Phone number'}
                             className="mb-4"
                         ></Input>
 
-                        <label className="mb-2  ml-1">Join date</label>
-                        <DatePicker
-                            onFocus={() => setFocus(true)}
-                            onBlur={() => setFocus(false)}
-                            className={`${
-                                focus ? 'border-[rgba(251,111,146,0.5)]' : 'border-light-tiny dark:border-dark-tiny'
-                            } bg-transparent border-[1px] mb-4 border-solid rounded-lg w-full  outline-none p-2 focus:ring-transparent  focus:outline-none`}
-                            selected={createAt}
-                            onChange={(date) => setCreateAt(date)}
-                        />
-
                         <label className="mb-2 ml-1">Status</label>
                         <Select
                             name="Status"
-                            subMenu={[
-                                {
-                                    name: 'Active',
-                                    value: false,
-                                },
-                                {
-                                    name: 'Block',
-                                    value: true,
-                                },
-                            ]}
-                            value={deleted}
-                            setValue={setDeleted}
+                            subMenu={optionsStatus}
+                            onSelect={(value) => setStatus(value)}
+                            value={status}
                             className={'p-2'}
                         ></Select>
 
@@ -88,13 +156,14 @@ function ModalEditMember({ onRemove = () => {}, onCancel = () => {}, onClose = (
                                 type="button"
                                 className="py-2 px-3 text-sm font-medium text-gray-500 bg-light-tiny  dark:bg-dark-tiny rounded-md pl-4 pr-4 hover:text-gray-900  dark:text-gray-300 dark:hover:text-white dark:hover:bg-btn-second "
                             >
-                                Close
+                                Hủy
                             </button>
                             <button
                                 type="submit"
+                                onClick={updateMember}
                                 className="py-2 px-3 text-sm font-medium text-center text-white bg-green-700 rounded-md pl-4 pr-4 hover:bg-green-800 focus:outline-none  dark:bg-green-600 dark:hover:bg-green-700 "
                             >
-                                Save
+                                Lưu
                             </button>
                         </div>
                     </div>

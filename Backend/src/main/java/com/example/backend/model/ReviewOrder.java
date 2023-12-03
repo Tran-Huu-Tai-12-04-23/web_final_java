@@ -21,7 +21,7 @@ public class ReviewOrder {
 
     @OneToOne
     @JoinColumn(name = "detail_order_id")
-    private DetailOrder detailOrder;
+    private OrderDetail orderDetail;
 
     private Float star;
     private String content;

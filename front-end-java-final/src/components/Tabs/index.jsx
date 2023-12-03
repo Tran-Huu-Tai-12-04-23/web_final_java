@@ -30,16 +30,17 @@ function Tabs({ tabs = [], active = 0, style = 'default', classItem = '', setAct
                             key={index}
                             className={`${
                                 index == active && 'text-primary border-primary'
-                            } text-sm cursor-pointer rounded-t-lg pt-2 pb-2 text-center border-b-[1px] border-solid hover:border-primary hover:text-primary ${classItem}`}
+                            } group flex justify-center gap-3 items-center text-sm pl-5 min-w-[10rem] pr-5 cursor-pointer rounded-t-lg pt-2 pb-2 text-center border-b-[1px] border-solid hover:border-primary hover:text-primary ${classItem}`}
                         >
-                            {item.name}
+                            {item.icon}
+                            <span>{item.name}</span>
                         </motion.div>
                     );
                 })}
             </motion.div>
             <motion.div className="w-full">
                 {tabs.map((item, index) => {
-                    return <>{index == active && item.tabContent}</>;
+                    return <div key={index}>{index == active && item.tabContent}</div>;
                 })}
             </motion.div>
         </motion.div>

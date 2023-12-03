@@ -25,8 +25,8 @@ function BriefInfor() {
             <div className="mt-10 justify-start items-center gap-[170px] inline-flex">
             <InfoSection
                 icon={<BiLocationPlus className='text-primary text-4xl' />}
-                title="Office"
-                content="123 Main Street, Anytown, USA"
+                title="Văn phòng"
+                content="Tân Hưng, Tân Phong, Quận 7, Thành phố HCM"
             />
             <InfoSection
                 icon={<FiMail className='text-primary text-4xl' />}
@@ -35,7 +35,7 @@ function BriefInfor() {
             />
             <InfoSection
                 icon={<FiPhoneIncoming className='text-primary text-4xl' />}
-                title="Phone"
+                title="Điện thoại"
                 content="+84 999 999 999"
             />
             </div>

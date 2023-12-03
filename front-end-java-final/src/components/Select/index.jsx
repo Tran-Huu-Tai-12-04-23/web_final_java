@@ -15,73 +15,132 @@ const variantsSubmenu = {
 };
 
 function Select({
+    position = 'bottom',
+    type = 'default',
     name = 'Default',
     subMenu = [
         {
             name: 'test1',
-            value: 'Text1',
+            id: 'Text1',
         },
         {
             name: 'test2',
-            value: 'Text2',
+            id: 'Text2',
         },
         {
             name: 'test3',
-            value: 'Text3',
+            id: 'Text3',
         },
     ],
 
     className,
     value,
-    setValue = () => {},
+    onSelect = (value) => {},
+    active = null,
+    onActive = (active) => {},
 }) {
     const [open, setOpen] = useState(false);
     const [selectValue, setSelectValue] = useState(null);
 
     useEffect(() => {
-        if (value != null) {
-            setSelectValue(subMenu.filter((mn) => mn.value == value)[0].name);
+        if (value != null && type !== 'color') {
+            setSelectValue(
+                subMenu.filter((mn) => {
+                    return mn.value == value || mn.id == value;
+                })[0]?.name,
+            );
+        }
+    }, [value]);
+
+    useEffect(() => {
+        if (type === 'color') {
+            setSelectValue(
+                subMenu.filter((mn) => {
+                    return mn.name == value;
+                })[0]?.name,
+            );
         }
     }, [value]);
 
     const handleSelectOption = (option) => {
-        setValue(option);
+        onSelect(option);
     };
+
+    useEffect(() => {
+        const handleWindowClick = () => {
+            setOpen(false);
+        };
+
+        window.addEventListener('click', handleWindowClick);
+
+        return () => {
+            window.removeEventListener('click', handleWindowClick);
+        };
+    }, []);
+
+    useEffect(() => {
+        if (active != null) {
+            setOpen(active);
+        }
+    }, [active]);
+
     return (
         <motion.div
-            onClick={() => {
+            onClick={(e) => {
+                e.stopPropagation();
                 setOpen(!open);
+                onActive();
             }}
+            style={{ zIndex: open ? 1000 : 'auto' }}
             className={`${
                 open ? 'border-[rgba(251,111,146,0.5)]' : 'border-light-tiny dark:border-dark-tiny'
-            } z-50 flex relative min-w-[10rem] justify-between items-center border-[1px] border-solid p-2 rounded-md hover:bg-btn-second cursor-pointer ${className}`}
+            }  flex relative min-w-[10rem] justify-between items-center border-[1px] border-solid p-2 rounded-md hover:bg-btn-second cursor-pointer ${className}`}
         >
             <TextMain className={'mr-3'}>{selectValue ? selectValue : name}</TextMain>
             <motion.div variants={variants} animate={open ? 'active' : 'inActive'}>
                 <MdOutlineKeyboardArrowDown className="w-4 h-4"> </MdOutlineKeyboardArrowDown>
             </motion.div>
 
-            {open && (
+            {open && (active || active == null) && (
                 <motion.div
                     variants={variantsSubmenu}
                     transition={{
                         duration: 0.3,
                     }}
                     animate={open ? 'active' : 'inActive'}
-                    className="absolute top-11 pt-2 pb-2 w-full right-0 bg-light dark:bg-dark rounded-md shadow-xl"
+                    className={` ${
+                        position === 'bottom' ? ' top-11' : 'bottom-11'
+                    } absolute z-[100000] pt-2 pb-2 w-full right-0 bg-bg-light-menu backdrop-blur-xl  dark:bg-bg-dark-menu rounded-md shadow-xl`}
                 >
                     <ul className="flex flex-col justify-center w-full items-start">
-                        {subMenu.map((menu, index) => {
-                            return (
-                                <li
-                                    className="w-full text-sm p-2 hover:bg-btn-second"
-                                    key={index}
-                                    onClick={() => handleSelectOption(menu.value)}
-                                >
-                                    {menu.name}
-                                </li>
-                            );
-                        })}
+                        {type !== 'color' &&
+                            subMenu.map((menu, index) => {
+                                return (
+                                    <li
+                                        className="w-full text-sm p-2 hover:bg-btn-second"
+                                        key={index}
+                                        onClick={() => handleSelectOption(menu.id)}
+                                    >
+                                        {menu.name}
+                                        {menu.component}
+                                    </li>
+                                );
+                            })}
+                        {type === 'color' &&
+                            subMenu.map((menu, index) => {
+                                return (
+                                    <li
+                                        style={{
+                                            background: menu.hexCode,
+                                        }}
+                                        className={`w-full brightness-75 text-sm p-2 hover:bg-btn-second`}
+                                        key={index}
+                                        onClick={() => handleSelectOption(menu.name)}
+                                    >
+                                        {menu.name}
+                                    </li>
+                                );
+                            })}
                     </ul>
                 </motion.div>
             )}

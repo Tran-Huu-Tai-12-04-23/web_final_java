@@ -11,6 +11,7 @@ import BestSeller from './BestSeller';
 import TopBranch from './TopBranch';
 import SlideBannerProduct from './SlideBannerProduct';
 import OurBlog from './OurBlog';
+import { BannerSuperSale } from '../../components';
 
 function Home() {
     const items = [
@@ -62,17 +63,20 @@ function Home() {
     ];
 
     return (
-        <motion.div className=" mt-header pt-20 pb-10 w-full overflow-hidden pl-10 pr-10">
+        <motion.div className=" mt-header pt-20 pb-10 w-full overflow-hidden pl-10 pr-10 max-w-screen-xl m-auto">
             <Banner></Banner>
             <ServiceHome />
             <CategoryHome />
             <SaleProduct />
             <NewItem />
             <BannerSale />
-            <BestSeller />
+            <BannerSuperSale />
             <TopBranch />
             <SlideBannerProduct />
             <OurBlog />
+            {/* 
+         
+             */}
             {/* <div className="flex justify-start items-center flex-wrap">
                 {items.map((item) => (
                     <motion.div className="w-1/6 scale-[90%]">

@@ -19,22 +19,33 @@ public class MemberController {
 
     private final IMemberService iMemberService;
 
-    @GetMapping("/all")
+    @GetMapping("")
     public ResponseEntity<List<Member>> getAllMember(
             @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
             @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size
     ) {
         Utils.validatePageNumberAndSize(page, size);
-        return ResponseEntity.ok(iMemberService.getAllAccount(page, size));
+        return ResponseEntity.ok(iMemberService.getAllAccountNotDelete(page, size));
     }
 
-    @PutMapping
+    @PostMapping
     public ResponseEntity<Member> createMember(@RequestBody Member member) {
         return ResponseEntity.ok(iMemberService.update(member, member.getId()));
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateMember(@RequestBody Member member, @PathVariable Long id) {
+        try{
+            return ResponseEntity.ok(iMemberService.update(member, id));
+        }catch (Exception e) {
+            ErrorResponse err = new ErrorResponse();
+            err.setMessage(err.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(err);
+        }
+    }
+
     @DeleteMapping("/delete-soft")
-    public ResponseEntity<?> DeleteSoft(@RequestParam Long id) {
+    public ResponseEntity<?> deleteSoft(@RequestParam Long id) {
         try{
             return ResponseEntity.ok(iMemberService.deleteSoftMember(id));
         }catch (Exception e) {
@@ -42,7 +53,29 @@ public class MemberController {
             err.setMessage(err.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(err);
         }
+    }
 
+    @GetMapping("/block")
+    public ResponseEntity<?> block(@RequestParam Long id) {
+        try{
+            return ResponseEntity.ok(iMemberService.blockMember(id));
+        }catch (Exception e) {
+            ErrorResponse err = new ErrorResponse();
+            err.setMessage(err.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(err);
+        }
+    }
+
+
+    @GetMapping("/un-lock")
+    public ResponseEntity<?> unLock(@RequestParam Long id) {
+        try{
+            return ResponseEntity.ok(iMemberService.unLockMember(id));
+        }catch (Exception e) {
+            ErrorResponse err = new ErrorResponse();
+            err.setMessage(err.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(err);
+        }
     }
     @GetMapping("/search")
     public ResponseEntity<?> searchMember(
