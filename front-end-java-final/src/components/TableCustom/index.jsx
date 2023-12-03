@@ -202,7 +202,7 @@ export default function TableCustom({
                         <Input
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
-                            placeholder="Search ..."
+                            placeholder="Tìm kiếm ..."
                             className="w-fit"
                             iconRight={
                                 <div className="mr-3 inset-y-0 left-0 flex items-center pl-3 pointer-events-none">

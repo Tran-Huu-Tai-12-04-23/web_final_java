@@ -140,24 +140,24 @@ public class App implements CommandLineRunner {
             String laptopBrandURL[] = {"https://gearvn.com/collections/laptop-asus-hoc-tap-va-lam-viec","https://gearvn.com/collections/laptop-acer-hoc-tap-va-lam-viec"
                     ,"https://gearvn.com/collections/laptop-dell-hoc-tap-va-lam-viec","https://gearvn.com/collections/laptop-msi-hoc-tap-va-lam-viec",
                     "https://gearvn.com/collections/laptop-lenovo-hoc-tap-va-lam-viec","https://gearvn.com/collections/laptop-lg-gram"};
-            addByBrandLaptop(laptopBrandURL[0],6L,listImg);
-            addByBrandLaptop(laptopBrandURL[1],7L,listImg);
-            addByBrandLaptop(laptopBrandURL[2],8L,listImg);
-            addByBrandLaptop(laptopBrandURL[3],9L,listImg);
-            addByBrandLaptop(laptopBrandURL[4],10L,listImg);
-            addByBrandLaptop(laptopBrandURL[5],11L,listImg);
+//            addByBrandLaptop(laptopBrandURL[0],6L,listImg);
+//            addByBrandLaptop(laptopBrandURL[1],7L,listImg);
+//            addByBrandLaptop(laptopBrandURL[2],8L,listImg);
+//            addByBrandLaptop(laptopBrandURL[3],9L,listImg);
+//            addByBrandLaptop(laptopBrandURL[4],10L,listImg);
+//            addByBrandLaptop(laptopBrandURL[5],11L,listImg);
             //add tablet
             String tabletBrandUrl [] ={"https://hoanghamobile.com/tablet/ipad","https://hoanghamobile.com/tablet/samsung","https://hoanghamobile.com/tablet/oppo","https://hoanghamobile.com/tablet/xiaomi"};
-            addByBrandTablet(tabletBrandUrl[0],1L,listImg);
-            addByBrandTablet(tabletBrandUrl[1],2L,listImg);
-            addByBrandTablet(tabletBrandUrl[2],3L,listImg);
-            addByBrandTablet(tabletBrandUrl[3],5L,listImg);
+//            addByBrandTablet(tabletBrandUrl[0],1L,listImg);
+//            addByBrandTablet(tabletBrandUrl[1],2L,listImg);
+//            addByBrandTablet(tabletBrandUrl[2],3L,listImg);
+//            addByBrandTablet(tabletBrandUrl[3],5L,listImg);
 //            add phone ( use the same method as tablet)
             String phoneBrandUrl[] ={"https://hoanghamobile.com/dien-thoai-di-dong/iphone","https://hoanghamobile.com/dien-thoai-di-dong/samsung","https://hoanghamobile.com/dien-thoai-di-dong/xiaomi","https://hoanghamobile.com/dien-thoai-di-dong/oppo"};
-            addByBrandPhone(phoneBrandUrl[0],1L,listImg);
-            addByBrandPhone(phoneBrandUrl[1],2L,listImg);
-            addByBrandPhone(phoneBrandUrl[2],5L,listImg);
-            addByBrandPhone(phoneBrandUrl[3],3L,listImg);
+//            addByBrandPhone(phoneBrandUrl[0],1L,listImg);
+//            addByBrandPhone(phoneBrandUrl[1],2L,listImg);
+//            addByBrandPhone(phoneBrandUrl[2],5L,listImg);
+//            addByBrandPhone(phoneBrandUrl[3],3L,listImg);
         }
     }
     public void addByBrandPhone(String brandUrl,Long brandId,List<String> listImg){

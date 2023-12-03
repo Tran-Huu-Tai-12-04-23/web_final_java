@@ -81,7 +81,7 @@ function Manager({}) {
         if (blogIdForConfirm == null) return;
 
         toast.promise(handleRemoveSoftBlog(), {
-            loading: 'Deleting ...',
+            loading: 'Đang xóa ...',
             success: <b>Xóa thành công!</b>,
             error: <b>Xóa thất bại!</b>,
         });

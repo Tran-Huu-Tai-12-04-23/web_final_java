@@ -61,7 +61,7 @@ function Reviews({}) {
                             <motion.div variants={variants} animate={modeFull ? 'inActive' : 'active'}>
                                 <MdKeyboardArrowDown className="w-6 h-6"></MdKeyboardArrowDown>
                             </motion.div>
-                            <span>{modeFull ? 'Less' : 'More'}</span>
+                            <span>{modeFull ? 'Thu gọn' : 'Xem thêm'}</span>
                         </Button>
                     </div>
                 )}

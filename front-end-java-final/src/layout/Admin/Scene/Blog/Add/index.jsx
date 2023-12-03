@@ -89,15 +89,15 @@ function AddBlog({ modeEdit = false, data }) {
             await request('POST', '/api/v1/admin/blog', data)
                 .then((response) => {
                     const dataRes = response.data;
-                    toast.success('Create new blog successfully!');
+                    toast.success('Thêm blog mới thành công!');
                     clearAllStates();
                 })
                 .catch((error) => {
                     console.log(error);
-                    toast.error('Create new blog failed!');
+                    toast.error('Thêm blog mới thất bại!');
                 });
         } catch (error) {
-            toast.error('Create new blog failed!');
+            toast.error('Thêm blog mới thất bại!');
         }
     };
 
@@ -149,7 +149,7 @@ function AddBlog({ modeEdit = false, data }) {
         await request('PUT', '/api/v1/admin/blog/' + data?.id, dataReq)
             .then((res) => {
                 if (res.status === 200) {
-                    toast.success('Update blog successfully!');
+                    toast.success('Cập nhật blog thành công!');
                     history(Constants.ADMIN_BLOG);
                 }
             })
@@ -257,7 +257,7 @@ function AddBlog({ modeEdit = false, data }) {
                         <div className="w-fit mt-5 flex float-right justify-start items-center gap-4">
                             <Select
                                 onActive={() => setActive(1)}
-                                name="Category"
+                                name="Phân loại"
                                 position="top"
                                 value={category}
                                 onSelect={(value) => setCategory(value)}
@@ -284,17 +284,17 @@ function AddBlog({ modeEdit = false, data }) {
                                 position="top"
                                 active={active == 0}
                                 onActive={() => setActive(0)}
-                                name="Status"
+                                name="Trạng thái"
                                 value={status}
                                 onSelect={(value) => setStatus(value)}
                                 className="bg-light-tiny dark:bg-dark-tiny rounded-md"
                                 subMenu={[
                                     {
-                                        name: 'Draft',
+                                        name: 'Bản nháp',
                                         id: false,
                                     },
                                     {
-                                        name: 'Published',
+                                        name: 'Đã xuất bản',
                                         id: true,
                                     },
                                 ]}

@@ -30,12 +30,12 @@ function QuestionItem({ index = 0 }) {
             </div>
 
             <div className="flex justify-end items-center gap-1">
-                <Tooltip content="Reply question">
+                <Tooltip content="Trả lời câu hỏi">
                     <Button>
                         <CiChat2 className="w-6 h-6 text-status-complete" />
                     </Button>
                 </Tooltip>
-                <Tooltip content="Reply question">
+                <Tooltip content="Xóa câu hỏi">
                     <Button>
                         <LiaTrashAlt className="w-6 h-6 text-status-cancel" />
                     </Button>

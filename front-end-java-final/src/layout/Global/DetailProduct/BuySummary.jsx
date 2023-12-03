@@ -21,16 +21,16 @@ function BuySummary({ data }) {
                 .then((response) => {
                     const data = response.data;
                     if (response.status === 200) {
-                        toast.success('Add ' + data?.name + ' to cart successfully!');
+                        toast.success('Thêm  ' + data?.name + ' vào giỏ hàng thành công!');
                     } else {
                         toast.error(response.message);
                     }
                 })
                 .catch((error) => {
-                    toast.error('add ' + data?.name + ' to cart failed');
+                    toast.error('Thêm ' + data?.name + ' vào giỏ hàng thất bại');
                 });
         } catch (error) {
-            toast.error('add ' + data?.name + ' to cart failed');
+            toast.error('Thêm ' + data?.name + ' vào giỏ hàng thất bại');
         }
     };
     const addToCart = async () => {
