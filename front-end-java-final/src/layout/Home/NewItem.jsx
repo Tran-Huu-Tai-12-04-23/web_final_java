@@ -64,27 +64,28 @@ export default function NewItem() {
             <MediaQuery query="(min-width: 1024px)">
                 <Slider {...settingLaptop}>
                     {data.map((item, index) => (
-                        <motion.div key={index} className=" scale-90">
+                        <div key={index} className=" scale-90">
                             <CardNew data={item}></CardNew>
-                        </motion.div>
+                        </div>
                     ))}
                 </Slider>
             </MediaQuery>
             <MediaQuery query="(min-width: 768px) and (max-width: 1023px)">
                 <Slider {...settingTablet}>
                     {items.map((item, index) => (
-                        <data.div key={index} className="scale-90">
+                        <div key={index} className="scale-90">
                             <CardNew data={item}></CardNew>
-                        </data.div>
+                        </div>
                     ))}
                 </Slider>
             </MediaQuery>
+
             <MediaQuery query="(max-width: 767px)">
                 <Slider {...settingMobile}>
                     {items.map((item, index) => (
-                        <data.div key={index} className="scale-90">
+                        <div key={index} className="scale-90">
                             <CardNew data={item}></CardNew>
-                        </data.div>
+                        </div>
                     ))}
                 </Slider>
             </MediaQuery>

@@ -4,7 +4,13 @@ import com.example.backend.exception.MainException;
 import com.example.backend.model.Product;
 import org.springframework.http.HttpStatus;
 
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
+import java.nio.charset.StandardCharsets;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.util.Base64;
 
 public class Utils {
     private static final String CHAR_UPPER = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -22,6 +28,24 @@ public class Utils {
 
 
 
+    public static String generateHmacSha256Signature(String data, String key) throws SignatureGenerationException {
+        try {
+            Mac sha256Hmac = Mac.getInstance("HmacSHA256");
+            SecretKeySpec secretKey = new SecretKeySpec(key.getBytes(StandardCharsets.UTF_8), "HmacSHA256");
+            sha256Hmac.init(secretKey);
+
+            byte[] hmacBytes = sha256Hmac.doFinal(data.getBytes(StandardCharsets.UTF_8));
+            return Base64.getEncoder().encodeToString(hmacBytes);
+        } catch (NoSuchAlgorithmException | InvalidKeyException e) {
+            throw new SignatureGenerationException("Error generating HMAC SHA256 signature", e);
+        }
+    }
+
+    public static class SignatureGenerationException extends Exception {
+        public SignatureGenerationException(String message, Throwable cause) {
+            super(message, cause);
+        }
+    }
     public static void validatePageNumberAndSize(int page, int size) {
         if (page < 0) {
             throw new MainException(HttpStatus.BAD_REQUEST, "Page number cannot be less than zero.");

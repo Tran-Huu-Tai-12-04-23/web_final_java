@@ -36,6 +36,7 @@ import product from '../img/product.png';
 import { AnimateHover } from '../../components/Animate';
 import { Link } from 'react-router-dom';
 import { MdManageAccounts } from 'react-icons/md';
+import Constants from '../../Constants';
 const subnavProduct = [
     {
         name: 'Laptop',
@@ -107,7 +108,7 @@ const UserMenu = [
     {
         name: 'Orders',
         icon: <CiShoppingCart className="h-6 w-6" />,
-        path: '/cart',
+        path: Constants.ACCOUNT_ORDER,
     },
     {
         name: 'With lists',

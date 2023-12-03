@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -26,9 +27,12 @@ public class OrderMember {
 
     @Column(columnDefinition = "BOOLEAN DEFAULT false")
     private Boolean isCancel;
+    @Column(columnDefinition = "INT DEFAULT 0")
+    private Integer stepOrder;
 
-    @Column(columnDefinition = "BOOLEAN DEFAULT false")
-    private Boolean isDelete;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private Date orderDate;
 
     @Column(columnDefinition = "INT DEFAULT 0")
     private OrderStatus orderStatus;
@@ -61,8 +65,8 @@ public class OrderMember {
             isPayment = false;
         }
 
-        if (isDelete == null) {
-            isDelete = false;
+        if (orderDate == null) {
+            orderDate = new Date();
         }
 
         if (isCancel == null) {
@@ -72,32 +76,11 @@ public class OrderMember {
         if (methodPayment == null) {
             methodPayment = MethodPayment.CASH;
         }
+
+        if (stepOrder == null) {
+            stepOrder = 0;
+        }
     }
 
-    public Double calculateTotal() {
-        if (orderDetails == null || orderDetails.isEmpty()) {
-            return 0.0;
-        }
-
-        double total = 0.0;
-        for (OrderDetail orderDetail : orderDetails) {
-            total += orderDetail.getProduct().getPrice() * orderDetail.getProduct().getQuantity();
-        }
-
-        return total;
-    }
-
-    public Integer calAmount() {
-        if (orderDetails == null || orderDetails.isEmpty()) {
-            return 0;
-        }
-
-        Integer amount = 0;
-        for (OrderDetail orderDetail : orderDetails) {
-            amount += orderDetail.getProduct().getQuantity();
-        }
-
-        return amount;
-    }
 
 }

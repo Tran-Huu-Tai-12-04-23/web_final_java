@@ -43,7 +43,7 @@ function Cart() {
         return true;
     };
     const commitOrder = async () => {
-        let total = cartItems.reduce((acc, item) => acc + item?.product.price, 0);
+        let total = cartItems.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
         let productList = cartItems.map((item) => {
             return { id: item?.product.id, price: item?.product.price, quantity: item?.quantity };
         });
@@ -272,6 +272,7 @@ function Cart() {
                                 </div>
                                 <div className="w-1/3">
                                     <SummaryYourOrder
+                                        data={cartItems}
                                         setActiveStep={setActiveStep}
                                         totalPrice={totalPrice}
                                     ></SummaryYourOrder>

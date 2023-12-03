@@ -61,7 +61,7 @@ function CardNew({ width, data }) {
             className={`${width}  cursor-pointer hover:brightness-125 dark:bg-btn-second bg-btn-second p-2 min-w-[15rem] rounded-lg overflow-hidden`}
         >
             <div className=" bg-[#ffffff] w-full rounded-lg flex items-center justify-center">
-                <img src={data?.thumbnails} className="max-w-[10rem] w-1/2 rounded-lg"></img>
+                <img src={data?.thumbnails} alt={data?.name} className="max-w-[10rem] w-1/2 rounded-lg"></img>
             </div>
             <div className="flex justify-center items-center flex-col">
                 <h3 className="text-gray-400">{data?.category?.nameCategory}</h3>
