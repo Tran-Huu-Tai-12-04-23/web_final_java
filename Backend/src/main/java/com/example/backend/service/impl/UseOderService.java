@@ -7,6 +7,7 @@ import com.example.backend.repository.*;
 import com.example.backend.service.IUserOrderService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,6 +22,7 @@ public class UseOderService implements IUserOrderService {
     private final MemberRepository memberRepository;
     private final OrderMemberRepository orderMemberRepository;
     private final OrderDetailRepository orderDetailRepository;
+    private final ProductRepository productRepository;
     private final CartService cartService;
 
     @Override
@@ -59,13 +61,54 @@ public class UseOderService implements IUserOrderService {
             orderDetail.setSubAmount(pro.getQuantity());
             orderDetail.setSubTotal(pro.getPrice() * pro.getQuantity());
             orderDetail.setOrderMember(finalOrderMember);
+            Optional<Product> productOptional = productRepository.findById(pro.getId());
+            if( productOptional.isEmpty()) throw  new NotFoundException("Product not found!");
+
+            Product product = productOptional.get();
+            product.setQuantity(product.getQuantity() - pro.getQuantity());
 
             cartService.removeItemFromCart(memberOrder.getId(), pro.getId());
             orderDetailRepository.save(orderDetail);
         });
 
-        return orderMemberRepository.findById(finalOrderMember.getId()).orElse(null);
+        return orderMemberRepository.findById(finalOrderMember.getId())
+                .orElseThrow(() -> new RuntimeException("Order failed!"));
     }
+
+    @Override
+    public List<OrderMember> getAllOrderByMemberId(Long mId) {
+
+        return orderMemberRepository.findByMember_Id(mId);
+    }
+
+    @Override
+    public OrderMember getDetailOrder(Long orderId) {
+        Optional<OrderMember> orderMemberOp = orderMemberRepository.findById(orderId);
+
+        return orderMemberOp.orElseThrow(() -> new NotFoundException("Order not found!"));
+    }
+
+    @Override
+    public OrderMember cancelOrder(Long orderId) {
+        Optional<OrderMember> orderMemberOptional = orderMemberRepository.findById(orderId);
+
+        if( orderMemberOptional.isEmpty() ) throw new NotFoundException("Order not found!");
+
+        OrderMember orderMember = orderMemberOptional.get();
+        List<OrderDetail> orderDetailList = orderMember.getOrderDetails();
+
+        for( OrderDetail orderDetail : orderDetailList ) {
+            Product product = orderDetail.getProduct();
+            int subAmount = orderDetail.getSubAmount();
+            product.setQuantity(product.getQuantity() + subAmount);
+            productRepository.save(product);
+        }
+        orderMember.setIsCancel(true);
+        orderMember.setOrderStatus(OrderStatus.CANCEL);
+
+        return orderMemberRepository.save(orderMember);
+    }
+
     @Override
     public Address createAddress(Address address) {
         return addressRepository.save(address);

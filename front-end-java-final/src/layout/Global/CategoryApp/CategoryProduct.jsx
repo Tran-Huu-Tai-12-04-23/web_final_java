@@ -27,8 +27,7 @@ const item = {
     },
 };
 
-console.log(categoryProduct);
-const CategoryApp = () => (
+const CategoryApp = ({ active }) => (
     <motion.div className="pt-10">
         <motion.ul
             className="flex justify-center gap-x-8 items-center flex-wrap"
@@ -40,7 +39,9 @@ const CategoryApp = () => (
                 <Link
                     to={cate?.path}
                     key={index}
-                    className="block cursor-pointer pt-4 pb-4 select-none "
+                    className={`block cursor-pointer pt-4 pb-4 select-none ${
+                        cate.category === active ? 'text-primary' : ''
+                    }`}
                     variants={item}
                 >
                     <AnimateHover className={'flex flex-col justify-center items-center'}>

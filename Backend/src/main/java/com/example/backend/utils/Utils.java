@@ -6,8 +6,18 @@ import com.example.backend.model.Product;
 import org.springframework.http.HttpStatus;
 
 import java.util.Objects;
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
+import java.nio.charset.StandardCharsets;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.util.Base64;
 
 public class Utils {
+    private static final String CHAR_UPPER = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    private static final String CHAR_LOWER = "abcdefghijklmnopqrstuvwxyz";
+    private static final String DIGITS = "0123456789";
     public static boolean isPhoneNumberValid(String phoneNumber) {
         String regex = "^(\\+\\d{1,3}[- ]?)?\\d{10}$";
         return phoneNumber.matches(regex);
@@ -20,6 +30,24 @@ public class Utils {
 
 
 
+    public static String generateHmacSha256Signature(String data, String key) throws SignatureGenerationException {
+        try {
+            Mac sha256Hmac = Mac.getInstance("HmacSHA256");
+            SecretKeySpec secretKey = new SecretKeySpec(key.getBytes(StandardCharsets.UTF_8), "HmacSHA256");
+            sha256Hmac.init(secretKey);
+
+            byte[] hmacBytes = sha256Hmac.doFinal(data.getBytes(StandardCharsets.UTF_8));
+            return Base64.getEncoder().encodeToString(hmacBytes);
+        } catch (NoSuchAlgorithmException | InvalidKeyException e) {
+            throw new SignatureGenerationException("Error generating HMAC SHA256 signature", e);
+        }
+    }
+
+    public static class SignatureGenerationException extends Exception {
+        public SignatureGenerationException(String message, Throwable cause) {
+            super(message, cause);
+        }
+    }
     public static void validatePageNumberAndSize(int page, int size) {
         if (page < 0) {
             throw new MainException(HttpStatus.BAD_REQUEST, "Page number cannot be less than zero.");
@@ -66,6 +94,7 @@ public class Utils {
         }
 
     }
+<<<<<<< HEAD
     public static void validateQuestionRequest(QuestionRequest questionRequest){
         if (questionRequest == null){
             throw new MainException(HttpStatus.BAD_REQUEST, "Question request cannot be null.");
@@ -82,4 +111,26 @@ public class Utils {
             throw new MainException(HttpStatus.BAD_REQUEST, "Product is required in the question request.");
         }
     }
+=======
+
+
+
+    private static final String ALL_CHARACTERS = CHAR_UPPER + CHAR_LOWER + DIGITS;
+
+    public static String generateRandomCode(int length) {
+        SecureRandom random = new SecureRandom();
+
+        StringBuilder codeBuilder = new StringBuilder();
+
+        for (int i = 0; i < length; i++) {
+            int randomIndex = random.nextInt(ALL_CHARACTERS.length());
+            char randomChar = ALL_CHARACTERS.charAt(randomIndex);
+            codeBuilder.append(randomChar);
+        }
+
+        return codeBuilder.toString();
+    }
+
+
+>>>>>>> 5f34d4ffeaa6eba9b171e83bb78a8e743a1a6065
 }

@@ -3,7 +3,7 @@ import { TextMain, Button, TextSub } from '../../components';
 function SummaryCart({ setActiveStep = () => {} }) {
     return (
         <div className="w-full rounded-md p-4 border-primary-style">
-            <TextMain className={'text-xxl font-bold pb-4 border-b-primary'}>Payment Details</TextMain>
+            <TextMain className={'text-xxl font-bold pb-4 border-b-primary'}>Chi tiết thanh toán</TextMain>
             <div className="flex mt-5 justify-between items-center">
                 <TextSub className={''}>Tạm tính</TextSub>
                 <TextSub className={''}>@$ 519.52</TextSub>

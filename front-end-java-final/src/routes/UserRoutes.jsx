@@ -1,6 +1,7 @@
 import { lazy } from 'react';
 import Constants from '../Constants';
 import MainLayout from '../layout/MainLayout';
+import UserAssessLayout from '../layout/UserAssessLayout';
 
 const Home = lazy(() => import('../layout/Home'));
 const Contact = lazy(() => import('../layout/Contact'));
@@ -30,61 +31,73 @@ export const MainRoutes = [
     {
         path: Constants.ACCOUNT_INFO,
         component: (
-            <MainLayout>
-                <Account>
-                    <AccountInfo />
-                </Account>
-            </MainLayout>
+            <UserAssessLayout>
+                <MainLayout>
+                    <Account>
+                        <AccountInfo />
+                    </Account>
+                </MainLayout>
+            </UserAssessLayout>
         ),
     },
     {
         path: Constants.ACCOUNT_ADDRESS,
         component: (
-            <MainLayout>
-                <Account>
-                    <AccountAddress />
-                </Account>
-            </MainLayout>
+            <UserAssessLayout>
+                <MainLayout>
+                    <Account>
+                        <AccountAddress />
+                    </Account>
+                </MainLayout>
+            </UserAssessLayout>
         ),
     },
     {
         path: Constants.ACCOUNT_CHANGE_PASSWORD,
         component: (
-            <MainLayout>
-                <Account>
-                    <AccountChangePassword />
-                </Account>
-            </MainLayout>
+            <UserAssessLayout>
+                <MainLayout>
+                    <Account>
+                        <AccountChangePassword />
+                    </Account>
+                </MainLayout>
+            </UserAssessLayout>
         ),
     },
     {
         path: Constants.ACCOUNT_ORDER,
         component: (
-            <MainLayout>
-                <Account>
-                    <AccountOrder />
-                </Account>
-            </MainLayout>
+            <UserAssessLayout>
+                <MainLayout>
+                    <Account>
+                        <AccountOrder />
+                    </Account>
+                </MainLayout>
+            </UserAssessLayout>
         ),
     },
     {
         path: Constants.ACCOUNT_ORDER + '/:id',
         component: (
-            <MainLayout>
-                <Account>
-                    <AccountOrderDetail />
-                </Account>
-            </MainLayout>
+            <UserAssessLayout>
+                <MainLayout>
+                    <Account>
+                        <AccountOrderDetail />
+                    </Account>
+                </MainLayout>
+            </UserAssessLayout>
         ),
     },
     {
         path: Constants.ACCOUNT_NOTIFICATION,
         component: (
-            <MainLayout>
-                <Account>
-                    <AccountNotification />
-                </Account>
-            </MainLayout>
+            <UserAssessLayout>
+                <MainLayout>
+                    <Account>
+                        <AccountNotification />
+                    </Account>
+                </MainLayout>
+            </UserAssessLayout>
         ),
     },
     {
@@ -124,9 +137,11 @@ export const MainRoutes = [
     {
         path: Constants.CART,
         component: (
-            <MainLayout>
-                <Cart />
-            </MainLayout>
+            <UserAssessLayout>
+                <MainLayout>
+                    <Cart />
+                </MainLayout>
+            </UserAssessLayout>
         ),
     },
     {

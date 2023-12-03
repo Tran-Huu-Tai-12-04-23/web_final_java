@@ -56,6 +56,7 @@ function Account({ children }) {
             }
         }
     }, [location]);
+
     return (
         <div className="pt-20 pb-20 flex justify-between gap-4 max-w-screen-xl m-auto p-4">
             <Sidebar active={active} />

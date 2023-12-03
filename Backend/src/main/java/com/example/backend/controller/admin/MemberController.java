@@ -18,7 +18,6 @@ import java.util.List;
 public class MemberController {
 
     private final IMemberService iMemberService;
-
     @GetMapping("")
     public ResponseEntity<List<Member>> getAllMember(
             @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
@@ -100,18 +99,17 @@ public class MemberController {
         }
     }
 
-    @GetMapping(value = "/detail-member")
-    public ResponseEntity<?> getMember(@RequestBody Long id) {
+    @GetMapping(value = "/detail-member/{mId}")
+    public ResponseEntity<?> getMember(@PathVariable Long mId) {
         try {
-            Member member = iMemberService.getMember(id);
+            Member member = iMemberService.getMember(mId);
             if (member != null) {
                 return ResponseEntity.ok(member);
             } else {
-                String errorMessage = "User with ID " + id + " not found.";
+                String errorMessage = "User with ID " + mId + " not found.";
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
             }
         } catch (Exception e) {
-            e.printStackTrace();
             ErrorResponse err = new ErrorResponse();
             err.setMessage(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(err);

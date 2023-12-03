@@ -1,15 +1,13 @@
 package com.example.backend.service;
 
-import com.example.backend.model.Account;
-import com.example.backend.model.Branch;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import com.example.backend.model.Brand;
 
 import java.util.List;
 
 public interface IBranchService {
-    Branch createNew(Branch br);
-    Branch update(Branch br, Long id);
-    List<Branch> getAllBranch();
+    Brand createNew(Brand br);
+    Brand update(Brand br, Long id);
+    List<Brand> getAllBranch();
     void delete(Long id);
 
 }

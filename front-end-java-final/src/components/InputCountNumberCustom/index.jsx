@@ -3,18 +3,22 @@ import { RxDividerHorizontal } from 'react-icons/rx';
 import { IoMdAdd } from 'react-icons/io';
 
 function InputCountNumberCustom({
+    disabled = false,
     center = true,
     className = 'bg-light-tiny dark:bg-dark-tiny',
     placeholder,
     onChange = () => {},
     onIncrease = () => {},
     onDecrease = () => {},
+    onBlur = () => {},
     value,
 }) {
     const [border, setBorder] = useState(false);
     return (
         <div
-            className={`w-full overflow-hidden ${className} border-[1px] flex justify-between items-center rounded-md ${
+            className={` overflow-hidden ${className} ${
+                disabled ? 'border-transparent' : ''
+            } border-[1px] flex justify-between items-center rounded-md ${
                 border
                     ? 'border-[rgba(251,111,146,0.5)]'
                     : ' dark:border-[rgba(255,255,255,0.1)] border-[rgba(0,0,0,0.1)]'
@@ -27,15 +31,19 @@ function InputCountNumberCustom({
                 <RxDividerHorizontal className="w-6 h-6 group-hover:text-primary"></RxDividerHorizontal>
             </div>
             <input
+                disabled={disabled}
                 onChange={onChange}
                 value={value}
                 placeholder={placeholder}
                 onFocus={(e) => setBorder(true)}
-                onBlur={(e) => setBorder(false)}
+                onBlur={(e) => {
+                    setBorder(false);
+                    onBlur();
+                }}
                 type="number"
-                className={`${
-                    center ? 'text-center' : ''
-                } [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none bg-transparent text-md w-full p-2 outline-none rounded-lg focus:ring-transparent focus:border-primary focus:outline-none border-none`}
+                className={`${center ? 'text-center' : ''}  ${
+                    disabled ? 'select-none' : ''
+                }  [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none bg-transparent text-md w-full p-2 outline-none rounded-lg focus:ring-transparent focus:border-primary focus:outline-none border-none`}
             ></input>
             <div
                 onClick={onIncrease}

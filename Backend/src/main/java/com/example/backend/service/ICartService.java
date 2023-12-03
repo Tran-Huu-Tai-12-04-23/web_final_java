@@ -1,9 +1,7 @@
 package com.example.backend.service;
 
-import com.example.backend.model.Cart;
-import com.example.backend.model.Member;
-import com.example.backend.model.Product;
-import com.example.backend.model.Question;
+import com.example.backend.dto.CartUpdateRequest;
+import com.example.backend.model.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +16,8 @@ public interface ICartService {
     Cart getDetailCartByMember(Long memberId);
     int countItemCart(Long mId);
     Cart removeItemFromCart(Long memberId, Long proId);
+
+    CartItem updateQuantityForItem(CartUpdateRequest cartUpdateRequest);
 
 }
 

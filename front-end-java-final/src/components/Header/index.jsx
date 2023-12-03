@@ -16,7 +16,6 @@ import Util from '../../utils/Util';
 import toast from 'react-hot-toast';
 import Constants from '../../Constants';
 
-import { BsArrowRightShort } from 'react-icons/bs';
 import { request } from '../../services';
 
 function Header() {
@@ -79,25 +78,6 @@ function Header() {
                     }  relative group hover:text-hover dark:hover:text-hover cursor-pointer rounded-md px-3 py-2 text-sm`}
                 >
                     {item.name}
-                    <>
-                        <div className="h-10 w-full bg-transparent absolute top-[90%] group"></div>
-                        <div className="text-black dark:text-white hidden group-hover:flex top-[110%] flex-col gap-4 p-4 rounded-md absolute z-50 min-w-[15rem] dark:bg-bg-dark-menu bg-bg-light-menu backdrop-blur-3xl">
-                            {item.subNav?.map((subNav, index) => {
-                                return (
-                                    <span
-                                        onClick={() => {
-                                            history(subNav.path);
-                                        }}
-                                        key={index}
-                                        className="peer justify-between flex items-center hover:bg-btn-second p-2 rounded-md cursor-pointer"
-                                    >
-                                        <span>{subNav.name}</span>
-                                        <BsArrowRightShort className="w-6 h-6 hidden peer-hover:block"></BsArrowRightShort>
-                                    </span>
-                                );
-                            })}
-                        </div>
-                    </>
                 </Link>
             );
         });
@@ -149,8 +129,9 @@ function Header() {
     return (
         <>
             {modalSign && <ModalSign onClose={(e) => setModalSign(!modalSign)} setAccount={setAccount}></ModalSign>}
-            {modalSearch && <ModalSearch onClose={(e) => setModalSearch(!modalSearch)} />}
+
             <div
+                onClick={(e) => e.stopPropagation()}
                 className={
                     'pl-10 pr-10 flex z-50 shadow-md items-center justify-between bg-bg-light-menu dark:bg-dark backdrop-blur-3xl border-header border-b-[3px] border-solid fixed top-0 left-0 right-0'
                 }
@@ -234,26 +215,8 @@ function Header() {
                         items={renderUserMenu()}
                     ></MenuUser>
                 )}
-
-                {/* <div className="relative ">
-                <div className="group">
-                    <button
-                        type="button"
-                        className=" relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                    >
-                        <img
-                            className="h-8 w-8 rounded-full"
-                            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                            alt=""
-                        />
-                    </button>
-                    <div class="absolute top-[50%] right-0 w-0 h-0 border-[1rem] border-solid border-transparent border-b-transparent"></div>
-                    <div className="group group-hover:block hidden absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-light dark:bg-dark text-white dark:text-dark py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                        {renderUserMenu()}
-                    </div>
-                </div>
-            </div> */}
             </div>
+            {modalSearch && <ModalSearch onClose={(e) => setModalSearch(!modalSearch)} />}
         </>
     );
 }

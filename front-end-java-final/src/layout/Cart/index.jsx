@@ -5,16 +5,14 @@ import { AnimateOpacity } from '../../components/Animate';
 
 import CartItem from './CartItem';
 import SummaryCart from './SummaryCart';
-import Checkout from './CheckOut';
+import Checkout from './Checkout';
 import SummaryYourOrder from './SummaryYourOrder';
 
 import { FaRegEdit } from 'react-icons/fa';
-import { AiOutlineClear } from 'react-icons/ai';
 import { request } from '../../services';
 import { useLogin } from '../../context/login';
 import toast from 'react-hot-toast';
 import { useLoading } from '../../context/loadingContext';
-import { ProvincesAndDistricts } from '../../components';
 import ModalEditAddress from './ModalEditAddress';
 import Constants from '../../Constants';
 
@@ -45,10 +43,11 @@ function Cart() {
         return true;
     };
     const commitOrder = async () => {
-        let total = cartItems.reduce((acc, item) => acc + item.price, 0);
+        let total = cartItems.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
         let productList = cartItems.map((item) => {
-            return { id: item.id, price: item.price, quantity: 1 };
+            return { id: item?.product.id, price: item?.product.price, quantity: item?.quantity };
         });
+        const amount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
         const orderRequest = {
             address: {
                 id: address?.id,
@@ -58,10 +57,11 @@ function Cart() {
                 id: account?.memberId,
             },
             total,
-            amount: cartItems.length,
+            amount: amount,
             products: productList,
         };
 
+        console.log(orderRequest);
         let isCheckData = verifyOrderRequest(orderRequest);
 
         if (!isCheckData) return;
@@ -100,7 +100,7 @@ function Cart() {
                 .then((response) => {
                     console.log(response);
                     if (response.data) {
-                        response.data.products && setCartItems(response.data.products);
+                        response.data.cartItems && setCartItems(response.data.cartItems);
                     }
                 })
                 .catch((err) => console.error(err));
@@ -272,6 +272,7 @@ function Cart() {
                                 </div>
                                 <div className="w-1/3">
                                     <SummaryYourOrder
+                                        data={cartItems}
                                         setActiveStep={setActiveStep}
                                         totalPrice={totalPrice}
                                     ></SummaryYourOrder>

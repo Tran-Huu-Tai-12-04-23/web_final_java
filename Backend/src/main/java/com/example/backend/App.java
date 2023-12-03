@@ -2,7 +2,6 @@ package com.example.backend;
 
 import com.example.backend.model.*;
 import com.example.backend.repository.*;
-import com.example.backend.service.impl.BranchService;
 import lombok.RequiredArgsConstructor;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -13,13 +12,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import java.awt.desktop.SystemSleepEvent;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -55,8 +48,8 @@ public class App implements CommandLineRunner {
             String[] listBranch = {"Apple", "Samsung", "Oppo", "Sony", "Xiaomi","Asus","Acer","Dell","MSI","Lenovo","LG"};
 
             for( String branch : listBranch) {
-                Branch newBranch = new Branch();
-                newBranch.setNameBranch(branch);
+                Brand newBranch = new Brand();
+                newBranch.setNameBrand(branch);
                 branchRepository.save(newBranch);
             }
 
@@ -108,30 +101,6 @@ public class App implements CommandLineRunner {
             listImg.add("link2");
 //            add tiep
             ///........
-
-            Product product = new Product();
-            product.setId(1L);
-            product.setLinkImages(listImg);
-            product.setColor(null);
-            product.setLinkVideo(null);
-            product.setThumbnails(null);
-            product.setDescription("test");
-            product.setShortDescription(null);
-            product.setName("New Product3");
-            product.setPrice(100.0);
-            product.setQuantity(10);
-            product.setScreenSize("5 inches");
-            product.setChipSet("Example Chipset");
-            product.setLaunchDate(null);
-            product.setStatus(true);
-            product.setIsDelete(false);
-
-//            set product specification o tren moi upload
-            product.setProductSpecification(productSpecification);
-
-            product = productRepository.save(product);
-
-            if( product == null) System.out.println("Upload product failed");
 
 //            end upload product
 
@@ -199,7 +168,7 @@ public class App implements CommandLineRunner {
     public void addPhoneProduct(List<String> productInfo,Long brandId,String productUrl){
         Product product = new Product();
         product.setCategory(categoryRepository.findById(2L).get());
-        product.setBranch(branchRepository.findById(brandId).get());
+        product.setBrand(branchRepository.findById(brandId).get());
         product.setLinkImages(getImageListPhone_Tablet(productUrl));
         product.setColor("Black");
         product.setLinkVideo(null);
@@ -248,7 +217,7 @@ public class App implements CommandLineRunner {
         Product product = new Product();
 //        product.setId(id);
         product.setCategory(categoryRepository.findById(1L).get());
-        product.setBranch(branchRepository.findById(brandID).get());
+        product.setBrand(branchRepository.findById(brandID).get());
         product.setLinkImages(getImageListPhone_Tablet(productURL));
         product.setColor("Black");
         product.setLinkVideo(null);
@@ -344,7 +313,7 @@ public class App implements CommandLineRunner {
     public void addLaptopProduct(List<String> productInfo,Long brandID,String productUrl){
         Product product = new Product();
         product.setCategory(categoryRepository.findById(4L).get());
-        product.setBranch(branchRepository.findById(brandID).get());
+        product.setBrand(branchRepository.findById(brandID).get());
         product.setLinkImages(getImageLaptop(productUrl));
         product.setColor(getFeature(productInfo,"Màu sắc"));
         product.setLinkVideo(null);
