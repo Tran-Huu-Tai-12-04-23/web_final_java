@@ -1,16 +1,3 @@
-<<<<<<< HEAD
-import OrderItem from './OrderItem';
-
-function ViewOrder({ orders = [] }) {
-    return (
-        <div className="flex flex-col gap-4 p-4">
-            <OrderItem></OrderItem>
-            <OrderItem></OrderItem>
-            <OrderItem></OrderItem>
-            <OrderItem></OrderItem>
-            <OrderItem></OrderItem>
-            <OrderItem></OrderItem>
-=======
 import { useState } from 'react';
 import OrderItem from './OrderItem';
 import { useLogin } from '../../../../context/login';
@@ -57,7 +44,6 @@ function ViewOrder() {
                 orders.map((order, index) => {
                     return <OrderItem key={index} data={order} setOrderMembers={setOrders}></OrderItem>;
                 })}
->>>>>>> main
         </div>
     );
 }

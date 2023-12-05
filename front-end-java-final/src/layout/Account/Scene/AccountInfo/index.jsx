@@ -5,13 +5,6 @@ import { IoClose } from 'react-icons/io5';
 import { VscSaveAs } from 'react-icons/vsc';
 import toast from 'react-hot-toast';
 import Util from '../../../../utils/Util';
-<<<<<<< HEAD
-
-function AccountInfo() {
-    const [username, setUsername] = useState('Tran huu tai');
-    const [email, setEmail] = useState('Tran huu tai');
-    const [phoneNumber, setPhoneNumber] = useState('Tran huu tai');
-=======
 import { useEffect } from 'react';
 import { useLoading } from '../../../../context/loadingContext';
 import { request } from '../../../../services';
@@ -24,7 +17,6 @@ function AccountInfo() {
     const [email, setEmail] = useState('Tran huu tai');
     const [phoneNumber, setPhoneNumber] = useState('Tran huu tai');
     const [member, setMember] = useState(null);
->>>>>>> main
 
     const [edit, setEdit] = useState(false);
 
@@ -51,9 +43,6 @@ function AccountInfo() {
             email,
             phoneNumber,
         };
-<<<<<<< HEAD
-    };
-=======
 
         startLoading();
         await request('PUT', `/api/v1/user/member/${account.memberId}`, data)
@@ -111,7 +100,6 @@ function AccountInfo() {
         }
     }, [member]);
 
->>>>>>> main
     return (
         <div className="p-4 flex flex-col gap-2 ">
             <div className="border-b-primary pb-2">

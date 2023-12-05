@@ -88,15 +88,6 @@ function Carousel({ data = defaultData, onDoubleClick = () => {} }) {
                             onDoubleClick={() => {
                                 onDoubleClick();
                             }}
-<<<<<<< HEAD
-                            className={'w-full rounded-xl '}
-                        >
-                            <motion.img
-                                src={item}
-                                alt={'sale'}
-                                className=" rounded-xl max-h-[40rem] m-auto"
-                            ></motion.img>
-=======
                             className={'w-full rounded-xl  flex justify-center items-center'}
                         >
                             <div className="w-full h-full  min-h-[30rem] flex justify-center items-center">
@@ -106,7 +97,6 @@ function Carousel({ data = defaultData, onDoubleClick = () => {} }) {
                                     className="  min-h-[15rem] rounded-xl scale-125 m-auto"
                                 ></img>
                             </div>
->>>>>>> main
                         </motion.div>
                     ))}
                 </Slider>

@@ -1,14 +1,9 @@
-<<<<<<< HEAD
-import { useState } from 'react';
-=======
 import { useState, useEffect } from 'react';
->>>>>>> main
 import { Button, Input, TextMain, TextSub } from '../../../../components';
 import { MdModeEdit } from 'react-icons/md';
 import { IoClose } from 'react-icons/io5';
 import { IoMdSend } from 'react-icons/io';
 import { VscSaveAs } from 'react-icons/vsc';
-<<<<<<< HEAD
 import { FaCheck } from 'react-icons/fa6';
 import toast from 'react-hot-toast';
 import Util from '../../../../utils/Util';
@@ -43,7 +38,6 @@ function AccountChangPassword() {
         //     toast.error('Tên đăng nhập không được để trống!');
         //     return;
         // }
-=======
 import { IoIosCheckmark } from 'react-icons/io';
 import toast from 'react-hot-toast';
 import { useLogin } from '../../../../context/login';
@@ -150,7 +144,6 @@ function AccountChangPassword() {
                 console.error(err);
             });
         stopLoading();
->>>>>>> main
     };
     const cancel = async () => {
         setChangePassword(false);
@@ -160,8 +153,6 @@ function AccountChangPassword() {
         //     return;
         // }
     };
-<<<<<<< HEAD
-=======
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -176,7 +167,6 @@ function AccountChangPassword() {
         // Clean up the interval when the component is unmounted
         return () => clearInterval(timer);
     }, [secondsLeft]);
->>>>>>> main
     return (
         <div className="p-4 flex flex-col gap-2 ">
             <div className="border-b-primary pb-2 ">
@@ -192,16 +182,6 @@ function AccountChangPassword() {
                         placeholder=""
                         label="Mật khẩu cũ"
                     ></Input>
-<<<<<<< HEAD
-                    <Input
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        label="Email xác nhận"
-                        placeholder=" "
-                    ></Input>
-=======
-
->>>>>>> main
                     <Button
                         onClick={sendOTP}
                         className="mt-4 dark:hover:brightness-125 pl-4 w-fit flex justify-center items-center pr-4 p-2 rounded-md bg-bg-light-menu dark:bg-bg-dark-menu"
@@ -221,15 +201,6 @@ function AccountChangPassword() {
                         label="Nhập mã OTP"
                         placeholder=" "
                     ></Input>
-<<<<<<< HEAD
-                    <Button
-                        onClick={verifyOTP}
-                        className="flex justify-center items-center py-2 px-3 text-sm font-medium text-gray-500 bg-bg-light-menu  dark:bg-bg-dark-menu rounded-md pl-4 pr-4 hover:text-gray-900  dark:text-gray-300 dark:hover:text-white dark:hover:brightness-125 "
-                    >
-                        <FaCheck className="w-6 h-6 mr-3" />
-                        <span>Kiểm tra</span>
-                    </Button>
-=======
                     <div className="flex justify-start items-center gap-3">
                         <Button
                             onClick={verifyOTP}
@@ -250,7 +221,6 @@ function AccountChangPassword() {
                         )}
                         {secondsLeft > 0 && <TextMain>Còn lại {secondsLeft}s</TextMain>}
                     </div>
->>>>>>> main
                 </>
             )}
 
@@ -267,10 +237,7 @@ function AccountChangPassword() {
                         placeholder=" "
                     ></Input>
                     <Input
-<<<<<<< HEAD
-=======
                         type="password"
->>>>>>> main
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
                         label="Xác nhận mật khẩu mới"

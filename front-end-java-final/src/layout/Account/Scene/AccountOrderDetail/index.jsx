@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-import { useState } from 'react';
-=======
 import { useEffect, useState } from 'react';
->>>>>>> main
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { Button, TextMain, TextSub, TimeLine } from '../../../../components';
@@ -10,14 +6,12 @@ import TimelineOder from './TimelineOrder';
 
 import { CiDeliveryTruck } from 'react-icons/ci';
 import { IoIosArrowBack } from 'react-icons/io';
-<<<<<<< HEAD
 
 import ItemDetailOrder from './ItemDetailOrder';
 
 function AccountOrderDetail() {
     const history = useNavigate();
     const params = useParams();
-=======
 import { LiaFileInvoiceSolid } from 'react-icons/lia';
 import { FaVoteYea } from 'react-icons/fa';
 import { IoCloseSharp } from 'react-icons/io5';
@@ -70,7 +64,6 @@ function AccountOrderDetail() {
             stopLoading();
         }
     };
->>>>>>> main
 
     return (
         <div className="p-4 w-full">
@@ -85,34 +78,6 @@ function AccountOrderDetail() {
                 </div>
             </div>
 
-<<<<<<< HEAD
-            <TimelineOder></TimelineOder>
-
-            <div className="flex justify-start flex-col items-start border-t-primary pt-2">
-                <TextMain className={'ml-4'}>Địa chỉ nhận hàng</TextMain>
-
-                <div className="flex justify-start items-start flex-col gap-2 mt-4 border-t-primary pt-2 w-full">
-                    <div className="flex flex-col gap-4 ml-4">
-                        <TextSub>Tran huu tai</TextSub>
-                        <TextSub>0376100548</TextSub>
-                        <TextSub>HCM city </TextSub>
-                        <TextSub>458/21</TextSub>
-                    </div>
-                </div>
-            </div>
-
-            <div className="flex flex-col gap-3 w-full p-2 mt-5">
-                <ItemDetailOrder></ItemDetailOrder>
-                <ItemDetailOrder></ItemDetailOrder>
-                <ItemDetailOrder></ItemDetailOrder>
-            </div>
-
-            <div className="flex justify-end flex-col items-end pt-2">
-                <TextSub className={''}>Tổng : Đ 100</TextSub>
-                <TextSub className={''}>Ngày nhận : 12-04-2003</TextSub>
-                <TextSub className={'text-sale'}>Thanh toán khi nhận hàng</TextSub>
-            </div>
-=======
             {orderMember && (
                 <div>
                     {orderMember.isCancel ? (
@@ -170,7 +135,6 @@ function AccountOrderDetail() {
                     </div>
                 </div>
             )}
->>>>>>> main
         </div>
     );
 }

@@ -16,10 +16,6 @@ import Util from '../../utils/Util';
 import toast from 'react-hot-toast';
 import Constants from '../../Constants';
 
-<<<<<<< HEAD
-import { BsArrowRightShort } from 'react-icons/bs';
-=======
->>>>>>> main
 import { request } from '../../services';
 
 function Header() {
