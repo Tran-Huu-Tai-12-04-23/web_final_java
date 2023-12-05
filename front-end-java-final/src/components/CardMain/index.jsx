@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-import { useState, useEffect } from 'react';
-=======
 import { useState, useEffect, memo } from 'react';
->>>>>>> main
 
 import { Button } from '../index';
 import { motion } from 'framer-motion';
@@ -17,10 +13,6 @@ import { TextSub } from '../index';
 import { useLogin } from '../../context/login';
 import toast from 'react-hot-toast';
 import { request } from '../../services';
-<<<<<<< HEAD
-import { LiaTrashRestoreAltSolid } from 'react-icons/lia';
-=======
->>>>>>> main
 import { useLoading } from '../../context/loadingContext';
 import { Skeleton } from '../index';
 import Constants from '../../Constants';
@@ -107,25 +99,12 @@ function CardMain({ width = undefined, sale = true, data }) {
                     }}
                     className={`${width}  border-gray-200  dark:border-gray-700 flex-shrink-0 dark:text-white bg-white dark:bg-dark-tiny text-black shadow-md relative cursor-pointer p-2 rounded-lg overflow-hidden`}
                 >
-<<<<<<< HEAD
-                    {sale ? (
-=======
                     {/* {sale ? (
->>>>>>> main
                         <div className="absolute top-[5%] left-0 rounded-r-md w-10 text-sm text-center text-sale bg-sale">
                             13%
                         </div>
                     ) : (
                         <></>
-<<<<<<< HEAD
-                    )}
-                    <div className="  w-full flex items-center justify-center ">
-                        <img src={data?.thumbnails} className="max-w-[10rem] w-1/2 rounded-lg"></img>
-                    </div>
-                    <div className="flex p-2 flex-col ">
-                        <h5 className="group-hover:text-primary text-md truncate">{data?.name}</h5>
-                        <h5 className="group-hover:text-primary text-sm mt-2 text-second dark:text-white truncate">
-=======
                     )} */}
                     <div className="  w-full flex items-center justify-center ">
                         <img src={data?.thumbnails} className="max-w-[10rem] w-1/2 rounded-lg"></img>
@@ -133,18 +112,13 @@ function CardMain({ width = undefined, sale = true, data }) {
                     <div className="flex gap-2 flex-col ">
                         <h5 className="group-hover:text-primary text-md truncate">{data?.name}</h5>
                         <h5 className="group-hover:text-primary text-sm  text-second dark:text-white truncate">
->>>>>>> main
                             {data?.productSpecification?.typeCPU}
                         </h5>
                         <div className="w-full mt-3 h-fit overflow-hidden">
                             <div className="flex justify-between items-end w-full ">
                                 <div className="flex flex-col">
                                     <TextSub className="line-through">35$</TextSub>
-<<<<<<< HEAD
-                                    <TextSub className={'text-[#9ea1db] dark:text-[#4d29a2]'}>{data?.price} $</TextSub>
-=======
                                     <TextSub className={'text-orange-500'}>đ{data?.price.toFixed(2)}</TextSub>
->>>>>>> main
                                 </div>
                                 {/* <div className="flex justify-end items-center">
                             <AiFillStar className="h-4 w-4 text-yellow-400"></AiFillStar>

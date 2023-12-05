@@ -22,11 +22,7 @@ function Banner() {
                 <div className=" relative flex justify-center items-start flex-col">
                     <AnimateText className={'text-5xl font-bold'}>Java Tech</AnimateText>
                     <AnimateText className={'text-xl mt-5 mb-5'}>
-<<<<<<< HEAD
-                        "Tham gia vào thế giới <motion.span className="ml-2 text-primary">cồng nghệ</motion.span>"
-=======
                         "Tham gia vào thế giới <span className="ml-2 text-primary">cồng nghệ</span>"
->>>>>>> main
                     </AnimateText>
                     <Button
                         onClick={() => {
@@ -35,11 +31,7 @@ function Banner() {
                         className={'rounded-xl flex justify-center items-center  pl-4 pr-4 p-2 bg-second'}
                     >
                         <CiShop className="h-8 w-8 text-primary"></CiShop>
-<<<<<<< HEAD
-                        <motion.span className="ml-1 text-primary">KHÁM PHÁ NGAY</motion.span>
-=======
                         <span className="ml-1 text-primary">KHÁM PHÁ NGAY</span>
->>>>>>> main
                     </Button>
                 </div>
                 <AnimateOpacity className={'max-h-[40rem]'}>

@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-=======
 import { motion } from 'framer-motion';
->>>>>>> main
 import { TextMain, TextSub } from '../index';
 import { BsCalendar4Week } from 'react-icons/bs';
 import { GiAlarmClock } from 'react-icons/gi';
@@ -10,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 function BlogItem({ data = {}, width, className, direction = 'vertical' }) {
     const history = useNavigate();
     return (
-        <div
+        <motion.div
             whileHover={{ scale: 1, transition: { duration: 0.3 } }}
             whileTap={{
                 scale: 0.8,
@@ -57,11 +54,7 @@ function BlogItem({ data = {}, width, className, direction = 'vertical' }) {
                     </TextSub>
                 </div>
             </div>
-<<<<<<< HEAD
-        </div>
-=======
         </motion.div>
->>>>>>> main
     );
 }
 
