@@ -28,7 +28,7 @@ function Information({ data }) {
         },
         {
             name: 'Câu hỏi',
-            tabContent: <Questions />,
+            tabContent: <Questions productId={data?.id} />,
             icon: (
                 <BsPatchQuestion className="w-6 h-6 brightness-50 group-hover:text-primary group-hover:brightness-100"></BsPatchQuestion>
             ),

@@ -20,6 +20,12 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ProductController {
     private final IProductService iProductService;
+
+    @GetMapping("/questions/{productId}")
+    public ResponseEntity<?> getQuestionByProduct(@PathVariable Long productId) {
+        return ResponseEntity.ok(iProductService.getQuestionProduct(productId));
+
+    }
     @GetMapping
     public ResponseEntity<List<Product>> getAllProduct(
             @RequestParam(name = "minPrice", required = false, defaultValue = "") Double minPrice,

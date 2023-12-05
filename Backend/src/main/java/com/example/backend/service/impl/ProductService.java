@@ -5,9 +5,11 @@ import com.example.backend.exception.NotFoundException;
 import com.example.backend.model.Category;
 import com.example.backend.model.Product;
 import com.example.backend.model.ProductSpecification;
+import com.example.backend.model.Question;
 import com.example.backend.repository.CategoryRepository;
 import com.example.backend.repository.ProductRepository;
 import com.example.backend.repository.ProductSpecificationRepository;
+import com.example.backend.repository.QuestionRepository;
 import com.example.backend.service.IProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -26,6 +28,7 @@ public class ProductService implements IProductService {
     private final ProductRepository productRepository;
     private final ProductSpecificationRepository productSpecificationRepository;
     private final CategoryRepository categoryRepository;
+    private final QuestionRepository questionRepository;
 
     @Override
     public Long countProductByStatus(Boolean status) {
@@ -228,5 +231,10 @@ public class ProductService implements IProductService {
         }
         return productRepository.searchProductNotDeleteByNameBrandCategoryContainingAndCategoryAndBetweenPriceAndStatus("",categoryId,null, minPrice, maxPrice, status, pageable);
 
+    }
+
+    @Override
+    public List<Question> getQuestionProduct(Long productId) {
+        return questionRepository.findByProduct_Id(productId);
     }
 }

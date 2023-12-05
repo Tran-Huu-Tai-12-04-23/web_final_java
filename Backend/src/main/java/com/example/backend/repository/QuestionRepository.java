@@ -9,6 +9,7 @@ import java.util.List;
 
 public interface QuestionRepository extends JpaRepository<Question, Long> {
     List<Question> findByContentContains(String key, Pageable pageable);
+    List<Question> findByProduct_Id(Long productId);
     Page<Question> findByIsDeletedTrue(Pageable pageable);
     Page<Question> findByIsRepliedFalse(Pageable pageable);
     Page<Question> findByIsRepliedTrue(Pageable pageable);

@@ -2,6 +2,7 @@ package com.example.backend.service;
 
 import com.example.backend.model.Product;
 import com.example.backend.model.ProductSpecification;
+import com.example.backend.model.Question;
 
 import java.util.List;
 import java.util.Optional;
@@ -35,4 +36,5 @@ public interface IProductService {
     Product changeDraft(Long productId);
     List<Product> getAllProductUser(Integer page, Integer size, Long categoryId, Double minPrice, Double maxPrice, String sortType, Boolean status);
 
+    List<Question> getQuestionProduct(Long productId);
 }

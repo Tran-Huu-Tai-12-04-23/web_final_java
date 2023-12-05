@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { AnimateOpacity } from '../../../components/Animate';
 import { Button, Input, TextMain, TextSub } from '../../../components';
 
@@ -5,8 +6,13 @@ import { LiaCommentAltSolid } from 'react-icons/lia';
 import { VscSend } from 'react-icons/vsc';
 
 import SubBoxReplyQuestion from './SubBoxReplyQuestion';
+import { useEffect } from 'react';
+import { useLoading } from '../../../context/loadingContext';
+import { request } from '../../../services';
 
-function Questions() {
+function Questions({ productId }) {
+    const [questions, setQuestions] = useState(null);
+    const { startLoading, stopLoading } = useLoading();
     const questionsData = [
         {
             memberName: 'Tran huu tai',
@@ -52,41 +58,63 @@ Thân mến !`,
             ],
         },
     ];
+
+    useEffect(() => {
+        const getQuestions = async () => {
+            startLoading();
+            await request('GET', `/api/v1/public/product/questions/${productId}`)
+                .then((res) => {
+                    if (res.data) {
+                        setQuestions(res.data);
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+            stopLoading();
+        };
+
+        if (productId) {
+            getQuestions();
+        }
+    }, [productId]);
+
     return (
         <AnimateOpacity className={'p-4 rounded-md'}>
             <TextMain className={'border-b-primary pb-3'}>Q&A</TextMain>
 
             <div className="border-primary-style rounded-md mt-4 p-3">
-                {questionsData.map((boxQues, index) => {
-                    return (
-                        <div className="" key={index}>
-                            <div className="flex flex-col">
-                                <div className="flex justify-between items-center">
-                                    <div className="flex justify-start items-center gap-4">
-                                        <img
-                                            className="w-8 h-8 rounded-full"
-                                            src={boxQues.avatar}
-                                            alt="avatar user"
-                                        ></img>
-                                        <span>{boxQues.memberName}</span>
+                {questions &&
+                    questions.map((boxQues, index) => {
+                        return (
+                            <div className="" key={index}>
+                                <div className="flex flex-col">
+                                    <div className="flex justify-between items-center">
+                                        <div className="flex justify-start items-center gap-4">
+                                            <img
+                                                className="w-8 h-8 rounded-full"
+                                                src={boxQues.avatar}
+                                                alt="avatar user"
+                                            ></img>
+                                            <span>{boxQues.memberName}</span>
+                                        </div>
+                                        <span className="brightness-50">{boxQues.createAt}</span>
                                     </div>
-                                    <span className="brightness-50">{boxQues.createAt}</span>
-                                </div>
-                                <div className="flex  p-4 mt-3 rounded-md justify-between items-end bg-light-tiny dark:bg-dark-tiny">
-                                    <span>{boxQues.content}</span>
-                                    <Button className="flex justify-start ml-4 items-center brightness-75 hover:text-primary cursor-pointer">
-                                        <LiaCommentAltSolid className="mr-1 w-6 h-6 "></LiaCommentAltSolid>
-                                        <span>Trở lời</span>
-                                    </Button>
-                                </div>
+                                    <div className="flex  p-4 mt-3 rounded-md justify-between items-end bg-light-tiny dark:bg-dark-tiny">
+                                        <span>{boxQues.content}</span>
+                                        <Button className="flex justify-start ml-4 items-center brightness-75 hover:text-primary cursor-pointer">
+                                            <LiaCommentAltSolid className="mr-1 w-6 h-6 "></LiaCommentAltSolid>
+                                            <span>Trở lời</span>
+                                        </Button>
+                                    </div>
 
-                                <div className="ml-8 mt-4 flex flex-col gap-4">
-                                    <SubBoxReplyQuestion data={questionsData}></SubBoxReplyQuestion>
+                                    <div className="ml-8 mt-4 flex flex-col gap-4">
+                                        <SubBoxReplyQuestion data={questionsData}></SubBoxReplyQuestion>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    );
-                })}
+                        );
+                    })}
 
                 <div className="flex justify-between gap-4 mt-3 items-center pt-3 pl-2 pr-2 border-t-primary">
                     <Input className="w-full" placeholder="Nhập vào câu hỏi..."></Input>
