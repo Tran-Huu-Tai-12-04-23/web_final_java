@@ -72,11 +72,7 @@ function AddressItem({
                         Chọn làm mặc định
                     </Button>
                     <Button
-<<<<<<< HEAD
-                        onClick={() => setModalConfirmRemove(true)}
-=======
                         onClick={() => setAddressIdForRemove(address.id)}
->>>>>>> main
                         className="text-red-500 bg-status-cancel bg-btn-second pl-5 pr-5 p-2 rounded-md"
                     >
                         <BsFillTrashFill className="ư-6 h-6"></BsFillTrashFill>

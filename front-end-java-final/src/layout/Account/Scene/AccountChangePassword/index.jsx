@@ -8,38 +8,40 @@ import { FaCheck } from 'react-icons/fa6';
 import toast from 'react-hot-toast';
 import Util from '../../../../utils/Util';
 
-function AccountChangPassword() {
-    const [oldPassword, setOldPassword] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const [email, setEmail] = useState('');
-    const [OTP, setOTP] = useState('');
-    const [confirmOtp, setConfirmOtp] = useState(false);
-    const [changePassword, setChangePassword] = useState(false);
+// function AccountChangPassword() {
+//     const [oldPassword, setOldPassword] = useState('');
+//     const [password, setPassword] = useState('');
+//     const [confirmPassword, setConfirmPassword] = useState('');
+//     const [email, setEmail] = useState('');
+//     const [OTP, setOTP] = useState('');
+//     const [confirmOtp, setConfirmOtp] = useState(false);
+//     const [changePassword, setChangePassword] = useState(false);
 
-    const [edit, setEdit] = useState(true);
-    const sendOTP = async () => {
-        // if (username === '') {
-        //     toast.error('Tên đăng nhập không được để trống!');
-        //     return;
-        // }
-        setConfirmOtp(true);
-    };
-    const verifyOTP = async () => {
-        setChangePassword(true);
-        setConfirmOtp(false);
-        // if (username === '') {
-        //     toast.error('Tên đăng nhập không được để trống!');
-        //     return;
-        // }
-    };
-    const commitChangePassword = async () => {
-        // if (username === '') {
-        //     toast.error('Tên đăng nhập không được để trống!');
-        //     return;
-        // }
+//     const [edit, setEdit] = useState(true);
+//     const sendOTP = async () => {
+//         // if (username === '') {
+//         //     toast.error('Tên đăng nhập không được để trống!');
+//         //     return;
+//         // }
+//         setConfirmOtp(true);
+//     };
+//     const verifyOTP = async () => {
+//         setChangePassword(true);
+//         setConfirmOtp(false);
+//         // if (username === '') {
+//         //     toast.error('Tên đăng nhập không được để trống!');
+//         //     return;
+//         // }
+//     };
+//     const commitChangePassword = async () => {
+//         // if (username === '') {
+//         //     toast.error('Tên đăng nhập không được để trống!');
+//         //     return;
+//         // }
+//     }
+// }
 import { IoIosCheckmark } from 'react-icons/io';
-import toast from 'react-hot-toast';
+// import toast from 'react-hot-toast';
 import { useLogin } from '../../../../context/login';
 import { useLoading } from '../../../../context/loadingContext';
 import { request } from '../../../../services';
@@ -227,10 +229,7 @@ function AccountChangPassword() {
             {changePassword && (
                 <>
                     <Input
-<<<<<<< HEAD
-=======
                         type="password"
->>>>>>> main
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         label="Nhập mật khẩu mới"

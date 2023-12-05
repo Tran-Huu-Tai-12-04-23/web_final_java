@@ -54,11 +54,7 @@ function Summary({ data }) {
                 <ul className="flex flex-col gap-4 max-w-[26rem] m-4  rounded-md p-4 text-md list-disc">
                     <li className="flex justify-start items-center ">
                         <span className="min-w-[10rem]">Thương hiệu :</span>
-<<<<<<< HEAD
-                        <div className=" text-left font-bold">{data?.branch?.nameBranch}</div>
-=======
                         <div className=" text-left font-bold">{data?.brand?.nameBrand}</div>
->>>>>>> main
                     </li>
                     <li className="flex justify-start items-center ">
                         <span className="min-w-[10rem]">Phân loại : </span>

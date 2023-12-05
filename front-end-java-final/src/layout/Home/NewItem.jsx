@@ -54,16 +54,12 @@ export default function NewItem() {
         <div className="p-10 relative">
             <motion.div className="flex justify-between mb-10 items-center border-b-[1px] border-solid border-primary">
                 <motion.h1 className="text-3xl font-bold">Sản phẩm mới</motion.h1>
-<<<<<<< HEAD
-                <motion.h4 className="underline cursor-pointer hover:text-primary">Xem tất cả</motion.h4>
-=======
                 <motion.h4
                     className="underline cursor-pointer hover:text-primary"
                     onClick={() => history(Constants.PRODUCT)}
                 >
                     Xem tất cả
                 </motion.h4>
->>>>>>> main
             </motion.div>
             <MediaQuery query="(min-width: 1024px)">
                 <Slider {...settingLaptop}>

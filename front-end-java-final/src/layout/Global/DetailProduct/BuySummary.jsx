@@ -38,10 +38,6 @@ function BuySummary({ data }) {
             toast('Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng!', {
                 icon: '⚠️',
             });
-<<<<<<< HEAD
-
-=======
->>>>>>> main
             return;
         }
 
@@ -49,8 +45,6 @@ function BuySummary({ data }) {
         await handleAddToCart();
         stopLoading();
     };
-<<<<<<< HEAD
-=======
     const handleBuyNow = async () => {
         if (account === null) {
             toast('Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng!', {
@@ -64,28 +58,11 @@ function BuySummary({ data }) {
         stopLoading();
         history('/cart');
     };
->>>>>>> main
     return (
         <div className="min-w-[20rem] h-fit p-4 bg-light-tiny dark:bg-dark-tiny rounded-md ">
             <TextMain className={'text-xl font-bold'}>Thanh toán ngay</TextMain>
 
             <div className="mt-2 pt-4 border-dashed border-t-[1px] border-light-tiny dark:border-dark-tiny">
-<<<<<<< HEAD
-                <div className="flex flex-col gap-4">
-                    <Button
-                        className=" bg-primary text-center p-2 rounded-md"
-                        onClick={async () => {
-                            await addToCart();
-                            history('/cart');
-                        }}
-                    >
-                        Mua ngay
-                    </Button>
-                    <Button style={'outline'} onClick={addToCart}>
-                        Thêm vào giỏ hàng
-                    </Button>
-                </div>
-=======
                 {account ? (
                     <div className="flex flex-col gap-4">
                         <Button className=" bg-primary text-center p-2 rounded-md" onClick={handleBuyNow}>
@@ -100,7 +77,6 @@ function BuySummary({ data }) {
                         Đăng nhập ngay
                     </Button>
                 )}
->>>>>>> main
             </div>
             <div className="font-bold text-primary mt-2 pt-4 border-dashed border-t-[1px] border-light-tiny dark:border-dark-tiny">
                 ${data?.price}

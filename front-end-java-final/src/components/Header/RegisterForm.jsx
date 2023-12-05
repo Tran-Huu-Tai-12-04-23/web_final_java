@@ -17,10 +17,7 @@ function RegisterForm({ switchLogin = () => {} }) {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [loading, setLoading] = useState(false);
-<<<<<<< HEAD
-=======
     const [policy, setPolicy] = useState(false);
->>>>>>> main
 
     const handleRegister = async () => {
         const user = {
@@ -87,16 +84,12 @@ function RegisterForm({ switchLogin = () => {} }) {
             });
             return;
         }
-<<<<<<< HEAD
-        await handleRegister();
-=======
 
         if (policy) {
             await handleRegister();
         } else {
             toast.error('Bạn chưa đồng ý với điều khoản của chúng tôi!');
         }
->>>>>>> main
     };
     return (
         <motion.form
@@ -158,11 +151,7 @@ function RegisterForm({ switchLogin = () => {} }) {
             <Link to="" className="hover:text-primary text-sm w-full block text-right mt-2 ml-auto">
                 Quên mật khẩu?
             </Link>
-<<<<<<< HEAD
-            <Toggle name="Tôi đồng ý với các điều khoản"></Toggle>
-=======
             <Toggle onChange={(e) => setPolicy(e.target.checked)} name="Tôi đồng ý với các điều khoản"></Toggle>
->>>>>>> main
             <Button className={'w-full rounded-lg p-3 text-center mt-5 bg-primary text-white '} onClick={register}>
                 Tạo tài khoản
             </Button>

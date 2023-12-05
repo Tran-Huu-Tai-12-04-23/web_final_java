@@ -5,26 +5,14 @@ import { AnimateOpacity } from '../../components/Animate';
 
 import CartItem from './CartItem';
 import SummaryCart from './SummaryCart';
-<<<<<<< HEAD
-import Checkout from './CheckOut';
-import SummaryYourOrder from './SummaryYourOrder';
-
-import { FaRegEdit } from 'react-icons/fa';
-import { AiOutlineClear } from 'react-icons/ai';
-=======
 import Checkout from './Checkout';
 import SummaryYourOrder from './SummaryYourOrder';
 
 import { FaRegEdit } from 'react-icons/fa';
->>>>>>> main
 import { request } from '../../services';
 import { useLogin } from '../../context/login';
 import toast from 'react-hot-toast';
 import { useLoading } from '../../context/loadingContext';
-<<<<<<< HEAD
-import { ProvincesAndDistricts } from '../../components';
-=======
->>>>>>> main
 import ModalEditAddress from './ModalEditAddress';
 import Constants from '../../Constants';
 
@@ -55,18 +43,11 @@ function Cart() {
         return true;
     };
     const commitOrder = async () => {
-<<<<<<< HEAD
-        let total = cartItems.reduce((acc, item) => acc + item.price, 0);
-        let productList = cartItems.map((item) => {
-            return { id: item.id, price: item.price, quantity: 1 };
-        });
-=======
         let total = cartItems.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
         let productList = cartItems.map((item) => {
             return { id: item?.product.id, price: item?.product.price, quantity: item?.quantity };
         });
         const amount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
->>>>>>> main
         const orderRequest = {
             address: {
                 id: address?.id,
@@ -76,18 +57,11 @@ function Cart() {
                 id: account?.memberId,
             },
             total,
-<<<<<<< HEAD
-            amount: cartItems.length,
-            products: productList,
-        };
-
-=======
             amount: amount,
             products: productList,
         };
 
         console.log(orderRequest);
->>>>>>> main
         let isCheckData = verifyOrderRequest(orderRequest);
 
         if (!isCheckData) return;
@@ -126,11 +100,7 @@ function Cart() {
                 .then((response) => {
                     console.log(response);
                     if (response.data) {
-<<<<<<< HEAD
-                        response.data.products && setCartItems(response.data.products);
-=======
                         response.data.cartItems && setCartItems(response.data.cartItems);
->>>>>>> main
                     }
                 })
                 .catch((err) => console.error(err));
@@ -302,10 +272,7 @@ function Cart() {
                                 </div>
                                 <div className="w-1/3">
                                     <SummaryYourOrder
-<<<<<<< HEAD
-=======
                                         data={cartItems}
->>>>>>> main
                                         setActiveStep={setActiveStep}
                                         totalPrice={totalPrice}
                                     ></SummaryYourOrder>

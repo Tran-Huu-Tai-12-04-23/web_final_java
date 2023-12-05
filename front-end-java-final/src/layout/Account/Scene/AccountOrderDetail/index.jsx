@@ -9,14 +9,15 @@ import { IoIosArrowBack } from 'react-icons/io';
 
 import ItemDetailOrder from './ItemDetailOrder';
 
-function AccountOrderDetail() {
-    const history = useNavigate();
-    const params = useParams();
+// function AccountOrderDetail() {
+//     const history = useNavigate();
+//     const params = useParams();
+// }
 import { LiaFileInvoiceSolid } from 'react-icons/lia';
 import { FaVoteYea } from 'react-icons/fa';
 import { IoCloseSharp } from 'react-icons/io5';
 
-import ItemDetailOrder from './ItemDetailOrder';
+// import ItemDetailOrder from './ItemDetailOrder';
 import { useLoading } from '../../../../context/loadingContext';
 import { request } from '../../../../services';
 import toast from 'react-hot-toast';
@@ -137,6 +138,7 @@ function AccountOrderDetail() {
             )}
         </div>
     );
+    
 }
 
 export default AccountOrderDetail;
