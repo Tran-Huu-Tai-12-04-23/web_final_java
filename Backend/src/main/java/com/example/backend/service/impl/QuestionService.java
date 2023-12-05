@@ -122,4 +122,17 @@ public class QuestionService implements IQuestionService {
             throw new RuntimeException("Error updating question status", e);
         }
     }
+
+    @Override
+    public Question changeReplyStatus(Long id, Boolean reply) {
+        try{
+            Question question = questionRepository.findById(id)
+                    .orElseThrow(()->new NotFoundException("Question not found with id: "+ id));
+            question.setIsDeleted(reply);
+            return questionRepository.save(question);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error updating question status", e);
+        }
+    }
 }

@@ -20,4 +20,6 @@ public interface IQuestionService {
     List<Question> getAllQuestionNotAnswered(Integer page, Integer size);
     List<Question> getAllQuestionAnswered(Integer page, Integer size);
     Question changeDeleteStatus(Long id, Boolean delete);
+
+    Question changeReplyStatus(Long id, Boolean reply);
 }

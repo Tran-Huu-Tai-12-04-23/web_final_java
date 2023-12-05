@@ -17,27 +17,27 @@ function Question() {
             icon: (
                 <DiGhostSmall className="w-6 h-6 brightness-50 group-hover:text-primary group-hover:brightness-100"></DiGhostSmall>
             ),
-            tabContent: <ViewQuestion></ViewQuestion>,
+            tabContent: <ViewQuestion type={"all"}></ViewQuestion>,
         },
         {
             name: 'Đợi phản hồi',
             icon: (
                 <BsReplyAll className="w-6 h-6 brightness-50 group-hover:text-primary group-hover:brightness-100"></BsReplyAll>
             ),
-            tabContent: <ViewQuestion></ViewQuestion>,
+            tabContent: <ViewQuestion type={"waiting"}></ViewQuestion>,
         },
         {
             name: 'Đã gửi',
             icon: (
                 <VscSend className="w-6 h-6 brightness-50 group-hover:text-primary group-hover:brightness-100"></VscSend>
             ),
-            tabContent: <ViewQuestion></ViewQuestion>,
+            tabContent: <ViewQuestion type={"sent"}></ViewQuestion>,
         },
         {
             name: 'Thư rác',
-            tabContent: <ViewQuestion></ViewQuestion>,
+            tabContent: <ViewQuestion type={"trash"}></ViewQuestion>,
             icon: (
-                <LiaTrashAltSolid className="w-6 h-6 brightness-50 group-hover:text-primary group-hover:brightness-100"></LiaTrashAltSolid>
+                <LiaTrashAltSolid className ="w-6 h-6 brightness-50 group-hover:text-primary group-hover:brightness-100"></LiaTrashAltSolid>
             ),
         },
     ];

@@ -29,6 +29,7 @@ public class ReplyQuestionController {
             replyQuestion.setQuestion(question);
             Account admin = iAccountService.getAccount(1L).get();
             replyQuestion.setAccount(admin);
+            iQuestionService.changeReplyStatus(questionId,true);
             ReplyQuestion reply = iReplyQuestionService.addReply(replyQuestion);
             return ResponseEntity.ok(reply);
         } catch (Exception e) {

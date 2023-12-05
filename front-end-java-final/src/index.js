@@ -7,6 +7,7 @@ import ThemeProviderApp from './context/theme';
 import LoginProviderApp from './context/login';
 import LoadingProviderApp from './context/loadingContext';
 import SearchProviderApp from './context/search';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

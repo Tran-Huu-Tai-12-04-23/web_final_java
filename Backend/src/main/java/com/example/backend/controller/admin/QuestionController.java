@@ -102,5 +102,22 @@ public class QuestionController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(err);
         }
     }
-
+    @DeleteMapping("/put-back")
+    public ResponseEntity<?> putBackQuestion(@RequestParam Long id){
+        try{
+            Question question = iQuestionService.changeDeleteStatus(id,false);
+            if (question != null){
+                return ResponseEntity.ok("Put back question successfully!");
+            }else{
+                ErrorResponse err = new ErrorResponse();
+                err.setMessage("Question is not found");
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            ErrorResponse err = new ErrorResponse();
+            err.setMessage(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(err);
+        }
+    }
 }

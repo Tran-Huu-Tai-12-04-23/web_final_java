@@ -32,3 +32,4 @@ export { default as ModalConfirmRemove } from './ModalConfirmRemove';
 export { default as Skeleton } from './Skeleton';
 export { default as ProvincesAndDistricts } from './ProvincesAndDistricts';
 export { default as AddressItem } from './AddressItem';
+export { default as ReplyModal} from './ReplyModal';
