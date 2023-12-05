@@ -23,11 +23,7 @@ function DetailProduct({ mode = 'user' }) {
         };
 
         getData();
-<<<<<<< HEAD
-    }, []);
-=======
     }, [id]);
->>>>>>> main
 
     console.log(data);
     return (
@@ -35,11 +31,7 @@ function DetailProduct({ mode = 'user' }) {
             {viewModeSlide && (
                 <Modal>
                     <ModalItem
-<<<<<<< HEAD
-                        className="max-w-[60rem] max-h-[40rem] w-max h-max"
-=======
                         className="max-w-[60rem] min-h-[40rem] w-max h-max"
->>>>>>> main
                         onClose={() => setViewModeSlide(false)}
                     >
                         <Carousel data={data?.linkImages}></Carousel>

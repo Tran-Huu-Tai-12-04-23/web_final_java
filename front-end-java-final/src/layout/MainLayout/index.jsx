@@ -11,11 +11,7 @@ function MainLayout({ children }) {
         }, 200);
     });
     return (
-<<<<<<< HEAD
-        <motion.div className="bg-light dark:bg-dark">
-=======
         <div className="bg-light dark:bg-dark">
->>>>>>> main
             <Header></Header>
             {children}
             <Footer></Footer>

@@ -21,11 +21,7 @@ class Constants {
     static FAQ = '/faq';
     static CONTACT = '/contact';
     static CART = '/cart';
-<<<<<<< HEAD
-    static USER_ORDER = '/user/order';
-=======
     static USER_ORDER = '/account/order';
->>>>>>> main
 
     //account
     static ACCOUNT_INFO = '/account';

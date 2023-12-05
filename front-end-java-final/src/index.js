@@ -6,23 +6,11 @@ import reportWebVitals from './reportWebVitals';
 import ThemeProviderApp from './context/theme';
 import LoginProviderApp from './context/login';
 import LoadingProviderApp from './context/loadingContext';
-<<<<<<< HEAD
-=======
 import SearchProviderApp from './context/search';
->>>>>>> main
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
-<<<<<<< HEAD
-        <LoadingProviderApp>
-            <LoginProviderApp>
-                <ThemeProviderApp>
-                    <App />
-                </ThemeProviderApp>
-            </LoginProviderApp>
-        </LoadingProviderApp>
-=======
         <SearchProviderApp>
             <LoadingProviderApp>
                 <LoginProviderApp>
@@ -32,7 +20,6 @@ root.render(
                 </LoginProviderApp>
             </LoadingProviderApp>
         </SearchProviderApp>
->>>>>>> main
     </React.StrictMode>,
 );
 

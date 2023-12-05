@@ -7,15 +7,10 @@ import { request, setAuthHeader, setRefreshToken } from '../../../../services';
 import { useLogin } from '../../../../context/login';
 import Utils from '../../../../utils/Util';
 import Constants from '../../../../Constants';
-<<<<<<< HEAD
-
-function Login() {
-=======
 import { useLoading } from '../../../../context/loadingContext';
 
 function Login() {
     const { startLoading, stopLoading } = useLoading();
->>>>>>> main
     const history = useNavigate();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -28,48 +23,6 @@ function Login() {
     }, [account]);
 
     const handleLogin = async () => {
-<<<<<<< HEAD
-        try {
-            await request('POST', '/api/v1/auth/sign-in', {
-                username,
-                password,
-            })
-                .then((response) => {
-                    const data = response.data;
-
-                    if (!data) {
-                        toast.error('Đăng nhập thất bại!!');
-                        return;
-                    }
-                    setAuthHeader(data.jwtAuthenticationResponse.token);
-                    setRefreshToken(data.jwtAuthenticationResponse.refreshToken);
-                    const account = data?.data;
-
-                    const authorities = account.authorities;
-                    console.log(authorities[0].authority);
-
-                    const role = authorities[0].authority.toString().toLowerCase() === 'admin';
-
-                    console.log(role);
-                    const accountData = {
-                        ...account,
-                        password: null,
-                        role,
-                    };
-                    Utils.addLoginStorage(accountData);
-                    setAccount(accountData);
-                    history('/admin');
-                    return Promise.resolve(true);
-                })
-                .catch((error) => {
-                    setAuthHeader(null);
-                    console.log(error);
-                    return Promise.reject(error);
-                });
-        } catch (error) {
-            return Promise.reject(error);
-        }
-=======
         startLoading();
         await request('POST', '/api/v1/auth/sign-in', {
             username,
@@ -109,7 +62,6 @@ function Login() {
                 return Promise.reject(error);
             });
         stopLoading();
->>>>>>> main
     };
     const login = async (e) => {
         e.preventDefault();
@@ -118,15 +70,7 @@ function Login() {
         } else if (password === '') {
             toast.error('Vui lòng nhập mật khẩu!');
         }
-<<<<<<< HEAD
-        toast.promise(handleLogin(), {
-            loading: 'Đang đăng nhập...',
-            success: <b>Đăng nhập thành công!</b>,
-            error: <b>Đăng nhập thất bại!</b>,
-        });
-=======
         await handleLogin();
->>>>>>> main
     };
     return (
         <section className="h-screen max-w-screen-xl m-auto select-none">
@@ -139,13 +83,9 @@ function Login() {
                     <div className="mb-12 md:mb-0 md:w-8/12 lg:w-5/12 xl:w-5/12">
                         <form>
                             <div className="flex flex-row items-center justify-center lg:justify-start">
-<<<<<<< HEAD
-                                <p className="font-bold  font-mono mb-0 mr-4 text-xl">Chào mừng đến với trang quản lý</p>
-=======
                                 <p className="font-bold  font-mono mb-0 mr-4 text-xl">
                                     Chào mừng đến với trang quản lý
                                 </p>
->>>>>>> main
                             </div>
 
                             <div className="relative mb-6 mt-5 pl-4" data-te-input-wrapper-init>

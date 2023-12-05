@@ -60,11 +60,7 @@ function SideBar({ activeSidebar, setOrder, order }) {
             ],
         },
         {
-<<<<<<< HEAD
-            name: 'Danh sách đơn hàng',
-=======
             name: 'Đơn hàng',
->>>>>>> main
             path: '/admin/orders',
             icon: <PiShoppingCartSimpleLight className="text-xl"></PiShoppingCartSimpleLight>,
             order: 4,
@@ -137,11 +133,7 @@ function SideBar({ activeSidebar, setOrder, order }) {
             submenu: [],
         },
         {
-<<<<<<< HEAD
-            name: 'Chính sách bảo hiểm',
-=======
             name: 'Chính sách bảo hành',
->>>>>>> main
             path: '/admin/Guarantees',
             icon: <AiOutlineFileProtect className="text-xl"></AiOutlineFileProtect>,
             order: 8,

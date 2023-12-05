@@ -74,19 +74,6 @@ function Home() {
             <TopBranch />
             <SlideBannerProduct />
             <OurBlog />
-<<<<<<< HEAD
-            {/* 
-         
-             */}
-            {/* <div className="flex justify-start items-center flex-wrap">
-                {items.map((item) => (
-                    <motion.div className="w-1/6 scale-[90%]">
-                        <CardMain></CardMain>
-                    </motion.div>
-                ))}
-            </div> */}
-=======
->>>>>>> main
         </motion.div>
     );
 }
