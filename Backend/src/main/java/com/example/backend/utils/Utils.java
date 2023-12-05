@@ -94,7 +94,6 @@ public class Utils {
         }
 
     }
-<<<<<<< HEAD
     public static void validateQuestionRequest(QuestionRequest questionRequest){
         if (questionRequest == null){
             throw new MainException(HttpStatus.BAD_REQUEST, "Question request cannot be null.");
@@ -111,7 +110,6 @@ public class Utils {
             throw new MainException(HttpStatus.BAD_REQUEST, "Product is required in the question request.");
         }
     }
-=======
 
 
 
@@ -132,5 +130,4 @@ public class Utils {
     }
 
 
->>>>>>> 5f34d4ffeaa6eba9b171e83bb78a8e743a1a6065
 }
