@@ -1,28 +1,30 @@
 import { useEffect, useRef } from 'react';
+<<<<<<< HEAD
 import { Loading, Modal } from './components';
 import { AccountLayout, MainLayout } from './layout';
 import { useTheme } from './context/theme';
 import { useLogin } from './context/login';
 import { motion, useScroll, AnimatePresence } from 'framer-motion';
+=======
+import { useTheme } from './context/theme';
+import { useLogin } from './context/login';
+import { motion, AnimatePresence } from 'framer-motion';
+>>>>>>> main
 import { Toaster } from 'react-hot-toast';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-const Home = lazy(() => import('./layout/Home'));
-const Admin = lazy(() => import('./layout/Admin'));
-const Sign = lazy(() => import('./layout/Sign'));
-const Contact = lazy(() => import('./layout/Contact'));
-const FAQs = lazy(() => import('./layout/FAQs'));
-const AccountInfo = lazy(() => import('./layout/AccountInfo'));
-const AccountInstallment = lazy(() => import('./layout/AccountInstallment'));
-const AccountOrder = lazy(() => import('./layout/AccountOrder'));
-const AccountWishlist = lazy(() => import('./layout/AccountWishlist'));
-const AccountSecurity = lazy(() => import('./layout/AccountSecurity'));
-const AccountNotification = lazy(() => import("./layout/AccountNotification"));
+
+import ConfigRoute from './routes/ConfigRoute';
+import Util from './utils/Util';
+
 function App() {
     const ref = useRef(null);
     const { theme, setTheme } = useTheme();
     const { setAccount } = useLogin();
+<<<<<<< HEAD
     const { scrollYProgress } = useScroll({ container: ref });
+=======
+>>>>>>> main
 
     useEffect(() => {
         const storedTheme = localStorage.getItem('theme');
@@ -64,113 +66,7 @@ function App() {
             <motion.div ref={ref} className="bg-transparent select-none">
                 <AnimatePresence mode="wait">
                     <motion.div className=" transition-all dark:bg-dark bg-light dark:text-dark text-light  ">
-                        <Suspense
-                            fallback={
-                                <Modal className="dark:bg-dark bg-light">
-                                    <Loading></Loading>
-                                </Modal>
-                            }
-                        >
-                            <BrowserRouter>
-                                <Routes>
-                                    <Route
-                                        index
-                                        element={
-                                            <MainLayout>
-                                                <Home />
-                                            </MainLayout>
-                                        }
-                                    />
-                                    <Route path="admin" element={<Admin />} />
-                                    <Route path="contact"
-                                        index
-                                        element={
-                                            <MainLayout>
-                                                <Contact />
-                                            </MainLayout>
-                                        }
-                                    />
-                                    <Route path="faq"
-                                        index
-                                        element={
-                                            <MainLayout>
-                                                <FAQs />
-                                            </MainLayout>
-                                        }
-                                    />
-                                    <Route path="account"
-                                        index
-                                        element={
-                                            <AccountLayout>
-                                                <AccountInfo></AccountInfo>
-                                            </AccountLayout>
-                                        }
-                                    />
-                                    <Route
-                                        path="sign"
-                                        element={
-                                            <MainLayout>
-                                                <Sign />
-                                            </MainLayout>
-                                        }
-                                    />
-                                    <Route
-                                        path="*"
-                                        element={
-                                            <MainLayout>
-                                                <div>
-                                                    <h1>Page not found</h1>
-                                                </div>
-                                            </MainLayout>
-                                        }
-                                    />
-                                    <Route
-                                    path='/payment-installment'
-                                    element={
-                                        <AccountLayout>
-                                            <AccountInstallment></AccountInstallment>
-                                        </AccountLayout>
-                                    }
-                                    >
-                                    </Route>
-                                    <Route
-                                    path='orders'
-                                    element={
-                                        <AccountLayout>
-                                            <AccountOrder></AccountOrder>
-                                        </AccountLayout>
-                                    }
-                                    >
-                                    </Route>
-                                    <Route
-                                    path='wishlist'
-                                    element={
-                                        <AccountLayout>
-                                            <AccountWishlist></AccountWishlist>
-                                        </AccountLayout>
-                                    }
-                                    ></Route>
-                                    <Route
-                                    path='sercurity-access'
-                                    element={
-                                        <AccountLayout>
-                                            <AccountSecurity></AccountSecurity>
-                                        </AccountLayout>
-                                    }
-                                    >
-                                    </Route>
-                                    <Route
-                                    path='notification'
-                                    element={
-                                        <AccountLayout>
-                                            <AccountNotification></AccountNotification>
-                                        </AccountLayout>
-                                    }
-                                    >
-                                    </Route>
-                                </Routes>
-                            </BrowserRouter>
-                        </Suspense>
+                        <ConfigRoute></ConfigRoute>
                     </motion.div>
                 </AnimatePresence>
             </motion.div>

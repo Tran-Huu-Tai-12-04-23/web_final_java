@@ -20,6 +20,39 @@ import java.util.Optional;
 public class UserOrderController {
     private final IUserOrderService iUserOrderService;
     private final IAccountService iAccountService;
+
+    @PutMapping("/cancel-order/{orderId}")
+    public ResponseEntity<?> cancelOrder(@PathVariable Long orderId) {
+        try {
+
+            OrderMember orderMembers = iUserOrderService.cancelOrder(orderId);
+            return ResponseEntity.ok(orderMembers);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/detail-order/{orderId}")
+    public ResponseEntity<?> getDetailOrder(@PathVariable Long orderId) {
+        try {
+
+            OrderMember orderMembers = iUserOrderService.getDetailOrder(orderId);
+            return ResponseEntity.ok(orderMembers);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/all/{mId}")
+    public ResponseEntity<?> getOrderByMember(@PathVariable Long mId) {
+        try {
+
+            List<OrderMember> orderMembers = iUserOrderService.getAllOrderByMemberId(mId);
+            return ResponseEntity.ok(orderMembers);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
     @PostMapping("/add-order")
     public ResponseEntity<?> addOrder(@RequestBody OrderRequest orderRequest) {
         try {

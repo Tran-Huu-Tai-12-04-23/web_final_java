@@ -16,7 +16,10 @@ import Util from '../../utils/Util';
 import toast from 'react-hot-toast';
 import Constants from '../../Constants';
 
+<<<<<<< HEAD
 import { BsArrowRightShort } from 'react-icons/bs';
+=======
+>>>>>>> main
 import { request } from '../../services';
 
 function Header() {
@@ -149,8 +152,13 @@ function Header() {
     return (
         <>
             {modalSign && <ModalSign onClose={(e) => setModalSign(!modalSign)} setAccount={setAccount}></ModalSign>}
+<<<<<<< HEAD
             {modalSearch && <ModalSearch onClose={(e) => setModalSearch(!modalSearch)} />}
+=======
+
+>>>>>>> main
             <div
+                onClick={(e) => e.stopPropagation()}
                 className={
                     'pl-10 pr-10 flex z-50 shadow-md items-center justify-between bg-bg-light-menu dark:bg-dark backdrop-blur-3xl border-header border-b-[3px] border-solid fixed top-0 left-0 right-0'
                 }
@@ -234,6 +242,7 @@ function Header() {
                         items={renderUserMenu()}
                     ></MenuUser>
                 )}
+<<<<<<< HEAD
 
                 {/* <div className="relative ">
                 <div className="group">
@@ -253,7 +262,10 @@ function Header() {
                     </div>
                 </div>
             </div> */}
+=======
+>>>>>>> main
             </div>
+            {modalSearch && <ModalSearch onClose={(e) => setModalSearch(!modalSearch)} />}
         </>
     );
 }

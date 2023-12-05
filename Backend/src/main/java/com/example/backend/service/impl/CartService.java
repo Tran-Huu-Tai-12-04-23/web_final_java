@@ -1,5 +1,6 @@
 package com.example.backend.service.impl;
 
+<<<<<<< HEAD
 import com.example.backend.exception.AlreadyExistException;
 import com.example.backend.exception.NotFoundException;
 import com.example.backend.model.Account;
@@ -10,6 +11,13 @@ import com.example.backend.repository.AccountRepository;
 import com.example.backend.repository.CartRepository;
 import com.example.backend.repository.MemberRepository;
 import com.example.backend.repository.ProductRepository;
+=======
+import com.example.backend.dto.CartUpdateRequest;
+import com.example.backend.exception.AlreadyExistException;
+import com.example.backend.exception.NotFoundException;
+import com.example.backend.model.*;
+import com.example.backend.repository.*;
+>>>>>>> main
 import com.example.backend.service.IAccountService;
 import com.example.backend.service.ICartService;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +37,10 @@ public class CartService implements ICartService {
     private final CartRepository cartRepository;
     private final MemberRepository memberRepository;
     private final ProductRepository productRepository;
+<<<<<<< HEAD
+=======
+    private final CartItemRepository cartItemRepository;
+>>>>>>> main
 
 
     @Override
@@ -48,6 +60,7 @@ public class CartService implements ICartService {
 
     @Override
     public Product addToCart(Long productId, Long memberId) {
+<<<<<<< HEAD
         Optional<Member> member = memberRepository.findById(memberId);
 
         if( member.isEmpty()) throw  new RuntimeException("Member not found");
@@ -73,6 +86,50 @@ public class CartService implements ICartService {
             cartRepository.save(cart);
         }
         return pro.get();
+=======
+        // Find member by ID
+        Optional<Member> memberOptional = memberRepository.findById(memberId);
+
+        if (memberOptional.isEmpty()) {
+            throw new RuntimeException("Member not found");
+        }
+        // Find product by ID
+        Optional<Product> productOptional = productRepository.findById(productId);
+
+        if (productOptional.isEmpty()) {
+            throw new RuntimeException("Product not found");
+        }
+        // Find or create a cart for the member
+        Member member = memberOptional.get();
+        Cart cart = cartRepository.findByMember(member);
+        if (cart == null) {
+            cart = new Cart();
+            cart.setMember(member);
+            cart.setCartItems(new ArrayList<>());
+        }
+        // Check if the product is already in the cart
+        Product product = productOptional.get();
+        List<CartItem> cartItems = cart.getCartItems();
+        Optional<CartItem> existingCartItem = cartItems.stream()
+                .filter(item -> item.getProduct().equals(product))
+                .findFirst();
+
+        if (existingCartItem.isPresent()) {
+            // If the product is already in the cart, update the quantity
+            CartItem cartItem = existingCartItem.get();
+            cartItem.setQuantity(cartItem.getQuantity() + 1);
+            cartItemRepository.save(cartItem);
+        } else {
+            // If the product is not in the cart, add a new cart item
+            CartItem newCartItem = new CartItem();
+            newCartItem.setProduct(product);
+            newCartItem.setQuantity(1);
+            newCartItem.setCart(cart);
+            cartItems.add(newCartItem);
+            cartRepository.save(cart);
+        }
+        return product;
+>>>>>>> main
     }
 
     @Override
@@ -98,7 +155,11 @@ public class CartService implements ICartService {
         if( cart == null ) {
             return 0;
         }
+<<<<<<< HEAD
         return cart.getProducts().size();
+=======
+        return cart.getCartItems().size();
+>>>>>>> main
     }
 
     public Cart removeItemFromCart(Long memberId, Long proId) {
@@ -110,10 +171,37 @@ public class CartService implements ICartService {
             throw new RuntimeException("Cart is empty");
         }
 
+<<<<<<< HEAD
         List<Product> proList = cart.getProducts();
 
         proList.removeIf(product -> product.getId().equals(proId));
 
         return cartRepository.save(cart);
     }
+=======
+        List<CartItem> cartItems = cart.getCartItems();
+
+        cartItems.removeIf(cartItem -> cartItem.getProduct().getId().equals(proId));
+
+        return cartRepository.save(cart);
+    }
+
+    @Override
+    public CartItem updateQuantityForItem(CartUpdateRequest cartUpdateRequest) {
+        Optional<CartItem> cartItemOptional = cartItemRepository.findById(cartUpdateRequest.getCartItemId());
+        if( cartItemOptional.isEmpty()) throw new NotFoundException("Cart item not found");
+        CartItem cartItem = cartItemOptional.get();
+        Product product = cartItem.getProduct();
+
+        if( cartUpdateRequest.getQuantity() < product.getQuantity()) {
+
+            cartItem.setQuantity(cartUpdateRequest.getQuantity());
+
+            return cartItemRepository.save(cartItem);
+        }
+
+        throw new RuntimeException("Product is not enough!");
+
+    }
+>>>>>>> main
 }

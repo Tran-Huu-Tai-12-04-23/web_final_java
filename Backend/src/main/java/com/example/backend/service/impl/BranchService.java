@@ -1,12 +1,9 @@
 package com.example.backend.service.impl;
 
 import com.example.backend.exception.NotFoundException;
-import com.example.backend.model.Branch;
-import com.example.backend.model.Member;
+import com.example.backend.model.Brand;
 import com.example.backend.repository.BranchRepository;
-import com.example.backend.repository.MemberRepository;
 import com.example.backend.service.IBranchService;
-import com.example.backend.service.IMemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,20 +16,20 @@ public class BranchService implements IBranchService {
     private final BranchRepository branchRepository;
 
     @Override
-    public Branch createNew(Branch br) {
+    public Brand createNew(Brand br) {
         return branchRepository.save(br);
     }
 
     @Override
-    public Branch update(Branch br, Long id) {
+    public Brand update(Brand br, Long id) {
         return branchRepository.findById(id).map(branch-> {
-            branch.setNameBranch(br.getNameBranch());
+            branch.setNameBrand(br.getNameBrand());
             return branchRepository.save(branch);
         }).orElseThrow(() -> new NotFoundException("Branch not found!"));
     }
 
     @Override
-    public List<Branch> getAllBranch() {
+    public List<Brand> getAllBranch() {
         return branchRepository.findAll();
     }
 

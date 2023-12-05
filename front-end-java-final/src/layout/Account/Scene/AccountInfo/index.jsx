@@ -5,11 +5,26 @@ import { IoClose } from 'react-icons/io5';
 import { VscSaveAs } from 'react-icons/vsc';
 import toast from 'react-hot-toast';
 import Util from '../../../../utils/Util';
+<<<<<<< HEAD
 
 function AccountInfo() {
     const [username, setUsername] = useState('Tran huu tai');
     const [email, setEmail] = useState('Tran huu tai');
     const [phoneNumber, setPhoneNumber] = useState('Tran huu tai');
+=======
+import { useEffect } from 'react';
+import { useLoading } from '../../../../context/loadingContext';
+import { request } from '../../../../services';
+import { useLogin } from '../../../../context/login';
+
+function AccountInfo() {
+    const { account } = useLogin();
+    const { startLoading, stopLoading } = useLoading();
+    const [username, setUsername] = useState('Tran huu tai');
+    const [email, setEmail] = useState('Tran huu tai');
+    const [phoneNumber, setPhoneNumber] = useState('Tran huu tai');
+    const [member, setMember] = useState(null);
+>>>>>>> main
 
     const [edit, setEdit] = useState(false);
 
@@ -36,7 +51,67 @@ function AccountInfo() {
             email,
             phoneNumber,
         };
+<<<<<<< HEAD
     };
+=======
+
+        startLoading();
+        await request('PUT', `/api/v1/user/member/${account.memberId}`, data)
+            .then((res) => {
+                if (res.data) {
+                    const dataRes = res.data;
+                    setMember({
+                        ...dataRes,
+                        account: {
+                            ...dataRes.account,
+                            password: null,
+                        },
+                    });
+                    toast.success('Cập nhật hồ sơ thành công!');
+                    setEdit(false);
+                }
+            })
+            .catch((err) => {
+                toast.error('Cập nhật hồ sơ không thành công!');
+                console.error(err);
+            });
+        stopLoading();
+    };
+
+    useEffect(() => {
+        const getMemInfo = async () => {
+            startLoading();
+            await request('GET', `/api/v1/user/member/detail-member/${account.memberId}`)
+                .then((res) => {
+                    if (res.data != null) {
+                        const data = res.data;
+                        setMember({
+                            ...data,
+                            account: {
+                                ...data.account,
+                                password: null,
+                            },
+                        });
+                    }
+                })
+                .catch((err) => console.error(err));
+            stopLoading();
+        };
+
+        if (account !== null) {
+            getMemInfo();
+        }
+    }, []);
+
+    useEffect(() => {
+        if (member) {
+            setUsername(member.account?.username);
+            setPhoneNumber(member.phoneNumber);
+            setEmail(member.email);
+        }
+    }, [member]);
+
+>>>>>>> main
     return (
         <div className="p-4 flex flex-col gap-2 ">
             <div className="border-b-primary pb-2">

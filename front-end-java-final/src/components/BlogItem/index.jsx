@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+import { motion } from 'framer-motion';
+>>>>>>> main
 import { TextMain, TextSub } from '../index';
 import { BsCalendar4Week } from 'react-icons/bs';
 import { GiAlarmClock } from 'react-icons/gi';
@@ -53,7 +57,11 @@ function BlogItem({ data = {}, width, className, direction = 'vertical' }) {
                     </TextSub>
                 </div>
             </div>
+<<<<<<< HEAD
         </div>
+=======
+        </motion.div>
+>>>>>>> main
     );
 }
 

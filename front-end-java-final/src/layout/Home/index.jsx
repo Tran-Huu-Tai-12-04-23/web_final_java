@@ -74,6 +74,7 @@ function Home() {
             <TopBranch />
             <SlideBannerProduct />
             <OurBlog />
+<<<<<<< HEAD
             {/* 
          
              */}
@@ -84,6 +85,8 @@ function Home() {
                     </motion.div>
                 ))}
             </div> */}
+=======
+>>>>>>> main
         </motion.div>
     );
 }

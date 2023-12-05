@@ -1,12 +1,14 @@
 package com.example.backend.model;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -25,9 +27,12 @@ public class OrderMember {
 
     @Column(columnDefinition = "BOOLEAN DEFAULT false")
     private Boolean isCancel;
+    @Column(columnDefinition = "INT DEFAULT 0")
+    private Integer stepOrder;
 
-    @Column(columnDefinition = "BOOLEAN DEFAULT false")
-    private Boolean isDelete;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private Date orderDate;
 
     @Column(columnDefinition = "INT DEFAULT 0")
     private OrderStatus orderStatus;
@@ -44,6 +49,10 @@ public class OrderMember {
     private String fullName;
 
     @OneToMany(mappedBy = "orderMember", cascade = CascadeType.ALL, orphanRemoval = true)
+<<<<<<< HEAD
+=======
+    @JsonManagedReference
+>>>>>>> main
     private List<OrderDetail> orderDetails;
 
     @ManyToOne
@@ -59,8 +68,13 @@ public class OrderMember {
             isPayment = false;
         }
 
+<<<<<<< HEAD
         if (isDelete == null) {
             isDelete = false;
+=======
+        if (orderDate == null) {
+            orderDate = new Date();
+>>>>>>> main
         }
 
         if (isCancel == null) {
@@ -70,6 +84,7 @@ public class OrderMember {
         if (methodPayment == null) {
             methodPayment = MethodPayment.CASH;
         }
+<<<<<<< HEAD
     }
 
     public Double calculateTotal() {
@@ -97,5 +112,13 @@ public class OrderMember {
 
         return amount;
     }
+=======
+
+        if (stepOrder == null) {
+            stepOrder = 0;
+        }
+    }
+
+>>>>>>> main
 
 }

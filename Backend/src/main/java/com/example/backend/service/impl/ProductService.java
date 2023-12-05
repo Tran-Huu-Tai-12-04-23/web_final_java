@@ -2,8 +2,15 @@ package com.example.backend.service.impl;
 
 import com.example.backend.exception.MainException;
 import com.example.backend.exception.NotFoundException;
+<<<<<<< HEAD
 import com.example.backend.model.Product;
 import com.example.backend.model.ProductSpecification;
+=======
+import com.example.backend.model.Category;
+import com.example.backend.model.Product;
+import com.example.backend.model.ProductSpecification;
+import com.example.backend.repository.CategoryRepository;
+>>>>>>> main
 import com.example.backend.repository.ProductRepository;
 import com.example.backend.repository.ProductSpecificationRepository;
 import com.example.backend.service.IProductService;
@@ -21,6 +28,10 @@ import java.util.Optional;
 public class ProductService implements IProductService {
     private final ProductRepository productRepository;
     private final ProductSpecificationRepository productSpecificationRepository;
+<<<<<<< HEAD
+=======
+    private final CategoryRepository categoryRepository;
+>>>>>>> main
 
     @Override
     public Product createNew(Product pro) throws Exception {
@@ -57,7 +68,11 @@ public class ProductService implements IProductService {
         return productRepository.findById(id).map(pro -> {
             pro.setIsDelete(product.getIsDelete());
             pro.setName(product.getName());
+<<<<<<< HEAD
             pro.setBranch(product.getBranch());
+=======
+            pro.setBrand(product.getBrand());
+>>>>>>> main
             pro.setCategory(product.getCategory());
             pro.setQuantity(product.getQuantity());
             pro.setLinkImages(product.getLinkImages());
@@ -90,7 +105,7 @@ public class ProductService implements IProductService {
         if (product.getCategory() == null) {
             throw new MainException(HttpStatus.BAD_REQUEST, "Please provide a category for the product.");
         }
-        if (product.getBranch() == null) {
+        if (product.getBrand() == null) {
             throw new MainException(HttpStatus.BAD_REQUEST, "Please provide a branch for the product.");
         }
         if (product.getDescription() == null || product.getDescription().isEmpty()) {
@@ -104,7 +119,7 @@ public class ProductService implements IProductService {
     @Override
     public List<Product> search(String key, Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "createAt"));
-        List<Product> listProduct = productRepository.findByNameContaining(key, pageable);
+        List<Product> listProduct = productRepository.searchProductNotDeleteByNameBrandCategoryContaining(key, pageable);
         if( listProduct.isEmpty() ) {
             throw  new NotFoundException("Can't search product with " + key);
         }else {
@@ -113,6 +128,20 @@ public class ProductService implements IProductService {
     }
 
     @Override
+<<<<<<< HEAD
+=======
+    public List<Product> searchProductNotDeleteByCategory(String key, Integer page, Integer size, Long categoryId) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "createAt"));
+        List<Product> listProduct = productRepository.searchProductNotDeleteByNameBrandCategoryContainingAndCategory(key, categoryId, pageable);
+        if( listProduct.isEmpty() ) {
+            throw  new NotFoundException("Can't search product with " + key);
+        }else {
+            return  listProduct;
+        }
+    }
+
+    @Override
+>>>>>>> main
     public ProductSpecification createNewProductSpecification(ProductSpecification productSpecification) {
         return productSpecificationRepository.save(productSpecification);
     }
@@ -120,7 +149,11 @@ public class ProductService implements IProductService {
     @Override
     public List<Product> getProductByCategory(String nameCategory, Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "createAt"));
+<<<<<<< HEAD
         return productRepository.findByCategory(nameCategory, pageable);
+=======
+        return null;
+>>>>>>> main
     }
 
     @Override
@@ -128,4 +161,38 @@ public class ProductService implements IProductService {
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "createAt"));
         return productRepository.findAllByStatus(state, pageable);
     }
+<<<<<<< HEAD
+=======
+
+    @Override
+    public List<Product> getAllItemNotDeleteAndCategory(Integer page, Integer size, Long categoryId) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "createAt"));
+        Category category = categoryRepository.findById(categoryId)
+                .orElseThrow(() -> new NotFoundException("Category not found!"));
+
+        System.out.println(category.getNameCategory());
+
+        return productRepository.findAllByIsDeleteFalseAndCategory(pageable, category);
+    }
+
+    @Override
+    public List<Product> getAllItemNotDeleteAndCategoryBetweenPrice(Integer page, Integer size, Long categoryId, Double minPrice, Double maxPrice, String sortType) {
+
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "price"));
+        if( sortType.equals("DESC")) {
+            pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "price"));
+        }
+        return productRepository.getAllProductNotDeleteByNameBrandCategoryContainingAndCategoryAndBetweenPrice(categoryId, minPrice, maxPrice, pageable);
+
+    }
+
+    @Override
+    public List<Product> searchProductNotDeleteByCategoryAndBetweenPrice(String key, Integer page, Integer size, Long categoryId, Double minPrice, Double maxPrice, String sortType) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "price"));
+        if( sortType.equals("DESC")) {
+            pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "price"));
+        }
+        return productRepository.searchProductNotDeleteByNameBrandCategoryContainingAndCategoryAndBetweenPrice(key,categoryId, minPrice, maxPrice, pageable);
+    }
+>>>>>>> main
 }

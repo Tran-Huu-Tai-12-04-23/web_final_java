@@ -1,5 +1,8 @@
 import axios from 'axios';
+<<<<<<< HEAD
 import { Alert } from 'flowbite-react';
+=======
+>>>>>>> main
 
 export const getAuthToken = () => {
     return window.localStorage.getItem('auth_token');

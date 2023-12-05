@@ -1,5 +1,8 @@
 package com.example.backend.service.impl;
 
+import com.example.backend.dto.ChangeNewPasswordRequest;
+import com.example.backend.dto.MemberRequestUpdate;
+import com.example.backend.dto.UserChangePasswordRequest;
 import com.example.backend.exception.AlreadyExistException;
 import com.example.backend.exception.NotFoundException;
 import com.example.backend.model.Account;
@@ -7,7 +10,9 @@ import com.example.backend.model.Member;
 import com.example.backend.repository.AccountRepository;
 import com.example.backend.repository.MemberRepository;
 import com.example.backend.service.IAccountService;
+import com.example.backend.service.IEmailService;
 import com.example.backend.service.IMemberService;
+import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,6 +22,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.naming.Name;
@@ -31,6 +37,8 @@ public class MemberService implements IMemberService {
 
     private final MemberRepository memberRepository;
     private  final AccountRepository accountRepository;
+    private  final IEmailService iEmailService;
+    private  final PasswordEncoder passwordEncoder;
 
     @Override
     public Member createNew(Member member) {
@@ -49,6 +57,27 @@ public class MemberService implements IMemberService {
     }
 
     @Override
+<<<<<<< HEAD
+=======
+    public Member updateMember(MemberRequestUpdate memberRequestUpdate, Long id) {
+        Member member = memberRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Member not found!"));
+
+        Account account = member.getAccount();
+        account.setUsername(memberRequestUpdate.getUsername());
+
+        member.setPhoneNumber(memberRequestUpdate.getPhoneNumber());
+        member.setEmail(memberRequestUpdate.getEmail());
+
+        account = accountRepository.save(account);
+        member.setAccount(account);
+
+        return memberRepository.save(member);
+    }
+
+
+    @Override
+>>>>>>> main
     public List<Member> getAllAccountNotDelete(Integer page,Integer size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "email"));
         return memberRepository.findAllByIsDeleteFalse(pageable);
@@ -150,5 +179,29 @@ public class MemberService implements IMemberService {
         }
 
         return listMember;
+    }
+
+    @Override
+    public Member changePassword(ChangeNewPasswordRequest changeNewPasswordRequest, Long mId) throws MessagingException {
+        if( !changeNewPasswordRequest.getPassword().equals(changeNewPasswordRequest.getConfirmPassword())) {
+            throw new RuntimeException("Confirm password does not match!");
+        }
+
+        Optional<Member> memberOptional = memberRepository.findById(mId);
+
+        if( memberOptional.isEmpty() ) throw  new NotFoundException("Member not found!");
+
+        Member member = memberOptional.get();
+
+        Account account = member.getAccount();
+        account.setPassword(passwordEncoder.encode(changeNewPasswordRequest.getPassword()));
+
+        accountRepository.save(account);
+
+        Boolean isSendmail = iEmailService.sendMailChangePasswordSuccessfully(member.getEmail(), account.getUsername());
+
+
+
+        return isSendmail ? member : null;
     }
 }

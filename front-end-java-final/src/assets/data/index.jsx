@@ -36,6 +36,10 @@ import product from '../img/product.png';
 import { AnimateHover } from '../../components/Animate';
 import { Link } from 'react-router-dom';
 import { MdManageAccounts } from 'react-icons/md';
+<<<<<<< HEAD
+=======
+import Constants from '../../Constants';
+>>>>>>> main
 const subnavProduct = [
     {
         name: 'Laptop',
@@ -107,7 +111,7 @@ const UserMenu = [
     {
         name: 'Orders',
         icon: <CiShoppingCart className="h-6 w-6" />,
-        path: '/cart',
+        path: Constants.ACCOUNT_ORDER,
     },
     {
         name: 'With lists',
@@ -252,6 +256,7 @@ export const categoryProduct = [
     {
         name: 'Điện thoại',
         icon: <CiMobile3 className="h-6 w-6" />,
+<<<<<<< HEAD
         path: '/product/mobile-phone',
     },
     {
@@ -260,14 +265,35 @@ export const categoryProduct = [
     },
     {
         name: 'Tablet',
+=======
+        path: '/products?category=2',
+        category: '2',
+    },
+    {
+        name: 'Laptop',
+        path: '/products?category=4',
+        category: '4',
+        icon: <PiDesktopLight className="h-6 w-6" />,
+    },
+    {
+        name: 'Máy tính bảng',
+        path: '/products?category=1',
+        category: '1',
+>>>>>>> main
         icon: <BsTabletLandscape className="h-6 w-6" />,
     },
     {
         name: 'Tai nghe',
+<<<<<<< HEAD
+=======
+        path: '/products?category=',
+        category: '',
+>>>>>>> main
         icon: <TfiHeadphone className="h-6 w-6" />,
     },
     {
         name: 'PC',
+<<<<<<< HEAD
         icon: <HiOutlineComputerDesktop className="h-6 w-6" />,
     },
     {
@@ -278,6 +304,18 @@ export const categoryProduct = [
         name: 'Khác',
         icon: <MdOutlineDevicesOther className="h-6 w-6" />,
     },
+=======
+        path: '/products?category=5',
+        category: '5',
+        icon: <HiOutlineComputerDesktop className="h-6 w-6" />,
+    },
+    {
+        name: 'Đồng hồ thông minh',
+        category: '',
+        path: '/products?category=',
+        icon: <BsSmartwatch className="h-6 w-6" />,
+    },
+>>>>>>> main
 ];
 
 export { NavHeader, UserMenu, ContactSocial, HomeService, Category };

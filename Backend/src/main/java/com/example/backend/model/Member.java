@@ -34,6 +34,13 @@ public class Member {
     @Column(columnDefinition = "BOOLEAN DEFAULT true")
     private Boolean status;
 
+<<<<<<< HEAD
+=======
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private Date joinDate;
+
+>>>>>>> main
     @PrePersist
     public void prePersist() {
         if( isDelete == null) {
@@ -45,6 +52,12 @@ public class Member {
         if( accumulatePoints == null ) {
             accumulatePoints = (double) 0;
         }
+<<<<<<< HEAD
+=======
+        if(joinDate == null ) {
+            joinDate = new Date();
+        }
+>>>>>>> main
     }
 
 }

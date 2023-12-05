@@ -1,7 +1,6 @@
 package com.example.backend.controller.publicpath;
 
-import com.example.backend.model.Branch;
-import com.example.backend.model.Category;
+import com.example.backend.model.Brand;
 import com.example.backend.service.IBranchService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,18 +15,22 @@ public class BranchController {
     private final IBranchService iBranchService;
 
     @GetMapping("")
+<<<<<<< HEAD
     public ResponseEntity<List<Branch>> getAllBranch() {
+=======
+    public ResponseEntity<List<Brand>> getAllBranch() {
+>>>>>>> main
         return ResponseEntity.ok(iBranchService.getAllBranch());
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Branch> createNew(@RequestBody Branch branch) {
-        return ResponseEntity.ok(iBranchService.createNew(branch));
+    public ResponseEntity<Brand> createNew(@RequestBody Brand brand) {
+        return ResponseEntity.ok(iBranchService.createNew(brand));
     }
 
     @PutMapping("/edit")
-    public ResponseEntity<Branch> edit(@RequestBody Branch branch, @RequestBody Long id) {
-        return ResponseEntity.ok(iBranchService.update(branch, id));
+    public ResponseEntity<Brand> edit(@RequestBody Brand brand, @RequestBody Long id) {
+        return ResponseEntity.ok(iBranchService.update(brand, id));
     }
 
     @DeleteMapping("/delete/{id}")

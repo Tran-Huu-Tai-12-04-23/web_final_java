@@ -19,5 +19,11 @@ public interface IUserOrderService {
     Address setAddressIsDefault(Address address);
     Address getAddressIsDefault(Long accountId);
     OrderMember addOrder(OrderRequest orderRequest);
+<<<<<<< HEAD
+=======
+    List<OrderMember> getAllOrderByMemberId(Long mId);
+    OrderMember getDetailOrder(Long orderId);
+    OrderMember cancelOrder(Long orderId);
+>>>>>>> main
 
 }

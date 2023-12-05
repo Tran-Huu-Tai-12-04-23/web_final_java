@@ -21,6 +21,7 @@ export { default as Pagination } from './Pagination';
 export { default as Select } from './Select';
 export { default as ModalItem } from './Modal/ModalItem';
 export { default as Editor } from './Editor';
+<<<<<<< HEAD
 export { default as AccountMenu} from './AccountMenu';
 export { default as InstallmentItem} from './InstallmentItem';
 export { default as OrderItem} from './OrderItem';
@@ -29,6 +30,8 @@ export { default as OrderDetailItem} from './OrderDetailItem';
 export { default as WishlistItem} from './WishlistItem';
 export { default as NotificationItem} from './NotificationItem';
 export { default as DiscountItem} from './DiscountItem';
+=======
+>>>>>>> main
 export { default as DisplayHTMLContent } from './Editor/DisplayHTMLContent';
 export { default as InputCountNumberCustom } from './InputCountNumberCustom';
 export { default as MultiSelect } from './MultiSelect';

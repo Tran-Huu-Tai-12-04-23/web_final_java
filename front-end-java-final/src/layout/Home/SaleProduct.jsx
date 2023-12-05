@@ -1,14 +1,25 @@
+<<<<<<< HEAD
 import { motion } from 'framer-motion';
 import { AnimateHover, AnimateOpacity } from '../../components/Animate';
 import { CardMain, Button } from '../../components';
 import { IoIosArrowForward } from 'react-icons/io';
 import { useState, useEffect, useRef } from 'react';
+=======
+import { AnimateOpacity } from '../../components/Animate';
+import { CardMain, Button } from '../../components';
+import { useState, useEffect } from 'react';
+>>>>>>> main
 import { CiShop } from 'react-icons/ci';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 import { request } from '../../services/index';
+<<<<<<< HEAD
+=======
+import { useNavigate } from 'react-router-dom';
+import Constants from '../../Constants';
+>>>>>>> main
 const sliderSettings = {
     arrows: true,
     slidesToShow: 1,
@@ -18,6 +29,10 @@ const sliderSettings = {
 };
 
 function SaleProduct() {
+<<<<<<< HEAD
+=======
+    const history = useNavigate();
+>>>>>>> main
     const [data, setData] = useState([]);
 
     useEffect(() => {
@@ -44,7 +59,14 @@ function SaleProduct() {
         >
             <div className="w-1/5 xl:flex lg:flex 2xl:flex md:flex hidden justify-start items-start flex-col">
                 <h1 className="font-bold text-3xl ">Sản phẩm đang sale</h1>
+<<<<<<< HEAD
                 <Button className="p-2 text-white bg-primary mt-4 rounded-md flex justify-center items-center">
+=======
+                <Button
+                    onClick={() => history(Constants.PRODUCT)}
+                    className="p-2 text-white bg-primary mt-4 rounded-md flex justify-center items-center"
+                >
+>>>>>>> main
                     <CiShop className="w-6 h-6"></CiShop>
                     <span>Mua ngay</span>
                 </Button>

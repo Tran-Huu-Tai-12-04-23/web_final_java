@@ -5,17 +5,28 @@ import { request } from '../../services';
 import toast from 'react-hot-toast';
 import { useEffect, useState } from 'react';
 import { BsFillTrashFill } from 'react-icons/bs';
+<<<<<<< HEAD
 import ModalConfirmRemove from '../ModalConfirmRemove';
+=======
+
+>>>>>>> main
 function AddressItem({
     setAddressUpdate = () => {},
     data = {},
     setListAddress = () => {},
     setEditAddress = () => {},
+<<<<<<< HEAD
+=======
+    setAddressIdForRemove = () => {},
+>>>>>>> main
     setAddressDefault = () => {},
 }) {
     const { startLoading, stopLoading } = useLoading();
     const [address, setAddress] = useState(data);
+<<<<<<< HEAD
     const [modalConfirmRemove, setModalConfirmRemove] = useState(false);
+=======
+>>>>>>> main
 
     const handleSetDefaultAddress = async () => {
         startLoading();
@@ -47,6 +58,7 @@ function AddressItem({
         stopLoading();
     };
 
+<<<<<<< HEAD
     const removeAddress = async () => {
         startLoading();
         await request('DELETE', '/api/v1/user/order/address/' + address?.id)
@@ -77,11 +89,14 @@ function AddressItem({
         stopLoading();
     };
 
+=======
+>>>>>>> main
     useEffect(() => {
         setAddress(data);
     }, [data]);
     return (
         <>
+<<<<<<< HEAD
             {modalConfirmRemove && (
                 <ModalConfirmRemove
                     onConfirm={removeAddress}
@@ -89,6 +104,8 @@ function AddressItem({
                     onClose={() => setModalConfirmRemove(false)}
                 ></ModalConfirmRemove>
             )}
+=======
+>>>>>>> main
             <div className="flex justify-between items-start gap-20 p-4 rounded-md hover:brightness-125 backdrop-blur-3xl bg-bg-light-menu dark:bg-bg-dark-menu">
                 <div className="flex flex-col gap-4 items-start justify-start">
                     <div className="flex gap-4">
@@ -110,7 +127,11 @@ function AddressItem({
                         Chọn làm mặc định
                     </Button>
                     <Button
+<<<<<<< HEAD
                         onClick={() => setModalConfirmRemove(true)}
+=======
+                        onClick={() => setAddressIdForRemove(address.id)}
+>>>>>>> main
                         className="text-red-500 bg-status-cancel bg-btn-second pl-5 pr-5 p-2 rounded-md"
                     >
                         <BsFillTrashFill className="ư-6 h-6"></BsFillTrashFill>

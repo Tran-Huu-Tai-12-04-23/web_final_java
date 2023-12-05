@@ -1,10 +1,12 @@
 package com.example.backend.controller.publicpath;
 
-import com.example.backend.model.Branch;
 import com.example.backend.model.Category;
 import com.example.backend.model.CategoryBlog;
 import com.example.backend.service.IBlogService;
+<<<<<<< HEAD
 import com.example.backend.service.IBranchService;
+=======
+>>>>>>> main
 import com.example.backend.service.ICategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

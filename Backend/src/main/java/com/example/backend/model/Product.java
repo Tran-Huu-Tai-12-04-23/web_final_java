@@ -78,7 +78,38 @@ public class Product {
     private ProductSpecification productSpecification;
 
     @ManyToOne
+<<<<<<< HEAD
     private Branch branch;
+=======
+    private Brand brand;
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", linkImages=" + linkImages +
+                ", linkVideo='" + linkVideo + '\'' +
+                ", thumbnails='" + thumbnails + '\'' +
+                ", description='" + description + '\'' +
+                ", shortDescription='" + shortDescription + '\'' +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", quantity=" + quantity +
+                ", screenSize='" + screenSize + '\'' +
+                ", chipSet='" + chipSet + '\'' +
+                ", launchDate=" + launchDate +
+                ", color='" + color + '\'' +
+                ", datePublished=" + datePublished +
+                ", status=" + status +
+                ", createAt=" + createAt +
+                ", isDelete=" + isDelete +
+                ", category=" + category +
+                ", productSpecification=" + productSpecification.toString() +
+                ", branch=" + brand +
+                '}';
+    }
+
+>>>>>>> main
 
     @Override
     public String toString() {
