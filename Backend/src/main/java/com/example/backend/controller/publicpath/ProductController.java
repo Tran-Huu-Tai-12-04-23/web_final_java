@@ -11,10 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-<<<<<<< HEAD
-=======
 import java.util.ArrayList;
->>>>>>> main
 import java.util.List;
 import java.util.Optional;
 
@@ -25,13 +22,10 @@ public class ProductController {
     private final IProductService iProductService;
     @GetMapping
     public ResponseEntity<List<Product>> getAllProduct(
-<<<<<<< HEAD
-=======
             @RequestParam(name = "minPrice", required = false, defaultValue = "") Double minPrice,
             @RequestParam(name = "sortType", required = false, defaultValue = "ASC") String sortType,
             @RequestParam(name = "maxPrice", required = false, defaultValue = "") Double maxPrice,
             @RequestParam(name = "categoryId", required = false, defaultValue = "") Long categoryId,
->>>>>>> main
             @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
             @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size
     ) {
@@ -88,25 +82,17 @@ public class ProductController {
 
     @GetMapping("/search")
     public ResponseEntity<?> searchProduct(
-<<<<<<< HEAD
-            @RequestParam String key,
-=======
             @RequestParam(name = "sortType", required = false, defaultValue = "ASC") String sortType,
             @RequestParam String key,
             @RequestParam(name = "categoryId", required = false, defaultValue = "") Long categoryId,
             @RequestParam(name = "minPrice", required = false, defaultValue = "") Double minPrice,
             @RequestParam(name = "maxPrice", required = false, defaultValue = "") Double maxPrice,
->>>>>>> main
             @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
             @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size
     ) {
         try{
             Utils.validatePageNumberAndSize(page, size);
-<<<<<<< HEAD
-            List<Product> listProduct = iProductService.search(key, page, size);
-=======
             List<Product> listProduct = iProductService.searchProductNotDeleteByCategoryAndBetweenPrice(key, page, size, categoryId, minPrice, maxPrice, sortType);
->>>>>>> main
             if(listProduct.isEmpty()) {
                 ErrorResponse err = new ErrorResponse();
                 err.setMessage("Can't find product with " + key);

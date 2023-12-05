@@ -1,9 +1,6 @@
 package com.example.backend.repository;
 
-<<<<<<< HEAD
-=======
 import com.example.backend.model.Category;
->>>>>>> main
 import com.example.backend.model.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,11 +17,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findByNameContaining(String key, Pageable pageable);
 
     List<Product> findAllByIsDeleteFalse(Pageable pageable);
-<<<<<<< HEAD
-
-    List<Product> findByCategory(String nameCategory, Pageable pageable);
-    List<Product> findAllByStatus(Boolean status, Pageable pageable);
-=======
     List<Product> findAllByIsDeleteFalseAndCategory(Pageable pageable, Category category);
 
     List<Product> findAllByStatus(Boolean status, Pageable pageable);
@@ -96,5 +88,4 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             Pageable pageable);
 
 
->>>>>>> main
 }

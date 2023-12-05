@@ -57,8 +57,6 @@ public class MemberService implements IMemberService {
     }
 
     @Override
-<<<<<<< HEAD
-=======
     public Member updateMember(MemberRequestUpdate memberRequestUpdate, Long id) {
         Member member = memberRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Member not found!"));
@@ -77,7 +75,6 @@ public class MemberService implements IMemberService {
 
 
     @Override
->>>>>>> main
     public List<Member> getAllAccountNotDelete(Integer page,Integer size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "email"));
         return memberRepository.findAllByIsDeleteFalse(pageable);

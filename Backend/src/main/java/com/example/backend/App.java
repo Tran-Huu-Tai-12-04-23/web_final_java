@@ -102,33 +102,6 @@ public class App implements CommandLineRunner {
 //            add tiep
             ///........
 
-<<<<<<< HEAD
-            Product product = new Product();
-            product.setId(1L);
-            product.setLinkImages(listImg);
-            product.setColor(null);
-            product.setLinkVideo(null);
-            product.setThumbnails(null);
-            product.setDescription("test");
-            product.setShortDescription(null);
-            product.setName("New Product3");
-            product.setPrice(100.0);
-            product.setQuantity(10);
-            product.setScreenSize("5 inches");
-            product.setChipSet("Example Chipset");
-            product.setLaunchDate(null);
-            product.setStatus(true);
-            product.setIsDelete(false);
-
-//            set product specification o tren moi upload
-            product.setProductSpecification(productSpecification);
-
-            product = productRepository.save(product);
-
-            if( product == null) System.out.println("Upload product failed");
-
-=======
->>>>>>> main
 //            end upload product
 
 
@@ -195,11 +168,8 @@ public class App implements CommandLineRunner {
     public void addPhoneProduct(List<String> productInfo,Long brandId,String productUrl){
         Product product = new Product();
         product.setCategory(categoryRepository.findById(2L).get());
-<<<<<<< HEAD
         product.setBranch(branchRepository.findById(brandId).get());
-=======
         product.setBrand(branchRepository.findById(brandId).get());
->>>>>>> main
         product.setLinkImages(getImageListPhone_Tablet(productUrl));
         product.setColor("Black");
         product.setLinkVideo(null);
@@ -248,11 +218,8 @@ public class App implements CommandLineRunner {
         Product product = new Product();
 //        product.setId(id);
         product.setCategory(categoryRepository.findById(1L).get());
-<<<<<<< HEAD
         product.setBranch(branchRepository.findById(brandID).get());
-=======
         product.setBrand(branchRepository.findById(brandID).get());
->>>>>>> main
         product.setLinkImages(getImageListPhone_Tablet(productURL));
         product.setColor("Black");
         product.setLinkVideo(null);

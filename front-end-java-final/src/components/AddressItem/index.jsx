@@ -5,28 +5,16 @@ import { request } from '../../services';
 import toast from 'react-hot-toast';
 import { useEffect, useState } from 'react';
 import { BsFillTrashFill } from 'react-icons/bs';
-<<<<<<< HEAD
-import ModalConfirmRemove from '../ModalConfirmRemove';
-=======
-
->>>>>>> main
 function AddressItem({
     setAddressUpdate = () => {},
     data = {},
     setListAddress = () => {},
     setEditAddress = () => {},
-<<<<<<< HEAD
-=======
     setAddressIdForRemove = () => {},
->>>>>>> main
     setAddressDefault = () => {},
 }) {
     const { startLoading, stopLoading } = useLoading();
     const [address, setAddress] = useState(data);
-<<<<<<< HEAD
-    const [modalConfirmRemove, setModalConfirmRemove] = useState(false);
-=======
->>>>>>> main
 
     const handleSetDefaultAddress = async () => {
         startLoading();
@@ -58,54 +46,11 @@ function AddressItem({
         stopLoading();
     };
 
-<<<<<<< HEAD
-    const removeAddress = async () => {
-        startLoading();
-        await request('DELETE', '/api/v1/user/order/address/' + address?.id)
-            .then((res) => {
-                if (res.data) {
-                    setListAddress((prev) => {
-                        return prev.filter((add, index) => {
-                            return add?.id != address?.id;
-                        });
-                    });
-                    setListAddress((prev) => {
-                        return prev.map((add, index) => {
-                            if (index == 0) {
-                                return {
-                                    ...add,
-                                    isDefault: true,
-                                };
-                            }
-                            return add;
-                        });
-                    });
-                    toast.success('Xóa địa chỉ thành công!');
-                }
-            })
-            .catch((err) => {
-                toast.error('Đặt địa chỉ mặc định thất bại!');
-            });
-        stopLoading();
-    };
-
-=======
->>>>>>> main
     useEffect(() => {
         setAddress(data);
     }, [data]);
     return (
         <>
-<<<<<<< HEAD
-            {modalConfirmRemove && (
-                <ModalConfirmRemove
-                    onConfirm={removeAddress}
-                    onCancel={() => setModalConfirmRemove(false)}
-                    onClose={() => setModalConfirmRemove(false)}
-                ></ModalConfirmRemove>
-            )}
-=======
->>>>>>> main
             <div className="flex justify-between items-start gap-20 p-4 rounded-md hover:brightness-125 backdrop-blur-3xl bg-bg-light-menu dark:bg-bg-dark-menu">
                 <div className="flex flex-col gap-4 items-start justify-start">
                     <div className="flex gap-4">

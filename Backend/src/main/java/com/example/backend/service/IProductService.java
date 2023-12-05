@@ -23,11 +23,8 @@ public interface IProductService {
 
     List<Product> getProductByCategory(String nameCategory, Integer page, Integer size);
     List<Product> getProductByState(Boolean state, Integer page, Integer size);
-<<<<<<< HEAD
-=======
 
     List<Product> getAllItemNotDeleteAndCategory(Integer page, Integer size, Long categoryId);
     List<Product> getAllItemNotDeleteAndCategoryBetweenPrice(Integer page, Integer size, Long categoryId, Double minPrice, Double maxPrice, String sortType);
     List<Product> searchProductNotDeleteByCategoryAndBetweenPrice(String key, Integer page, Integer size, Long categoryId, Double minPrice, Double maxPrice, String sortType);
->>>>>>> main
 }

@@ -1,17 +1,6 @@
 server:
     port: 8099
 spring:
-<<<<<<< HEAD
-  datasource:
-    url: jdbc:mysql://localhost:3360/final_java_backend?createDatabaseIfNotExist=true
-    username: root
-    password:
-    driver-class-name: com.mysql.jdbc.Driver
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
-=======
     thymeleaf:
         enabled: true
         prefix: classpath:/templates/
@@ -35,4 +24,3 @@ spring:
                 smtp:
                     auth: true
                     starttls.enable: true
->>>>>>> main

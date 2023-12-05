@@ -78,9 +78,6 @@ public class Product {
     private ProductSpecification productSpecification;
 
     @ManyToOne
-<<<<<<< HEAD
-    private Branch branch;
-=======
     private Brand brand;
 
     @Override
@@ -109,7 +106,6 @@ public class Product {
                 '}';
     }
 
->>>>>>> main
 
     @Override
     public String toString() {

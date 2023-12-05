@@ -6,8 +6,6 @@ import com.example.backend.model.Product;
 import org.springframework.http.HttpStatus;
 
 import java.util.Objects;
-<<<<<<< HEAD
-=======
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
@@ -15,7 +13,6 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Base64;
->>>>>>> main
 
 public class Utils {
     private static final String CHAR_UPPER = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -113,8 +110,6 @@ public class Utils {
             throw new MainException(HttpStatus.BAD_REQUEST, "Product is required in the question request.");
         }
     }
-<<<<<<< HEAD
-=======
 
 
 
@@ -135,5 +130,4 @@ public class Utils {
     }
 
 
->>>>>>> main
 }

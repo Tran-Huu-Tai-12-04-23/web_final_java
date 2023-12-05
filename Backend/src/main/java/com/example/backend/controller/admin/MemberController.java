@@ -18,10 +18,6 @@ import java.util.List;
 public class MemberController {
 
     private final IMemberService iMemberService;
-<<<<<<< HEAD
-
-=======
->>>>>>> main
     @GetMapping("")
     public ResponseEntity<List<Member>> getAllMember(
             @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,

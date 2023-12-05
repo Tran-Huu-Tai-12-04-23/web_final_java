@@ -2,15 +2,10 @@ package com.example.backend.service.impl;
 
 import com.example.backend.exception.MainException;
 import com.example.backend.exception.NotFoundException;
-<<<<<<< HEAD
-import com.example.backend.model.Product;
-import com.example.backend.model.ProductSpecification;
-=======
 import com.example.backend.model.Category;
 import com.example.backend.model.Product;
 import com.example.backend.model.ProductSpecification;
 import com.example.backend.repository.CategoryRepository;
->>>>>>> main
 import com.example.backend.repository.ProductRepository;
 import com.example.backend.repository.ProductSpecificationRepository;
 import com.example.backend.service.IProductService;
@@ -28,10 +23,7 @@ import java.util.Optional;
 public class ProductService implements IProductService {
     private final ProductRepository productRepository;
     private final ProductSpecificationRepository productSpecificationRepository;
-<<<<<<< HEAD
-=======
     private final CategoryRepository categoryRepository;
->>>>>>> main
 
     @Override
     public Product createNew(Product pro) throws Exception {
@@ -68,11 +60,7 @@ public class ProductService implements IProductService {
         return productRepository.findById(id).map(pro -> {
             pro.setIsDelete(product.getIsDelete());
             pro.setName(product.getName());
-<<<<<<< HEAD
-            pro.setBranch(product.getBranch());
-=======
             pro.setBrand(product.getBrand());
->>>>>>> main
             pro.setCategory(product.getCategory());
             pro.setQuantity(product.getQuantity());
             pro.setLinkImages(product.getLinkImages());
@@ -128,8 +116,6 @@ public class ProductService implements IProductService {
     }
 
     @Override
-<<<<<<< HEAD
-=======
     public List<Product> searchProductNotDeleteByCategory(String key, Integer page, Integer size, Long categoryId) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "createAt"));
         List<Product> listProduct = productRepository.searchProductNotDeleteByNameBrandCategoryContainingAndCategory(key, categoryId, pageable);
@@ -141,7 +127,6 @@ public class ProductService implements IProductService {
     }
 
     @Override
->>>>>>> main
     public ProductSpecification createNewProductSpecification(ProductSpecification productSpecification) {
         return productSpecificationRepository.save(productSpecification);
     }
@@ -149,11 +134,7 @@ public class ProductService implements IProductService {
     @Override
     public List<Product> getProductByCategory(String nameCategory, Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "createAt"));
-<<<<<<< HEAD
-        return productRepository.findByCategory(nameCategory, pageable);
-=======
         return null;
->>>>>>> main
     }
 
     @Override
@@ -161,8 +142,6 @@ public class ProductService implements IProductService {
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "createAt"));
         return productRepository.findAllByStatus(state, pageable);
     }
-<<<<<<< HEAD
-=======
 
     @Override
     public List<Product> getAllItemNotDeleteAndCategory(Integer page, Integer size, Long categoryId) {
@@ -194,5 +173,4 @@ public class ProductService implements IProductService {
         }
         return productRepository.searchProductNotDeleteByNameBrandCategoryContainingAndCategoryAndBetweenPrice(key,categoryId, minPrice, maxPrice, pageable);
     }
->>>>>>> main
 }

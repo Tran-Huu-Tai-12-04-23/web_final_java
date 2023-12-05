@@ -49,10 +49,7 @@ public class OrderMember {
     private String fullName;
 
     @OneToMany(mappedBy = "orderMember", cascade = CascadeType.ALL, orphanRemoval = true)
-<<<<<<< HEAD
-=======
     @JsonManagedReference
->>>>>>> main
     private List<OrderDetail> orderDetails;
 
     @ManyToOne
@@ -68,13 +65,8 @@ public class OrderMember {
             isPayment = false;
         }
 
-<<<<<<< HEAD
-        if (isDelete == null) {
-            isDelete = false;
-=======
         if (orderDate == null) {
             orderDate = new Date();
->>>>>>> main
         }
 
         if (isCancel == null) {
@@ -84,41 +76,11 @@ public class OrderMember {
         if (methodPayment == null) {
             methodPayment = MethodPayment.CASH;
         }
-<<<<<<< HEAD
-    }
-
-    public Double calculateTotal() {
-        if (orderDetails == null || orderDetails.isEmpty()) {
-            return 0.0;
-        }
-
-        double total = 0.0;
-        for (OrderDetail orderDetail : orderDetails) {
-            total += orderDetail.getProduct().getPrice() * orderDetail.getProduct().getQuantity();
-        }
-
-        return total;
-    }
-
-    public Integer calAmount() {
-        if (orderDetails == null || orderDetails.isEmpty()) {
-            return 0;
-        }
-
-        Integer amount = 0;
-        for (OrderDetail orderDetail : orderDetails) {
-            amount += orderDetail.getProduct().getQuantity();
-        }
-
-        return amount;
-    }
-=======
 
         if (stepOrder == null) {
             stepOrder = 0;
         }
     }
 
->>>>>>> main
 
 }

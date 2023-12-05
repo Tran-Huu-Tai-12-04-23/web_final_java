@@ -15,11 +15,7 @@ public class BranchController {
     private final IBranchService iBranchService;
 
     @GetMapping("")
-<<<<<<< HEAD
-    public ResponseEntity<List<Branch>> getAllBranch() {
-=======
     public ResponseEntity<List<Brand>> getAllBranch() {
->>>>>>> main
         return ResponseEntity.ok(iBranchService.getAllBranch());
     }
 
