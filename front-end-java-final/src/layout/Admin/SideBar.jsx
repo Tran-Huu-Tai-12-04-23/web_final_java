@@ -64,23 +64,6 @@ function SideBar({ activeSidebar, setOrder, order }) {
             path: '/admin/orders',
             icon: <PiShoppingCartSimpleLight className="text-xl"></PiShoppingCartSimpleLight>,
             order: 4,
-            submenu: [
-                {
-                    name: 'Quản lý',
-                    icon: <SiGoogletagmanager className="text-xl"></SiGoogletagmanager>,
-                    order: 1,
-                },
-                {
-                    name: 'Thành viên',
-                    icon: <GoHome className="text-xl"></GoHome>,
-                    order: 2,
-                },
-                {
-                    name: 'Thành viên đã bị xóa',
-                    icon: <GoHome className="text-xl"></GoHome>,
-                    order: 3,
-                },
-            ],
         },
         {
             name: 'Đánh giá',

@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/public/branch")
+@RequestMapping("/api/v1/public/brand")
 @RequiredArgsConstructor
-public class BranchController {
+public class BrandController {
     private final IBranchService iBranchService;
 
     @GetMapping("")

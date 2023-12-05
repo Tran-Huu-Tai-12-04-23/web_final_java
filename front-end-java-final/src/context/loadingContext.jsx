@@ -8,9 +8,7 @@ export default function LoadingProviderApp({ children }) {
     const [loading, setLoading] = useState(null);
 
     const stopLoading = () => {
-        setTimeout(() => {
-            setLoading(false);
-        }, 1000);
+        setLoading(false);
     };
     const startLoading = () => {
         setLoading(true);

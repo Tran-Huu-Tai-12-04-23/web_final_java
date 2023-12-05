@@ -11,7 +11,7 @@ import { request } from '../../../../services';
 import { useLogin } from '../../../../context/login';
 
 function AccountInfo() {
-    const { account } = useLogin();
+    const { account, logOut } = useLogin();
     const { startLoading, stopLoading } = useLoading();
     const [username, setUsername] = useState('Tran huu tai');
     const [email, setEmail] = useState('Tran huu tai');
@@ -56,7 +56,9 @@ function AccountInfo() {
                             password: null,
                         },
                     });
-                    toast.success('Cập nhật hồ sơ thành công!');
+                    toast.success('Cập nhật hồ sơ thành công! Vui lòng đăng nhập lại...');
+                    logOut();
+
                     setEdit(false);
                 }
             })

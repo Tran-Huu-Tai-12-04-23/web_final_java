@@ -13,6 +13,7 @@ import java.util.Optional;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
     Optional<Product> findByName(String name);
+    Long countAllByStatus(Boolean status);
 
     List<Product> findByNameContaining(String key, Pageable pageable);
 
@@ -72,6 +73,30 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             @Param("maxPrice") Double maxPrice,
             Pageable pageable);
 
+    @Query("SELECT p FROM Product p " +
+            "JOIN p.brand b " +
+            "JOIN p.category c " +
+            "JOIN p.productSpecification pro " +
+            "WHERE (p.name LIKE %:keyword% OR b.nameBrand LIKE %:keyword% OR c.nameCategory LIKE %:keyword% " +
+            "OR p.color LIKE %:keyword% OR p.description LIKE %:keyword% OR p.shortDescription LIKE %:keyword%  " +
+            "OR p.chipSet LIKE %:keyword% OR p.screenSize LIKE %:keyword% " +
+            "OR pro.screenSize LIKE %:keyword% OR pro.bluetooth LIKE %:keyword% OR pro.hardDrive LIKE %:keyword% " +
+            "OR pro.material LIKE %:keyword% OR pro.portSupport LIKE %:keyword% OR pro.ramCapacity LIKE %:keyword%) " +
+            "AND (:categoryId IS NULL OR c.id = :categoryId) AND (:brandId IS NULL OR b.id = :brandId) " +
+            "AND (:minPrice IS NULL OR p.price >= :minPrice) " +
+            "AND (:maxPrice IS NULL OR p.price <= :maxPrice) " +
+            "AND p.isDelete = false " +
+            "AND p.status = :status "
+    )
+    List<Product> searchProductNotDeleteByNameBrandCategoryContainingAndCategoryAndBetweenPriceAndStatus(
+            @Param("keyword") String keyword,
+            @Param("categoryId") Long categoryId,
+            @Param("brandId") Long brandId,
+            @Param("minPrice") Double minPrice,
+            @Param("maxPrice") Double maxPrice,
+            @Param("status") Boolean status,
+            Pageable pageable);
+
 
     @Query("SELECT p FROM Product p " +
             "JOIN p.brand b " +
@@ -86,6 +111,33 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             @Param("minPrice") Double minPrice,
             @Param("maxPrice") Double maxPrice,
             Pageable pageable);
+
+
+
+    @Query("SELECT COUNT(p) FROM Product p " +
+            "JOIN p.brand b " +
+            "JOIN p.category c " +
+            "JOIN p.productSpecification pro " +
+            "WHERE (p.name LIKE %:keyword% OR b.nameBrand LIKE :keyword OR c.nameCategory LIKE :keyword " +
+            "OR p.color LIKE :keyword OR p.description LIKE :keyword OR p.shortDescription LIKE :keyword  " +
+            "OR p.chipSet LIKE :keyword OR p.screenSize LIKE :keyword " +
+            "OR pro.screenSize LIKE :keyword OR pro.bluetooth LIKE :keyword OR pro.hardDrive LIKE :keyword " +
+            "OR pro.material LIKE :keyword OR pro.portSupport LIKE :keyword OR pro.ramCapacity LIKE :keyword) " +
+            "AND (:categoryId IS NULL OR c.id = :categoryId) " +
+            "AND (:brandId IS NULL OR c.id = :brandId) " +
+            "AND (:minPrice IS NULL OR p.price >= :minPrice) " +
+            "AND (:maxPrice IS NULL OR p.price <= :maxPrice) " +
+            "AND p.isDelete = false " +
+            "AND p.status = :status"
+    )
+    Long countProductNotDelete(
+            @Param("keyword") String keyword,
+            @Param("categoryId") Long categoryId,
+            @Param("brandId") Long brandId,
+            @Param("minPrice") Double minPrice,
+            @Param("maxPrice") Double maxPrice,
+            @Param("status") Boolean status);
+
 
 
 }

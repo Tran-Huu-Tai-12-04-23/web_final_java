@@ -1,5 +1,6 @@
 package com.example.backend.utils;
 import com.example.backend.dto.OrderRequest;
+import com.example.backend.dto.QuestionRequest;
 import com.example.backend.exception.MainException;
 import com.example.backend.model.Product;
 import org.springframework.http.HttpStatus;
@@ -109,6 +110,23 @@ public class Utils {
         }
 
         return codeBuilder.toString();
+    }
+
+    public static void validateQuestionRequest(QuestionRequest questionRequest){
+        if (questionRequest == null){
+            throw new MainException(HttpStatus.BAD_REQUEST, "Question request cannot be null.");
+        }
+        // Check if the member and member ID are present
+        if (questionRequest.getMember() == null || questionRequest.getMember().getId() == null) {
+            throw new MainException(HttpStatus.BAD_REQUEST, "Member ID is required in the question request.");
+        }
+        //check question content
+        if (questionRequest.getContent().isEmpty()){
+            throw new MainException(HttpStatus.BAD_REQUEST, "Content is required in the question request.");
+        }
+        if (questionRequest.getProduct() == null || questionRequest.getProduct().getId() == null){
+            throw new MainException(HttpStatus.BAD_REQUEST, "Product is required in the question request.");
+        }
     }
 
 

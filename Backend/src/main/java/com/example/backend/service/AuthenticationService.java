@@ -5,11 +5,12 @@ import com.example.backend.dto.RefreshTokenRequest;
 import com.example.backend.dto.SignUpMemberRequest;
 import com.example.backend.model.Account;
 import com.example.backend.model.Member;
+import jakarta.mail.MessagingException;
 
 import javax.accessibility.AccessibleContext;
 
 public interface AuthenticationService {
-    Member signUp(SignUpMemberRequest signUpMemberRequest);
+    Member signUp(SignUpMemberRequest signUpMemberRequest) throws MessagingException;
 
     JWTAuthenticationResponse signIn(Account account);
 

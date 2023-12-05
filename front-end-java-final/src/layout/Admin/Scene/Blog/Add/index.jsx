@@ -286,16 +286,18 @@ function AddBlog({ modeEdit = false, data }) {
                                 onActive={() => setActive(0)}
                                 name="Status"
                                 value={status}
-                                onSelect={(value) => setStatus(value)}
+                                onSelect={(value) => {
+                                    setStatus(value);
+                                }}
                                 className="bg-light-tiny dark:bg-dark-tiny rounded-md"
                                 subMenu={[
                                     {
                                         name: 'Draft',
-                                        id: false,
+                                        value: false,
                                     },
                                     {
                                         name: 'Published',
-                                        id: true,
+                                        value: true,
                                     },
                                 ]}
                             ></Select>

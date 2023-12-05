@@ -6,6 +6,7 @@ import com.example.backend.model.Account;
 import com.example.backend.model.Member;
 import com.example.backend.service.AuthenticationService;
 import com.example.backend.service.IAccountService;
+import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +29,8 @@ public class AuthenticationController {
             ErrorResponse errorResponse = new ErrorResponse();
             errorResponse.setMessage(e.getReason());
             return ResponseEntity.badRequest().body(errorResponse);
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
         }
     }
 

@@ -2042,16 +2042,6 @@ export const WrappedColumnsTableMember = ({
                                 <BiBlock className="w-6 h-6 brightness-50 text-yellow-200"></BiBlock>
                             </AnimateHover>
                         </Tooltip>
-                        <Tooltip content="Watch detail">
-                            <AnimateHover
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    onView(value);
-                                }}
-                            >
-                                <BsEye className="w-6 h-6 brightness-50 text-white"></BsEye>
-                            </AnimateHover>
-                        </Tooltip>
                         <Tooltip content="Edit">
                             <AnimateHover
                                 onClick={(e) => {
@@ -2799,6 +2789,13 @@ export const WrapperColumnsTableProduct = ({ onRemove = () => {}, onEdit = () =>
         {
             title: 'Price',
             filed: 'price',
+            render: (value) => {
+                return (
+                    <div className="group max-w-[20rem] truncate relative transition-all text-orange-500">
+                        đ {value.toFixed(2)}
+                    </div>
+                );
+            },
         },
         {
             title: 'Quantity',
@@ -3024,59 +3021,49 @@ export const colorStatus = {
 export const statusOption = [
     {
         name: 'All',
-        value: false,
-        id: false,
-    },
-    {
-        name: 'Cancel',
-        value: true,
-        id: 0,
-    },
-    {
-        name: 'Delivery',
-        value: null,
-        id: 1,
-    },
-    {
-        name: 'Inprogress',
-        value: null,
-        id: 2,
-    },
-    {
-        name: 'Pending',
-        value: null,
-        id: 3,
-    },
-    {
-        name: 'Return',
-        value: null,
+        value: 4,
         id: 4,
     },
     {
+        name: 'Cancel',
+        value: 3,
+        id: 3,
+    },
+    {
+        name: 'Delivery',
+        value: 1,
+        id: 1,
+    },
+    {
+        name: 'Pending',
+        value: 0,
+        id: 0,
+    },
+
+    {
         name: 'Completed',
-        value: null,
-        id: 5,
+        value: 2,
+        id: 2,
     },
 ];
 
 export const WrapperColumnOrder = ({ onRemove = () => {}, onEdit = () => {}, onView = () => {} }) => {
     return [
         {
-            title: 'ID',
-            filed: 'id',
-        },
-        {
             title: 'Member name',
-            filed: 'username',
+            filed: 'fullName',
+            render: (value) => {
+                return <div className="relative max-w-[15rem] overflow-visible truncate">{value}</div>;
+            },
         },
         {
             title: 'Product list',
-            filed: 'products',
+            filed: 'orderDetails',
             render: (values) => {
                 return (
                     <Tooltip content={values.map((vl) => vl?.name).join(', ')}>
                         <div className="relative max-w-[15rem] overflow-visible truncate">
-                            {values.map((vl) => vl?.name).join(', ')}
+                            {values.map((vl) => vl?.product.name).join(', ')}
                         </div>
                     </Tooltip>
                 );
@@ -3085,14 +3072,28 @@ export const WrapperColumnOrder = ({ onRemove = () => {}, onEdit = () => {}, onV
         {
             title: 'Total',
             filed: 'total',
+            render: (value) => {
+                return (
+                    <div className="relative max-w-[15rem] overflow-visible truncate text-orange-500">
+                        đ {value.toFixed(2)}
+                    </div>
+                );
+            },
         },
         {
-            title: 'Quantity',
-            filed: 'quantity',
+            title: 'Amount',
+            filed: 'amount',
         },
         {
             title: 'Order date',
             filed: 'orderDate',
+            render: (value) => {
+                return (
+                    <div className="relative  text-second max-w-[15rem] overflow-visible truncate ">
+                        {new Date(value).toLocaleDateString()}
+                    </div>
+                );
+            },
         },
         {
             title: 'Status',
@@ -3101,17 +3102,13 @@ export const WrapperColumnOrder = ({ onRemove = () => {}, onEdit = () => {}, onV
                 let classStyle = '';
 
                 if (value === 0) {
-                    classStyle = `${colorStatus.cancel.textColor + ' ' + colorStatus.cancel.bgColor}`;
+                    classStyle = `${colorStatus.pending.textColor + ' ' + colorStatus.pending.bgColor}`;
                 } else if (value === 1) {
                     classStyle = `${colorStatus.delivery.textColor + ' ' + colorStatus.delivery.bgColor}`;
                 } else if (value === 2) {
-                    classStyle = `${colorStatus.inprogress.textColor + ' ' + colorStatus.inprogress.bgColor}`;
-                } else if (value === 3) {
-                    classStyle = `${colorStatus.pending.textColor + ' ' + colorStatus.pending.bgColor}`;
-                } else if (value === 4) {
-                    classStyle = `${colorStatus.return.textColor + ' ' + colorStatus.return.bgColor}`;
-                } else if (value === 5) {
                     classStyle = `${colorStatus.complete.textColor + ' ' + colorStatus.complete.bgColor}`;
+                } else if (value === 3) {
+                    classStyle = `${colorStatus.cancel.textColor + ' ' + colorStatus.cancel.bgColor}`;
                 }
 
                 let textOption = statusOption.find((option) => option.id === value);
@@ -3125,38 +3122,20 @@ export const WrapperColumnOrder = ({ onRemove = () => {}, onEdit = () => {}, onV
                 );
             },
 
-            filed: 'status',
+            filed: 'stepOrder',
         },
         {
             title: 'Action',
             render: (value) => {
                 return (
-                    <div className={`gap-4 flex justify-start items-center `}>
-                        <AnimateHover
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                onView(value);
-                            }}
-                        >
-                            <BsEye className="w-6 h-6 brightness-50 text-white"></BsEye>
-                        </AnimateHover>
-                        <AnimateHover
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                onEdit(value);
-                            }}
-                        >
-                            <MdEdit className="w-6 h-6 text-blue-600"></MdEdit>
-                        </AnimateHover>
-                        <AnimateHover
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                onRemove(value);
-                            }}
-                        >
-                            <IoMdTrash className="w-6 h-6 text-red-600"></IoMdTrash>
-                        </AnimateHover>
-                    </div>
+                    <AnimateHover
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            onView(value);
+                        }}
+                    >
+                        <BsEye className="w-6 h-6 brightness-50 text-white"></BsEye>
+                    </AnimateHover>
                 );
             },
             filed: 'id',

@@ -49,6 +49,8 @@ function Select({
                     return mn.value == value || mn.id == value;
                 })[0]?.name,
             );
+        } else {
+            setSelectValue(null);
         }
     }, [value]);
 
@@ -85,7 +87,7 @@ function Select({
     }, [active]);
 
     return (
-        <motion.div
+        <div
             onClick={(e) => {
                 e.stopPropagation();
                 setOpen(!open);
@@ -97,12 +99,12 @@ function Select({
             }  flex relative min-w-[10rem] justify-between items-center border-[1px] border-solid p-2 rounded-md hover:bg-btn-second cursor-pointer ${className}`}
         >
             <TextMain className={'mr-3'}>{selectValue ? selectValue : name}</TextMain>
-            <motion.div variants={variants} animate={open ? 'active' : 'inActive'}>
+            <div variants={variants} animate={open ? 'active' : 'inActive'}>
                 <MdOutlineKeyboardArrowDown className="w-4 h-4"> </MdOutlineKeyboardArrowDown>
-            </motion.div>
+            </div>
 
             {open && (active || active == null) && (
-                <motion.div
+                <div
                     variants={variantsSubmenu}
                     transition={{
                         duration: 0.3,
@@ -119,7 +121,13 @@ function Select({
                                     <li
                                         className="w-full text-sm p-2 hover:bg-btn-second"
                                         key={index}
-                                        onClick={() => handleSelectOption(menu.id)}
+                                        onClick={() => {
+                                            if (menu.id) {
+                                                handleSelectOption(menu.id);
+                                            } else {
+                                                handleSelectOption(menu?.value);
+                                            }
+                                        }}
                                     >
                                         {menu.name}
                                         {menu.component}
@@ -142,9 +150,9 @@ function Select({
                                 );
                             })}
                     </ul>
-                </motion.div>
+                </div>
             )}
-        </motion.div>
+        </div>
     );
 }
 

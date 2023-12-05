@@ -39,23 +39,21 @@ function CardMain({ width = undefined, sale = true, data }) {
             productId: data?.id,
         };
 
-        console.log(dataReq);
-
         try {
             await request('POST', '/api/v1/user/cart', dataReq)
                 .then((response) => {
                     const data = response.data;
-                    if (response.status === 200) {
+                    if (response.data) {
                         toast.success('Thêm ' + data?.name + ' vào giỏ hàng thành công!');
                     } else {
-                        toast.error(response.message);
+                        toast.error('Thêm  vào giỏ hàng thất bại, sản phẩm  không đủ cung cấp cho bạn!');
                     }
                 })
                 .catch((error) => {
-                    toast.error('Thêm vào ' + data?.name + 'giỏ hàng thất bại');
+                    toast.error('Thêm vào giỏ hàng thất bại');
                 });
         } catch (error) {
-            toast.error('Thêm ' + data?.name + ' vào giỏ hàng thất bại');
+            toast.error('Thêm vào giỏ hàng thất bại, sản phẩm  không đủ cung cấp cho bạn!');
         }
     };
     const addToCart = async (e) => {
@@ -79,7 +77,7 @@ function CardMain({ width = undefined, sale = true, data }) {
             ) : (
                 <motion.div
                     onClick={() => history(Constants.PRODUCT + '/' + data?.id)}
-                    whileHover={{ scale: 1.1, transition: { duration: 0.3 } }}
+                    whileHover={{ scale: 1.05, transition: { duration: 0.3 } }}
                     whileTap={{
                         scale: 1,
                         transition: { duration: 0.3 },

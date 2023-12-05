@@ -3,25 +3,25 @@ import { Input, TextMain, Modal, ModalItem } from '../../../../../components';
 import { request } from '../../../../../services';
 import toast from 'react-hot-toast';
 
-function ModalAddNewBranch({
+function ModalAddNewBrand({
     onRemove = () => {},
     onCancel = () => {},
     onClose = () => {},
-    onAddNewBranch = (value) => {},
+    onAddNewBrand = (value) => {},
 }) {
-    const [branch, setBranch] = useState('');
+    const [brand, setBrand] = useState('');
     const [close, setClose] = useState(false);
 
-    const handleAddNewBranch = () => {
-        return request('POST', 'api/v1/admin/branch/create', {
-            nameBranch: branch,
+    const handleAddNewBrand = () => {
+        return request('POST', 'api/v1/public/brand/create', {
+            nameBrand: brand,
         })
             .then((response) => {
                 const data = response.data;
                 if (data) {
-                    onAddNewBranch({
+                    onAddNewBrand({
                         ...data,
-                        name: data?.nameBranch,
+                        name: data?.nameBrand,
                     });
                 }
                 setClose(true);
@@ -33,13 +33,13 @@ function ModalAddNewBranch({
                 throw errors;
             });
     };
-    const addNewBranch = async () => {
-        if (branch === '') {
+    const addNewbrand = async () => {
+        if (brand === '') {
             toast.error('Tên thương hiệu không được bỏ trống!');
             return;
         }
 
-        toast.promise(handleAddNewBranch(), {
+        toast.promise(handleAddNewBrand(), {
             loading: 'Đang tạo...',
             success: <b>Tạo thành công!</b>,
             error: <b>Tạo thất bại.</b>,
@@ -60,8 +60,8 @@ function ModalAddNewBranch({
 
                     <div className="flex flex-col mt-4">
                         <Input
-                            value={branch}
-                            onChange={(e) => setBranch(e.target.value)}
+                            value={brand}
+                            onChange={(e) => setBrand(e.target.value)}
                             placeholder="Nhập tên thương hiệu..."
                             label={'Tên thương hiệu'}
                             className="mb-4"
@@ -79,7 +79,7 @@ function ModalAddNewBranch({
                             </button>
                             <button
                                 type="submit"
-                                onClick={addNewBranch}
+                                onClick={addNewbrand}
                                 className="py-2 px-3 text-sm font-medium text-center text-white bg-green-700 rounded-md pl-4 pr-4 hover:bg-green-800 focus:outline-none  dark:bg-green-600 dark:hover:bg-green-700 "
                             >
                                 Lưu
@@ -92,4 +92,4 @@ function ModalAddNewBranch({
     );
 }
 
-export default ModalAddNewBranch;
+export default ModalAddNewBrand;

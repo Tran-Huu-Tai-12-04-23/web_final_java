@@ -15,5 +15,6 @@ public interface BlogRepository extends JpaRepository<Blog, Long> {
     Page<Blog> findByIsDeleteTrue(Pageable pageable);
 
     List<Blog> findByTitleContainingOrContentContaining(String keyTitle,String keyContent, Pageable pageable);
+    Page<Blog> findByIsDeleteFalseAndStatusTrue(Pageable pageable);
 
 }

@@ -23,6 +23,7 @@ function MultiSelect({
     active = null,
     onActive = () => {},
     placeholder,
+    numberSelect,
 }) {
     const [open, setOpen] = useState(false);
     const [border, setBorder] = useState(false);
@@ -87,7 +88,6 @@ function MultiSelect({
             <input
                 onClick={(e) => {
                     e.stopPropagation();
-                    setOpen(true);
                     setBorder(true);
                     onActive();
                 }}
@@ -124,7 +124,6 @@ function MultiSelect({
                                         e.stopPropagation();
                                         e.preventDefault();
                                         handleSelect(menu);
-                                        console.log(menu);
                                     }}
                                 >
                                     {menu}

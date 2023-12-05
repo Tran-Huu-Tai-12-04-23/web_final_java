@@ -1,15 +1,24 @@
 package com.example.backend.service.impl;
 
+import com.example.backend.dto.EmailRequest;
 import com.example.backend.dto.OrderRequest;
 import com.example.backend.exception.NotFoundException;
 import com.example.backend.model.*;
 import com.example.backend.repository.*;
+import com.example.backend.service.IEmailService;
 import com.example.backend.service.IUserOrderService;
+import jakarta.mail.MessagingException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.core.annotation.Order;
+import org.aspectj.weaver.ast.Or;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -22,12 +31,15 @@ public class UseOderService implements IUserOrderService {
     private final MemberRepository memberRepository;
     private final OrderMemberRepository orderMemberRepository;
     private final OrderDetailRepository orderDetailRepository;
+    private final VoteRepository voteRepository;
     private final ProductRepository productRepository;
     private final CartService cartService;
+    private final TemplateEngine templateEngine;
+    private final IEmailService iEmailService;
 
     @Override
 
-    public OrderMember addOrder(OrderRequest orderRequest) {
+    public OrderMember addOrder(OrderRequest orderRequest) throws MessagingException {
         OrderMember orderMember = new OrderMember();
         Optional<Member> memberOptional = memberRepository.findById(orderRequest.getMember().getId());
 
@@ -71,6 +83,14 @@ public class UseOderService implements IUserOrderService {
             orderDetailRepository.save(orderDetail);
         });
 
+        EmailRequest emailRequest = new EmailRequest();
+        emailRequest.setEmail(memberOrder.getEmail());
+        emailRequest.setSubject("Cảm ơn quý khách đã đặt hàng!");
+        Context context = new Context();
+        String htmlContent = templateEngine.process("orderComplete", context);
+        emailRequest.setContent(htmlContent);
+        iEmailService.sendMail(emailRequest);
+
         return orderMemberRepository.findById(finalOrderMember.getId())
                 .orElseThrow(() -> new RuntimeException("Order failed!"));
     }
@@ -78,7 +98,7 @@ public class UseOderService implements IUserOrderService {
     @Override
     public List<OrderMember> getAllOrderByMemberId(Long mId) {
 
-        return orderMemberRepository.findByMember_Id(mId);
+        return orderMemberRepository.findByMember_IdOrderByOrderDateDesc(mId);
     }
 
     @Override
@@ -104,9 +124,79 @@ public class UseOderService implements IUserOrderService {
             productRepository.save(product);
         }
         orderMember.setIsCancel(true);
+        orderMember.setStepOrder(4);
         orderMember.setOrderStatus(OrderStatus.CANCEL);
 
         return orderMemberRepository.save(orderMember);
+    }
+
+    @Override
+    public OrderMember changeStepOrder(Long orderId, Integer stepOrder) {
+        Optional<OrderMember> orderOp = orderMemberRepository.findById(orderId);
+        if(orderOp.isEmpty()) throw new NotFoundException("Order not found!");
+
+        OrderMember orderMember = orderOp.get();
+        orderMember.setStepOrder(stepOrder);
+        orderMember.setIsCancel(stepOrder == 3);
+        switch (stepOrder) {
+            case 0 -> {
+                orderMember.setOrderStatus(OrderStatus.PENDING);
+            }
+            case 1 -> {
+                orderMember.setOrderStatus(OrderStatus.DELIVERY);
+            }
+            case 2 -> {
+                orderMember.setOrderStatus(OrderStatus.DONE);
+            }
+            case 3 -> {
+                orderMember.setOrderStatus(OrderStatus.CANCEL);
+            }
+            default -> {
+                orderMember.setOrderStatus(OrderStatus.RETURN);
+            }
+        }
+        return orderMemberRepository.save(orderMember);
+    }
+
+    @Override
+    public OrderMember voteOrder(Long orderId, ReviewOrder reviewOrder) {
+        Optional<OrderMember> orderMemberOptional = orderMemberRepository.findById(orderId);
+        if (orderMemberOptional.isEmpty()) {
+            throw new NotFoundException("Order not found!");
+        }
+
+        OrderMember orderMember = orderMemberOptional.get();
+        List<OrderDetail> orderDetails = orderMember.getOrderDetails();
+
+        for (OrderDetail orderDetail : orderDetails) {
+            Product product = orderDetail.getProduct();
+            List<ReviewOrder> reviewOrders = product.getReviewOrders();
+
+            ReviewOrder newReviewOrder = new ReviewOrder();
+            newReviewOrder.setMember(orderMember.getMember());
+            newReviewOrder.setProduct(orderDetail.getProduct());
+            newReviewOrder.setCreateAt(new Date());
+            newReviewOrder.setStar(reviewOrder.getStar());
+            newReviewOrder.setContent(reviewOrder.getContent());
+
+            newReviewOrder = voteRepository.save(newReviewOrder);
+
+            reviewOrders.add(newReviewOrder);
+            product.setReviewOrders(reviewOrders);
+            productRepository.save(product);
+        }
+
+        orderMember.setIsVote(true);
+        return orderMemberRepository.save(orderMember);
+    }
+
+
+
+    @Override
+    public List<OrderMember> search(String key, Integer stepOrder, Integer page, Integer size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "orderDate"));
+
+        return orderMemberRepository.search(key, stepOrder, pageable);
     }
 
     @Override

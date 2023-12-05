@@ -10,10 +10,11 @@ import jakarta.mail.MessagingException;
 import java.util.List;
 
 public interface IMemberService {
-    Member createNew(Member member);
-    Member update(Member member, Long id);
-    Member updateMember(MemberRequestUpdate memberRequestUpdate, Long id);
-    List<Member> getAllAccountNotDelete(Integer page,Integer size);
+    Member createNew(Member member) throws MessagingException;
+    Member update(Member member, Long id) throws MessagingException;
+    Member updateMember(MemberRequestUpdate memberRequestUpdate, Long id) throws MessagingException;
+    List<Member> getAllAccountNotDelete(Integer page,Integer size, Boolean isBlock);
+    List<Member> getAllAccount(Integer page,Integer size, Boolean status, Boolean isDelete);
 
     Member getMember(Long id);
     Member deleteSoftMember(Long id);
@@ -22,7 +23,7 @@ public interface IMemberService {
     void deleteMember(Long id);
 
     Member updateAccumulatePoints(double accumulatePoints,  Long id);
-    List<Member> search(String key, Integer page,Integer size);
+    List<Member> search(String key, Integer page,Integer size, Boolean status, Boolean isDelete);
 
     Member changePassword(ChangeNewPasswordRequest changeNewPasswordRequest, Long mId) throws MessagingException;
 

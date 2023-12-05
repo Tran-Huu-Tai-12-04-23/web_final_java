@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface IProductService {
+    Long countProductByStatus(Boolean status);
     Product createNew(Product pro) throws Exception;
     boolean deleteSoft(Long id);
     boolean delete(Long id);
@@ -27,4 +28,11 @@ public interface IProductService {
     List<Product> getAllItemNotDeleteAndCategory(Integer page, Integer size, Long categoryId);
     List<Product> getAllItemNotDeleteAndCategoryBetweenPrice(Integer page, Integer size, Long categoryId, Double minPrice, Double maxPrice, String sortType);
     List<Product> searchProductNotDeleteByCategoryAndBetweenPrice(String key, Integer page, Integer size, Long categoryId, Double minPrice, Double maxPrice, String sortType);
+    List<Product> searchProductNotDeleteByCategoryAndBetweenPriceByStatus(String key, Integer page, Integer size, Long categoryId, Double minPrice, Double maxPrice, String sortType, Boolean status, Long brandId);
+
+    Long countProduct(String key, Long categoryId,Long brandId, Double minPrice, Double maxPrice, Boolean status);
+
+    Product changeDraft(Long productId);
+    List<Product> getAllProductUser(Integer page, Integer size, Long categoryId, Double minPrice, Double maxPrice, String sortType, Boolean status);
+
 }

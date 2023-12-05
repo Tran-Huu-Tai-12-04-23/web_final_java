@@ -21,7 +21,9 @@ function SummaryYourOrder({ setActiveStep = () => {}, totalPrice, data = [], onO
 
             <div className="flex flex-col mt-5 gap-4">
                 {data.map((item, index) => {
-                    return <ItemOrderSummary data={item} key={index}></ItemOrderSummary>;
+                    if (item.product.quantity >= item.quantity) {
+                        return <ItemOrderSummary data={item} key={index}></ItemOrderSummary>;
+                    }
                 })}
             </div>
 
@@ -45,7 +47,7 @@ function SummaryYourOrder({ setActiveStep = () => {}, totalPrice, data = [], onO
             </div>
 
             <Button
-                className="p-2 rounded-md w-full bg-primary"
+                className="p-2 rounded-md text-white w-full bg-primary"
                 onClick={() => {
                     setActiveStep(2);
                     onOrder();

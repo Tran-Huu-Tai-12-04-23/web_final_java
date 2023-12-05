@@ -23,7 +23,7 @@ import java.util.List;
 public class App implements CommandLineRunner {
 
     private final AccountRepository accountRepository;
-    private final BranchRepository branchRepository;
+    private final BrandRepository brandRepository;
     private final CategoryRepository categoryRepository;
     private final CategoryBlogRepository categoryBlogRepository;
     private final ProductSpecificationRepository productSpecificationRepository;
@@ -50,7 +50,7 @@ public class App implements CommandLineRunner {
             for( String branch : listBranch) {
                 Brand newBranch = new Brand();
                 newBranch.setNameBrand(branch);
-                branchRepository.save(newBranch);
+                brandRepository.save(newBranch);
             }
 
             String[] listCategory = {"Tablet", "Mobile Phone", "Camera", "Laptop", "PC"};
@@ -168,7 +168,7 @@ public class App implements CommandLineRunner {
     public void addPhoneProduct(List<String> productInfo,Long brandId,String productUrl){
         Product product = new Product();
         product.setCategory(categoryRepository.findById(2L).get());
-        product.setBrand(branchRepository.findById(brandId).get());
+        product.setBrand(brandRepository.findById(brandId).get());
         product.setLinkImages(getImageListPhone_Tablet(productUrl));
         product.setColor("Black");
         product.setLinkVideo(null);
@@ -217,7 +217,7 @@ public class App implements CommandLineRunner {
         Product product = new Product();
 //        product.setId(id);
         product.setCategory(categoryRepository.findById(1L).get());
-        product.setBrand(branchRepository.findById(brandID).get());
+        product.setBrand(brandRepository.findById(brandID).get());
         product.setLinkImages(getImageListPhone_Tablet(productURL));
         product.setColor("Black");
         product.setLinkVideo(null);
@@ -313,7 +313,7 @@ public class App implements CommandLineRunner {
     public void addLaptopProduct(List<String> productInfo,Long brandID,String productUrl){
         Product product = new Product();
         product.setCategory(categoryRepository.findById(4L).get());
-        product.setBrand(branchRepository.findById(brandID).get());
+        product.setBrand(brandRepository.findById(brandID).get());
         product.setLinkImages(getImageLaptop(productUrl));
         product.setColor(getFeature(productInfo,"Màu sắc"));
         product.setLinkVideo(null);

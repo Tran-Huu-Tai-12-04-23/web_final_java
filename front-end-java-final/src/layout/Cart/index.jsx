@@ -43,25 +43,27 @@ function Cart() {
         return true;
     };
     const commitOrder = async () => {
-        let total = cartItems.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
-        let productList = cartItems.map((item) => {
-            return { id: item?.product.id, price: item?.product.price, quantity: item?.quantity };
-        });
-        const amount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
+        const productList = cartItems
+            .filter((item) => item.product.quantity >= item.quantity)
+            .map(({ product, quantity }) => ({
+                id: product.id,
+                price: product.price,
+                quantity,
+            }));
+
+        const total = productList.reduce((acc, { price, quantity }) => acc + price * quantity, 0);
+
+        const amount = productList.reduce((acc, { quantity }) => acc + quantity, 0);
+
         const orderRequest = {
-            address: {
-                id: address?.id,
-            },
+            address: { id: address?.id },
             methodPayment: paymentCash ? 0 : 1,
-            member: {
-                id: account?.memberId,
-            },
+            member: { id: account?.memberId },
             total,
-            amount: amount,
+            amount,
             products: productList,
         };
 
-        console.log(orderRequest);
         let isCheckData = verifyOrderRequest(orderRequest);
 
         if (!isCheckData) return;
@@ -69,8 +71,10 @@ function Cart() {
         startLoading();
         await request('POST', '/api/v1/user/order/add-order', orderRequest)
             .then((res) => {
-                toast.success('Đặt hàng thành công!');
-                res.data && history(Constants.USER_ORDER + '/' + res?.data.id);
+                if (res.data) {
+                    toast.success('Đặt hàng thành công!');
+                    res.data && history(Constants.USER_ORDER + '/' + res?.data.id);
+                }
             })
             .catch((err) => {
                 console.log(err);
@@ -147,9 +151,12 @@ function Cart() {
                         src="https://i.ibb.co/WxSg9tS/Pngtree-no-result-search-icon-6511543-removebg-preview.png"
                         alt="no res"
                     />
-                    <TextMain className={'text-2xl font-semibold'}>No item in cart</TextMain>
-                    <Button className="p-2 rounded-md pl-4 pr-4 bg-primary mt-2" onClick={() => history('/products')}>
-                        Buy Now
+                    <TextMain className={'text-2xl font-semibold'}>Chưa có sản phẩm nào</TextMain>
+                    <Button
+                        className="text-white p-2 rounded-md pl-4 pr-4 bg-primary mt-2"
+                        onClick={() => history('/products')}
+                    >
+                        Mua ngay
                     </Button>
                 </div>
             ) : (
@@ -171,7 +178,7 @@ function Cart() {
                                         })}
                                 </div>
                                 <div className="w-1/3  ">
-                                    <SummaryCart setActiveStep={setActiveStep}></SummaryCart>
+                                    <SummaryCart data={cartItems} setActiveStep={setActiveStep}></SummaryCart>
                                 </div>
                             </div>
                         </div>

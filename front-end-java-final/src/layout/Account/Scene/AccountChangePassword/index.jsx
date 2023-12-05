@@ -11,7 +11,7 @@ import { useLoading } from '../../../../context/loadingContext';
 import { request } from '../../../../services';
 
 function AccountChangPassword() {
-    const { account } = useLogin();
+    const { account, logOut } = useLogin();
     const { startLoading, stopLoading } = useLoading();
     const [oldPassword, setOldPassword] = useState('');
     const [password, setPassword] = useState('');
@@ -99,10 +99,11 @@ function AccountChangPassword() {
         await request('PUT', `/api/v1/user/member/change-password/${account?.memberId}`, data)
             .then((res) => {
                 if (res.data) {
-                    toast.success('Change password was successfully!');
+                    toast.success('Change password was successfully! Vui lòng đăng nhập lại...');
                     resetForm();
                     setConfirmOtp(false);
                     setChangePassword(false);
+                    logOut();
                 } else {
                 }
             })

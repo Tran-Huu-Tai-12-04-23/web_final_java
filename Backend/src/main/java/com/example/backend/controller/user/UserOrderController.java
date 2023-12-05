@@ -21,6 +21,15 @@ public class UserOrderController {
     private final IUserOrderService iUserOrderService;
     private final IAccountService iAccountService;
 
+    @PostMapping("/vote-order/{orderId}")
+    public ResponseEntity<?> voteOrder(@PathVariable Long orderId,@RequestBody ReviewOrder reviewOrder) {
+        try {
+            OrderMember orderMembers = iUserOrderService.voteOrder(orderId, reviewOrder);
+            return ResponseEntity.ok(orderMembers);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
     @PutMapping("/cancel-order/{orderId}")
     public ResponseEntity<?> cancelOrder(@PathVariable Long orderId) {
         try {

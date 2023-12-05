@@ -25,7 +25,6 @@ function DetailProduct({ mode = 'user' }) {
         getData();
     }, [id]);
 
-    console.log(data);
     return (
         <AnimateOpacity className="p-4">
             {viewModeSlide && (

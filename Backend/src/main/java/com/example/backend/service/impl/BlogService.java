@@ -25,10 +25,8 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class BlogService implements IBlogService {
-
     private final BlogRepository blogRepository;
     private final CategoryBlogRepository categoryBlogRepository;
-
 
     @Override
     public Blog create(Blog blog) {
@@ -49,6 +47,7 @@ public class BlogService implements IBlogService {
             bl.setCategory(blog.getCategory());
             bl.setContent(blog.getContent());
             bl.setThumbnails(blog.getThumbnails());
+            bl.setStatus(blog.getStatus());
             return blogRepository.save(bl);
         }).orElseThrow(() -> new NotFoundException("Blog is not found!"));
     }
@@ -117,5 +116,11 @@ public class BlogService implements IBlogService {
     @Override
     public List<CategoryBlog> getAllCategory() {
         return categoryBlogRepository.findAll();
+    }
+
+    @Override
+    public List<Blog> getAllBlogDeleteFalseAndPublish(Integer page, Integer size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "createAt"));
+        return blogRepository.findByIsDeleteFalseAndStatusTrue(pageable).stream().toList();
     }
 }

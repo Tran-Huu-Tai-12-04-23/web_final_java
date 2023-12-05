@@ -31,14 +31,13 @@ function RegisterForm({ switchLogin = () => {} }) {
         setLoading(true);
         await requestSign('POST', '/api/v1/auth/sign-up', user)
             .then((response) => {
-                toast.promise(handleRegister(), {
-                    loading: 'Registering in...',
-                    success: <b>Register successful!</b>,
-                    error: <b>Register failed.</b>,
-                });
-                switchLogin();
+                if (response.data) {
+                    toast.success('Đăng ký tài khoản thành công!');
+                    switchLogin();
+                }
             })
             .catch((error) => {
+                console.log(error);
                 if (error.response) {
                     error.response.data.message && toast.error(error.response.data.message);
                 }

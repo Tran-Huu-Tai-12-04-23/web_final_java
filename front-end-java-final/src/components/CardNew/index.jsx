@@ -67,7 +67,9 @@ function CardNew({ width, data }) {
                 <h3 className="text-gray-400">{data?.category?.nameCategory}</h3>
                 <h1 className="text-md font-medium w-[80%] truncate">{data?.name}</h1>
 
-                <h5 className="text-md font-medium text-orange-400 mb-4 mt-2">₫ {data?.price.toFixed(2)}</h5>
+                {data && data.price && (
+                    <h5 className="text-md font-medium text-orange-400 mb-4 mt-2">₫ {data.price.toFixed(2)}</h5>
+                )}
                 <Button
                     onClick={async (e) => {
                         e.stopPropagation();

@@ -5,6 +5,7 @@ import com.example.backend.model.Member;
 import com.example.backend.service.IMemberService;
 import com.example.backend.utils.AppConstants;
 import com.example.backend.utils.Utils;
+import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,15 +21,17 @@ public class MemberController {
     private final IMemberService iMemberService;
     @GetMapping("")
     public ResponseEntity<List<Member>> getAllMember(
+            @RequestParam(name = "isDelete", required = false, defaultValue = "false") Boolean isDelete,
+            @RequestParam(name = "status", required = false, defaultValue = "true") Boolean status,
             @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
             @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size
     ) {
         Utils.validatePageNumberAndSize(page, size);
-        return ResponseEntity.ok(iMemberService.getAllAccountNotDelete(page, size));
+        return ResponseEntity.ok(iMemberService.getAllAccount(page, size, status, isDelete));
     }
 
     @PostMapping
-    public ResponseEntity<Member> createMember(@RequestBody Member member) {
+    public ResponseEntity<Member> createMember(@RequestBody Member member) throws MessagingException {
         return ResponseEntity.ok(iMemberService.update(member, member.getId()));
     }
 
@@ -79,19 +82,15 @@ public class MemberController {
     @GetMapping("/search")
     public ResponseEntity<?> searchMember(
             @RequestParam String key,
+            @RequestParam(name = "status", required = false, defaultValue = "true") Boolean status,
+            @RequestParam(name = "isDelete", required = false, defaultValue = "false") Boolean isDelete,
             @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
             @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size
     ) {
         try{
             Utils.validatePageNumberAndSize(page, size);
-            List<Member> listMemberRes = iMemberService.search(key, page, size);
-            if(listMemberRes.isEmpty()) {
-                ErrorResponse err = new ErrorResponse();
-                err.setMessage("Can't find member with " + key);
-                return  ResponseEntity.status(HttpStatus.BAD_REQUEST ).body(err);
-            }else {
-                return ResponseEntity.ok(listMemberRes);
-            }
+            List<Member> listMemberRes = iMemberService.search(key, page, size, status, isDelete);
+            return ResponseEntity.ok(listMemberRes);
         }catch (Exception e ) {
             ErrorResponse err = new ErrorResponse();
             err.setMessage(e.getMessage());

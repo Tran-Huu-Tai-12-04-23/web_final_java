@@ -8,9 +8,9 @@ import { AnimateOpacity } from '../../../../../components/Animate';
 import { Button, Input, TextMain, TextSub, Select, Editor, InputCountNumberCustom } from '../../../../../components';
 import SkeletonImage from './SkeletonImage';
 
-import ModalAddNewBranch from './ModalAddNewBranch';
+import ModalAddNewBrand from './ModalAddNewBrand';
 import ModalAddNewCategory from './ModalAddNewCategory';
-import SettingSaleProduct from './SettingSaleProdcut';
+import SettingSaleProduct from './SettingSaleProduct';
 
 import { IoIosAdd } from 'react-icons/io';
 import { BsTrash } from 'react-icons/bs';
@@ -24,15 +24,20 @@ import { colorOptions } from '../../../../../assets/data';
 // use fire base
 import uploadImage from '../../../../../services/Firebase';
 import { request } from '../../../../../services';
+import { useLoading } from '../../../../../context/loadingContext';
+import Constants from '../../../../../Constants';
+import { useNavigate } from 'react-router-dom';
 
-function AddProduct({ mode = 'add', data = null }) {
+function AddProduct({}) {
+    const history = useNavigate();
+    const { startLoading, stopLoading } = useLoading();
     // data state of product
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [shortDescription, setShortDescription] = useState('');
     const [thumbnails, setThumbnails] = useState(null);
     const [quantity, setQuantity] = useState(1);
-    const [branch, setBranch] = useState(null);
+    const [brand, setBrand] = useState(null);
     const [status, setStatus] = useState(null);
     const [category, setCategory] = useState(null);
     const [launchDate, setLaunchDate] = useState(new Date());
@@ -42,7 +47,7 @@ function AddProduct({ mode = 'add', data = null }) {
 
     // options for select
     const [categoryOptions, setCategoryOptions] = useState([]);
-    const [branchOptions, setBranchOptions] = useState([]);
+    const [brandOptions, setBrandOptions] = useState([]);
 
     // state load
     const [loadThumbnails, setLoadThumbnails] = useState(false);
@@ -51,20 +56,19 @@ function AddProduct({ mode = 'add', data = null }) {
     const inputRefThumbnails = useRef(null);
     const inputReflinkImages = useRef(null);
     // state active modal
-    const [addNewBranchModal, setAddNewBranchModal] = useState(false);
+    const [addNewBrandModal, setAddNewBrandModal] = useState(false);
     const [addNewCategoryModal, setAddNewCategoryModal] = useState(false);
     //
     const [active, setActive] = useState(null);
 
-    // handle get option for category and branch
+    // handle get option for category and Brand
     useEffect(() => {
         const getCategoryOptions = async () => {
             try {
                 await request('GET', '/api/v1/public/category/product')
                     .then((response) => {
-                        const data = response.data;
-                        if (!data) return;
-                        const newData = data.map((data) => {
+                        if (!response.data) return;
+                        const newData = response.data.map((data) => {
                             return {
                                 ...data,
                                 name: data.nameCategory,
@@ -84,19 +88,20 @@ function AddProduct({ mode = 'add', data = null }) {
     }, []);
 
     useEffect(() => {
-        const getBranchOptions = async () => {
+        const getBrandOptions = async () => {
             try {
-                await request('GET', '/api/v1/public/branch')
+                await request('GET', '/api/v1/public/brand')
                     .then((response) => {
+                        if (!response.data) return;
                         const data = response.data;
-                        if (!data) return;
+
                         const newData = data.map((data) => {
                             return {
                                 ...data,
-                                name: data.nameBranch,
+                                name: data.nameBrand,
                             };
                         });
-                        setBranchOptions(newData);
+                        setBrandOptions(newData);
                     })
                     .catch((error) => {
                         console.log(error);
@@ -106,25 +111,9 @@ function AddProduct({ mode = 'add', data = null }) {
                 return;
             }
         };
-        getBranchOptions();
+        getBrandOptions();
     }, []);
 
-    //init data mode = edit
-    useEffect(() => {
-        if (data) {
-            setName(data.name);
-            setDescription(data.description);
-            setQuantity(data.quantity ? data.quantity : 0);
-            setThumbnails(data.thumbnails);
-            setLinkImages(data.linkImages);
-            setShortDescription(data.shortDescription);
-            setBranch(data.branch);
-            setStatus(data.status);
-            setCategory(data.category);
-            setLaunchDate(new Date(data.launchDate));
-            setColor(data.color);
-        }
-    }, [data]);
     const handleFileChangeLinkImages = async (e) => {
         const files = e.target.files;
         const selectedFilesArray = Array.from(files);
@@ -168,21 +157,20 @@ function AddProduct({ mode = 'add', data = null }) {
     };
 
     const handleAddProduct = async (data) => {
-        try {
-            await request('POST', '/api/v1/admin/product/create', data)
-                .then((response) => {
-                    const dataRes = response.data;
-                    console.log(dataRes);
+        startLoading();
+        await request('POST', '/api/v1/admin/product/create', data)
+            .then((response) => {
+                if (response.data) {
                     clearAllStates();
-                    return Promise.resolve(true);
-                })
-                .catch((error) => {
-                    console.log(error);
-                    return Promise.reject(error);
-                });
-        } catch (error) {
-            return Promise.reject(error);
-        }
+                    toast.success('Thêm sản phẩm thành công!');
+                    history(Constants.PRODUCT);
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+                toast.error('Thêm sản phẩm thất bại!');
+            });
+        stopLoading();
     };
 
     const addProduct = async () => {
@@ -200,8 +188,9 @@ function AddProduct({ mode = 'add', data = null }) {
             chipSet: productSpecification?.typeCPU,
             launchDate,
             productSpecification,
-            branch,
+            brand,
             category,
+            status,
         };
 
         data = {
@@ -209,23 +198,18 @@ function AddProduct({ mode = 'add', data = null }) {
             category: {
                 id: data.category,
             },
-            branch: {
-                id: data.branch,
+            brand: {
+                id: data.brand,
             },
         };
 
         const resultCheck = verifyData(data);
-        console.log(resultCheck);
         if (resultCheck.success === false) {
             toast.error(resultCheck?.message);
             return;
         }
 
-        toast.promise(handleAddProduct(data), {
-            loading: 'Đang cập nhật...',
-            success: <b>Cập nhật thành công!</b>,
-            error: <b>Cập nhật thất bại.</b>,
-        });
+        await handleAddProduct(data);
     };
 
     const clearAllStates = () => {
@@ -234,7 +218,7 @@ function AddProduct({ mode = 'add', data = null }) {
         setShortDescription('');
         setThumbnails(null);
         setQuantity(1);
-        setBranch(null);
+        setBrand(null);
         setStatus(null);
         setCategory(null);
         setLaunchDate(new Date());
@@ -260,17 +244,6 @@ function AddProduct({ mode = 'add', data = null }) {
             return { success: false, message: 'Màu sản phẩm không được bỏ trống.' };
         }
 
-        // Kiểm tra price
-        // console.log(+data.price);
-        // if (+data.price >= 1) {
-        //     return { success: false, message: 'Price is required and must be a positive number' };
-        // }
-
-        // Kiểm tra quantity
-        // if (typeof data.quantity !== 'number' || isNaN(data.quantity) || data.quantity <= 0) {
-        //     return { success: false, message: 'Quantity is required and must be a positive number.' };
-        // }
-
         // Kiểm tra screenSize
         if (typeof data.screenSize !== 'string' || data.screenSize.trim() === '') {
             return { success: false, message: 'Kích cỡ màn hình sản phẩm không được bỏ trống.' };
@@ -291,11 +264,11 @@ function AddProduct({ mode = 'add', data = null }) {
             return { success: false, message: 'Mô tả sản phẩm phải là một đối tượng.' };
         }
 
-        // Kiểm tra branch
-        if (!data.branch || typeof data.branch !== 'object') {
+        // Kiểm tra Brand
+        if (!data.brand || typeof data.brand !== 'object') {
             return { success: false, message: 'Thương hiệu phải là một đối tượng.' };
         }
-        // Kiểm tra branch properties (tùy thuộc vào loại dữ liệu và các yêu cầu cụ thể)
+        // Kiểm tra Brand properties (tùy thuộc vào loại dữ liệu và các yêu cầu cụ thể)
 
         // Kiểm tra category
         if (!data.category || typeof data.category !== 'object') {
@@ -304,15 +277,14 @@ function AddProduct({ mode = 'add', data = null }) {
         return { success: true };
     }
 
-    const update = async () => {};
     return (
         <motion.div className="">
             {/* modal */}
-            {addNewBranchModal && (
-                <ModalAddNewBranch
-                    onAddNewBranch={(value) => setBranchOptions((prev) => [...prev, value])}
-                    onClose={() => setAddNewBranchModal(false)}
-                ></ModalAddNewBranch>
+            {addNewBrandModal && (
+                <ModalAddNewBrand
+                    onAddNewBrand={(value) => setBrandOptions((prev) => [...prev, value])}
+                    onClose={() => setAddNewBrandModal(false)}
+                ></ModalAddNewBrand>
             )}
             {addNewCategoryModal && (
                 <ModalAddNewCategory onClose={() => setAddNewCategoryModal(false)}></ModalAddNewCategory>
@@ -333,12 +305,11 @@ function AddProduct({ mode = 'add', data = null }) {
                 ref={inputRefThumbnails}
                 onChange={handleFileChangeThumbnails}
             ></input>
-            <SubHeader nameHeader={'Products'} sub={`${(mode = 'edit' ? 'Edit' : 'Add')}`} main="Products"></SubHeader>
+            <SubHeader nameHeader={'Products'} sub={`Add`} main="Products"></SubHeader>
             <AnimateOpacity>
                 <motion.div className="p-4 rounded-md bg-light dark:bg-dark mt-10 shadow-xl">
                     <motion.div className="flex justify-between items-center border-b-[1px] border-dashed pb-4 dark:border-dark-tiny border-light-tiny">
-                        {mode == 'edit' && <TextMain>Chỉnh sửa sản phẩm</TextMain>}
-                        {mode != 'edit' && <TextMain>Chỉnh sửa sản phẩm</TextMain>}
+                        <TextMain>Thêm sản phẩm</TextMain>
                     </motion.div>
                 </motion.div>
 
@@ -474,7 +445,7 @@ function AddProduct({ mode = 'add', data = null }) {
                             </div>
 
                             <div className="flex  flex-col ">
-                                <TextMain className={'mb-2 ml-2'}>Giá tiền $(Dollar)</TextMain>
+                                <TextMain className={'mb-2 ml-2'}>Giá tiền (vnd)</TextMain>
                                 <InputCountNumberCustom
                                     onDecrease={() => {
                                         if (price > 1) {
@@ -528,11 +499,11 @@ function AddProduct({ mode = 'add', data = null }) {
                                 subMenu={[
                                     {
                                         name: 'Bản nháp',
-                                        id: false,
+                                        value: false,
                                     },
                                     {
                                         name: 'Xuất bản',
-                                        id: true,
+                                        value: true,
                                     },
                                 ]}
                             ></Select>
@@ -561,24 +532,24 @@ function AddProduct({ mode = 'add', data = null }) {
                                 active={active == 1}
                             ></Select>
                             <Select
-                                onSelect={(value) => setBranch(value)}
+                                onSelect={(value) => setBrand(value)}
                                 active={active == 2}
                                 onActive={() => setActive(2)}
                                 name="Thương hiệu"
-                                value={branch}
+                                value={brand}
                                 className="bg-light-tiny dark:bg-dark-tiny rounded-md"
                                 subMenu={[
-                                    ...branchOptions,
+                                    ...brandOptions,
                                     {
                                         name: '',
                                         value: null,
                                         component: (
                                             <Button
-                                                onClick={() => setAddNewBranchModal(true)}
+                                                onClick={() => setAddNewBrandModal(true)}
                                                 className={'w-full flex justify-center items-center '}
                                             >
                                                 <IoIosAdd className="w-8 h-8 hover:text-white brightness-75"></IoIosAdd>
-                                                <span>Add new branch</span>
+                                                <span>Add new Brand</span>
                                             </Button>
                                         ),
                                     },
@@ -613,23 +584,16 @@ function AddProduct({ mode = 'add', data = null }) {
                 </div>
             </AnimateOpacity>
 
-            <ProductSpecification onSelectData={(value) => setProductSpecification(value)}></ProductSpecification>
+            <ProductSpecification
+                value={productSpecification}
+                onSelectData={(value) => setProductSpecification(value)}
+            ></ProductSpecification>
 
-            {mode != 'edit' && (
-                <div className="flex justify-start items-center mt-5">
-                    <Button onClick={addProduct} style="submit" className={''}>
-                        Xác nhận
-                    </Button>
-                </div>
-            )}
-
-            {mode == 'edit' && (
-                <div className="flex justify-start items-center mt-5">
-                    <Button onClick={update} style="submit" className={''}>
-                        Cập nhật
-                    </Button>
-                </div>
-            )}
+            <div className="flex justify-start items-center mt-5">
+                <Button onClick={addProduct} style="submit" className={''}>
+                    Xác nhận
+                </Button>
+            </div>
         </motion.div>
     );
 }

@@ -11,6 +11,7 @@ const Product = lazy(() => import('../layout/Admin/Scene/Product'));
 const AddProduct = lazy(() => import('../layout/Admin/Scene/Product/Add'));
 const EditProduct = lazy(() => import('../layout/Admin/Scene/Product/Edit'));
 const ManagerOrder = lazy(() => import('../layout/Admin/Scene/Order/Manager/index'));
+const DetailOrder = lazy(() => import('../layout/Admin/Scene/Order/Detail'));
 const OrderInvoice = lazy(() => import('../layout/Admin/Scene/Order/Invoice/index'));
 
 const BlogManger = lazy(() => import('../layout/Admin/Scene/Blog/Manager'));
@@ -32,6 +33,14 @@ export const AdminRoutes = [
         component: (
             <Admin>
                 <ManagerOrder />
+            </Admin>
+        ),
+    },
+    {
+        path: Constants.ADMIN_ORDER + '/:id',
+        component: (
+            <Admin>
+                <DetailOrder />
             </Admin>
         ),
     },

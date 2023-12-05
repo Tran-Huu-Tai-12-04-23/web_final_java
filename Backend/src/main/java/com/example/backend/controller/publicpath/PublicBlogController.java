@@ -25,7 +25,7 @@ public class PublicBlogController {
     ) {
         try{
             Utils.validatePageNumberAndSize(page, size);
-            return ResponseEntity.ok(iBlogService.getAllBlogDeleteFalse(page, size));
+            return ResponseEntity.ok(iBlogService.getAllBlogDeleteFalseAndPublish(page, size));
         }catch (Exception e) {
             ErrorResponse err = new ErrorResponse();
             err.setMessage(e.getMessage());

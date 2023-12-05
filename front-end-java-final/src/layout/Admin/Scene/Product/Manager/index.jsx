@@ -34,13 +34,26 @@ function Manager({}) {
     const { startLoading, stopLoading } = useLoading();
     const history = useNavigate();
     const [filters, setFilters] = useState({});
-    const [searchValue, setSearchValue] = useState('');
     const [data, setData] = useState([]);
-    const [status, setStatus] = useState(2);
+    const [numberProduct, setNumberProduct] = useState(0);
+
+    ///
+    const [managerPageProduct, setManagerPageProduct] = useState({
+        currentPage: 1,
+        size: 10,
+        status: true,
+        brand: [],
+        category: [],
+        key: '',
+        sortType: 'ASC',
+        minPrice: '',
+        maxPrice: '',
+        category: '',
+        brand: '',
+    });
     // data
     // filter data
     const [confirmRemoveMember, setConfirmRemoveMember] = useState(false);
-    const [editProduct, setEditProduct] = useState(false);
     const [memberSelected, setMemberSelected] = useState([]);
     const [productIdConfirmRemove, setProductIdConfirmRemove] = useState(null);
     const columnsProduct = WrapperColumnsTableProduct({
@@ -56,117 +69,116 @@ function Manager({}) {
         },
     });
 
-    const getProductByState = async (state) => {
-        try {
-            startLoading();
-            await request('GET', `/api/v1/admin/product/all/state?state=${state}`)
-                .then((response) => {
-                    let data = response.data;
-                    if (!data) return;
-                    const newData = data.map((dt) => {
-                        return {
-                            ...dt,
-                            category: dt?.category?.nameCategory,
-                        };
-                    });
-                    setData(newData);
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-        } catch (err) {
-            console.log(err);
-            return;
-        }
-        stopLoading();
-    };
-
     const getData = async () => {
-        try {
-            startLoading();
-            await request('GET', '/api/v1/admin/product/all')
-                .then((response) => {
-                    let data = response.data;
-                    if (!data) return;
-                    const newData = data.map((dt) => {
-                        return {
-                            ...dt,
-                            category: dt?.category?.nameCategory,
-                        };
-                    });
-                    setData(newData);
-                })
-                .catch((error) => {
-                    console.log(error);
+        const URL =
+            `/api/v1/admin/product/search?` +
+            [
+                managerPageProduct.key && `key=${managerPageProduct.key}`,
+                `status=${managerPageProduct.status}`,
+                managerPageProduct.currentPage && `page=${+managerPageProduct.currentPage - 1}`,
+                managerPageProduct.size && `size=${managerPageProduct.size}`,
+                managerPageProduct.minPrice && `minPrice=${managerPageProduct.minPrice}`,
+                managerPageProduct.maxPrice && `maxPrice=${managerPageProduct.maxPrice}`,
+                managerPageProduct.sortType && `sortType=${managerPageProduct.sortType}`,
+                managerPageProduct.brand && `brandId=${managerPageProduct.brand}`,
+                managerPageProduct.category && `categoryId=${managerPageProduct.category}`,
+            ]
+                .filter(Boolean)
+                .join('&');
+
+        await request('GET', URL)
+            .then((response) => {
+                let data = response.data;
+                if (!data) return;
+                const newData = data.map((dt) => {
+                    return {
+                        ...dt,
+                        category: dt?.category?.nameCategory,
+                    };
                 });
-        } catch (err) {
-            console.log(err);
-            return;
-        }
-        stopLoading();
+                setData(newData);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     };
 
-    useEffect(() => {
-        switch (status) {
-            case 0: {
-                getProductByState(false);
-                break;
-            }
-            case 1: {
-                getProductByState(true);
-                break;
-            }
-            case 2: {
-                getData();
-                break;
-            }
-            default: {
-                getData();
-            }
-        }
-    }, [status]);
     useEffect(() => {
         getData();
-    }, []);
+    }, [managerPageProduct]);
+
+    useEffect(() => {
+        const countNumberProduct = async () => {
+            startLoading();
+            const URL =
+                `/api/v1/admin/product/count?` +
+                [
+                    managerPageProduct.key && `key=${managerPageProduct.key}`,
+                    `status=${managerPageProduct.status}`,
+                    managerPageProduct.currentPage && `page=${+managerPageProduct.currentPage - 1}`,
+                    managerPageProduct.size && `size=${managerPageProduct.size}`,
+                    managerPageProduct.minPrice && `minPrice=${managerPageProduct.minPrice}`,
+                    managerPageProduct.maxPrice && `maxPrice=${managerPageProduct.maxPrice}`,
+                    managerPageProduct.sortType && `sortType=${managerPageProduct.sortType}`,
+                    managerPageProduct.brand && `brandId=${managerPageProduct.brand}`,
+                    managerPageProduct.category && `categoryId=${managerPageProduct.category}`,
+                ]
+                    .filter(Boolean) // Filter out falsy values (undefined, null, empty strings)
+                    .join('&');
+
+            await request('GET', URL)
+                .then((res) => {
+                    if (res.data == 0 || res.data) {
+                        setNumberProduct(res.data);
+                    }
+                })
+                .catch((err) => console.log(err));
+            stopLoading();
+        };
+
+        countNumberProduct();
+    }, [managerPageProduct]);
 
     // handle get option for category and branch
     const handleRemoveProduct = async () => {
-        try {
-            await request('DELETE', '/api/v1/admin/product/delete-soft?id=' + productIdConfirmRemove)
-                .then((response) => {
-                    console.log(response);
-
-                    if (!response) {
-                        return Promise.reject(false);
-                    }
+        startLoading();
+        await request('DELETE', '/api/v1/admin/product/delete-soft?id=' + productIdConfirmRemove)
+            .then((response) => {
+                if (response.data) {
                     setData((prev) => prev.filter((dt) => dt.id !== productIdConfirmRemove));
                     setProductIdConfirmRemove(null);
-                    return Promise.resolve(true);
-                })
-                .catch((err) => {
-                    return Promise.reject(false);
-                });
-        } catch (error) {
-            console.error(error);
-            return Promise.reject(false);
-        }
+                    setNumberProduct((prev) => prev - 1);
+                    toast.success('Đưa sản phẩm về bản nháp!');
+                } else {
+                    toast.error('Thất bại!');
+                }
+            })
+            .catch((err) => {
+                toast.error('Thất bại!');
+            });
+        stopLoading();
     };
 
-    const removeProduct = async () => {
-        if (productIdConfirmRemove == null) return;
-
-        toast.promise(handleRemoveProduct(), {
-            loading: 'Đang xóa ...',
-            success: <b>Xóa thành công!</b>,
-            error: <b>Xóa thất bại.</b>,
+    useEffect(() => {
+        setManagerPageProduct((prev) => {
+            return {
+                ...prev,
+                sortType: filters?.selectedSort,
+                minPrice: filters?.minPrice,
+                maxPrice: filters?.maxPrice,
+                brand: filters?.brand,
+                category: filters?.category,
+                currentPage: 1,
+            };
         });
-    };
+    }, [filters]);
+
     return (
         <>
             {/* modal */}
             {confirmRemoveMember && (
                 <ModalConfirmRemove
-                    onRemove={removeProduct}
+                    onRemove={handleRemoveProduct}
                     onClose={() => {
                         setConfirmRemoveMember(false);
                     }}
@@ -174,15 +186,6 @@ function Manager({}) {
                 ></ModalConfirmRemove>
             )}
 
-            {/* {editMember === true && (
-                <ModalEditMember
-                    onClose={() => {
-                        setEditMember(false);
-                    }}
-                    onCancel={() => {}}
-                ></ModalEditMember>
-            )} */}
-            {/* end modal */}
             <SubHeader nameHeader={'Products'} sub="Manager" main="Products"></SubHeader>
 
             <AnimateOpacity className={'flex justify-between gap-4'}>
@@ -211,49 +214,72 @@ function Manager({}) {
                     {/* //feature filter */}
                     <div className="flex mb-4 2xl:flex-row xl:flex-row lg:flex-row flex-col justify-between items-center mt-5 gap-4  border-b-[1px] border-dashed pb-4 dark:border-dark-tiny border-light-tiny">
                         <Input
+                            value={managerPageProduct.key}
+                            onChange={(e) =>
+                                setManagerPageProduct((prev) => {
+                                    return {
+                                        ...prev,
+                                        key: e.target.value,
+                                    };
+                                })
+                            }
                             placeholder="Tìm kiếm tên, mô tả hoặc ... "
                             className="w-full"
                             iconRight={<IoSearchOutline className="w-6 h-6 mr-3"></IoSearchOutline>}
                         ></Input>
-
-                        <div className="flex w-full justify-end items-center gap-5">
-                            <PickedRangeDate></PickedRangeDate>
-                            <Select
-                                name="Trạng thái"
-                                value={status}
-                                onSelect={(value) => setStatus(value)}
-                                className="bg-light-tiny dark:bg-dark-tiny rounded-md"
-                                subMenu={[
-                                    {
-                                        name: 'Bản nháp',
-                                        value: 0,
-                                        id: 0,
-                                    },
-                                    {
-                                        name: 'Xuất bản',
-                                        value: 1,
-                                        id: 1,
-                                    },
-                                    {
-                                        name: 'All',
-                                        value: 2,
-                                        id: 2,
-                                    },
-                                ]}
-                            ></Select>
-                        </div>
+                        <Select
+                            name="Trạng thái"
+                            value={managerPageProduct.status}
+                            onSelect={(value) => {
+                                setManagerPageProduct((prev) => {
+                                    return {
+                                        ...prev,
+                                        status: value,
+                                    };
+                                });
+                            }}
+                            className="bg-light-tiny dark:bg-dark-tiny rounded-md"
+                            subMenu={[
+                                {
+                                    name: 'Bản nháp',
+                                    value: false,
+                                },
+                                {
+                                    name: 'Xuất bản',
+                                    value: true,
+                                },
+                            ]}
+                        ></Select>
                     </div>
 
                     {/* Table */}
 
                     <TableCustom
-                        searchValue={searchValue}
+                        currentPage={+managerPageProduct.currentPage}
+                        totalRow={+numberProduct}
                         columns={columnsProduct}
                         data={data}
                         checked={true}
-                        numberRow={10}
+                        numberRow={managerPageProduct.size}
                         pagination={true}
                         setCheckedData={setMemberSelected}
+                        onSelectRowShow={(value) => {
+                            setManagerPageProduct((prev) => {
+                                return {
+                                    ...prev,
+                                    size: value,
+                                    currentPage: 1,
+                                };
+                            });
+                        }}
+                        onChangePage={(value) => {
+                            setManagerPageProduct((prev) => {
+                                return {
+                                    ...prev,
+                                    currentPage: value,
+                                };
+                            });
+                        }}
                     ></TableCustom>
                 </div>
             </AnimateOpacity>

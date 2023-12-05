@@ -35,7 +35,7 @@ function Information({ data }) {
         },
         {
             name: 'Đánh giá',
-            tabContent: <Reviews />,
+            tabContent: <Reviews data={data?.reviewOrders} />,
             icon: (
                 <GoCodeReview className="w-6 h-6 brightness-50 group-hover:text-primary group-hover:brightness-100"></GoCodeReview>
             ),

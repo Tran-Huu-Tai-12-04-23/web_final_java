@@ -18,7 +18,6 @@ import {
     powerCapacityOptions,
     portSupportOptions,
 } from '../../../../../assets/data';
-import { data } from 'autoprefixer';
 
 const laptopData = {
     typeCard: 'Integrated',
@@ -43,10 +42,8 @@ const formatFieldName = (fieldName) => {
     return words.map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
 };
 
-// Component for a single row
-
 // Component for the entire table
-const ProductSpecification = ({ data = laptopData, onSelectData = () => {} }) => {
+const ProductSpecification = ({ data = laptopData, onSelectData = () => {}, value = {} }) => {
     const [activeMultiSelect, setActiveMultiSelect] = useState(null);
     const [selectedData, setSelectedData] = useState({});
 
@@ -72,7 +69,36 @@ const ProductSpecification = ({ data = laptopData, onSelectData = () => {} }) =>
             ...prevData,
             [Object.keys(laptopData)[index]]: value,
         }));
+        onSelectData((prevData) => ({
+            ...prevData,
+            [Object.keys(laptopData)[index]]: value,
+        }));
     };
+
+    useEffect(() => {
+        if (value) {
+            setSelectedData((prev) => {
+                return {
+                    ...prev,
+                    typeCard: value.typeCard ? value.typeCard : '',
+                    typeCPU: value.typeCPU ? value.typeCPU : '',
+                    ramCapacity: value.ramCapacity ? value.ramCapacity : '',
+                    typeRam: value.typeRam ? value.typeRam : '',
+                    hardDrive: value.hardDrive ? value.hardDrive : '',
+                    material: value.material ? value.material : '',
+                    touchScreen: value.touchScreen ? value.touchScreen : '',
+                    screenSize: value.screenSize ? value.screenSize : '',
+                    resolution: value.resolution ? value.resolution : '',
+                    webcam: value.webcam ? value.webcam : '',
+                    wifi: value.wifi ? value.wifi : '',
+                    bluetooth: value.bluetooth ? value.bluetooth : '',
+                    powerCapacity: value.powerCapacity ? value.powerCapacity : '',
+                    portSupport: value.portSupport ? value.portSupport : '',
+                    os: value.os ? value.os : '',
+                };
+            });
+        }
+    }, [value]);
 
     const renderTable = () => {
         return Object.entries(data).map(([fieldName, fieldValue], index) => (
@@ -82,6 +108,7 @@ const ProductSpecification = ({ data = laptopData, onSelectData = () => {} }) =>
                 </th>
                 <td className="px-6 py-4">
                     <MultiSelect
+                        numberSelect={1}
                         active={activeMultiSelect === index}
                         onActive={() => {
                             setActiveMultiSelect(index);
@@ -97,9 +124,6 @@ const ProductSpecification = ({ data = laptopData, onSelectData = () => {} }) =>
             </tr>
         ));
     };
-    useEffect(() => {
-        onSelectData(selectedData);
-    }, [selectedData]);
 
     return (
         <div className="relative overflow-x-auto rounded-md mt-5 bg-light-tiny dark:bg-dark-tiny p-4 ">

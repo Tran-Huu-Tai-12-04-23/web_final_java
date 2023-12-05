@@ -13,9 +13,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 @Service
@@ -24,6 +26,11 @@ public class ProductService implements IProductService {
     private final ProductRepository productRepository;
     private final ProductSpecificationRepository productSpecificationRepository;
     private final CategoryRepository categoryRepository;
+
+    @Override
+    public Long countProductByStatus(Boolean status) {
+        return productRepository.countAllByStatus(status);
+    }
 
     @Override
     public Product createNew(Product pro) throws Exception {
@@ -58,10 +65,19 @@ public class ProductService implements IProductService {
     @Override
     public Product update(Product product, Long id) {
         return productRepository.findById(id).map(pro -> {
-            pro.setIsDelete(product.getIsDelete());
             pro.setName(product.getName());
             pro.setBrand(product.getBrand());
-            pro.setCategory(product.getCategory());
+            pro.setDescription(product.getDescription());
+            pro.setProductSpecification(pro.getProductSpecification());
+            pro.setShortDescription(pro.getShortDescription());
+            pro.setThumbnails(product.getThumbnails());
+            pro.setColor(product.getColor());
+            pro.setChipSet(product.getChipSet());
+            pro.setDatePublished(new Date());
+            pro.setScreenSize(product.getScreenSize());
+            pro.setScreenSize(product.getScreenSize());
+            pro.setStatus(product.getStatus());
+            pro.setLaunchDate(new Date());
             pro.setQuantity(product.getQuantity());
             pro.setLinkImages(product.getLinkImages());
             return productRepository.save(pro);
@@ -161,6 +177,7 @@ public class ProductService implements IProductService {
         if( sortType.equals("DESC")) {
             pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "price"));
         }
+
         return productRepository.getAllProductNotDeleteByNameBrandCategoryContainingAndCategoryAndBetweenPrice(categoryId, minPrice, maxPrice, pageable);
 
     }
@@ -172,5 +189,44 @@ public class ProductService implements IProductService {
             pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "price"));
         }
         return productRepository.searchProductNotDeleteByNameBrandCategoryContainingAndCategoryAndBetweenPrice(key,categoryId, minPrice, maxPrice, pageable);
+    }
+
+    @Override
+    public List<Product> searchProductNotDeleteByCategoryAndBetweenPriceByStatus(String key,
+                                                                                 Integer page, Integer size, Long categoryId, Double minPrice,
+                                                                                 Double maxPrice, String sortType, Boolean status, Long brandId) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "price"));
+        if( sortType.equals("DESC")) {
+            pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "price"));
+        }
+        return productRepository.searchProductNotDeleteByNameBrandCategoryContainingAndCategoryAndBetweenPriceAndStatus(key,categoryId,brandId, minPrice, maxPrice, status, pageable);
+    }
+
+    @Override
+    public Long countProduct(String key, Long categoryId,Long brandId, Double minPrice, Double maxPrice, Boolean status) {
+        return productRepository.countProductNotDelete(key,categoryId,brandId, minPrice, maxPrice, status);
+
+    }
+
+    @Override
+    public Product changeDraft(Long productId) {
+        Optional<Product> productOptional = productRepository.findById(productId);
+        if( productOptional.isEmpty() ) {
+            throw new NotFoundException("Product not found!");
+        }
+
+        Product product = productOptional.get();
+        product.setStatus(false);
+        return productRepository.save(product);
+    }
+
+    @Override
+    public List<Product> getAllProductUser(Integer page, Integer size, Long categoryId, Double minPrice, Double maxPrice, String sortType, Boolean status) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "price"));
+        if( sortType.equals("DESC")) {
+            pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "price"));
+        }
+        return productRepository.searchProductNotDeleteByNameBrandCategoryContainingAndCategoryAndBetweenPriceAndStatus("",categoryId,null, minPrice, maxPrice, status, pageable);
+
     }
 }

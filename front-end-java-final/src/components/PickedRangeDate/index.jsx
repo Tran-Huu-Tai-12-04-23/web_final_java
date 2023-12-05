@@ -13,7 +13,6 @@ const PickedRangeDate = ({
     });
 
     const handleValueChange = (newValue) => {
-        console.log('newValue:', newValue);
         setValue(newValue);
         onSelect(newValue);
     };

@@ -29,8 +29,8 @@ public class UserCartController {
         try {
             CartItem cartItem = iCartService.updateQuantityForItem(cartUpdateRequest);
             return ResponseEntity.ok(cartItem);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Failed to add product to cart.");
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 

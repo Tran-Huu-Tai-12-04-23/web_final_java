@@ -1,6 +1,7 @@
 package com.example.backend.model;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -43,7 +44,7 @@ public class Product {
 
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Date datePublished;
-    @Column(columnDefinition = "BOOLEAN DEFAULT 0")
+    @Column(columnDefinition = "BOOLEAN DEFAULT true")
     private Boolean status;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -52,6 +53,9 @@ public class Product {
 
     @Column(columnDefinition = "BOOLEAN DEFAULT false")
     private Boolean isDelete;
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<ReviewOrder> reviewOrders;
     @PrePersist
     public void prePersist() {
         if (createAt == null) {

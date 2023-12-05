@@ -20,6 +20,10 @@ public class Question {
     Long id;
 
     private String content;
+    @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
+    private Boolean isDeleted = false;
+    @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
+    private Boolean isReplied = false;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
@@ -28,6 +32,12 @@ public class Question {
     public void prePersist() {
         if (createAt == null) {
             createAt = new Date();
+        }
+        if (isDeleted == null){
+            isDeleted = false;
+        }
+        if (isReplied == null){
+            isReplied = false;
         }
     }
 

@@ -30,7 +30,7 @@ public class ProductController {
             @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size
     ) {
         Utils.validatePageNumberAndSize(page, size);
-        return ResponseEntity.ok(iProductService.getAllItemNotDeleteAndCategoryBetweenPrice(page, size, categoryId, minPrice, maxPrice,sortType));
+        return ResponseEntity.ok(iProductService.getAllProductUser(page, size, categoryId, minPrice, maxPrice,sortType, true));
 
     }
 
@@ -79,7 +79,7 @@ public class ProductController {
     @GetMapping("/search")
     public ResponseEntity<?> searchProduct(
             @RequestParam(name = "sortType", required = false, defaultValue = "ASC") String sortType,
-            @RequestParam String key,
+            @RequestParam(name = "key", required = false, defaultValue = "") String key,
             @RequestParam(name = "categoryId", required = false, defaultValue = "") Long categoryId,
             @RequestParam(name = "minPrice", required = false, defaultValue = "") Double minPrice,
             @RequestParam(name = "maxPrice", required = false, defaultValue = "") Double maxPrice,
@@ -88,7 +88,7 @@ public class ProductController {
     ) {
         try{
             Utils.validatePageNumberAndSize(page, size);
-            List<Product> listProduct = iProductService.searchProductNotDeleteByCategoryAndBetweenPrice(key, page, size, categoryId, minPrice, maxPrice, sortType);
+            List<Product> listProduct = iProductService.searchProductNotDeleteByCategoryAndBetweenPriceByStatus( key,  page, size, categoryId,  minPrice,  maxPrice,  sortType, true, null);
             if(listProduct.isEmpty()) {
                 ErrorResponse err = new ErrorResponse();
                 err.setMessage("Can't find product with " + key);

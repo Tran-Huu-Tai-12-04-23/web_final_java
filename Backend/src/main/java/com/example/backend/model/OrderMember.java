@@ -39,6 +39,8 @@ public class OrderMember {
 
     @Column(columnDefinition = "BOOLEAN DEFAULT false")
     private Boolean isPayment;
+    @Column(columnDefinition = "BOOLEAN DEFAULT false")
+    private Boolean isVote;
 
     @Column(columnDefinition = "INT DEFAULT 0")
     private MethodPayment methodPayment;
@@ -59,12 +61,15 @@ public class OrderMember {
     @PrePersist
     public void prePersist() {
         if (orderStatus == null) {
-            orderStatus = OrderStatus.PREPARE;
+            orderStatus = OrderStatus.PENDING;
         }
         if (isPayment == null) {
             isPayment = false;
         }
 
+        if (isVote == null) {
+            isVote = false;
+        }
         if (orderDate == null) {
             orderDate = new Date();
         }

@@ -26,7 +26,6 @@ public class CartService implements ICartService {
     private final ProductRepository productRepository;
     private final CartItemRepository cartItemRepository;
 
-
     @Override
     public Cart createNew(Cart cart) {
         return cartRepository.save(cart);
@@ -48,7 +47,7 @@ public class CartService implements ICartService {
         Optional<Member> memberOptional = memberRepository.findById(memberId);
 
         if (memberOptional.isEmpty()) {
-            throw new RuntimeException("Member not found");
+                throw new RuntimeException("Member not found");
         }
         // Find product by ID
         Optional<Product> productOptional = productRepository.findById(productId);
@@ -71,12 +70,16 @@ public class CartService implements ICartService {
                 .filter(item -> item.getProduct().equals(product))
                 .findFirst();
 
+
         if (existingCartItem.isPresent()) {
             // If the product is already in the cart, update the quantity
             CartItem cartItem = existingCartItem.get();
-            cartItem.setQuantity(cartItem.getQuantity() + 1);
-            cartItemRepository.save(cartItem);
-        } else {
+            if( product.getQuantity() >= cartItem.getQuantity() + 1) {
+                cartItem.setQuantity(cartItem.getQuantity() + 1);
+                cartItemRepository.save(cartItem);
+                return product;
+            }
+        } else if(product.getQuantity() >= 1){
             // If the product is not in the cart, add a new cart item
             CartItem newCartItem = new CartItem();
             newCartItem.setProduct(product);
@@ -84,8 +87,11 @@ public class CartService implements ICartService {
             newCartItem.setCart(cart);
             cartItems.add(newCartItem);
             cartRepository.save(cart);
+            return product;
         }
-        return product;
+
+        return null;
+
     }
 
     @Override
@@ -137,7 +143,7 @@ public class CartService implements ICartService {
         CartItem cartItem = cartItemOptional.get();
         Product product = cartItem.getProduct();
 
-        if( cartUpdateRequest.getQuantity() < product.getQuantity()) {
+        if( cartUpdateRequest.getQuantity() <= product.getQuantity()) {
 
             cartItem.setQuantity(cartUpdateRequest.getQuantity());
 

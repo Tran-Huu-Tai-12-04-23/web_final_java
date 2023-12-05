@@ -18,7 +18,7 @@ export const setRefreshToken = (token, expirationDays = 7) => {
 };
 
 export const getRefreshToken = () => {
-    const cookieName = 'auth_rftoken' + '=';
+    const cookieName = 'auth_rftoken=';
     const decodedCookie = decodeURIComponent(document.cookie);
     const cookieArray = decodedCookie.split(';');
 

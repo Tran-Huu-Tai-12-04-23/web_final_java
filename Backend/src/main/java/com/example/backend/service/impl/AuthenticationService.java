@@ -8,8 +8,10 @@ import com.example.backend.model.Member;
 import com.example.backend.model.Role;
 import com.example.backend.repository.AccountRepository;
 import com.example.backend.repository.MemberRepository;
+import com.example.backend.service.IMemberService;
 import com.example.backend.service.JWTService;
 import com.example.backend.utils.Utils;
+import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -30,6 +32,7 @@ public class AuthenticationService implements com.example.backend.service.Authen
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final JWTService jwtService;
+    private final IMemberService iMemberService;
 
     private final String USER_EMPTY = "Please enter username";
     private final String PASSWORD_EMPTY = "Please enter password";
@@ -43,7 +46,7 @@ public class AuthenticationService implements com.example.backend.service.Authen
     private final String EMAIL_EXIST = "Email in use!";
 
 
-    public Member signUp(SignUpMemberRequest signUpMemberRequest) throws ResponseStatusException{
+    public Member signUp(SignUpMemberRequest signUpMemberRequest) throws ResponseStatusException, MessagingException {
 
         boolean checkAccountExist = accountRepository.existsByUsername(signUpMemberRequest.getUsername());
 
@@ -76,7 +79,7 @@ public class AuthenticationService implements com.example.backend.service.Authen
         newMember.setAccumulatePoints(Double.valueOf(0));
         newMember.setPhoneNumber(signUpMemberRequest.getPhoneNumber());
 
-        return memberRepository.save(newMember);
+        return iMemberService.createNew(newMember);
     }
 
     private String checkRequestDataInput(SignUpMemberRequest signUpMemberRequest) {

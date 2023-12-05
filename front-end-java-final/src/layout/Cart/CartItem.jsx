@@ -34,23 +34,33 @@ function CartItem({ data, setCartItems = () => {} }) {
 
     const handleUpdateQuantity = async (qu) => {
         startLoading();
-        await request('PUT', '/api/v1/user/cart/update-quantity', {
-            cartItemId: data?.id,
-            quantity: qu,
-        })
-            .then((res) => {
-                if (res.data) {
-                    setCartItems((prev) => {
-                        return prev.map((cartItem) => {
-                            if (cartItem.id === data?.id) {
-                                return res.data;
-                            }
-                            return cartItem;
-                        });
-                    });
-                }
+        try {
+            await request('PUT', '/api/v1/user/cart/update-quantity', {
+                cartItemId: data?.id,
+                quantity: qu,
             })
-            .catch((err) => console.error(err));
+                .then((res) => {
+                    if (res.data) {
+                        setCartItems((prev) => {
+                            return prev.map((cartItem) => {
+                                if (cartItem.id === data?.id) {
+                                    return res.data;
+                                }
+                                return cartItem;
+                            });
+                        });
+                    } else {
+                        toast.error('Sản phẩm không đủ số lượng!');
+                    }
+                })
+                .catch((err) => {
+                    console.error(err);
+                    toast.error('Sản phẩm không đủ số lượng!');
+                });
+        } catch (err) {
+            console.error(err);
+            toast.error('Sản phẩm không đủ số lượng!');
+        }
         stopLoading();
     };
 
@@ -64,6 +74,11 @@ function CartItem({ data, setCartItems = () => {} }) {
                     'flex relative justify-between hover:bg-btn-second hover:brightness-125 cursor-pointer  dark:bg-dark-tiny gap-10 bg-light-tiny  p-2 rounded-md border-primary-style'
                 }
             >
+                {data.product.quantity <= 0 && (
+                    <div className="absolute top-1 right-1 p-1 pl-2 pr-2 rounded-md bg-sale text-sale text-sm ">
+                        Đã bán hết
+                    </div>
+                )}
                 <div className="h-[12rem] w-fit flex justify-center items-center rounded-md overflow-hidden">
                     <img src={data?.product.thumbnails} className="w-full h-full bg-contain"></img>
                 </div>

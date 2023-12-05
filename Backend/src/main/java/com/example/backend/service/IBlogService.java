@@ -20,5 +20,6 @@ public interface IBlogService {
 
     void validateBlogRequest(Blog blog);
     List<CategoryBlog> getAllCategory();
+    List<Blog> getAllBlogDeleteFalseAndPublish(Integer page, Integer size);
 
 }

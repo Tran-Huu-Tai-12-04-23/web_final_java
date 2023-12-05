@@ -1,41 +1,26 @@
 import { useEffect, useState } from 'react';
-import { Input, Pagination } from '../../components';
 import nores from '../../assets/img/no-res.png';
-function getPaginatedData(page, numberRowShow, data) {
-    const startIndex = (page - 1) * numberRowShow;
-    const endIndex = startIndex + numberRowShow;
-    const paginatedData = data.slice(startIndex, endIndex);
-    return paginatedData;
-}
+import { Pagination } from 'flowbite-react';
+
 export default function TableCustom({
     columns,
     data = [],
     checked = false,
     setCheckedData = () => {},
-    searchBy = '',
     pagination = false,
     numberRow = 5,
-    searchValue = '',
+    totalRow = 0,
+    currentPage,
+    onChangePage = () => {},
+    onSelectRowShow = () => {},
 }) {
     const [numberRowShow, setNumberRowShow] = useState(numberRow);
     const [page, setPage] = useState(0);
-    const [currentPage, setCurrentPage] = useState(1);
     const [dataShow, setDataShow] = useState(data);
     const [checkedItems, setCheckedItems] = useState([]);
     const [checkAll, setCheckAll] = useState(false);
     const [search, setSearch] = useState('');
     const [filteredItems, setFilteredItems] = useState(dataShow);
-
-    useEffect(() => {
-        if (searchValue !== '') {
-        }
-    }, []);
-    useEffect(() => {
-        if (search !== '') {
-            // const filtered = dataShow.filter((item) => item[searchBy].toLowerCase().includes(search.toLowerCase()));
-            // setFilteredItems(filtered);
-        }
-    }, [search, dataShow]);
 
     useEffect(() => {
         setDataShow(data);
@@ -51,21 +36,9 @@ export default function TableCustom({
     }, [checkedItems]);
 
     useEffect(() => {
-        if (page > 1) {
-            const newData = getPaginatedData(currentPage, numberRowShow, data);
-            setDataShow(newData);
-        }
-        handleUncheckAllItems();
-    }, [page, numberRowShow, currentPage]);
-
-    useEffect(() => {
-        const totalPage = Math.ceil(data.length / numberRowShow);
+        const totalPage = Math.ceil(totalRow / numberRowShow);
         setPage(totalPage);
-
-        if (currentPage > totalPage) {
-            setCurrentPage(totalPage);
-        }
-    }, [data, numberRowShow]);
+    }, [numberRowShow, totalRow]);
 
     const renderColumns = () => {
         return columns.map((col, index) => {
@@ -193,40 +166,6 @@ export default function TableCustom({
 
     return (
         <div className="relative overflow-x-auto shadow-xl sm:rounded-lg pt-5 pb-5">
-            {searchBy && (
-                <div className="pb-4 ml-2">
-                    <label htmlFor="table-search" className="sr-only">
-                        Tìm kiếm
-                    </label>
-                    <div className="relative mt-1">
-                        <Input
-                            value={search}
-                            onChange={(e) => setSearch(e.target.value)}
-                            placeholder="Search ..."
-                            className="w-fit"
-                            iconRight={
-                                <div className="mr-3 inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                    <svg
-                                        className="w-4 h-4 text-gray-500 dark:text-gray-400"
-                                        aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="none"
-                                        viewBox="0 0 20 20"
-                                    >
-                                        <path
-                                            stroke="currentColor"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            stroke-width="2"
-                                            d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-                                        />
-                                    </svg>
-                                </div>
-                            }
-                        />
-                    </div>
-                </div>
-            )}
             <table className="w-full  rounded-md overflow-hidden text-sm text-left  text-gray-500 dark:text-gray-400">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
@@ -270,7 +209,7 @@ export default function TableCustom({
                         <select
                             defaultValue={numberRow}
                             onChange={(e) => {
-                                setNumberRowShow(parseInt(e.target.value));
+                                onSelectRowShow(parseInt(e.target.value));
                             }}
                             id="countries"
                             className="h-8 dark:bg-gray-800 light:bg-light  border border-light-tiny dark:border-dark-tiny text-gray-900 text-sm rounded-lg block w-fit p-1 dark:placeholder-gray-400 dark:text-white dark:focus:ring-transparent dark:focus:border-primary"
@@ -282,7 +221,9 @@ export default function TableCustom({
                     {page > 1 && (
                         <Pagination
                             currentPage={currentPage}
-                            onPageChange={setCurrentPage}
+                            onPageChange={(value) => {
+                                onChangePage(value);
+                            }}
                             totalPages={page}
                         ></Pagination>
                     )}
