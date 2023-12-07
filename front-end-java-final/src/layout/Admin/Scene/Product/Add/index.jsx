@@ -163,7 +163,7 @@ function AddProduct({}) {
                 if (response.data) {
                     clearAllStates();
                     toast.success('Thêm sản phẩm thành công!');
-                    history(Constants.PRODUCT);
+                    history(Constants.ADMIN_PRODUCT);
                 }
             })
             .catch((error) => {

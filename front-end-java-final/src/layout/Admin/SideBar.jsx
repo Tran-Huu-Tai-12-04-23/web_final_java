@@ -65,29 +65,7 @@ function SideBar({ activeSidebar, setOrder, order }) {
             icon: <PiShoppingCartSimpleLight className="text-xl"></PiShoppingCartSimpleLight>,
             order: 4,
         },
-        {
-            name: 'Đánh giá',
-            icon: <GoCodeReview className="text-xl"></GoCodeReview>,
-            order: 5,
-            path: '/admin/reviews',
-            submenu: [
-                {
-                    name: 'Tạo thành viên',
-                    icon: <GoHome className="text-xl"></GoHome>,
-                    order: 1,
-                },
-                {
-                    name: 'Thành viên',
-                    icon: <GoHome className="text-xl"></GoHome>,
-                    order: 2,
-                },
-                {
-                    name: 'Thành viên bị xóa',
-                    icon: <GoHome className="text-xl"></GoHome>,
-                    order: 3,
-                },
-            ],
-        },
+
         {
             name: 'Blogs',
             icon: <BsPostcard className="text-xl"></BsPostcard>,

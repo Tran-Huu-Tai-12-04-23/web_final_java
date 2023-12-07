@@ -37,10 +37,7 @@ function ViewQuestion({ type }) {
     return (
         <div className="flex flex-col gap-1">
             {questions.map((question, index) => (
-                <QuestionItem
-                    key={index}
-                    data = {question}
-                />
+                <QuestionItem key={index} data={question} />
             ))}
         </div>
     );

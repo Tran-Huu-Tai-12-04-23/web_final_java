@@ -4,6 +4,7 @@ import com.example.backend.dto.ErrorResponse;
 import com.example.backend.model.Product;
 import com.example.backend.model.ProductSpecification;
 import com.example.backend.service.IProductService;
+import com.example.backend.service.IReplyQuestionService;
 import com.example.backend.utils.AppConstants;
 import com.example.backend.utils.Utils;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +21,14 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ProductController {
     private final IProductService iProductService;
+    private final IReplyQuestionService iReplyQuestionService;
 
+
+    @GetMapping("/reply-question/{questionId}")
+    public ResponseEntity<?> getReplyQuestion(@PathVariable Long questionId) {
+        return ResponseEntity.ok((iReplyQuestionService.getAllReplyQuestionByQuestionId(questionId)));
+
+    }
     @GetMapping("/questions/{productId}")
     public ResponseEntity<?> getQuestionByProduct(@PathVariable Long productId) {
         return ResponseEntity.ok(iProductService.getQuestionProduct(productId));

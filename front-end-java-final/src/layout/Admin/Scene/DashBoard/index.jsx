@@ -15,6 +15,9 @@ function DashBoard() {
     const [textHello, setTextHello] = useState('Morning');
     const [productSelected, setProductSelected] = useState([]);
     // const [orderMembers, setOrderMembers] = useState([]);
+    const [revenue, setRevenue] = useState(0);
+    const [totalAccount, setTotalAccount] = useState(0);
+    const [totalOrder, setTotalOrder] = useState(0);
 
     useEffect(() => {
         const currentHour = new Date().getHours();

@@ -1,4 +1,4 @@
-import { Suspense, useEffect } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { motion } from 'framer-motion';
@@ -11,13 +11,6 @@ const variants = {
     closed: { width: 'calc(100vw - 15rem)', x: 0 },
 };
 function MainBoard({ activeSidebar, setActiveSidebar, order, setOrder, children }) {
-    const { account } = useLogin();
-    const history = useNavigate();
-    useEffect(() => {
-        if (account?.role !== true) {
-            history(Constants.ADMIN_LOGIN);
-        }
-    }, [account]);
     return (
         <motion.div
             initial={{

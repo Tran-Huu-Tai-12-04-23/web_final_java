@@ -22,7 +22,10 @@ public interface IUserOrderService {
     OrderMember getDetailOrder(Long orderId);
     OrderMember cancelOrder(Long orderId);
     OrderMember changeStepOrder(Long orderId, Integer stepOrder);
+    OrderMember changePaymentStatus(Long orderId);
     OrderMember voteOrder(Long orderId, ReviewOrder reviewOrder);
     List<OrderMember> search(String key, Integer stepOrder,Integer page, Integer size);
+
+    Double calculatorRevenue();
 
 }

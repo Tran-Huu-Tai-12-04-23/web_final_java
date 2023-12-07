@@ -5,8 +5,10 @@ import { motion } from 'framer-motion';
 import SideBar from './SideBar';
 import MainBoard from './MainBoard';
 import Constants from '../../Constants';
+import { useLogin } from '../../context/login';
 
 function Admin({ children }) {
+    const { account } = useLogin();
     const [activeSidebar, setActiveSidebar] = useState(true);
     const history = useNavigate();
     const [order, setOrder] = useState({
@@ -91,6 +93,12 @@ function Admin({ children }) {
             }
         }
     }, [location]);
+
+    useEffect(() => {
+        if (account?.role !== true) {
+            history(Constants.ADMIN_LOGIN);
+        }
+    }, [account]);
 
     return (
         <motion.div className="flex select-none justify-start h-screen w-screen overflow-hidden  dark:text-dark text-light  dark:bg-dark bg-white">

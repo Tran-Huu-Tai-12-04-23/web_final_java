@@ -179,12 +179,17 @@ function OrderItem({ data = {}, setOrderMembers = () => {} }) {
                             <span>Đánh giá</span>
                         </Button>
                     )}
+                    {data.isPayment && (
+                        <Button className="mr-2 flex justify-between  text-sm  items-center p-2 rounded-md w-fit pl-4 pr-4 text-green-600 gap-4">
+                            <span>Đã thanh toán</span>
+                        </Button>
+                    )}
                     {data.isCancel == false && (
                         <Button
                             onClick={() => {
                                 history(Constants.USER_ORDER + '/' + data.id);
                             }}
-                            className="flex justify-between  text-sm bg-status-complete items-center p-2 rounded-md w-fit pl-4 pr-4 text-green-600 gap-4"
+                            className="flex justify-between  text-sm bg-status-complete items-center p-2 rounded-md w-fit pl-4 pr-4 text-white gap-4"
                         >
                             <LiaFileInvoiceSolid className="w-6 h-6 cursor-pointer"></LiaFileInvoiceSolid>
                             <span>Xem chi tiết đơn hàng</span>

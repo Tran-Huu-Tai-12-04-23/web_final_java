@@ -24,5 +24,12 @@ public interface OrderMemberRepository extends JpaRepository<OrderMember, Long> 
             @Param("stepOrder") Integer stepOrder,
             Pageable pageable);
 
+    @Query("SELECT SUM(o.total) FROM OrderMember o WHERE o.stepOrder = 2 AND o.orderDate BETWEEN :startDate AND :endDate")
+    Double calculateRevenueForStepOrder2(@Param("startDate") Date startDate, @Param("endDate") Date endDate);
+
+    // Query để tính tổng doanh thu từ tất cả các đơn hàng có stepOrder = 2
+    @Query("SELECT SUM(o.total) FROM OrderMember o WHERE o.stepOrder = 2")
+    Double calculateTotalRevenueForStepOrder2();
+
 
 }

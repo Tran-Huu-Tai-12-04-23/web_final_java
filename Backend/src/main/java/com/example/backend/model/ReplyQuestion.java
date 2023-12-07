@@ -34,9 +34,4 @@ public class ReplyQuestion {
     @ManyToOne
     @JoinColumn(name = "question_id")
     private Question question;
-
-    @ManyToOne
-    @JoinColumn(name = "account_id")
-    private Account account;
-
 }

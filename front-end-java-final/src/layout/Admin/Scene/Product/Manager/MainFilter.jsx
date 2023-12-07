@@ -152,7 +152,7 @@ function MainFilter({ filters = {}, setFilters = () => {}, hideCategory = false 
                 </div>
 
                 <div className="relative group">
-                    <Button className="bg-status-pending text-status-pending p-2 rounded-md pl-4 pr-4 w-[10rem]">
+                    <Button className="bg-status-pending text-blue-600 p-2 rounded-md pl-4 pr-4 w-[10rem]">
                         Chọn giá
                     </Button>
                     <div className="h-10 w-full bg-transparent absolute top-[90%] group"></div>

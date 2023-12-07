@@ -1,22 +1,32 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
 import { CiBadgeDollar, CiWallet } from 'react-icons/ci';
 import { PiBagSimpleThin } from 'react-icons/pi';
 import { BsPersonAdd } from 'react-icons/bs';
 import { TextMain } from '../../../../components';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import Constants from '../../../../Constants';
 
 function Summary() {
+    const history = useNavigate();
+    const [revenue, setRevenue] = useState(0);
+    const [totalAccount, setTotalAccount] = useState(0);
+    const [totalOrder, setTotalOrder] = useState(0);
+
     const [items, setItems] = useState([
         {
             name: 'Tổng cộng',
             icon: '',
-            content: '$559.25k',
+            content: 'đ' + revenue,
             link: '',
+            path: Constants.ADMIN_ORDER,
             nameLink: 'Xem chi tiết',
             icon: (
-                <div className={`rounded-md flex justify-center items-center p-2  bg-[rgba(10,179,161,0.1)]`}>
+                <div
+                    onClick={() => history(Constants.ADMIN_ORDER)}
+                    className={`rounded-md flex justify-center items-center p-2  bg-[rgba(10,179,161,0.1)]`}
+                >
                     <CiBadgeDollar className="w-6 h-6 text-[rgb(10,179,161)]"></CiBadgeDollar>
                 </div>
             ),
@@ -25,11 +35,15 @@ function Summary() {
         {
             name: 'Đơn hàng',
             icon: '',
-            content: '36',
+            content: totalOrder,
             link: '',
+            path: Constants.ADMIN_ORDER,
             nameLink: 'Xem tất cả đơn hàng',
             icon: (
-                <div className={`rounded-md flex justify-center items-center p-2  bg-[rgba(76,163,220,0.1)]`}>
+                <div
+                    onClick={() => history(Constants.ADMIN_ORDER)}
+                    className={`rounded-md flex justify-center items-center p-2  bg-[rgba(76,163,220,0.1)]`}
+                >
                     <PiBagSimpleThin className="w-6 h-6 text-[rgb(76,163,220)]"></PiBagSimpleThin>
                 </div>
             ),
@@ -38,11 +52,15 @@ function Summary() {
         {
             name: 'Đăng ký thành viên',
             icon: '',
-            content: '18.35M',
+            content: totalAccount,
+            path: Constants.ADMIN_MEMBER,
             link: '',
             nameLink: 'Xem danh sách tất cả thành viên đã đăng ký',
             icon: (
-                <div className={`rounded-md flex justify-center items-center p-2  bg-[rgba(247,184,75,0.1)]`}>
+                <div
+                    onClick={() => history(Constants.ADMIN_MEMBER)}
+                    className={`rounded-md flex justify-center items-center p-2  bg-[rgba(247,184,75,0.1)]`}
+                >
                     <BsPersonAdd className="w-6 h-6 text-[rgb(247,184,75)]"></BsPersonAdd>
                 </div>
             ),
@@ -51,17 +69,23 @@ function Summary() {
         {
             name: 'Doanh thu',
             icon: '',
-            content: '$165',
+            content: 'đ' + revenue,
             link: '',
             nameLink: 'Xem chi tiết',
+            path: Constants.ADMIN_ORDER,
             icon: (
-                <div className={`rounded-md flex justify-center items-center p-2  bg-[rgba(85,102,143,0.1)]`}>
+                <div
+                    onClick={() => history(Constants.ADMIN_ORDER)}
+                    className={`rounded-md flex justify-center items-center p-2  bg-[rgba(85,102,143,0.1)]`}
+                >
                     <CiWallet className="w-6 h-6 text-[rgb(85,102,143)]"></CiWallet>
                 </div>
             ),
             color: 'rgb(226,229,237)',
         },
     ]);
+
+    useEffect(() => {}, [revenue, totalAccount, totalOrder]);
     const renderItems = () => {
         return items.map((item, index) => {
             return (
@@ -79,7 +103,7 @@ function Summary() {
                     <div className="flex justify-between items-center mt-3">
                         <Link
                             className="underline hover:text-primary cursor-pointer truncate overflow-ellipsis w-2/3 scale-95"
-                            to={item.link}
+                            to={item.path}
                         >
                             {item.nameLink}
                         </Link>

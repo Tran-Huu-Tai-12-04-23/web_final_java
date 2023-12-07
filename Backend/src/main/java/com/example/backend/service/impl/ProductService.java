@@ -82,6 +82,7 @@ public class ProductService implements IProductService {
             pro.setStatus(product.getStatus());
             pro.setLaunchDate(new Date());
             pro.setQuantity(product.getQuantity());
+            pro.setPrice(product.getPrice());
             pro.setLinkImages(product.getLinkImages());
             return productRepository.save(pro);
         }).orElseThrow(() -> new NotFoundException("Sorry, ths product could not be found"));
@@ -235,6 +236,6 @@ public class ProductService implements IProductService {
 
     @Override
     public List<Question> getQuestionProduct(Long productId) {
-        return questionRepository.findByProduct_Id(productId);
+        return questionRepository.findByProduct_IdAndIsDeletedFalse(productId);
     }
 }

@@ -62,7 +62,7 @@ public class UseOderService implements IUserOrderService {
         orderMember.setDetailAddress(address.getDetailAddress());
         // Assuming you have an 'amount' property in OrderMember
         orderMember.setAmount(orderRequest.getAmount());
-        orderMember.setMethodPayment(orderRequest.getMethodPayment())   ;
+        orderMember.setMethodPayment(orderRequest.getMethodPayment() == 1 ? MethodPayment.ONLINE : MethodPayment.CASH)   ;
 
         orderMember = orderMemberRepository.save(orderMember);
 
@@ -159,6 +159,17 @@ public class UseOderService implements IUserOrderService {
     }
 
     @Override
+    public OrderMember changePaymentStatus(Long orderId) {
+        Optional<OrderMember> orderMemberOptional = orderMemberRepository.findById(orderId);
+
+        if(orderMemberOptional.isEmpty()) throw new NotFoundException("Order not found!");
+
+        OrderMember orderMember = orderMemberOptional.get();
+        orderMember.setIsPayment(true);
+        return orderMemberRepository.save(orderMember);
+    }
+
+    @Override
     public OrderMember voteOrder(Long orderId, ReviewOrder reviewOrder) {
         Optional<OrderMember> orderMemberOptional = orderMemberRepository.findById(orderId);
         if (orderMemberOptional.isEmpty()) {
@@ -197,6 +208,11 @@ public class UseOderService implements IUserOrderService {
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "orderDate"));
 
         return orderMemberRepository.search(key, stepOrder, pageable);
+    }
+
+    @Override
+    public Double calculatorRevenue() {
+        return orderMemberRepository.calculateTotalRevenueForStepOrder2();
     }
 
     @Override

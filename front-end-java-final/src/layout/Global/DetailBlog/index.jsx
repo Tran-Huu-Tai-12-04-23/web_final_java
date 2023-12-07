@@ -10,7 +10,7 @@ function DetailBlog() {
 
     useEffect(() => {
         const fetch = async () => {
-            await request('GET', '/api/v1/admin/blog/' + id)
+            await request('GET', '/api/v1/public/blog/' + id)
                 .then((res) => {
                     if (res.status === 200) {
                         setData(res.data);
@@ -24,12 +24,12 @@ function DetailBlog() {
     }, []);
 
     return (
-        <div className="relative max-w-screen-xl m-auto ">
+        <div className="relative max-w-screen-xl m-auto mt-20">
             <div className="w-full flex justify-center items-center bg-contain max-h-[40rem] h-[40vh] border-primary-style rounded-md">
                 <img src={data?.thumbnails} className="h-full rounded-md"></img>
             </div>
 
-            <div className=" bg-light-tiny w-[96%] -translate-y-10  m-auto flex flex-col gap-4 dark:bg-dark-tiny rounded-md shadow-2xl p-4">
+            <div className=" bg-light-tiny backdrop-blur-3xl w-[96%] -translate-y-10  m-auto flex flex-col gap-4 dark:bg-dark-tiny rounded-md shadow-2xl p-4">
                 <TextMain className={'font-bold text-xl'}>{data?.title}</TextMain>
 
                 <div className="flex justify-start items-center gap-3">

@@ -29,8 +29,6 @@ public class QuestionService implements IQuestionService {
         return questionRepository.save(ques);
     }
 
-
-
     @Override
     public boolean delete(Long id) {
         try {
@@ -128,7 +126,7 @@ public class QuestionService implements IQuestionService {
         try{
             Question question = questionRepository.findById(id)
                     .orElseThrow(()->new NotFoundException("Question not found with id: "+ id));
-            question.setIsDeleted(reply);
+            question.setIsReplied(reply);
             return questionRepository.save(question);
         } catch (Exception e) {
             e.printStackTrace();

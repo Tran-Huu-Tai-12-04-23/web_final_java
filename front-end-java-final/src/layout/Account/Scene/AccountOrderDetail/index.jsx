@@ -118,7 +118,12 @@ function AccountOrderDetail() {
                                 Thanh toán {orderMember.methodPayment === 'CASH' ? 'khi nhận hàng' : 'online'}
                             </TextSub>
                         </div>
-                        <div className="flex justify-end w-full items-center mt-2 border-t-primary pt-4">
+                        <div className="flex justify-end mr-2 w-full items-center mt-2 border-t-primary pt-4">
+                            {orderMember.isPayment && (
+                                <Button className="mr-2 flex justify-between  text-sm  items-center p-2 rounded-md w-fit pl-4 pr-4 text-green-600 gap-4">
+                                    <span>Đã thanh toán</span>
+                                </Button>
+                            )}
                             {!orderMember.isVote && orderMember.stepOrder == 2 && (
                                 <Button
                                     onClick={(e) => {

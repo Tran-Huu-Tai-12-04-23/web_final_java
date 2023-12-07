@@ -19,5 +19,5 @@ public class OrderRequest {
     private double total;
     private int amount;
     private Address address;
-    private MethodPayment methodPayment;
+    private int methodPayment;
 }

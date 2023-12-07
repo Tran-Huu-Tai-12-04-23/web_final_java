@@ -25,13 +25,12 @@ function Cart() {
     const [totalPrice, setTotalPrice] = useState(0);
     const [confirmInformation, setConfirmInformation] = useState(false);
     const [address, setAddress] = useState({});
-    const [paymentCash, setPaymentCash] = useState(false);
+    const [paymentCash, setPaymentCash] = useState(0);
 
     const verifyOrderRequest = (orderRequest) => {
         if (
             !orderRequest ||
             !orderRequest.address ||
-            !orderRequest.methodPayment ||
             !orderRequest.member ||
             !orderRequest.total ||
             !orderRequest.amount ||
@@ -42,6 +41,20 @@ function Cart() {
         }
         return true;
     };
+
+    const getPaymentPage = async (orderId, total) => {
+        startLoading();
+        await request('GET', `/api/v1/user/payment/online/create-payment?orderId=${orderId}&amount=${Math.ceil(total)}`)
+            .then((res) => {
+                if (res.data) {
+                    console.log(res.data);
+                    res.data && res.data.urlpayment && (window.location.href = res.data.urlpayment);
+                }
+            })
+            .catch((err) => console.error(err));
+        stopLoading();
+    };
+
     const commitOrder = async () => {
         const productList = cartItems
             .filter((item) => item.product.quantity >= item.quantity)
@@ -57,7 +70,7 @@ function Cart() {
 
         const orderRequest = {
             address: { id: address?.id },
-            methodPayment: paymentCash ? 0 : 1,
+            methodPayment: paymentCash,
             member: { id: account?.memberId },
             total,
             amount,
@@ -68,12 +81,17 @@ function Cart() {
 
         if (!isCheckData) return;
 
+        console.log(orderRequest);
         startLoading();
         await request('POST', '/api/v1/user/order/add-order', orderRequest)
-            .then((res) => {
+            .then(async (res) => {
                 if (res.data) {
-                    toast.success('Đặt hàng thành công!');
-                    res.data && history(Constants.USER_ORDER + '/' + res?.data.id);
+                    if (orderRequest.methodPayment == 1) {
+                        await getPaymentPage(res.data.id, res.data.total);
+                    } else {
+                        toast.success('Đặt hàng thành công!');
+                        res.data && history(Constants.USER_ORDER + '/' + res?.data.id);
+                    }
                 }
             })
             .catch((err) => {
