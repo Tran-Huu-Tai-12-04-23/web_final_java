@@ -246,13 +246,11 @@ function EditProduct({}) {
                 id: data.brand,
             },
         };
-
-        const resultCheck = verifyData(data);
-        if (resultCheck.success === false) {
-            toast.error(resultCheck?.message);
-            return;
-        }
-
+        // const resultCheck = verifyData(data);
+        // if (resultCheck.success === false) {
+        //     toast.error(resultCheck?.message);
+        //     return;
+        // }
         await handleEditProduct(data);
     };
 

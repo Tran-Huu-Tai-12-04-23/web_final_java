@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { Button, TextMain, TextSub, TimeLine } from '../../../../components';
+import { Button, TextMain, TextSub } from '../../../../components';
 import TimelineOder from './TimelineOrder';
 
 import { CiDeliveryTruck } from 'react-icons/ci';
 import { IoIosArrowBack } from 'react-icons/io';
-import { LiaFileInvoiceSolid } from 'react-icons/lia';
 import { FaVoteYea } from 'react-icons/fa';
 import { IoCloseSharp } from 'react-icons/io5';
 
@@ -124,7 +123,7 @@ function AccountOrderDetail() {
                                     <span>Đã thanh toán</span>
                                 </Button>
                             )}
-                            {!orderMember.isVote && orderMember.stepOrder == 2 && (
+                            {!orderMember.isVote && orderMember.stepOrder === 2 && (
                                 <Button
                                     onClick={(e) => {
                                         e.stopPropagation();
@@ -136,7 +135,7 @@ function AccountOrderDetail() {
                                     <span>Đánh giá</span>
                                 </Button>
                             )}
-                            {orderMember.isCancel == false && orderMember.stepOrder == 0 && (
+                            {orderMember.isCancel === false && orderMember.stepOrder === 0 && (
                                 <Button
                                     onClick={handleCancelOrder}
                                     className="flex justify-between  text-sm bg-status-cancel items-center p-2 rounded-md w-fit pl-4 pr-4 text-red-400 gap-4"

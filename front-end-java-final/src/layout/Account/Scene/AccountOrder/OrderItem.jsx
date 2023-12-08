@@ -167,7 +167,7 @@ function OrderItem({ data = {}, setOrderMembers = () => {} }) {
                             <span>Xem chi tiết hủy đơn</span>
                         </Button>
                     )}
-                    {data?.isVote == false && data.stepOrder == 2 && (
+                    {data?.isVote === false && data.stepOrder === 2 && (
                         <Button
                             onClick={(e) => {
                                 e.stopPropagation();
@@ -184,18 +184,18 @@ function OrderItem({ data = {}, setOrderMembers = () => {} }) {
                             <span>Đã thanh toán</span>
                         </Button>
                     )}
-                    {data.isCancel == false && (
+                    {data.isCancel === false && (
                         <Button
                             onClick={() => {
                                 history(Constants.USER_ORDER + '/' + data.id);
                             }}
-                            className="flex justify-between  text-sm bg-status-complete items-center p-2 rounded-md w-fit pl-4 pr-4 text-white gap-4"
+                            className="flex justify-between text-green-600 dark:text-white text-sm bg-status-complete items-center p-2 rounded-md w-fit pl-4 pr-4  gap-4"
                         >
                             <LiaFileInvoiceSolid className="w-6 h-6 cursor-pointer"></LiaFileInvoiceSolid>
                             <span>Xem chi tiết đơn hàng</span>
                         </Button>
                     )}
-                    {data.isCancel == false && data.stepOrder == 0 && (
+                    {data.isCancel === false && data.stepOrder === 0 && (
                         <Button
                             onClick={handleCancelOrder}
                             className="flex justify-between  text-sm bg-status-cancel items-center p-2 rounded-md w-fit pl-4 pr-4 text-red-400 gap-4"

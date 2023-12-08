@@ -1,8 +1,8 @@
 import CategoryProduct from '../Global/CategoryApp/CategoryProduct';
 import MainFilter from '../Admin/Scene/Product/Manager/MainFilter';
 
-import { MainScreenShowProduct, Button, BannerSuperSale, TextMain } from '../../components';
-import { useEffect, useState, useCallback, useLayoutEffect } from 'react';
+import { MainScreenShowProduct, Button, BannerSuperSale } from '../../components';
+import { useEffect, useState, useLayoutEffect } from 'react';
 
 import BannerSale from '../../layout/Home/BannerSale';
 import { request } from '../../services';
@@ -15,7 +15,6 @@ function Product() {
     const [products, setProducts] = useState([]);
     const [productsSearch, setProductsSearch] = useState([]);
     const [filters, setFilters] = useState({});
-    const [loading, setLoading] = useState(false);
     const [pageSearch, setPageSearch] = useState(0);
     const [page, setPage] = useState(0);
     const [loaded, setLoaded] = useState(false);
@@ -34,14 +33,24 @@ function Product() {
     };
 
     const getDataSearch = async (pageData) => {
-        const urlApi = `/api/v1/public/product/search?key=${key}&page=${pageData}&size=28${
-            category ? `&categoryId=${category}` : ''
-        }${filters.minPrice != null ? `&minPrice=${filters.minPrice}` : ''}
-        ${filters.maxPrice != null ? `&maxPrice=${filters.maxPrice}` : ''}
-        ${filters.selectedSort != null ? `&sortType=${filters.selectedSort}` : ''}`;
+        const URL =
+            `/api/v1/public/product/search?` +
+            [
+                `size=${'28'}`,
+                `status=${true}`,
+                pageData && `page=${pageData}`,
+                key && `page=${key}`,
+                category && `categoryId=${category}`,
+                filters.maxPrice && `maxPrice=${filters.maxPrice}`,
+                filters.maxPrice && `maxPrice=${filters.maxPrice}`,
+                filters.brand && `brandId=${filters.brand}`,
+                filters.selectedSort && `sortType=${filters.selectedSort}`,
+            ]
+                .filter(Boolean)
+                .join('&');
 
         try {
-            const res = await request('GET', urlApi);
+            const res = await request('GET', URL);
             if (!res.data || res.data.length === 0) {
                 setLoaded(true);
             } else {
@@ -59,14 +68,23 @@ function Product() {
     };
 
     const getProduct = async (pageData) => {
-        const urlApi = `/api/v1/public/product?page=${pageData}&size=28${category ? `&categoryId=${category}` : ''}${
-            filters.minPrice != null ? `&minPrice=${filters.minPrice}` : ''
-        }${filters.maxPrice != null ? `&maxPrice=${filters.maxPrice}` : ''}
-        ${filters.selectedSort != null ? `&sortType=${filters.selectedSort}` : ''}`;
+        const URL =
+            `/api/v1/public/product/search?` +
+            [
+                `size=${'28'}`,
+                `status=${true}`,
+                pageData && `page=${pageData}`,
+                category && `categoryId=${category}`,
+                filters.maxPrice && `maxPrice=${filters.maxPrice}`,
+                filters.maxPrice && `maxPrice=${filters.maxPrice}`,
+                filters.brand && `brandId=${filters.brand}`,
+                filters.selectedSort && `sortType=${filters.selectedSort}`,
+            ]
+                .filter(Boolean)
+                .join('&');
 
-        console.log(urlApi);
         try {
-            const res = await request('GET', urlApi);
+            const res = await request('GET', URL);
             if (!res.data || res.data.length === 0) {
                 setLoaded(true);
             } else {
@@ -109,19 +127,17 @@ function Product() {
     }, [category]);
 
     useLayoutEffect(() => {
-        if (filters.minPrice && filters.maxPrice) {
-            setPage(0);
-            setPageSearch(0);
-            setProducts([]);
-            setProductsSearch([]);
-            setLoaded(false);
-            if (key) {
-                getDataSearch(0);
-            } else {
-                getProduct(0);
-            }
+        setPage(0);
+        setPageSearch(0);
+        setProducts([]);
+        setProductsSearch([]);
+        setLoaded(false);
+        if (key) {
+            getDataSearch(0);
+        } else {
+            getProduct(0);
         }
-    }, [filters.minPrice, filters.maxPrice]);
+    }, [filters]);
 
     useLayoutEffect(() => {
         if (filters.selectedSort) {
@@ -138,7 +154,6 @@ function Product() {
         }
     }, [filters.selectedSort]);
 
-    console.log(filters);
     return (
         <div className="p-4 pt-[5rem] max-w-screen-xl m-auto">
             <CategoryProduct active={category}></CategoryProduct>
@@ -163,11 +178,8 @@ function Product() {
                 filters={filters}
             ></MainFilter>
             <div className="w-full mt-10 flex justify-center items-center flex-col gap-10">
-                {loading ? (
-                    <Spinner color={'pink'}></Spinner>
-                ) : (
-                    <MainScreenShowProduct data={!key ? products : productsSearch}></MainScreenShowProduct>
-                )}
+                <MainScreenShowProduct data={!key ? products : productsSearch}></MainScreenShowProduct>
+
                 {!loaded && (
                     <Button
                         className="p-2 rounded-md bg-btn-second pl-4 pr-4 m-auto"

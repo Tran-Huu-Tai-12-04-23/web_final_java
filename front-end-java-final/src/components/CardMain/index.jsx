@@ -2,7 +2,6 @@ import { useState, useEffect, memo } from 'react';
 
 import { Button } from '../index';
 import { motion } from 'framer-motion';
-import { AiFillStar } from 'react-icons/ai';
 import { BsSuitHeartFill } from 'react-icons/bs';
 import { CiHeart } from 'react-icons/ci';
 import { IoAdd } from 'react-icons/io5';
@@ -50,6 +49,7 @@ function CardMain({ width = undefined, sale = true, data }) {
                     }
                 })
                 .catch((error) => {
+                    console.error(error);
                     toast.error('Thêm vào giỏ hàng thất bại');
                 });
         } catch (error) {
@@ -95,7 +95,7 @@ function CardMain({ width = undefined, sale = true, data }) {
                         duration: 0.3,
                         ease: 'easeInOut',
                     }}
-                    className={`${width}  border-gray-200  dark:border-gray-700 flex-shrink-0 dark:text-white bg-white dark:bg-dark-tiny text-black shadow-md relative cursor-pointer p-2 rounded-lg overflow-hidden`}
+                    className={`${width} ] border-gray-200  dark:border-gray-700 flex-shrink-0 dark:text-white bg-white dark:bg-dark-tiny text-black shadow-md relative cursor-pointer p-2 rounded-lg overflow-hidden`}
                 >
                     {/* {sale ? (
                         <div className="absolute top-[5%] left-0 rounded-r-md w-10 text-sm text-center text-sale bg-sale">
@@ -105,7 +105,10 @@ function CardMain({ width = undefined, sale = true, data }) {
                         <></>
                     )} */}
                     <div className="  w-full flex items-center justify-center ">
-                        <img src={data?.thumbnails} className="max-w-[10rem] w-1/2 rounded-lg"></img>
+                        <img
+                            src={data?.thumbnails}
+                            className="max-w-[10rem] min-h-[8rem] bg-contain w-1/2 rounded-lg"
+                        ></img>
                     </div>
                     <div className="flex gap-2 flex-col ">
                         <h5 className="group-hover:text-primary text-md truncate">{data?.name}</h5>

@@ -185,36 +185,37 @@ const HomeService = [
 
 const Category = [
     {
-        path: '/product/accessories',
+        path: '/products?category=8',
         name: 'Phụ kiện',
         linkImg:
             'https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:80/plain/https://cellphones.com.vn/media/catalog/product/g/r/group_182_1__3.png',
     },
     {
-        path: '/product/camera',
+        path: '/products?category=3',
         name: 'Camera',
         linkImg:
             'https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:80/plain/https://cellphones.com.vn/media/catalog/product/c/a/camera-hanh-trinh-gopro-hero-12_3_.png',
     },
     {
-        path: '/product/laptop',
+        path: '/products?category=4',
         name: 'Laptop',
         linkImg:
             'https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:80/plain/https://cellphones.com.vn/media/catalog/product/t/e/text_ng_n_31__5.png',
     },
     {
-        path: '/product/mobile-phone',
+        path: '/products?category=2',
         name: 'Điện thoại',
         linkImg:
             'https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:80/plain/https://cellphones.com.vn/media/catalog/product/g/a/galaxy-z-fold-5-xanh-1.jpg',
     },
     {
         name: 'Gaming',
+        path: '/products?category=9',
         linkImg:
             'https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:80/plain/https://cellphones.com.vn/media/catalog/product/g/r/group_8_2__1.png',
     },
     {
-        path: '/product/smart-watch',
+        path: '/products?category=6',
         name: 'SmartWatch',
         linkImg:
             'https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:80/plain/https://cellphones.com.vn/media/catalog/product/w/a/watch6_thumbnail.png',
@@ -269,8 +270,8 @@ export const categoryProduct = [
     },
     {
         name: 'Tai nghe',
-        path: '/products?category=',
-        category: '',
+        path: '/products?category=6',
+        category: '6',
         icon: <TfiHeadphone className="h-6 w-6" />,
     },
     {
@@ -281,8 +282,8 @@ export const categoryProduct = [
     },
     {
         name: 'Đồng hồ thông minh',
-        category: '',
-        path: '/products?category=',
+        category: '7',
+        path: '/products?category=7',
         icon: <BsSmartwatch className="h-6 w-6" />,
     },
 ];

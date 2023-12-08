@@ -95,21 +95,17 @@ public class ProductController {
             @RequestParam(name = "sortType", required = false, defaultValue = "ASC") String sortType,
             @RequestParam(name = "key", required = false, defaultValue = "") String key,
             @RequestParam(name = "categoryId", required = false, defaultValue = "") Long categoryId,
+            @RequestParam(name = "brandId", required = false, defaultValue = "") Long brandId,
             @RequestParam(name = "minPrice", required = false, defaultValue = "") Double minPrice,
             @RequestParam(name = "maxPrice", required = false, defaultValue = "") Double maxPrice,
+            @RequestParam(name = "status", required = false, defaultValue = "true") Boolean status,
             @RequestParam(name = "page", required = false, defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) Integer page,
             @RequestParam(name = "size", required = false, defaultValue = AppConstants.DEFAULT_PAGE_SIZE) Integer size
     ) {
         try{
             Utils.validatePageNumberAndSize(page, size);
-            List<Product> listProduct = iProductService.searchProductNotDeleteByCategoryAndBetweenPriceByStatus( key,  page, size, categoryId,  minPrice,  maxPrice,  sortType, true, null);
-            if(listProduct.isEmpty()) {
-                ErrorResponse err = new ErrorResponse();
-                err.setMessage("Can't find product with " + key);
-                return  ResponseEntity.status(HttpStatus.BAD_REQUEST ).body(err);
-            }else {
-                return ResponseEntity.ok(listProduct);
-            }
+            List<Product> listProduct = iProductService.searchProductNotDeleteByCategoryAndBetweenPriceByStatus(key, page, size, categoryId, minPrice, maxPrice, sortType, status, brandId);
+            return ResponseEntity.ok(listProduct);
         }catch (Exception e) {
             ErrorResponse err = new ErrorResponse();
             err.setMessage(e.getMessage());

@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { motion } from 'framer-motion';
 import { AnimateHover } from '../../components/Animate';
 import { TextMain } from '../../components';
 import { Category } from '../../assets/data';

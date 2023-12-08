@@ -24,7 +24,7 @@ function DetailBlog() {
     }, []);
 
     return (
-        <div className="relative max-w-screen-xl m-auto mt-20">
+        <div className="relative max-w-screen-xl m-auto pt-20">
             <div className="w-full flex justify-center items-center bg-contain max-h-[40rem] h-[40vh] border-primary-style rounded-md">
                 <img src={data?.thumbnails} className="h-full rounded-md"></img>
             </div>
@@ -44,7 +44,7 @@ function DetailBlog() {
                     </div>
                 </div>
 
-                <div className="p-4 m-auto">
+                <div className="p-4 m-auto select-none bg-transparent text-black dark:text-white ">
                     <DisplayHTMLContent htmlContent={data?.content}></DisplayHTMLContent>
                 </div>
             </div>
